@@ -1,0 +1,857 @@
+# CURSOR IMPLEMENTATION TODO FILES
+# Bu dosyaları cursor projenizde ayrı ayrı dosyalar olarak oluşturun
+
+## 📁 TODO-00-QUICK-START.md
+
+```markdown
+# TODO 00: Quick Start Guide
+
+## 🚀 IMMEDIATE ACTIONS FOR CURSOR
+Bu dosyalar sırasıyla implementasyon için hazırlanmıştır. Her TODO dosyasını ayrı ayrı açıp Cursor'a verin.
+
+### 📋 Implementation Order:
+1. **TODO-01-PROJECT-SETUP.md** - Proje yapısı ve temel konfigürasyon
+2. **TODO-02-MATRIKS-INTEGRATION.md** - MatriksIQ API entegrasyonu  
+3. **TODO-03-SENTIMENT-ANALYSIS.md** - Türkçe sentiment analizi
+4. **TODO-04-DIFFERENTIAL-PRIVACY.md** - Gizlilik koruması
+5. **TODO-05-MODEL-ARCHITECTURE.md** - ML model mimarisi
+6. **TODO-06-TRADING-EXECUTION.md** - İşlem yürütme sistemi
+7. **TODO-07-MONITORING-DEPLOYMENT.md** - İzleme ve deployment
+
+### 🎯 Success Metrics:
+- Her TODO tamamlandığında testler geçmeli
+- Kod coverage >80% olmalı
+- Performance benchmarklar karşılanmalı
+
+### ⚠️ CRITICAL NOTES:
+- MatriksIQ API key'ini .env dosyasına ekle
+- PostgreSQL ve Redis servisleri ayakta olmalı
+- Python 3.9+ kullan
+- Virtual environment oluştur
+```
+
+---
+
+## 📁 TODO-01-PROJECT-SETUP.md
+
+```markdown
+# TODO 01: Project Structure & Environment Setup
+
+## 🎯 OBJECTIVE
+Complete project structure with all dependencies and configurations
+
+## ✅ TASKS
+
+### 1. Create Directory Structure
+```bash
+mkdir bist-dp-lstm-trading && cd bist-dp-lstm-trading
+git init
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate  # Windows
+
+# Create full directory structure
+mkdir -p src/{config,data/{collectors,processors,storage},models/{transformers,lstm,classical,ensemble},risk,execution,monitoring,api/{routes,middleware}}
+mkdir -p tests/{unit,integration,e2e}
+mkdir -p {notebooks,scripts,configs/{model_configs,data_configs,deployment_configs},docs}
+
+# Create all __init__.py files
+find src -type d -exec touch {}/__init__.py \;
+find tests -type d -exec touch {}/__init__.py \;
+```
+
+### 2. Core Configuration Files
+
+**requirements.txt:**
+```txt
+# Core ML/Data Science
+torch>=2.0.0
+transformers>=4.30.0
+scikit-learn>=1.3.0
+pandas>=2.0.0
+numpy>=1.24.0
+statsmodels>=0.14.0
+
+# Database & Storage  
+psycopg2-binary>=2.9.5
+sqlalchemy>=2.0.0
+redis>=4.5.0
+influxdb-client>=1.36.0
+
+# API & Web
+fastapi>=0.100.0
+uvicorn[standard]>=0.22.0
+pydantic>=2.0.0
+httpx>=0.24.0
+
+# Sentiment Analysis
+vaderSentiment>=3.3.2
+nltk>=3.8.1
+beautifulsoup4>=4.12.0
+
+# Privacy & Security
+opacus>=1.4.0
+cryptography>=41.0.0
+
+# Financial Analysis
+yfinance>=0.2.18
+ta>=0.10.2
+empyrical>=0.5.5
+
+# Development
+pytest>=7.4.0
+black>=23.7.0
+jupyter>=1.0.0
+```
+
+**pyproject.toml:**
+```toml
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bist-dp-lstm-trading"
+version = "0.1.0"
+description = "BIST Trading System with DP-LSTM"
+
+[tool.black]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=src"
+```
+
+**.env.example:**
+```env
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/bist_trading
+REDIS_URL=redis://localhost:6379
+
+# MatriksIQ API  
+MATRIKS_API_KEY=your_api_key_here
+MATRIKS_BASE_URL=https://api.matriks.com.tr/v1
+
+# Model Settings
+MODEL_REGISTRY_URI=sqlite:///models/mlflow.db
+DP_EPSILON=1.0
+DP_DELTA=1e-5
+
+# Trading
+PAPER_TRADING=true
+COMMISSION_RATE=0.001
+```
+
+**docker-compose.yml:**
+```yaml
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: bist_trading
+      POSTGRES_USER: postgres  
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  influxdb:
+    image: influxdb:2.7
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=market_data
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+
+volumes:
+  postgres_data:
+  influxdb_data:
+```
+
+### 3. Install & Test
+```bash
+pip install -r requirements.txt
+pip install -e .
+docker-compose up -d
+
+# Test installation
+python -c "import torch; print('PyTorch OK')"
+python -c "import pandas; print('Pandas OK')" 
+python -c "import psycopg2; print('PostgreSQL OK')"
+```
+
+## ✅ COMPLETION CHECKLIST
+- [ ] Project directory created with full structure
+- [ ] Virtual environment setup and activated  
+- [ ] All dependencies installed successfully
+- [ ] Docker services running (postgres, redis, influxdb)
+- [ ] Environment variables configured
+- [ ] Basic imports working without errors
+
+## 🎯 SUCCESS CRITERIA
+- All imports work: `python -c "import src.config; print('OK')"`
+- Database connection: `psql postgresql://postgres:password@localhost:5432/bist_trading`
+- Redis connection: `redis-cli ping` returns PONG
+
+## ➡️ NEXT: TODO-02-MATRIKS-INTEGRATION.md
+```
+
+---
+
+## 📁 TODO-02-MATRIKS-INTEGRATION.md  
+
+```markdown
+# TODO 02: MatriksIQ API Integration
+
+## 🎯 OBJECTIVE
+Complete MatriksIQ integration for real-time market data
+
+## ✅ IMPLEMENTATION TASKS
+
+### 1. MatriksIQ Data Collector
+
+**File: `src/data/collectors/matriks_collector.py`**
+
+```python
+import aiohttp
+import asyncio
+import pandas as pd
+from typing import Dict, List, Optional
+from datetime import datetime, timedelta
+import logging
+
+class MatriksCollector:
+    """MatriksIQ API client for BIST data"""
+    
+    def __init__(self, api_key: str, base_url: str):
+        self.api_key = api_key
+        self.base_url = base_url
+        self.session = None
+        self.logger = logging.getLogger(__name__)
+    
+    async def __aenter__(self):
+        """Async context manager entry"""
+        self.session = aiohttp.ClientSession(
+            headers={'Authorization': f'Bearer {self.api_key}'},
+            timeout=aiohttp.ClientTimeout(total=30)
+        )
+        return self
+    
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Async context manager exit"""
+        if self.session:
+            await self.session.close()
+    
+    async def get_symbols(self) -> List[Dict]:
+        """
+        Fetch all BIST symbols
+        
+        TODO IMPLEMENTATION:
+        1. Make GET request to /symbols endpoint
+        2. Filter for equity instruments only
+        3. Return list of dicts with: symbol, name, sector, market_cap
+        4. Add error handling for API failures
+        5. Add rate limiting (max 100 requests/minute)
+        """
+        try:
+            async with self.session.get(f'{self.base_url}/symbols') as response:
+                if response.status == 200:
+                    data = await response.json()
+                    # TODO: Filter and format symbol data
+                    symbols = []
+                    for item in data.get('symbols', []):
+                        if item.get('type') == 'equity':
+                            symbols.append({
+                                'symbol': item['symbol'],
+                                'name': item['name'],
+                                'sector': item.get('sector'),
+                                'market_cap': item.get('market_cap')
+                            })
+                    return symbols
+                else:
+                    self.logger.error(f"API Error: {response.status}")
+                    return []
+        except Exception as e:
+            self.logger.error(f"Failed to fetch symbols: {e}")
+            return []
+    
+    async def get_historical_data(self, symbol: str, period: str = "1d", 
+                                 start_date: str = None, end_date: str = None) -> pd.DataFrame:
+        """
+        Fetch historical OHLCV data
+        
+        TODO IMPLEMENTATION:
+        1. Construct API URL with parameters
+        2. Handle pagination for large datasets  
+        3. Convert response to pandas DataFrame
+        4. Add data validation (check for missing values)
+        5. Return standardized OHLCV format
+        """
+        params = {
+            'symbol': symbol,
+            'period': period,
+            'start_date': start_date,
+            'end_date': end_date
+        }
+        
+        try:
+            async with self.session.get(f'{self.base_url}/historical', params=params) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    # TODO: Convert to DataFrame and validate
+                    df = pd.DataFrame(data['data'])
+                    df['timestamp'] = pd.to_datetime(df['timestamp'])
+                    df.set_index('timestamp', inplace=True)
+                    return df[['open', 'high', 'low', 'close', 'volume']]
+                else:
+                    return pd.DataFrame()
+        except Exception as e:
+            self.logger.error(f"Failed to fetch historical data for {symbol}: {e}")
+            return pd.DataFrame()
+    
+    async def get_real_time_quote(self, symbol: str) -> Dict:
+        """
+        Get current quote
+        
+        TODO IMPLEMENTATION:
+        1. Make real-time quote request
+        2. Return current price, bid/ask, volume
+        3. Add market status check (open/closed)
+        4. Handle market holidays and weekends
+        """
+        try:
+            async with self.session.get(f'{self.base_url}/quote/{symbol}') as response:
+                if response.status == 200:
+                    return await response.json()
+                return {}
+        except Exception as e:
+            self.logger.error(f"Failed to get quote for {symbol}: {e}")
+            return {}
+
+# TODO: Implement WebSocket client for real-time streaming
+class MatriksWebSocketClient:
+    """Real-time data streaming via WebSocket"""
+    
+    def __init__(self, ws_url: str, api_key: str):
+        self.ws_url = ws_url
+        self.api_key = api_key
+        self.websocket = None
+        self.subscriptions = set()
+    
+    async def connect(self):
+        """
+        TODO IMPLEMENTATION:
+        1. Establish WebSocket connection
+        2. Send authentication message
+        3. Handle connection confirmation
+        4. Setup reconnection logic
+        """
+        pass
+    
+    async def subscribe_symbols(self, symbols: List[str]):
+        """
+        TODO IMPLEMENTATION:
+        1. Send subscription messages for symbols
+        2. Track subscription status
+        3. Handle subscription confirmations
+        4. Batch multiple subscriptions
+        """
+        pass
+    
+    async def start_streaming(self, callback_func):
+        """
+        TODO IMPLEMENTATION:
+        1. Start receiving real-time messages
+        2. Parse incoming data
+        3. Call callback function for each update
+        4. Handle connection drops and reconnect
+        5. Implement heartbeat mechanism
+        """
+        pass
+
+# TODO: Add usage example
+async def example_usage():
+    """Example of how to use MatriksCollector"""
+    async with MatriksCollector('your_api_key', 'https://api.matriks.com.tr/v1') as client:
+        symbols = await client.get_symbols()
+        print(f"Found {len(symbols)} symbols")
+        
+        if symbols:
+            # Get historical data for first symbol
+            historical = await client.get_historical_data(symbols[0]['symbol'])
+            print(f"Historical data shape: {historical.shape}")
+```
+
+### 2. Database Schema
+
+**File: `src/data/storage/schemas.py`**
+
+```python
+from sqlalchemy import Column, Integer, Float, String, DateTime, Index
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
+
+Base = declarative_base()
+
+class MarketData(Base):
+    """Market data storage optimized for time-series queries"""
+    __tablename__ = 'market_data'
+    
+    id = Column(Integer, primary_key=True)
+    symbol = Column(String(10), nullable=False, index=True)
+    timestamp = Column(DateTime, nullable=False, index=True) 
+    open = Column(Float, nullable=False)
+    high = Column(Float, nullable=False)
+    low = Column(Float, nullable=False)
+    close = Column(Float, nullable=False)
+    volume = Column(Float, nullable=False)
+    timeframe = Column(String(5), nullable=False)  # 1m, 5m, 1d, etc.
+    source = Column(String(20), default='matriks')
+    
+    # Composite indexes for performance
+    __table_args__ = (
+        Index('ix_symbol_timestamp', 'symbol', 'timestamp'),
+        Index('ix_timestamp_timeframe', 'timestamp', 'timeframe'),
+    )
+
+class NewsData(Base):
+    """News articles with sentiment analysis"""
+    __tablename__ = 'news_data'
+    
+    id = Column(Integer, primary_key=True)
+    title = Column(String(500), nullable=False)
+    content = Column(String, nullable=True)
+    source = Column(String(100), nullable=False)
+    url = Column(String(500), nullable=True)
+    timestamp = Column(DateTime, nullable=False, index=True)
+    symbols = Column(String(200))  # Comma-separated ticker symbols
+    
+    # Sentiment scores (will be populated by sentiment processor)
+    compound_score = Column(Float, nullable=True)
+    positive_score = Column(Float, nullable=True)
+    negative_score = Column(Float, nullable=True)
+    neutral_score = Column(Float, nullable=True)
+
+# TODO: Create database migration script
+# TODO: Add connection pooling configuration
+# TODO: Add data retention policies
+```
+
+### 3. Configuration Management
+
+**File: `src/config/settings.py`**
+
+```python
+from pydantic import BaseSettings
+from typing import Optional
+
+class Settings(BaseSettings):
+    """Application settings with environment variable support"""
+    
+    # Database
+    database_url: str
+    redis_url: str
+    
+    # MatriksIQ API
+    matriks_api_key: str
+    matriks_base_url: str = "https://api.matriks.com.tr/v1"
+    matriks_ws_url: str = "wss://ws.matriks.com.tr"
+    
+    # Model settings
+    model_registry_uri: str = "sqlite:///models/mlflow.db"
+    dp_epsilon: float = 1.0
+    dp_delta: float = 1e-5
+    
+    # Trading settings
+    paper_trading: bool = True
+    commission_rate: float = 0.001
+    
+    class Config:
+        env_file = ".env"
+
+settings = Settings()
+```
+
+## ✅ COMPLETION CHECKLIST
+- [ ] MatriksCollector class implemented with all methods
+- [ ] WebSocket client structure created  
+- [ ] Database schemas defined
+- [ ] Configuration management setup
+- [ ] Error handling and logging added
+- [ ] Connection pooling configured
+- [ ] Unit tests for API calls written
+
+## 🎯 SUCCESS CRITERIA
+- API connection successful: `client.get_symbols()` returns data
+- Database connection working: tables created without errors
+- WebSocket connection established (if available)
+- Error handling works: graceful failure with invalid API key
+
+## ➡️ NEXT: TODO-03-SENTIMENT-ANALYSIS.md
+```
+
+---
+
+## 📁 TODO-03-SENTIMENT-ANALYSIS.md
+
+```markdown
+# TODO 03: Sentiment Analysis Pipeline
+
+## 🎯 OBJECTIVE
+Turkish financial news sentiment analysis with VADER and entity extraction
+
+## ✅ IMPLEMENTATION TASKS
+
+### 1. Turkish VADER Implementation
+
+**File: `src/data/processors/sentiment_processor.py`**
+
+```python
+from vaderSentiment import SentimentIntensityAnalyzer
+import re
+import nltk
+from typing import Dict, List
+import pandas as pd
+
+class TurkishFinancialVADER:
+    """VADER sentiment analyzer adapted for Turkish financial news"""
+    
+    def __init__(self):
+        self.analyzer = SentimentIntensityAnalyzer()
+        self._add_turkish_lexicon()
+        self._add_financial_terms()
+    
+    def _add_turkish_lexicon(self):
+        """
+        TODO IMPLEMENTATION:
+        Add Turkish sentiment words to VADER lexicon
+        
+        Positive terms with scores:
+        - 'yükseliş': 2.0, 'artış': 1.5, 'büyüme': 1.8, 'kâr': 2.2
+        - 'başarı': 1.6, 'rekor': 2.1, 'olumlu': 1.4, 'güçlü': 1.7
+        
+        Negative terms with scores:  
+        - 'düşüş': -2.0, 'kayıp': -1.8, 'zarar': -2.2, 'kriz': -2.5
+        - 'olumsuz': -1.4, 'risk': -1.2, 'endişe': -1.6, 'zayıf': -1.5
+        
+        Boosters and diminishers:
+        - 'çok': 0.293, 'oldukça': 0.293, 'son derece': 0.525
+        - 'biraz': -0.293, 'az': -0.293
+        """
+        turkish_lexicon = {
+            # Positive financial terms
+            'yükseliş': 2.0, 'artış': 1.5, 'büyüme': 1.8, 'kâr': 2.2,
+            'başarı': 1.6, 'rekor': 2.1, 'olumlu': 1.4, 'güçlü': 1.7,
+            'iyileşme': 1.5, 'toparlanma': 1.6, 'canlanma': 1.4,
+            
+            # Negative financial terms
+            'düşüş': -2.0, 'kayıp': -1.8, 'zarar': -2.2, 'kriz': -2.5,
+            'olumsuz': -1.4, 'risk': -1.2, 'endişe': -1.6, 'zayıf': -1.5,
+            'gerileme': -1.7, 'daralmA': -1.6, 'baskı': -1.3,
+            
+            # Intensifiers  
+            'çok': 0.293, 'oldukça': 0.293, 'son derece': 0.525,
+            'oldukça': 0.293, 'fevkalade': 0.525,
+            
+            # Diminishers
+            'biraz': -0.293, 'az': -0.293, 'kısmen': -0.293
+        }
+        
+        for word, score in turkish_lexicon.items():
+            self.analyzer.lexicon[word] = score
+    
+    def _add_financial_terms(self):
+        """
+        TODO IMPLEMENTATION:
+        Add financial domain-specific terms
+        
+        Company performance terms:
+        - 'gelir': 1.2, 'hasılat': 1.2, 'cirO': 1.1
+        - 'maliyet': -0.8, 'gider': -0.8
+        
+        Market terms:
+        - 'boğa': 1.5, 'ayı': -1.5, 'rallI': 1.8, 'satış': -1.2
+        """
+        financial_terms = {
+            # Performance indicators
+            'gelir': 1.2, 'hasılat': 1.2, 'ciro': 1.1, 'kar': 2.2,
+            'maliyet': -0.8, 'gider': -0.8, 'borç': -1.5,
+            
+            # Market sentiment
+            'boğa': 1.5, 'ayı': -1.5, 'ralli': 1.8, 'satış': -1.2,
+            'alım': 1.2, 'yatırım': 1.0, 'spekulasyon': -0.5,
+            
+            # Economic indicators
+            'enflasyon': -1.8, 'deflasyon': -1.5, 'stagflasyon': -2.2,
+            'büyüme': 1.8, 'daralma': -1.7, 'resesyon': -2.5
+        }
+        
+        for word, score in financial_terms.items():
+            self.analyzer.lexicon[word] = score
+    
+    def preprocess_text(self, text: str) -> str:
+        """
+        TODO IMPLEMENTATION:
+        Preprocess Turkish text for sentiment analysis
+        
+        1. Convert to lowercase
+        2. Handle Turkish characters properly
+        3. Remove excessive punctuation  
+        4. Normalize financial abbreviations (TL, USD, EUR)
+        5. Handle company ticker symbols
+        """
+        if not text:
+            return ""
+        
+        # Convert to lowercase
+        text = text.lower()
+        
+        # Normalize Turkish characters if needed
+        turkish_chars = {
+            'ı': 'i', 'ş': 's', 'ğ': 'g', 'ü': 'u', 'ö': 'o', 'ç': 'c'
+        }
+        
+        # Remove excessive punctuation
+        text = re.sub(r'[!]{2,}', '!', text)
+        text = re.sub(r'[?]{2,}', '?', text)
+        text = re.sub(r'[.]{3,}', '...', text)
+        
+        # Normalize financial abbreviations
+        text = re.sub(r'\btl\b', 'türk lirası', text)
+        text = re.sub(r'\busd\b', 'dolar', text) 
+        text = re.sub(r'\beur\b', 'euro', text)
+        
+        return text
+    
+    def analyze_sentiment(self, text: str) -> Dict[str, float]:
+        """
+        TODO IMPLEMENTATION:
+        Analyze sentiment with confidence scores
+        
+        Return format:
+        {
+            'compound': float,     # Overall sentiment [-1, 1]
+            'positive': float,     # Positive score [0, 1]  
+            'negative': float,     # Negative score [0, 1]
+            'neutral': float,      # Neutral score [0, 1]
+            'confidence': float    # Confidence in prediction [0, 1]
+        }
+        """
+        if not text:
+            return {'compound': 0.0, 'positive': 0.0, 'negative': 0.0, 'neutral': 1.0, 'confidence': 0.0}
+        
+        # Preprocess text
+        processed_text = self.preprocess_text(text)
+        
+        # Get VADER scores
+        scores = self.analyzer.polarity_scores(processed_text)
+        
+        # Calculate confidence based on score magnitude
+        confidence = abs(scores['compound'])
+        
+        return {
+            'compound': scores['compound'],
+            'positive': scores['pos'], 
+            'negative': scores['neg'],
+            'neutral': scores['neu'],
+            'confidence': confidence
+        }
+
+class EntityExtractor:
+    """Extract company names and financial entities from Turkish news"""
+    
+    def __init__(self):
+        """
+        TODO IMPLEMENTATION:
+        Initialize entity extraction components
+        
+        1. Load BIST company name mappings  
+        2. Create regex patterns for company detection
+        3. Load financial term dictionaries
+        4. Setup fuzzy matching for company names
+        """
+        # BIST company mappings (symbol -> company names)
+        self.company_mappings = {
+            'AKBNK': ['akbank', 'ak bank', 'akbank t.a.ş.'],
+            'GARAN': ['garanti', 'garanti bankası', 'garanti bbva'],
+            'ISCTR': ['işbank', 'iş bankası', 'türkiye iş bankası'],
+            'YKBNK': ['yapı kredi', 'yapı kredi bankası'],
+            'TUPRS': ['tüpraş', 'türkiye petrol rafinerileri'],
+            'BIMAS': ['bim', 'bim birleşik mağazalar']
+            # TODO: Add all BIST companies
+        }
+        
+        # Compile regex patterns
+        self._compile_patterns()
+    
+    def _compile_patterns(self):
+        """
+        TODO IMPLEMENTATION:
+        Compile regex patterns for entity detection
+        """
+        self.patterns = {}
+        for symbol, names in self.company_mappings.items():
+            pattern = '|'.join([re.escape(name) for name in names])
+            self.patterns[symbol] = re.compile(f'({pattern})', re.IGNORECASE)
+    
+    def extract_companies(self, text: str) -> List[Dict]:
+        """
+        TODO IMPLEMENTATION:
+        Extract company mentions from text
+        
+        Return format:
+        [
+            {
+                'symbol': 'AKBNK',
+                'name': 'akbank', 
+                'mentions': 2,
+                'confidence': 0.95,
+                'positions': [(10, 16), (45, 51)]
+            }
+        ]
+        """
+        companies = []
+        
+        if not text:
+            return companies
+        
+        text_lower = text.lower()
+        
+        for symbol, pattern in self.patterns.items():
+            matches = pattern.finditer(text_lower)
+            match_positions = []
+            
+            for match in matches:
+                match_positions.append((match.start(), match.end()))
+            
+            if match_positions:
+                companies.append({
+                    'symbol': symbol,
+                    'name': match_positions[0],  # First match
+                    'mentions': len(match_positions),
+                    'confidence': 0.9,  # High confidence for exact matches
+                    'positions': match_positions
+                })
+        
+        return companies
+
+class NewsProcessor:
+    """Main news processing pipeline"""
+    
+    def __init__(self):
+        self.sentiment_analyzer = TurkishFinancialVADER()
+        self.entity_extractor = EntityExtractor()
+    
+    def process_article(self, article: Dict) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Process single news article
+        
+        Input:
+        {
+            'title': str,
+            'content': str,
+            'source': str, 
+            'timestamp': datetime,
+            'url': str
+        }
+        
+        Output:
+        {
+            'sentiment': Dict,           # Sentiment scores
+            'entities': List[Dict],      # Extracted companies
+            'processed_text': str,       # Clean text
+            'source_credibility': float, # Source reliability score
+            'article_quality': float     # Article quality score
+        }
+        """
+        # Combine title and content
+        full_text = f"{article.get('title', '')} {article.get('content', '')}"
+        
+        # Analyze sentiment
+        sentiment = self.sentiment_analyzer.analyze_sentiment(full_text)
+        
+        # Extract entities
+        entities = self.entity_extractor.extract_companies(full_text)
+        
+        # Calculate source credibility
+        source_credibility = self._calculate_source_credibility(article.get('source', ''))
+        
+        # Calculate article quality (length, completeness, etc.)
+        article_quality = self._calculate_article_quality(article)
+        
+        return {
+            'sentiment': sentiment,
+            'entities': entities,
+            'processed_text': self.sentiment_analyzer.preprocess_text(full_text),
+            'source_credibility': source_credibility,
+            'article_quality': article_quality
+        }
+    
+    def _calculate_source_credibility(self, source: str) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Calculate source credibility score
+        
+        Official sources (KAP): 1.0
+        Major news (AA, Reuters): 0.9  
+        Financial media: 0.8
+        General media: 0.6
+        Social media: 0.3
+        """
+        source_lower = source.lower()
+        
+        if any(official in source_lower for official in ['kap', 'spk', 'tcmb', 'merkez bankası']):
+            return 1.0
+        elif any(major in source_lower for major in ['anadolu ajansı', 'reuters', 'bloomberg']):
+            return 0.9
+        elif any(financial in source_lower for financial in ['dünya', 'para', 'ekonomist']):
+            return 0.8
+        elif any(general in source_lower for general in ['milliyet', 'hürriyet', 'sabah']):
+            return 0.6
+        elif any(social in source_lower for social in ['twitter', 'facebook', 'instagram']):
+            return 0.3
+        else:
+            return 0.5  # Unknown source
+    
+    def _calculate_article_quality(self, article: Dict) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Calculate article quality based on completeness and length
+        """
+        quality_score = 0.0
+        
+        # Check title exists and length
+        if article.get('title'):
+            title_len = len(article['title'])
+            quality_score += 0.3 if title_len > 20 else 0.1
+        
+        # Check content exists and length  
+        if article.get('content'):
+            content_len = len(article['content'])
+            if content_len > 500:
+                quality_score += 0.5
+            elif content_len > 200:
+                quality_score += 0.3
+            else:
+                quality_score += 0.1
+        
+        # Check URL exists
+        if article.get('url'):
+            quality_score += 0.2
+        
+        return min(quality_score, 1.0)
+
+# TODO: Add batch processing capabilities
+# TODO: Add caching for expensive operations
+# TODO: Add multilingual support (English

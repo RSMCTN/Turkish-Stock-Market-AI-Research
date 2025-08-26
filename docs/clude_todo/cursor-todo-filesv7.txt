@@ -1,0 +1,4117 @@
+    def open_position(self, signal: TradingSignal, current_price: float, 
+                     timestamp: datetime) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Open new position based on signal
+        
+        Returns:
+            {
+                'success': bool,
+                'position_id': str,
+                'position_size': float,
+                'entry_price': float,
+                'stop_loss': float,
+                'take_profit': float
+            }
+        """
+        can_open, reason = self.can_open_position(signal, current_price)
+        
+        if not can_open:
+            self.logger.warning(f"Cannot open position for {signal.symbol}: {reason}")
+            return {'success': False, 'reason': reason}
+        
+        # Calculate position details
+        position_size = self._calculate_position_size(signal, current_price)
+        position_value = position_size * current_price
+        
+        # Calculate stop loss and take profit prices
+        if signal.action == 'BUY':
+            stop_loss_price = current_price * (1 - signal.stop_loss) if signal.stop_loss else None
+            take_profit_price = current_price * (1 + signal.take_profit) if signal.take_profit else None
+        else:  # SELL
+            stop_loss_price = current_price * (1 + signal.stop_loss) if signal.stop_loss else None
+            take_profit_price = current_price * (1 - signal.take_profit) if signal.take_profit else None
+        
+        # Create position record
+        position_id = f"{signal.symbol}_{timestamp.strftime('%Y%m%d_%H%M%S')}"
+        
+        position_info = {
+            'position_id': position_id,
+            'symbol': signal.symbol,
+            'action': signal.action,
+            'position_size': position_size,
+            'entry_price': current_price,
+            'entry_time': timestamp,
+            'stop_loss': stop_loss_price,
+            'take_profit': take_profit_price,
+            'expected_return': signal.expected_return,
+            'confidence': signal.confidence,
+            'current_value': position_value,
+            'unrealized_pnl': 0.0
+        }
+        
+        # Update portfolio
+        self.positions[signal.symbol] = position_info
+        self.current_capital -= position_value  # Reduce available capital
+        
+        self.logger.info(f"Opened {signal.action} position for {signal.symbol}: "
+                        f"Size={position_size:.2f}, Price={current_price:.2f}")
+        
+        return {
+            'success': True,
+            'position_id': position_id,
+            'position_size': position_size,
+            'entry_price': current_price,
+            'stop_loss': stop_loss_price,
+            'take_profit': take_profit_price
+        }
+
+class PaperTradingEngine:
+    """Paper trading engine for backtesting and live testing"""
+    
+    def __init__(self, initial_capital: float, config: Dict):
+        """
+        TODO IMPLEMENTATION:
+        Initialize paper trading engine
+        
+        config = {
+            'commission_rate': float,        # Commission per trade
+            'slippage_rate': float,         # Average slippage
+            'market_impact': float,         # Market impact factor
+            'funding_cost': float,          # Daily funding cost for shorts
+            'max_positions': int,           # Maximum concurrent positions
+            'position_timeout': int         # Hours to keep position open
+        }
+        """
+        self.initial_capital = initial_capital
+        self.config = config
+        
+        self.portfolio_manager = PortfolioManager(initial_capital, {
+            'max_position_size': 0.1,       # 10% max per position
+            'max_portfolio_risk': 0.05,     # 5% max portfolio risk
+            'max_correlation': 0.7,         # Max 70% correlation
+            'rebalance_threshold': 0.05     # 5% rebalance threshold
+        })
+        
+        # Performance tracking
+        self.performance_history = []
+        self.trade_log = []
+        
+        self.logger = logging.getLogger(__name__)
+    
+    async def process_signal(self, signal: TradingSignal, current_price: float) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Process trading signal and execute if appropriate
+        
+        Steps:
+        1. Validate signal and current price
+        2. Check if we should close existing position
+        3. Check if we should open new position  
+        4. Execute trade with simulated costs
+        5. Update portfolio and performance tracking
+        6. Return execution result
+        """
+        timestamp = datetime.now()
+        execution_result = {
+            'signal_id': signal.signal_id,
+            'timestamp': timestamp,
+            'action_taken': 'NONE',
+            'reason': '',
+            'trade_details': {}
+        }
+        
+        try:
+            # Check for existing position
+            existing_position = self.portfolio_manager.positions.get(signal.symbol)
+            
+            # Close existing position if needed
+            if existing_position:
+                close_result = await self._check_and_close_position(
+                    existing_position, current_price, timestamp
+                )
+                if close_result['closed']:
+                    execution_result['action_taken'] = 'CLOSE'
+                    execution_result['trade_details'] = close_result
+                    return execution_result
+            
+            # Open new position if signal indicates
+            if signal.action in ['BUY', 'SELL'] and signal.symbol not in self.portfolio_manager.positions:
+                open_result = self.portfolio_manager.open_position(signal, current_price, timestamp)
+                
+                if open_result['success']:
+                    # Simulate trade execution costs
+                    trade_cost = self._calculate_trade_costs(
+                        current_price, open_result['position_size'], signal.action
+                    )
+                    
+                    # Record trade
+                    self._record_trade('OPEN', signal.symbol, open_result, trade_cost, timestamp)
+                    
+                    execution_result['action_taken'] = 'OPEN'
+                    execution_result['trade_details'] = open_result
+                    execution_result['trade_details']['trade_cost'] = trade_cost
+                else:
+                    execution_result['reason'] = open_result['reason']
+            
+            return execution_result
+            
+        except Exception as e:
+            self.logger.error(f"Error processing signal {signal.signal_id}: {e}")
+            execution_result['reason'] = f"Error: {str(e)}"
+            return execution_result
+    
+    async def _check_and_close_position(self, position: Dict, current_price: float, 
+                                      timestamp: datetime) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Check if position should be closed based on stop loss, take profit, or timeout
+        
+        Returns:
+            {
+                'closed': bool,
+                'reason': str,
+                'pnl': float,
+                'return_pct': float
+            }
+        """
+        symbol = position['symbol']
+        entry_price = position['entry_price']
+        action = position['action']
+        
+        # Calculate current P&L
+        if action == 'BUY':
+            pnl_pct = (current_price - entry_price) / entry_price
+            pnl_absolute = position['position_size'] * (current_price - entry_price)
+        else:  # SELL
+            pnl_pct = (entry_price - current_price) / entry_price
+            pnl_absolute = position['position_size'] * (entry_price - current_price)
+        
+        # Check stop loss
+        if position['stop_loss']:
+            if action == 'BUY' and current_price <= position['stop_loss']:
+                return self._close_position(position, current_price, timestamp, 'STOP_LOSS', pnl_absolute)
+            elif action == 'SELL' and current_price >= position['stop_loss']:
+                return self._close_position(position, current_price, timestamp, 'STOP_LOSS', pnl_absolute)
+        
+        # Check take profit
+        if position['take_profit']:
+            if action == 'BUY' and current_price >= position['take_profit']:
+                return self._close_position(position, current_price, timestamp, 'TAKE_PROFIT', pnl_absolute)
+            elif action == 'SELL' and current_price <= position['take_profit']:
+                return self._close_position(position, current_price, timestamp, 'TAKE_PROFIT', pnl_absolute)
+        
+        # Check timeout
+        hours_open = (timestamp - position['entry_time']).total_seconds() / 3600
+        if hours_open >= self.config['position_timeout']:
+            return self._close_position(position, current_price, timestamp, 'TIMEOUT', pnl_absolute)
+        
+        return {'closed': False, 'reason': 'HOLDING'}
+    
+    def _close_position(self, position: Dict, exit_price: float, timestamp: datetime,
+                       reason: str, pnl: float) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Close position and update portfolio
+        """
+        symbol = position['symbol']
+        
+        # Calculate trade costs for closing
+        trade_cost = self._calculate_trade_costs(
+            exit_price, position['position_size'], 'CLOSE'
+        )
+        
+        # Net P&L after costs
+        net_pnl = pnl - trade_cost
+        
+        # Update portfolio
+        position_value = position['position_size'] * exit_price
+        self.portfolio_manager.current_capital += position_value + net_pnl
+        
+        # Remove position
+        del self.portfolio_manager.positions[symbol]
+        
+        # Record trade
+        close_details = {
+            'position_id': position['position_id'],
+            'exit_price': exit_price,
+            'exit_time': timestamp,
+            'pnl': net_pnl,
+            'return_pct': net_pnl / (position['position_size'] * position['entry_price']),
+            'trade_cost': trade_cost,
+            'reason': reason
+        }
+        
+        self._record_trade('CLOSE', symbol, close_details, trade_cost, timestamp)
+        
+        self.logger.info(f"Closed {symbol} position: P&L={net_pnl:.2f}, Reason={reason}")
+        
+        return {
+            'closed': True,
+            'reason': reason,
+            'pnl': net_pnl,
+            'return_pct': close_details['return_pct'],
+            'details': close_details
+        }
+    
+    def _calculate_trade_costs(self, price: float, size: float, action: str) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Calculate realistic trading costs (commission + slippage + market impact)
+        """
+        trade_value = price * size
+        
+        # Commission
+        commission = trade_value * self.config['commission_rate']
+        
+        # Slippage (worse execution price)
+        slippage = trade_value * self.config['slippage_rate']
+        
+        # Market impact (larger trades have higher impact)
+        if size > 1000:  # Large order
+            market_impact = trade_value * self.config['market_impact'] * 2
+        else:
+            market_impact = trade_value * self.config['market_impact']
+        
+        total_cost = commission + slippage + market_impact
+        
+        return total_cost
+    
+    def _record_trade(self, trade_type: str, symbol: str, details: Dict, 
+                     cost: float, timestamp: datetime):
+        """
+        TODO IMPLEMENTATION:
+        Record trade in history log
+        """
+        trade_record = {
+            'timestamp': timestamp,
+            'trade_type': trade_type,  # OPEN or CLOSE
+            'symbol': symbol,
+            'details': details,
+            'trade_cost': cost,
+            'portfolio_value': self.get_portfolio_value()
+        }
+        
+        self.trade_log.append(trade_record)
+    
+    def get_portfolio_value(self) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Calculate current total portfolio value
+        """
+        cash = self.portfolio_manager.current_capital
+        
+        # Add value of open positions (would need current prices in real implementation)
+        position_values = 0.0
+        for position in self.portfolio_manager.positions.values():
+            # In real implementation, would fetch current price
+            # For now, use entry price (unrealistic but functional)
+            position_values += position['position_size'] * position['entry_price']
+        
+        return cash + position_values
+    
+    def get_performance_summary(self) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Generate performance summary statistics
+        """
+        current_value = self.get_portfolio_value()
+        total_return = (current_value - self.initial_capital) / self.initial_capital
+        
+        # Analyze trades
+        closed_trades = [t for t in self.trade_log if t['trade_type'] == 'CLOSE']
+        
+        if closed_trades:
+            trade_returns = [t['details']['return_pct'] for t in closed_trades]
+            win_rate = len([r for r in trade_returns if r > 0]) / len(trade_returns)
+            avg_win = np.mean([r for r in trade_returns if r > 0]) if any(r > 0 for r in trade_returns) else 0
+            avg_loss = np.mean([r for r in trade_returns if r < 0]) if any(r < 0 for r in trade_returns) else 0
+        else:
+            win_rate = 0.0
+            avg_win = 0.0
+            avg_loss = 0.0
+        
+        return {
+            'initial_capital': self.initial_capital,
+            'current_value': current_value,
+            'total_return': total_return,
+            'total_trades': len(closed_trades),
+            'win_rate': win_rate,
+            'avg_win': avg_win,
+            'avg_loss': avg_loss,
+            'current_positions': len(self.portfolio_manager.positions),
+            'cash_available': self.portfolio_manager.current_capital
+        }
+
+# Example usage and testing
+def example_trading_execution():
+    """Example of how to use trading execution system"""
+    
+    # Initialize paper trading engine
+    config = {
+        'commission_rate': 0.001,    # 0.1% commission
+        'slippage_rate': 0.0005,     # 0.05% slippage
+        'market_impact': 0.0002,     # 0.02% market impact
+        'funding_cost': 0.0001,      # Daily funding cost
+        'max_positions': 10,         # Max 10 concurrent positions
+        'position_timeout': 72       # Close after 72 hours
+    }
+    
+    paper_trader = PaperTradingEngine(initial_capital=100000, config=config)
+    
+    # Create sample signal
+    signal = TradingSignal(
+        symbol='AKBNK',
+        timestamp=datetime.now(),
+        action='BUY',
+        confidence=0.75,
+        expected_return=0.03,
+        stop_loss=0.02,
+        take_profit=0.05
+    )
+    
+    print(f"Created signal: {signal.to_dict()}")
+    print(f"Initial portfolio value: {paper_trader.get_portfolio_value():.2f}")
+
+# TODO: Add real-time market data integration
+# TODO: Add order management system
+# TODO: Add risk monitoring and alerts
+# TODO: Add performance analytics dashboard
+```
+
+## ✅ COMPLETION CHECKLIST
+- [ ] TradingSignal class with all necessary fields
+- [ ] SignalGenerator with model prediction integration
+- [ ] PortfolioManager for position and risk management
+- [ ] PaperTradingEngine with realistic cost simulation
+- [ ] Signal processing and execution logic
+- [ ] Position opening/closing with stop loss and take profit
+- [ ] Trade cost calculation (commission, slippage, impact)
+- [ ] Performance tracking and summary statistics
+- [ ] Daily signal limits and risk controls
+- [ ] Position timeout and risk management rules
+- [ ] Comprehensive logging and error handling
+- [ ] Example usage and testing code
+
+## 🎯 SUCCESS CRITERIA
+- Signal generation latency <200ms
+- Paper trading accurately simulates real costs
+- Risk management prevents over-leveraging
+- Position management follows stop loss/take profit rules
+- Performance tracking provides accurate metrics
+- System handles edge cases gracefully
+
+## ➡️ NEXT: TODO-07-MONITORING-DEPLOYMENT.md
+```
+
+---
+
+## 📁 TODO-07-MONITORING-DEPLOYMENT.md
+
+```markdown
+# TODO 07: Monitoring, API & Deployment
+
+## 🎯 OBJECTIVE  
+Complete monitoring system, API endpoints, and deployment configuration
+
+## ✅ IMPLEMENTATION TASKS
+
+### 1. FastAPI Application
+
+**File: `src/api/main.py`**
+
+```python
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import List, Dict, Optional
+import asyncio
+import logging
+from datetime import datetime
+
+from ..execution.signal_generator import SignalGenerator, TradingSignal
+from ..execution.signal_generator import PaperTradingEngine
+from ..monitoring.metrics_collector import MetricsCollector
+from ..config.settings import settings
+
+# Initialize FastAPI app
+app = FastAPI(
+    title="BIST DP-LSTM Trading System",
+    description="Differential Privacy LSTM Trading System for BIST",
+    version="1.0.0"
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Configure appropriately for production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Global components (initialize in startup event)
+signal_generator = None
+paper_trader = None
+metrics_collector = None
+
+# Pydantic models for API requests/responses
+class SignalRequest(BaseModel):
+    symbol: str
+    include_features: bool = False
+
+class SignalResponse(BaseModel):
+    signal_id: str
+    symbol: str
+    timestamp: str
+    action: str
+    confidence: float
+    expected_return: float
+    stop_loss: Optional[float]
+    take_profit: Optional[float]
+    features: Optional[Dict] = None
+
+class PortfolioSummary(BaseModel):
+    initial_capital: float
+    current_value: float
+    total_return: float
+    total_trades: int
+    win_rate: float
+    current_positions: int
+    cash_available: float
+
+class HealthResponse(BaseModel):
+    status: str
+    timestamp: str
+    components: Dict[str, str]
+    uptime_seconds: float
+
+# Startup and shutdown events
+@app.on_event("startup")
+async def startup_event():
+    """
+    TODO IMPLEMENTATION:
+    Initialize all system components
+    
+    1. Load ML models
+    2. Initialize signal generator
+    3. Start paper trading engine
+    4. Initialize monitoring and metrics
+    5. Start background tasks
+    """
+    global signal_generator, paper_trader, metrics_collector
+    
+    logging.info("Starting BIST DP-LSTM Trading System...")
+    
+    try:
+        # Initialize metrics collector
+        metrics_collector = MetricsCollector()
+        
+        # Initialize signal generator (load model, etc.)
+        # signal_generator = await initialize_signal_generator()
+        
+        # Initialize paper trading engine
+        trading_config = {
+            'commission_rate': 0.001,
+            'slippage_rate': 0.0005,
+            'market_impact': 0.0002,
+            'funding_cost': 0.0001,
+            'max_positions': 10,
+            'position_timeout': 72
+        }
+        paper_trader = PaperTradingEngine(initial_capital=100000, config=trading_config)
+        
+        logging.info("System startup completed successfully")
+        
+    except Exception as e:
+        logging.error(f"Startup failed: {e}")
+        raise
+
+@app.on_event("shutdown") 
+async def shutdown_event():
+    """
+    TODO IMPLEMENTATION:
+    Clean shutdown of all components
+    """
+    logging.info("Shutting down BIST DP-LSTM Trading System...")
+    
+    # Close database connections, save models, etc.
+    if metrics_collector:
+        await metrics_collector.shutdown()
+    
+    logging.info("System shutdown completed")
+
+# API Routes
+
+@app.get("/", response_model=Dict)
+async def root():
+    """Root endpoint with basic system info"""
+    return {
+        "message": "BIST DP-LSTM Trading System API",
+        "version": "1.0.0",
+        "timestamp": datetime.now().isoformat(),
+        "docs": "/docs"
+    }
+
+@app.get("/health", response_model=HealthResponse)
+async def health_check():
+    """
+    TODO IMPLEMENTATION:
+    Comprehensive health check
+    
+    Check:
+    1. Database connections
+    2. Model loading status
+    3. API response times
+    4. Memory usage
+    5. System uptime
+    """
+    components = {}
+    
+    # Check database
+    try:
+        # TODO: Add actual database health check
+        components["database"] = "healthy"
+    except:
+        components["database"] = "unhealthy"
+    
+    # Check model
+    if signal_generator:
+        components["model"] = "healthy"
+    else:
+        components["model"] = "not_loaded"
+    
+    # Check paper trader
+    if paper_trader:
+        components["paper_trader"] = "healthy"
+    else:
+        components["paper_trader"] = "not_initialized"
+    
+    # Overall status
+    all_healthy = all(status == "healthy" for status in components.values())
+    overall_status = "healthy" if all_healthy else "degraded"
+    
+    return HealthResponse(
+        status=overall_status,
+        timestamp=datetime.now().isoformat(),
+        components=components,
+        uptime_seconds=0.0  # TODO: Calculate actual uptime
+    )
+
+@app.post("/signals/generate", response_model=SignalResponse)
+async def generate_signal(request: SignalRequest):
+    """
+    TODO IMPLEMENTATION:
+    Generate trading signal for specified symbol
+    
+    1. Validate symbol
+    2. Fetch recent market data
+    3. Fetch recent news data
+    4. Generate signal using ML model
+    5. Return signal with optional features
+    """
+    if not signal_generator:
+        raise HTTPException(status_code=503, detail="Signal generator not available")
+    
+    try:
+        # TODO: Fetch market data for symbol
+        market_data = {}  # Placeholder
+        
+        # TODO: Fetch news data for symbol
+        news_data = []  # Placeholder
+        
+        # Generate signal
+        signal = await signal_generator.generate_signal(
+            symbol=request.symbol,
+            market_data=market_data,
+            news_data=news_data
+        )
+        
+        # Prepare response
+        response = SignalResponse(
+            signal_id=signal.signal_id,
+            symbol=signal.symbol,
+            timestamp=signal.timestamp.isoformat(),
+            action=signal.action,
+            confidence=signal.confidence,
+            expected_return=signal.expected_return,
+            stop_loss=signal.stop_loss,
+            take_profit=signal.take_profit
+        )
+        
+        if request.include_features:
+            # TODO: Add feature values to response
+            response.features = {}
+        
+        return response
+        
+    except Exception as e:
+        logging.error(f"Error generating signal for {request.symbol}: {e}")
+        raise HTTPException(status_code=500, detail="Signal generation failed")
+
+@app.get("/signals/history", response_model=List[SignalResponse])
+async def get_signal_history(symbol: Optional[str] = None, limit: int = 100):
+    """
+    TODO IMPLEMENTATION:
+    Get historical signals
+    
+    1. Query signal database
+    2. Filter by symbol if provided
+    3. Return recent signals with pagination
+    """
+    # TODO: Implement signal history retrieval
+    return []
+
+@app.get("/portfolio/summary", response_model=PortfolioSummary)
+async def get_portfolio_summary():
+    """
+    TODO IMPLEMENTATION:
+    Get current portfolio summary
+    """
+    if not paper_trader:
+        raise HTTPException(status_code=503, detail="Paper trader not available")
+    
+    try:
+        summary = paper_trader.get_performance_summary()
+        
+        return PortfolioSummary(
+            initial_capital=summary['initial_capital'],
+            current_value=summary['current_value'],
+            total_return=summary['total_return'],
+            total_trades=summary['total_trades'],
+            win_rate=summary['win_rate'],
+            current_positions=summary['current_positions'],
+            cash_available=summary['cash_available']
+        )
+        
+    except Exception as e:
+        logging.error(f"Error getting portfolio summary: {e}")
+        raise HTTPException(status_code=500, detail="Portfolio summary failed")
+
+@app.get("/portfolio/positions", response_model=List[Dict])
+async def get_current_positions():
+    """
+    TODO IMPLEMENTATION:
+    Get all current positions
+    """
+    if not paper_trader:
+        raise HTTPException(status_code=503, detail="Paper trader not available")
+    
+    try:
+        positions = []
+        for symbol, position in paper_trader.portfolio_manager.positions.items():
+            positions.append({
+                'symbol': symbol,
+                'position_id': position['position_id'],
+                'action': position['action'],
+                'size': position['position_size'],
+                'entry_price': position['entry_price'],
+                'entry_time': position['entry_time'].isoformat(),
+                'unrealized_pnl': position['unrealized_pnl'],
+                'stop_loss': position['stop_loss'],
+                'take_profit': position['take_profit']
+            })
+        
+        return positions
+        
+    except Exception as e:
+        logging.error(f"Error getting positions: {e}")
+        raise HTTPException(status_code=500, detail="Get positions failed")
+
+@app.get("/metrics/system", response_model=Dict)
+async def get_system_metrics():
+    """
+    TODO IMPLEMENTATION:
+    Get system performance metrics
+    
+    Metrics:
+    1. API response times
+    2. Signal generation latency
+    3. Model prediction accuracy
+    4. Memory and CPU usage
+    5. Error rates
+    """
+    if not metrics_collector:
+        raise HTTPException(status_code=503, detail="Metrics collector not available")
+    
+    try:
+        metrics = await metrics_collector.get_current_metrics()
+        return metrics
+        
+    except Exception as e:
+        logging.error(f"Error getting metrics: {e}")
+        raise HTTPException(status_code=500, detail="Metrics collection failed")
+
+@app.post("/admin/retrain", response_model=Dict)
+async def trigger_model_retrain(background_tasks: BackgroundTasks):
+    """
+    TODO IMPLEMENTATION:
+    Trigger model retraining in background
+    
+    1. Validate request (admin auth in production)
+    2. Start retraining as background task
+    3. Return task ID for monitoring
+    """
+    # TODO: Add admin authentication
+    
+    def retrain_model():
+        # TODO: Implement model retraining logic
+        pass
+    
+    background_tasks.add_task(retrain_model)
+    
+    return {
+        "message": "Model retraining started",
+        "task_id": "retrain_001",  # TODO: Generate actual task ID
+        "status": "started"
+    }
+
+# Error handlers
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request, exc):
+    """Custom HTTP exception handler"""
+    return {
+        "error": exc.detail,
+        "status_code": exc.status_code,
+        "timestamp": datetime.now().isoformat()
+    }
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+```
+
+### 2. Monitoring System
+
+**File: `src/monitoring/metrics_collector.py`**
+
+```python
+import asyncio
+import time
+import psutil
+import logging
+from typing import Dict, List
+from datetime import datetime, timedelta
+from dataclasses import dataclass, asdict
+import json
+
+@dataclass
+class SystemMetric:
+    """System performance metric"""
+    timestamp: datetime
+    metric_name: str
+    metric_value: float
+    metric_unit: str
+    tags: Dict = None
+
+class MetricsCollector:
+    """Collect and store system performance metrics"""
+    
+    def __init__(self):
+        """
+        TODO IMPLEMENTATION:
+        Initialize metrics collection system
+        """
+        self.start_time = datetime.now()
+        self.metrics_history = []
+        self.alert_thresholds = {
+            'cpu_usage': 80.0,           # CPU usage %
+            'memory_usage': 85.0,        # Memory usage %
+            'api_response_time': 1000,   # Response time in ms
+            'error_rate': 5.0,           # Error rate %
+            'prediction_latency': 500    # Prediction latency in ms
+        }
+        
+        self.current_metrics = {}
+        self.logger = logging.getLogger(__name__)
+        
+        # Start background collection
+        self._collection_task = None
+    
+    async def start_collection(self):
+        """
+        TODO IMPLEMENTATION:
+        Start background metrics collection
+        """
+        self._collection_task = asyncio.create_task(self._collect_metrics_loop())
+    
+    async def stop_collection(self):
+        """
+        TODO IMPLEMENTATION:
+        Stop background metrics collection
+        """
+        if self._collection_task:
+            self._collection_task.cancel()
+            try:
+                await self._collection_task
+            except asyncio.CancelledError:
+                pass
+    
+    async def _collect_metrics_loop(self):
+        """
+        TODO IMPLEMENTATION:
+        Background loop for collecting metrics every 30 seconds
+        """
+        while True:
+            try:
+                await self._collect_system_metrics()
+                await asyncio.sleep(30)  # Collect every 30 seconds
+            except asyncio.CancelledError:
+                break
+            except Exception as e:
+                self.logger.error(f"Error in metrics collection: {e}")
+                await asyncio.sleep(30)
+    
+    async def _collect_system_metrics(self):
+        """
+        TODO IMPLEMENTATION:
+        Collect system performance metrics
+        
+        Metrics to collect:
+        1. CPU usage percentage
+        2. Memory usage percentage  
+        3. Disk I/O statistics
+        4. Network I/O statistics
+        5. System uptime
+        6. Process-specific metrics
+        """
+        timestamp = datetime.now()
+        
+        # CPU metrics
+        cpu_percent = psutil.cpu_percent(interval=1)
+        self._add_metric("system.cpu.usage", cpu_percent, "%", timestamp)
+        
+        # Memory metrics
+        memory = psutil.virtual_memory()
+        self._add_metric("system.memory.usage", memory.percent, "%", timestamp)
+        self._add_metric("system.memory.available", memory.available / 1024**3, "GB", timestamp)
+        
+        # Disk metrics
+        disk = psutil.disk_usage('/')
+        disk_usage_percent = (disk.used / disk.total) * 100
+        self._add_metric("system.disk.usage", disk_usage_percent, "%", timestamp)
+        
+        # Network metrics (if available)
+        try:
+            network = psutil.net_io_counters()
+            self._add_metric("system.network.bytes_sent", network.bytes_sent / 1024**2, "MB", timestamp)
+            self._add_metric("system.network.bytes_recv", network.bytes_recv / 1024**2, "MB", timestamp)
+        except:
+            pass  # Network metrics not available
+        
+        # System uptime
+        uptime_seconds = (timestamp - self.start_time).total_seconds()
+        self._add_metric("system.uptime", uptime_seconds, "seconds", timestamp)
+        
+        # Check for alerts
+        await self._check_alert_thresholds()
+    
+    def _add_metric(self, name: str, value: float, unit: str, timestamp: datetime, tags: Dict = None):
+        """
+        TODO IMPLEMENTATION:
+        Add metric to collection
+        """
+        metric = SystemMetric(
+            timestamp=timestamp,
+            metric_name=name,
+            metric_value=value,
+            metric_unit=unit,
+            tags=tags or {}
+        )
+        
+        self.metrics_history.append(metric)
+        self.current_metrics[name] = metric
+        
+        # Keep only last 1000 metrics to prevent memory issues
+        if len(self.metrics_history) > 1000:
+            self.metrics_history = self.metrics_history[-1000:]
+    
+    async def _check_alert_thresholds(self):
+        """
+        TODO IMPLEMENTATION:
+        Check if any metrics exceed alert thresholds
+        """
+        for metric_name, threshold in self.alert_thresholds.items():
+            metric_key = f"system.{metric_name.replace('_', '.')}"
+            
+            if metric_key in self.current_metrics:
+                current_value = self.current_metrics[metric_key].metric_value
+                
+                if current_value > threshold:
+                    await self._send_alert(metric_name, current_value, threshold)
+    
+    async def _send_alert(self, metric_name: str, current_value: float, threshold: float):
+        """
+        TODO IMPLEMENTATION:
+        Send alert when threshold exceeded
+        
+        In production:
+        1. Send to alerting system (PagerDuty, Slack, etc.)
+        2. Log to monitoring system
+        3. Update dashboard
+        """
+        alert_message = (f"ALERT: {metric_name} exceeded threshold. "
+                        f"Current: {current_value:.2f}, Threshold: {threshold:.2f}")
+        
+        self.logger.warning(alert_message)
+        
+        # TODO: Add actual alerting integration
+        # await send_slack_alert(alert_message)
+        # await send_email_alert(alert_message)
+    
+    async def get_current_metrics(self) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Get current system metrics for API
+        """
+        metrics_dict = {}
+        
+        for name, metric in self.current_metrics.items():
+            metrics_dict[name] = {
+                'value': metric.metric_value,
+                'unit': metric.metric_unit,
+                'timestamp': metric.timestamp.isoformat(),
+                'tags': metric.tags
+            }
+        
+        return {
+            'timestamp': datetime.now().isoformat(),
+            'metrics': metrics_dict,
+            'uptime_seconds': (datetime.now() - self.start_time).total_seconds()
+        }
+    
+    def record_api_request(self, endpoint: str, response_time_ms: float, status_code: int):
+        """
+        TODO IMPLEMENTATION:
+        Record API request metrics
+        """
+        timestamp = datetime.now()
+        
+        # Response time metric
+        self._add_metric(
+            "api.response_time", 
+            response_time_ms, 
+            "ms", 
+            timestamp,
+            tags={'endpoint': endpoint, 'status_code': status_code}
+        )
+        
+        # Request count metric
+        self._add_metric(
+            "api.request_count", 
+            1, 
+            "count", 
+            timestamp,
+            tags={'endpoint': endpoint, 'status_code': status_code}
+        )
+    
+    def record_prediction_metrics(self, latency_ms: float, confidence: float, accuracy: float = None):
+        """
+        TODO IMPLEMENTATION:
+        Record ML model prediction metrics
+        """
+        timestamp = datetime.now()
+        
+        self._add_metric("model.prediction_latency", latency_ms, "ms", timestamp)
+        self._add_metric("model.prediction_confidence", confidence, "score", timestamp)
+        
+        if accuracy is not None:
+            self._add_metric("model.prediction_accuracy", accuracy, "percentage", timestamp)
+    
+    async def shutdown(self):
+        """
+        TODO IMPLEMENTATION:
+        Clean shutdown of metrics collector
+        """
+        await self.stop_collection()
+        
+        # Save metrics to file for persistence
+        metrics_data = []
+        for metric in self.metrics_history:
+            metrics_data.append({
+                'timestamp': metric.timestamp.isoformat(),
+                'name': metric.metric_name,
+                'value': metric.metric_value,
+                'unit': metric.metric_unit,
+                'tags': metric.tags
+            })
+        
+        try:
+            with open('metrics_history.json', 'w') as f:
+                json.dump(metrics_data, f, indent=2)
+            self.logger.info("Metrics history saved to metrics_history.json")
+        except Exception as e:
+            self.logger.error(f"Error saving metrics: {e}")
+
+class PerformanceMonitor:
+    """Monitor model and trading performance"""
+    
+    def __init__(self):
+        """
+        TODO IMPLEMENTATION:
+        Initialize performance monitoring
+        """
+        self.trade_metrics = {
+            'total_trades': 0,
+            'winning_trades': 0,
+            'losing_trades': 0,
+            'total_pnl': 0.0,
+            'avg_trade_duration': 0.0,
+            'sharpe_ratio': 0.0,
+            'max_drawdown': 0.0
+        }
+        
+        self.model_metrics = {
+            'predictions_made': 0,
+            'avg_confidence': 0.0,
+            'accuracy_1d': 0.0,
+            'accuracy_7d': 0.0,
+            'accuracy_30d': 0.0
+        }
+        
+        self.logger = logging.getLogger(__name__)
+    
+    def record_trade(self, trade_result: Dict):
+        """
+        TODO IMPLEMENTATION:
+        Record completed trade for performance analysis
+        
+        trade_result = {
+            'symbol': str,
+            'action': str,
+            'entry_price': float,
+            'exit_price': float,
+            'pnl': float,
+            'return_pct': float,
+            'duration_hours': float,
+            'reason': str  # stop_loss, take_profit, timeout
+        }
+        """
+        self.trade_metrics['total_trades'] += 1
+        
+        if trade_result['pnl'] > 0:
+            self.trade_metrics['winning_trades'] += 1
+        else:
+            self.trade_metrics['losing_trades'] += 1
+        
+        self.trade_metrics['total_pnl'] += trade_result['pnl']
+        
+        # Update average trade duration
+        current_avg = self.trade_metrics['avg_trade_duration']
+        total_trades = self.trade_metrics['total_trades']
+        new_duration = trade_result['duration_hours']
+        
+        self.trade_metrics['avg_trade_duration'] = (
+            (current_avg * (total_trades - 1) + new_duration) / total_trades
+        )
+        
+        self.logger.info(f"Recorded trade: {trade_result['symbol']} "
+                        f"P&L: {trade_result['pnl']:.2f}")
+    
+    def record_prediction(self, prediction_result: Dict):
+        """
+        TODO IMPLEMENTATION:
+        Record model prediction for accuracy tracking
+        
+        prediction_result = {
+            'symbol': str,
+            'prediction': float,
+            'confidence': float,
+            'actual_return': float,  # Set later when actual return known
+            'prediction_time': datetime
+        }
+        """
+        self.model_metrics['predictions_made'] += 1
+        
+        # Update average confidence
+        current_avg = self.model_metrics['avg_confidence']
+        total_predictions = self.model_metrics['predictions_made']
+        new_confidence = prediction_result['confidence']
+        
+        self.model_metrics['avg_confidence'] = (
+            (current_avg * (total_predictions - 1) + new_confidence) / total_predictions
+        )
+    
+    def calculate_performance_metrics(self, trade_history: List[Dict]) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Calculate advanced performance metrics
+        
+        Returns:
+        {
+            'win_rate': float,
+            'profit_factor': float,
+            'sharpe_ratio': float,
+            'max_drawdown': float,
+            'avg_win': float,
+            'avg_loss': float,
+            'expectancy': float
+        }
+        """
+        if not trade_history:
+            return {}
+        
+        returns = [trade['return_pct'] for trade in trade_history]
+        winning_trades = [r for r in returns if r > 0]
+        losing_trades = [r for r in returns if r < 0]
+        
+        # Win rate
+        win_rate = len(winning_trades) / len(returns) if returns else 0
+        
+        # Average win/loss
+        avg_win = sum(winning_trades) / len(winning_trades) if winning_trades else 0
+        avg_loss = sum(losing_trades) / len(losing_trades) if losing_trades else 0
+        
+        # Profit factor
+        total_wins = sum(winning_trades)
+        total_losses = abs(sum(losing_trades))
+        profit_factor = total_wins / total_losses if total_losses > 0 else float('inf')
+        
+        # Sharpe ratio (simplified)
+        if returns:
+            avg_return = sum(returns) / len(returns)
+            return_std = (sum([(r - avg_return) ** 2 for r in returns]) / len(returns)) ** 0.5
+            sharpe_ratio = avg_return / return_std if return_std > 0 else 0
+        else:
+            sharpe_ratio = 0
+        
+        # Max drawdown
+        cumulative_returns = []
+        cumulative = 1.0
+        for ret in returns:
+            cumulative *= (1 + ret)
+            cumulative_returns.append(cumulative)
+        
+        max_drawdown = 0
+        peak = cumulative_returns[0] if cumulative_returns else 1
+        for value in cumulative_returns:
+            if value > peak:
+                peak = value
+            drawdown = (peak - value) / peak
+            if drawdown > max_drawdown:
+                max_drawdown = drawdown
+        
+        # Expectancy
+        expectancy = (win_rate * avg_win) - ((1 - win_rate) * abs(avg_loss))
+        
+        return {
+            'win_rate': win_rate,
+            'profit_factor': profit_factor,
+            'sharpe_ratio': sharpe_ratio,
+            'max_drawdown': max_drawdown,
+            'avg_win': avg_win,
+            'avg_loss': avg_loss,
+            'expectancy': expectancy,
+            'total_trades': len(returns),
+            'total_return': cumulative_returns[-1] - 1 if cumulative_returns else 0
+        }
+
+# TODO: Add logging configuration
+# TODO: Add database integration for metrics storage
+# TODO: Add Grafana dashboard configuration
+# TODO: Add alerting integrations (Slack, email, etc.)
+```
+
+### 3. Deployment Configuration
+
+**File: `Dockerfile`**
+
+```dockerfile
+# TODO: Production-ready Docker configuration
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source code
+COPY src/ ./src/
+COPY scripts/ ./scripts/
+COPY configs/ ./configs/
+
+# Install the package
+RUN pip install -e .
+
+# Create non-root user
+RUN useradd --create-home --shell /bin/bash app \
+    && chown -R app:app /app
+USER app
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Expose port
+EXPOSE 8000
+
+# Start command
+CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+```
+
+**File: `docker-compose.yml` (Updated for production)**
+
+```yaml
+version: '3.8'
+
+services:
+  # Main application
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/bist_trading
+      - REDIS_URL=redis://redis:6379
+      - INFLUXDB_URL=http://influxdb:8086
+    depends_on:
+      - db
+      - redis
+      - influxdb
+    volumes:
+      - ./models:/app/models
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PostgreSQL database
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: bist_trading
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # InfluxDB for time-series data
+  influxdb:
+    image: influxdb:2.7
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=market_data
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=password
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    restart: unless-stopped
+
+  # Grafana for monitoring dashboards
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./configs/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./configs/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - influxdb
+    restart: unless-stopped
+
+  # Nginx reverse proxy (optional)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./configs/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - app
+      - grafana
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  influxdb_data:
+  grafana_data:
+```
+
+**File: `scripts/deploy.py`**
+
+```python
+#!/usr/bin/env python3
+"""
+Deployment script for BIST DP-LSTM Trading System
+"""
+
+import os
+import sys
+import subprocess
+import logging
+import argparse
+from pathlib import Path
+
+def setup_logging():
+    """Setup logging for deployment script"""
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s'
+    )
+    return logging.getLogger(__name__)
+
+def run_command(command, check=True):
+    """Run shell command and handle errors"""
+    logger = logging.getLogger(__name__)
+    logger.info(f"Running: {command}")
+    
+    result = subprocess.run(
+        command, 
+        shell=True, 
+        capture_output=True, 
+        text=True
+    )
+    
+    if result.returncode != 0 and check:
+        logger.error(f"Command failed: {command}")
+        logger.error(f"Error: {result.stderr}")
+        sys.exit(1)
+    
+    return result
+
+def deploy_local():
+    """
+    TODO IMPLEMENTATION:
+    Deploy system locally for development/testing
+    
+    Steps:
+    1. Check dependencies
+    2. Build Docker images
+    3. Start services with docker-compose
+    4. Run database migrations
+    5. Verify deployment
+    """
+    logger = setup_logging()
+    logger.info("Starting local deployment...")
+    
+    # Check if Docker is available
+    docker_check = run_command("docker --version", check=False)
+    if docker_check.returncode != 0:
+        logger.error("Docker is not installed or not running")
+        sys.exit(1)
+    
+    # Check if docker-compose is available
+    compose_check = run_command("docker-compose --version", check=False)
+    if compose_check.returncode != 0:
+        logger.error("docker-compose is not installed")
+        sys.exit(1)
+    
+    # Build and start services
+    logger.info("Building and starting services...")
+    run_command("docker-compose down")
+    run_command("docker-compose build")
+    run_command("docker-compose up -d")
+    
+    # Wait for services to start
+    import time
+    logger.info("Waiting for services to start...")
+    time.sleep(30)
+    
+    # Check service health
+    logger.info("Checking service health...")
+    health_check = run_command("curl -f http://localhost:8000/health", check=False)
+    
+    if health_check.returncode == 0:
+        logger.info("✅ Deployment successful!")
+        logger.info("🌐 API available at: http://localhost:8000")
+        logger.info("📊 Grafana dashboard at: http://localhost:3000")
+        logger.info("📖 API docs at: http://localhost:8000/docs")
+    else:
+        logger.error("❌ Deployment failed - health check unsuccessful")
+        run_command("docker-compose logs app")
+        sys.exit(1)
+
+def deploy_railway():
+    """
+    TODO IMPLEMENTATION:
+    Deploy to Railway platform
+    
+    Steps:
+    1. Check Railway CLI
+    2. Build and deploy
+    3. Configure environment variables
+    4. Verify deployment
+    """
+    logger = setup_logging()
+    logger.info("Deploying to Railway...")
+    
+    # Check Railway CLI
+    railway_check = run_command("railway --version", check=False)
+    if railway_check.returncode != 0:
+        logger.error("Railway CLI not installed. Install from: https://railway.app/cli")
+        sys.exit(1)
+    
+    # Login check
+    login_check = run_command("railway whoami", check=False)
+    if login_check.returncode != 0:
+        logger.info("Please login to Railway first: railway login")
+        sys.exit(1)
+    
+    # Deploy
+    logger.info("Deploying to Railway...")
+    run_command("railway up")
+    
+    logger.info("✅ Railway deployment initiated!")
+    logger.info("Check deployment status at: https://railway.app")
+
+def setup_monitoring():
+    """
+    TODO IMPLEMENTATION:
+    Setup monitoring dashboards and alerts
+    
+    1. Configure Grafana dashboards
+    2. Setup alert rules
+    3. Configure notification channels
+    """
+    logger = setup_logging()
+    logger.info("Setting up monitoring...")
+    
+    # TODO: Import Grafana dashboards
+    # TODO: Configure alert rules
+    # TODO: Setup notification channels
+    
+    logger.info("✅ Monitoring setup complete!")
+
+def main():
+    parser = argparse.ArgumentParser(description='Deploy BIST DP-LSTM Trading System')
+    parser.add_argument('--target', choices=['local', 'railway'], default='local',
+                       help='Deployment target')
+    parser.add_argument('--setup-monitoring', action='store_true',
+                       help='Setup monitoring dashboards')
+    
+    args = parser.parse_args()
+    
+    if args.target == 'local':
+        deploy_local()
+    elif args.target == 'railway':
+        deploy_railway()
+    
+    if args.setup_monitoring:
+        setup_monitoring()
+
+if __name__ == "__main__":
+    main()
+```
+
+## ✅ COMPLETION CHECKLIST
+- [ ] FastAPI application with all endpoints implemented
+- [ ] Health check endpoint with component status
+- [ ] Signal generation and portfolio management APIs
+- [ ] Metrics collection system with background tasks
+- [ ] Performance monitoring for trades and predictions
+- [ ] System monitoring (CPU, memory, disk, network)
+- [ ] Alert system for threshold violations
+- [ ] Docker configuration for production deployment
+- [ ] docker-compose setup with all services
+- [ ] Deployment script for local and Railway deployment
+- [ ] Nginx reverse proxy configuration
+- [ ] Grafana dashboards for monitoring
+- [ ] Database migration scripts
+- [ ] SSL certificate configuration
+- [ ] Error handling and logging throughout
+
+## 🎯 SUCCESS CRITERIA
+- API responds with <200ms latency for most endpoints
+- Health check passes for all system components
+- Metrics collection runs without memory leaks
+- Docker deployment completes successfully
+- All services start and remain healthy
+- Monitoring dashboards display real-time data
+- Alert system triggers appropriately
+- System handles graceful shutdown
+
+## 🎉 FINAL STEPS
+1. Test complete system end-to-end
+2. Run performance benchmarks
+3. Verify privacy guarantees
+4. Document API usage examples
+5. Create user manual and troubleshooting guide
+
+Bu TODO dosyaları tamamlandığında, tam fonksiyonel bir BIST DP-LSTM trading sisteminiz hazır olacak! 🚀
+```# CURSOR IMPLEMENTATION TODO FILES
+# Bu dosyaları cursor projenizde ayrı ayrı dosyalar olarak oluşturun
+
+## 📁 TODO-00-QUICK-START.md
+
+```markdown
+# TODO 00: Quick Start Guide
+
+## 🚀 IMMEDIATE ACTIONS FOR CURSOR
+Bu dosyalar sırasıyla implementasyon için hazırlanmıştır. Her TODO dosyasını ayrı ayrı açıp Cursor'a verin.
+
+### 📋 Implementation Order:
+1. **TODO-01-PROJECT-SETUP.md** - Proje yapısı ve temel konfigürasyon
+2. **TODO-02-MATRIKS-INTEGRATION.md** - MatriksIQ API entegrasyonu  
+3. **TODO-03-SENTIMENT-ANALYSIS.md** - Türkçe sentiment analizi
+4. **TODO-04-DIFFERENTIAL-PRIVACY.md** - Gizlilik koruması
+5. **TODO-05-MODEL-ARCHITECTURE.md** - ML model mimarisi
+6. **TODO-06-TRADING-EXECUTION.md** - İşlem yürütme sistemi
+7. **TODO-07-MONITORING-DEPLOYMENT.md** - İzleme ve deployment
+
+### 🎯 Success Metrics:
+- Her TODO tamamlandığında testler geçmeli
+- Kod coverage >80% olmalı
+- Performance benchmarklar karşılanmalı
+
+### ⚠️ CRITICAL NOTES:
+- MatriksIQ API key'ini .env dosyasına ekle
+- PostgreSQL ve Redis servisleri ayakta olmalı
+- Python 3.9+ kullan
+- Virtual environment oluştur
+```
+
+---
+
+## 📁 TODO-01-PROJECT-SETUP.md
+
+```markdown
+# TODO 01: Project Structure & Environment Setup
+
+## 🎯 OBJECTIVE
+Complete project structure with all dependencies and configurations
+
+## ✅ TASKS
+
+### 1. Create Directory Structure
+```bash
+mkdir bist-dp-lstm-trading && cd bist-dp-lstm-trading
+git init
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate  # Windows
+
+# Create full directory structure
+mkdir -p src/{config,data/{collectors,processors,storage},models/{transformers,lstm,classical,ensemble},risk,execution,monitoring,api/{routes,middleware}}
+mkdir -p tests/{unit,integration,e2e}
+mkdir -p {notebooks,scripts,configs/{model_configs,data_configs,deployment_configs},docs}
+
+# Create all __init__.py files
+find src -type d -exec touch {}/__init__.py \;
+find tests -type d -exec touch {}/__init__.py \;
+```
+
+### 2. Core Configuration Files
+
+**requirements.txt:**
+```txt
+# Core ML/Data Science
+torch>=2.0.0
+transformers>=4.30.0
+scikit-learn>=1.3.0
+pandas>=2.0.0
+numpy>=1.24.0
+statsmodels>=0.14.0
+
+# Database & Storage  
+psycopg2-binary>=2.9.5
+sqlalchemy>=2.0.0
+redis>=4.5.0
+influxdb-client>=1.36.0
+
+# API & Web
+fastapi>=0.100.0
+uvicorn[standard]>=0.22.0
+pydantic>=2.0.0
+httpx>=0.24.0
+
+# Sentiment Analysis
+vaderSentiment>=3.3.2
+nltk>=3.8.1
+beautifulsoup4>=4.12.0
+
+# Privacy & Security
+opacus>=1.4.0
+cryptography>=41.0.0
+
+# Financial Analysis
+yfinance>=0.2.18
+ta>=0.10.2
+empyrical>=0.5.5
+
+# Development
+pytest>=7.4.0
+black>=23.7.0
+jupyter>=1.0.0
+```
+
+**pyproject.toml:**
+```toml
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bist-dp-lstm-trading"
+version = "0.1.0"
+description = "BIST Trading System with DP-LSTM"
+
+[tool.black]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=src"
+```
+
+**.env.example:**
+```env
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/bist_trading
+REDIS_URL=redis://localhost:6379
+
+# MatriksIQ API  
+MATRIKS_API_KEY=your_api_key_here
+MATRIKS_BASE_URL=https://api.matriks.com.tr/v1
+
+# Model Settings
+MODEL_REGISTRY_URI=sqlite:///models/mlflow.db
+DP_EPSILON=1.0
+DP_DELTA=1e-5
+
+# Trading
+PAPER_TRADING=true
+COMMISSION_RATE=0.001
+```
+
+**docker-compose.yml:**
+```yaml
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: bist_trading
+      POSTGRES_USER: postgres  
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  influxdb:
+    image: influxdb:2.7
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=market_data
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+
+volumes:
+  postgres_data:
+  influxdb_data:
+```
+
+### 3. Install & Test
+```bash
+pip install -r requirements.txt
+pip install -e .
+docker-compose up -d
+
+# Test installation
+python -c "import torch; print('PyTorch OK')"
+python -c "import pandas; print('Pandas OK')" 
+python -c "import psycopg2; print('PostgreSQL OK')"
+```
+
+## ✅ COMPLETION CHECKLIST
+- [ ] Project directory created with full structure
+- [ ] Virtual environment setup and activated  
+- [ ] All dependencies installed successfully
+- [ ] Docker services running (postgres, redis, influxdb)
+- [ ] Environment variables configured
+- [ ] Basic imports working without errors
+
+## 🎯 SUCCESS CRITERIA
+- All imports work: `python -c "import src.config; print('OK')"`
+- Database connection: `psql postgresql://postgres:password@localhost:5432/bist_trading`
+- Redis connection: `redis-cli ping` returns PONG
+
+## ➡️ NEXT: TODO-02-MATRIKS-INTEGRATION.md
+```
+
+---
+
+## 📁 TODO-02-MATRIKS-INTEGRATION.md  
+
+```markdown
+# TODO 02: MatriksIQ API Integration
+
+## 🎯 OBJECTIVE
+Complete MatriksIQ integration for real-time market data
+
+## ✅ IMPLEMENTATION TASKS
+
+### 1. MatriksIQ Data Collector
+
+**File: `src/data/collectors/matriks_collector.py`**
+
+```python
+import aiohttp
+import asyncio
+import pandas as pd
+from typing import Dict, List, Optional
+from datetime import datetime, timedelta
+import logging
+
+class MatriksCollector:
+    """MatriksIQ API client for BIST data"""
+    
+    def __init__(self, api_key: str, base_url: str):
+        self.api_key = api_key
+        self.base_url = base_url
+        self.session = None
+        self.logger = logging.getLogger(__name__)
+    
+    async def __aenter__(self):
+        """Async context manager entry"""
+        self.session = aiohttp.ClientSession(
+            headers={'Authorization': f'Bearer {self.api_key}'},
+            timeout=aiohttp.ClientTimeout(total=30)
+        )
+        return self
+    
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Async context manager exit"""
+        if self.session:
+            await self.session.close()
+    
+    async def get_symbols(self) -> List[Dict]:
+        """
+        Fetch all BIST symbols
+        
+        TODO IMPLEMENTATION:
+        1. Make GET request to /symbols endpoint
+        2. Filter for equity instruments only
+        3. Return list of dicts with: symbol, name, sector, market_cap
+        4. Add error handling for API failures
+        5. Add rate limiting (max 100 requests/minute)
+        """
+        try:
+            async with self.session.get(f'{self.base_url}/symbols') as response:
+                if response.status == 200:
+                    data = await response.json()
+                    # TODO: Filter and format symbol data
+                    symbols = []
+                    for item in data.get('symbols', []):
+                        if item.get('type') == 'equity':
+                            symbols.append({
+                                'symbol': item['symbol'],
+                                'name': item['name'],
+                                'sector': item.get('sector'),
+                                'market_cap': item.get('market_cap')
+                            })
+                    return symbols
+                else:
+                    self.logger.error(f"API Error: {response.status}")
+                    return []
+        except Exception as e:
+            self.logger.error(f"Failed to fetch symbols: {e}")
+            return []
+    
+    async def get_historical_data(self, symbol: str, period: str = "1d", 
+                                 start_date: str = None, end_date: str = None) -> pd.DataFrame:
+        """
+        Fetch historical OHLCV data
+        
+        TODO IMPLEMENTATION:
+        1. Construct API URL with parameters
+        2. Handle pagination for large datasets  
+        3. Convert response to pandas DataFrame
+        4. Add data validation (check for missing values)
+        5. Return standardized OHLCV format
+        """
+        params = {
+            'symbol': symbol,
+            'period': period,
+            'start_date': start_date,
+            'end_date': end_date
+        }
+        
+        try:
+            async with self.session.get(f'{self.base_url}/historical', params=params) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    # TODO: Convert to DataFrame and validate
+                    df = pd.DataFrame(data['data'])
+                    df['timestamp'] = pd.to_datetime(df['timestamp'])
+                    df.set_index('timestamp', inplace=True)
+                    return df[['open', 'high', 'low', 'close', 'volume']]
+                else:
+                    return pd.DataFrame()
+        except Exception as e:
+            self.logger.error(f"Failed to fetch historical data for {symbol}: {e}")
+            return pd.DataFrame()
+    
+    async def get_real_time_quote(self, symbol: str) -> Dict:
+        """
+        Get current quote
+        
+        TODO IMPLEMENTATION:
+        1. Make real-time quote request
+        2. Return current price, bid/ask, volume
+        3. Add market status check (open/closed)
+        4. Handle market holidays and weekends
+        """
+        try:
+            async with self.session.get(f'{self.base_url}/quote/{symbol}') as response:
+                if response.status == 200:
+                    return await response.json()
+                return {}
+        except Exception as e:
+            self.logger.error(f"Failed to get quote for {symbol}: {e}")
+            return {}
+
+# TODO: Implement WebSocket client for real-time streaming
+class MatriksWebSocketClient:
+    """Real-time data streaming via WebSocket"""
+    
+    def __init__(self, ws_url: str, api_key: str):
+        self.ws_url = ws_url
+        self.api_key = api_key
+        self.websocket = None
+        self.subscriptions = set()
+    
+    async def connect(self):
+        """
+        TODO IMPLEMENTATION:
+        1. Establish WebSocket connection
+        2. Send authentication message
+        3. Handle connection confirmation
+        4. Setup reconnection logic
+        """
+        pass
+    
+    async def subscribe_symbols(self, symbols: List[str]):
+        """
+        TODO IMPLEMENTATION:
+        1. Send subscription messages for symbols
+        2. Track subscription status
+        3. Handle subscription confirmations
+        4. Batch multiple subscriptions
+        """
+        pass
+    
+    async def start_streaming(self, callback_func):
+        """
+        TODO IMPLEMENTATION:
+        1. Start receiving real-time messages
+        2. Parse incoming data
+        3. Call callback function for each update
+        4. Handle connection drops and reconnect
+        5. Implement heartbeat mechanism
+        """
+        pass
+
+# TODO: Add usage example
+async def example_usage():
+    """Example of how to use MatriksCollector"""
+    async with MatriksCollector('your_api_key', 'https://api.matriks.com.tr/v1') as client:
+        symbols = await client.get_symbols()
+        print(f"Found {len(symbols)} symbols")
+        
+        if symbols:
+            # Get historical data for first symbol
+            historical = await client.get_historical_data(symbols[0]['symbol'])
+            print(f"Historical data shape: {historical.shape}")
+```
+
+### 2. Database Schema
+
+**File: `src/data/storage/schemas.py`**
+
+```python
+from sqlalchemy import Column, Integer, Float, String, DateTime, Index
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
+
+Base = declarative_base()
+
+class MarketData(Base):
+    """Market data storage optimized for time-series queries"""
+    __tablename__ = 'market_data'
+    
+    id = Column(Integer, primary_key=True)
+    symbol = Column(String(10), nullable=False, index=True)
+    timestamp = Column(DateTime, nullable=False, index=True) 
+    open = Column(Float, nullable=False)
+    high = Column(Float, nullable=False)
+    low = Column(Float, nullable=False)
+    close = Column(Float, nullable=False)
+    volume = Column(Float, nullable=False)
+    timeframe = Column(String(5), nullable=False)  # 1m, 5m, 1d, etc.
+    source = Column(String(20), default='matriks')
+    
+    # Composite indexes for performance
+    __table_args__ = (
+        Index('ix_symbol_timestamp', 'symbol', 'timestamp'),
+        Index('ix_timestamp_timeframe', 'timestamp', 'timeframe'),
+    )
+
+class NewsData(Base):
+    """News articles with sentiment analysis"""
+    __tablename__ = 'news_data'
+    
+    id = Column(Integer, primary_key=True)
+    title = Column(String(500), nullable=False)
+    content = Column(String, nullable=True)
+    source = Column(String(100), nullable=False)
+    url = Column(String(500), nullable=True)
+    timestamp = Column(DateTime, nullable=False, index=True)
+    symbols = Column(String(200))  # Comma-separated ticker symbols
+    
+    # Sentiment scores (will be populated by sentiment processor)
+    compound_score = Column(Float, nullable=True)
+    positive_score = Column(Float, nullable=True)
+    negative_score = Column(Float, nullable=True)
+    neutral_score = Column(Float, nullable=True)
+
+# TODO: Create database migration script
+# TODO: Add connection pooling configuration
+# TODO: Add data retention policies
+```
+
+### 3. Configuration Management
+
+**File: `src/config/settings.py`**
+
+```python
+from pydantic import BaseSettings
+from typing import Optional
+
+class Settings(BaseSettings):
+    """Application settings with environment variable support"""
+    
+    # Database
+    database_url: str
+    redis_url: str
+    
+    # MatriksIQ API
+    matriks_api_key: str
+    matriks_base_url: str = "https://api.matriks.com.tr/v1"
+    matriks_ws_url: str = "wss://ws.matriks.com.tr"
+    
+    # Model settings
+    model_registry_uri: str = "sqlite:///models/mlflow.db"
+    dp_epsilon: float = 1.0
+    dp_delta: float = 1e-5
+    
+    # Trading settings
+    paper_trading: bool = True
+    commission_rate: float = 0.001
+    
+    class Config:
+        env_file = ".env"
+
+settings = Settings()
+```
+
+## ✅ COMPLETION CHECKLIST
+- [ ] MatriksCollector class implemented with all methods
+- [ ] WebSocket client structure created  
+- [ ] Database schemas defined
+- [ ] Configuration management setup
+- [ ] Error handling and logging added
+- [ ] Connection pooling configured
+- [ ] Unit tests for API calls written
+
+## 🎯 SUCCESS CRITERIA
+- API connection successful: `client.get_symbols()` returns data
+- Database connection working: tables created without errors
+- WebSocket connection established (if available)
+- Error handling works: graceful failure with invalid API key
+
+## ➡️ NEXT: TODO-03-SENTIMENT-ANALYSIS.md
+```
+
+---
+
+## 📁 TODO-03-SENTIMENT-ANALYSIS.md
+
+```markdown
+# TODO 03: Sentiment Analysis Pipeline
+
+## 🎯 OBJECTIVE
+Turkish financial news sentiment analysis with VADER and entity extraction
+
+## ✅ IMPLEMENTATION TASKS
+
+### 1. Turkish VADER Implementation
+
+**File: `src/data/processors/sentiment_processor.py`**
+
+```python
+from vaderSentiment import SentimentIntensityAnalyzer
+import re
+import nltk
+from typing import Dict, List
+import pandas as pd
+
+class TurkishFinancialVADER:
+    """VADER sentiment analyzer adapted for Turkish financial news"""
+    
+    def __init__(self):
+        self.analyzer = SentimentIntensityAnalyzer()
+        self._add_turkish_lexicon()
+        self._add_financial_terms()
+    
+    def _add_turkish_lexicon(self):
+        """
+        TODO IMPLEMENTATION:
+        Add Turkish sentiment words to VADER lexicon
+        
+        Positive terms with scores:
+        - 'yükseliş': 2.0, 'artış': 1.5, 'büyüme': 1.8, 'kâr': 2.2
+        - 'başarı': 1.6, 'rekor': 2.1, 'olumlu': 1.4, 'güçlü': 1.7
+        
+        Negative terms with scores:  
+        - 'düşüş': -2.0, 'kayıp': -1.8, 'zarar': -2.2, 'kriz': -2.5
+        - 'olumsuz': -1.4, 'risk': -1.2, 'endişe': -1.6, 'zayıf': -1.5
+        
+        Boosters and diminishers:
+        - 'çok': 0.293, 'oldukça': 0.293, 'son derece': 0.525
+        - 'biraz': -0.293, 'az': -0.293
+        """
+        turkish_lexicon = {
+            # Positive financial terms
+            'yükseliş': 2.0, 'artış': 1.5, 'büyüme': 1.8, 'kâr': 2.2,
+            'başarı': 1.6, 'rekor': 2.1, 'olumlu': 1.4, 'güçlü': 1.7,
+            'iyileşme': 1.5, 'toparlanma': 1.6, 'canlanma': 1.4,
+            
+            # Negative financial terms
+            'düşüş': -2.0, 'kayıp': -1.8, 'zarar': -2.2, 'kriz': -2.5,
+            'olumsuz': -1.4, 'risk': -1.2, 'endişe': -1.6, 'zayıf': -1.5,
+            'gerileme': -1.7, 'daralmA': -1.6, 'baskı': -1.3,
+            
+            # Intensifiers  
+            'çok': 0.293, 'oldukça': 0.293, 'son derece': 0.525,
+            'oldukça': 0.293, 'fevkalade': 0.525,
+            
+            # Diminishers
+            'biraz': -0.293, 'az': -0.293, 'kısmen': -0.293
+        }
+        
+        for word, score in turkish_lexicon.items():
+            self.analyzer.lexicon[word] = score
+    
+    def _add_financial_terms(self):
+        """
+        TODO IMPLEMENTATION:
+        Add financial domain-specific terms
+        
+        Company performance terms:
+        - 'gelir': 1.2, 'hasılat': 1.2, 'cirO': 1.1
+        - 'maliyet': -0.8, 'gider': -0.8
+        
+        Market terms:
+        - 'boğa': 1.5, 'ayı': -1.5, 'rallI': 1.8, 'satış': -1.2
+        """
+        financial_terms = {
+            # Performance indicators
+            'gelir': 1.2, 'hasılat': 1.2, 'ciro': 1.1, 'kar': 2.2,
+            'maliyet': -0.8, 'gider': -0.8, 'borç': -1.5,
+            
+            # Market sentiment
+            'boğa': 1.5, 'ayı': -1.5, 'ralli': 1.8, 'satış': -1.2,
+            'alım': 1.2, 'yatırım': 1.0, 'spekulasyon': -0.5,
+            
+            # Economic indicators
+            'enflasyon': -1.8, 'deflasyon': -1.5, 'stagflasyon': -2.2,
+            'büyüme': 1.8, 'daralma': -1.7, 'resesyon': -2.5
+        }
+        
+        for word, score in financial_terms.items():
+            self.analyzer.lexicon[word] = score
+    
+    def preprocess_text(self, text: str) -> str:
+        """
+        TODO IMPLEMENTATION:
+        Preprocess Turkish text for sentiment analysis
+        
+        1. Convert to lowercase
+        2. Handle Turkish characters properly
+        3. Remove excessive punctuation  
+        4. Normalize financial abbreviations (TL, USD, EUR)
+        5. Handle company ticker symbols
+        """
+        if not text:
+            return ""
+        
+        # Convert to lowercase
+        text = text.lower()
+        
+        # Normalize Turkish characters if needed
+        turkish_chars = {
+            'ı': 'i', 'ş': 's', 'ğ': 'g', 'ü': 'u', 'ö': 'o', 'ç': 'c'
+        }
+        
+        # Remove excessive punctuation
+        text = re.sub(r'[!]{2,}', '!', text)
+        text = re.sub(r'[?]{2,}', '?', text)
+        text = re.sub(r'[.]{3,}', '...', text)
+        
+        # Normalize financial abbreviations
+        text = re.sub(r'\btl\b', 'türk lirası', text)
+        text = re.sub(r'\busd\b', 'dolar', text) 
+        text = re.sub(r'\beur\b', 'euro', text)
+        
+        return text
+    
+    def analyze_sentiment(self, text: str) -> Dict[str, float]:
+        """
+        TODO IMPLEMENTATION:
+        Analyze sentiment with confidence scores
+        
+        Return format:
+        {
+            'compound': float,     # Overall sentiment [-1, 1]
+            'positive': float,     # Positive score [0, 1]  
+            'negative': float,     # Negative score [0, 1]
+            'neutral': float,      # Neutral score [0, 1]
+            'confidence': float    # Confidence in prediction [0, 1]
+        }
+        """
+        if not text:
+            return {'compound': 0.0, 'positive': 0.0, 'negative': 0.0, 'neutral': 1.0, 'confidence': 0.0}
+        
+        # Preprocess text
+        processed_text = self.preprocess_text(text)
+        
+        # Get VADER scores
+        scores = self.analyzer.polarity_scores(processed_text)
+        
+        # Calculate confidence based on score magnitude
+        confidence = abs(scores['compound'])
+        
+        return {
+            'compound': scores['compound'],
+            'positive': scores['pos'], 
+            'negative': scores['neg'],
+            'neutral': scores['neu'],
+            'confidence': confidence
+        }
+
+class EntityExtractor:
+    """Extract company names and financial entities from Turkish news"""
+    
+    def __init__(self):
+        """
+        TODO IMPLEMENTATION:
+        Initialize entity extraction components
+        
+        1. Load BIST company name mappings  
+        2. Create regex patterns for company detection
+        3. Load financial term dictionaries
+        4. Setup fuzzy matching for company names
+        """
+        # BIST company mappings (symbol -> company names)
+        self.company_mappings = {
+            'AKBNK': ['akbank', 'ak bank', 'akbank t.a.ş.'],
+            'GARAN': ['garanti', 'garanti bankası', 'garanti bbva'],
+            'ISCTR': ['işbank', 'iş bankası', 'türkiye iş bankası'],
+            'YKBNK': ['yapı kredi', 'yapı kredi bankası'],
+            'TUPRS': ['tüpraş', 'türkiye petrol rafinerileri'],
+            'BIMAS': ['bim', 'bim birleşik mağazalar']
+            # TODO: Add all BIST companies
+        }
+        
+        # Compile regex patterns
+        self._compile_patterns()
+    
+    def _compile_patterns(self):
+        """
+        TODO IMPLEMENTATION:
+        Compile regex patterns for entity detection
+        """
+        self.patterns = {}
+        for symbol, names in self.company_mappings.items():
+            pattern = '|'.join([re.escape(name) for name in names])
+            self.patterns[symbol] = re.compile(f'({pattern})', re.IGNORECASE)
+    
+    def extract_companies(self, text: str) -> List[Dict]:
+        """
+        TODO IMPLEMENTATION:
+        Extract company mentions from text
+        
+        Return format:
+        [
+            {
+                'symbol': 'AKBNK',
+                'name': 'akbank', 
+                'mentions': 2,
+                'confidence': 0.95,
+                'positions': [(10, 16), (45, 51)]
+            }
+        ]
+        """
+        companies = []
+        
+        if not text:
+            return companies
+        
+        text_lower = text.lower()
+        
+        for symbol, pattern in self.patterns.items():
+            matches = pattern.finditer(text_lower)
+            match_positions = []
+            
+            for match in matches:
+                match_positions.append((match.start(), match.end()))
+            
+            if match_positions:
+                companies.append({
+                    'symbol': symbol,
+                    'name': match_positions[0],  # First match
+                    'mentions': len(match_positions),
+                    'confidence': 0.9,  # High confidence for exact matches
+                    'positions': match_positions
+                })
+        
+        return companies
+
+class NewsProcessor:
+    """Main news processing pipeline"""
+    
+    def __init__(self):
+        self.sentiment_analyzer = TurkishFinancialVADER()
+        self.entity_extractor = EntityExtractor()
+    
+    def process_article(self, article: Dict) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Process single news article
+        
+        Input:
+        {
+            'title': str,
+            'content': str,
+            'source': str, 
+            'timestamp': datetime,
+            'url': str
+        }
+        
+        Output:
+        {
+            'sentiment': Dict,           # Sentiment scores
+            'entities': List[Dict],      # Extracted companies
+            'processed_text': str,       # Clean text
+            'source_credibility': float, # Source reliability score
+            'article_quality': float     # Article quality score
+        }
+        """
+        # Combine title and content
+        full_text = f"{article.get('title', '')} {article.get('content', '')}"
+        
+        # Analyze sentiment
+        sentiment = self.sentiment_analyzer.analyze_sentiment(full_text)
+        
+        # Extract entities
+        entities = self.entity_extractor.extract_companies(full_text)
+        
+        # Calculate source credibility
+        source_credibility = self._calculate_source_credibility(article.get('source', ''))
+        
+        # Calculate article quality (length, completeness, etc.)
+        article_quality = self._calculate_article_quality(article)
+        
+        return {
+            'sentiment': sentiment,
+            'entities': entities,
+            'processed_text': self.sentiment_analyzer.preprocess_text(full_text),
+            'source_credibility': source_credibility,
+            'article_quality': article_quality
+        }
+    
+    def _calculate_source_credibility(self, source: str) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Calculate source credibility score
+        
+        Official sources (KAP): 1.0
+        Major news (AA, Reuters): 0.9  
+        Financial media: 0.8
+        General media: 0.6
+        Social media: 0.3
+        """
+        source_lower = source.lower()
+        
+        if any(official in source_lower for official in ['kap', 'spk', 'tcmb', 'merkez bankası']):
+            return 1.0
+        elif any(major in source_lower for major in ['anadolu ajansı', 'reuters', 'bloomberg']):
+            return 0.9
+        elif any(financial in source_lower for financial in ['dünya', 'para', 'ekonomist']):
+            return 0.8
+        elif any(general in source_lower for general in ['milliyet', 'hürriyet', 'sabah']):
+            return 0.6
+        elif any(social in source_lower for social in ['twitter', 'facebook', 'instagram']):
+            return 0.3
+        else:
+            return 0.5  # Unknown source
+    
+    def _calculate_article_quality(self, article: Dict) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Calculate article quality based on completeness and length
+        """
+        quality_score = 0.0
+        
+        # Check title exists and length
+        if article.get('title'):
+            title_len = len(article['title'])
+            quality_score += 0.3 if title_len > 20 else 0.1
+        
+        # Check content exists and length  
+        if article.get('content'):
+            content_len = len(article['content'])
+            if content_len > 500:
+                quality_score += 0.5
+            elif content_len > 200:
+                quality_score += 0.3
+            else:
+                quality_score += 0.1
+        
+        # Check URL exists
+        if article.get('url'):
+            quality_score += 0.2
+        
+        return min(quality_score, 1.0)
+
+# TODO: Add batch processing capabilities
+# TODO: Add caching for expensive operations  
+# TODO: Add multilingual support (English financial news)
+```
+
+## ✅ COMPLETION CHECKLIST
+- [ ] TurkishFinancialVADER class with custom lexicon
+- [ ] EntityExtractor for company name detection
+- [ ] NewsProcessor main pipeline
+- [ ] Turkish text preprocessing
+- [ ] Source credibility scoring
+- [ ] Article quality assessment
+- [ ] Unit tests for sentiment analysis
+- [ ] Performance benchmarks (>100 articles/minute)
+
+## 🎯 SUCCESS CRITERIA
+- Sentiment analysis accuracy >80% on test set
+- Company entity extraction >90% accuracy
+- Processing speed >100 articles/minute
+- Turkish character handling works correctly
+
+## ➡️ NEXT: TODO-04-DIFFERENTIAL-PRIVACY.md
+```
+
+---
+
+## 📁 TODO-04-DIFFERENTIAL-PRIVACY.md
+
+```markdown
+# TODO 04: Differential Privacy Implementation
+
+## 🎯 OBJECTIVE
+Implement differential privacy for sentiment data with adaptive noise
+
+## ✅ IMPLEMENTATION TASKS
+
+### 1. Core DP Mechanisms
+
+**File: `src/data/processors/dp_processor.py`**
+
+```python
+import numpy as np
+from typing import Dict, List, Tuple
+from dataclasses import dataclass
+import logging
+from scipy import stats
+
+@dataclass
+class PrivacyBudget:
+    """Track privacy budget consumption"""
+    epsilon: float
+    delta: float
+    consumed_epsilon: float = 0.0
+    query_count: int = 0
+    max_queries: int = 1000
+    
+    def can_answer_query(self, required_epsilon: float) -> bool:
+        """Check if we have enough budget for query"""
+        return (self.consumed_epsilon + required_epsilon <= self.epsilon and 
+                self.query_count < self.max_queries)
+    
+    def consume_budget(self, used_epsilon: float) -> bool:
+        """Consume privacy budget for query"""
+        if self.can_answer_query(used_epsilon):
+            self.consumed_epsilon += used_epsilon
+            self.query_count += 1
+            return True
+        return False
+    
+    def remaining_budget(self) -> float:
+        """Get remaining privacy budget"""
+        return self.epsilon - self.consumed_epsilon
+
+class GaussianMechanism:
+    """Gaussian noise mechanism for differential privacy"""
+    
+    def __init__(self, epsilon: float, delta: float, sensitivity: float = 1.0):
+        self.epsilon = epsilon
+        self.delta = delta  
+        self.sensitivity = sensitivity
+        self.sigma = self._calculate_sigma()
+        self.logger = logging.getLogger(__name__)
+    
+    def _calculate_sigma(self) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Calculate noise standard deviation for Gaussian mechanism
+        
+        Formula: σ = sqrt(2 * ln(1.25/δ)) * Δ / ε
+        where Δ is sensitivity, ε is epsilon, δ is delta
+        """
+        if self.epsilon <= 0 or self.delta <= 0:
+            raise ValueError("Epsilon and delta must be positive")
+        
+        # Gaussian mechanism formula
+        sigma = np.sqrt(2 * np.log(1.25 / self.delta)) * self.sensitivity / self.epsilon
+        
+        self.logger.info(f"Calculated sigma: {sigma:.6f} for ε={self.epsilon}, δ={self.delta}")
+        return sigma
+    
+    def add_noise(self, true_value: float) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Add calibrated Gaussian noise to single value
+        
+        1. Generate Gaussian noise with calculated sigma
+        2. Add to true value
+        3. Return noisy result
+        """
+        noise = np.random.normal(0, self.sigma)
+        noisy_value = true_value + noise
+        
+        self.logger.debug(f"Added noise {noise:.6f} to value {true_value:.6f} -> {noisy_value:.6f}")
+        return noisy_value
+    
+    def add_noise_vector(self, true_vector: np.ndarray) -> np.ndarray:
+        """
+        TODO IMPLEMENTATION:
+        Add noise to vector of values
+        
+        1. Generate noise vector with same shape
+        2. Add element-wise to true vector
+        3. Return noisy vector
+        """
+        noise_vector = np.random.normal(0, self.sigma, size=true_vector.shape)
+        noisy_vector = true_vector + noise_vector
+        
+        self.logger.debug(f"Added noise to vector of shape {true_vector.shape}")
+        return noisy_vector
+
+class AdaptiveNoiseCalibrator:
+    """Calibrate noise based on source credibility and temporal factors"""
+    
+    def __init__(self):
+        """
+        TODO IMPLEMENTATION:
+        Initialize credibility mappings and temporal weights
+        """
+        # Source credibility scores (higher = more credible = less noise needed)
+        self.source_credibility = {
+            'kap': 1.0,           # Official disclosures
+            'tcmb': 1.0,          # Central bank
+            'spk': 1.0,           # Capital markets board
+            'aa': 0.9,            # National news agency
+            'reuters': 0.9,       # International news
+            'bloomberg': 0.9,     # Financial news
+            'dünya': 0.8,         # Financial newspaper
+            'para': 0.8,          # Financial magazine
+            'milliyet': 0.6,      # General newspaper
+            'hürriyet': 0.6,      # General newspaper
+            'twitter': 0.3,       # Social media
+            'facebook': 0.3,      # Social media
+            'unknown': 0.5        # Unknown sources
+        }
+        
+        # Temporal decay weights (recent news more important)
+        self.temporal_weights = {
+            'hour_0_1': 1.0,      # Last hour
+            'hour_1_6': 0.9,      # Last 6 hours  
+            'hour_6_24': 0.7,     # Last day
+            'day_1_7': 0.5,       # Last week
+            'day_7_30': 0.3,      # Last month
+            'day_30_plus': 0.1    # Older than month
+        }
+    
+    def get_source_weight(self, source: str) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Get credibility weight for news source
+        """
+        source_lower = source.lower()
+        for key, weight in self.source_credibility.items():
+            if key in source_lower:
+                return weight
+        return self.source_credibility['unknown']
+    
+    def get_temporal_weight(self, hours_ago: float) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Get temporal weight based on news age
+        """
+        if hours_ago <= 1:
+            return self.temporal_weights['hour_0_1']
+        elif hours_ago <= 6:
+            return self.temporal_weights['hour_1_6']
+        elif hours_ago <= 24:
+            return self.temporal_weights['hour_6_24']
+        elif hours_ago <= 168:  # 7 days
+            return self.temporal_weights['day_1_7']
+        elif hours_ago <= 720:  # 30 days
+            return self.temporal_weights['day_7_30']
+        else:
+            return self.temporal_weights['day_30_plus']
+    
+    def calculate_adaptive_sigma(self, base_sigma: float, source_weight: float, 
+                                temporal_weight: float) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Calculate adaptive noise standard deviation
+        
+        Formula: σ_adaptive = σ_base * adjustment_factor
+        where adjustment_factor = (2 - source_weight) * (2 - temporal_weight) / 4
+        
+        Higher source credibility → lower noise
+        More recent news → lower noise
+        """
+        # Calculate adjustment factor (ranges from ~0.25 to 2.25)
+        source_factor = (2 - source_weight)
+        temporal_factor = (2 - temporal_weight)
+        adjustment_factor = (source_factor * temporal_factor) / 4
+        
+        adaptive_sigma = base_sigma * adjustment_factor
+        
+        return adaptive_sigma
+
+class DifferentialPrivacySentimentProcessor:
+    """Main DP processor for sentiment data"""
+    
+    def __init__(self, epsilon: float = 1.0, delta: float = 1e-5):
+        """
+        TODO IMPLEMENTATION:
+        Initialize DP sentiment processor
+        """
+        self.privacy_budget = PrivacyBudget(epsilon, delta)
+        self.noise_calibrator = AdaptiveNoiseCalibrator()
+        self.base_mechanism = GaussianMechanism(epsilon, delta)
+        self.logger = logging.getLogger(__name__)
+        
+        # Track privacy usage
+        self.privacy_log = []
+    
+    def process_sentiment_batch(self, sentiment_data: List[Dict]) -> List[Dict]:
+        """
+        TODO IMPLEMENTATION:
+        Apply differential privacy to batch of sentiment scores
+        
+        Input format per item:
+        {
+            'compound': float,      # [-1, 1]
+            'positive': float,      # [0, 1] 
+            'negative': float,      # [0, 1]
+            'neutral': float,       # [0, 1]
+            'source': str,          # News source
+            'hours_ago': float,     # Hours since publication
+            'entity': str           # Company symbol
+        }
+        
+        Processing steps:
+        1. Check privacy budget
+        2. Calculate adaptive noise for each item
+        3. Add calibrated noise to sentiment scores
+        4. Validate scores remain in valid ranges
+        5. Update privacy budget
+        6. Log privacy usage
+        """
+        if not sentiment_data:
+            return []
+        
+        # Check if we have enough privacy budget
+        required_epsilon = self.privacy_budget.epsilon / len(sentiment_data)
+        if not self.privacy_budget.can_answer_query(required_epsilon * len(sentiment_data)):
+            self.logger.warning("Insufficient privacy budget for batch")
+            return []
+        
+        processed_data = []
+        
+        for item in sentiment_data:
+            # Get source and temporal weights
+            source_weight = self.noise_calibrator.get_source_weight(item.get('source', 'unknown'))
+            temporal_weight = self.noise_calibrator.get_temporal_weight(item.get('hours_ago', 24))
+            
+            # Calculate adaptive noise level
+            adaptive_sigma = self.noise_calibrator.calculate_adaptive_sigma(
+                self.base_mechanism.sigma, source_weight, temporal_weight
+            )
+            
+            # Create adaptive mechanism
+            adaptive_mechanism = GaussianMechanism(
+                epsilon=self.privacy_budget.epsilon / len(sentiment_data),
+                delta=self.privacy_budget.delta / len(sentiment_data),
+                sensitivity=1.0
+            )
+            adaptive_mechanism.sigma = adaptive_sigma
+            
+            # Add noise to sentiment scores
+            noisy_compound = adaptive_mechanism.add_noise(item['compound'])
+            noisy_positive = adaptive_mechanism.add_noise(item['positive'])
+            noisy_negative = adaptive_mechanism.add_noise(item['negative']) 
+            noisy_neutral = adaptive_mechanism.add_noise(item['neutral'])
+            
+            # Clip values to valid ranges and normalize
+            noisy_compound = np.clip(noisy_compound, -1.0, 1.0)
+            noisy_positive = np.clip(noisy_positive, 0.0, 1.0)
+            noisy_negative = np.clip(noisy_negative, 0.0, 1.0)
+            noisy_neutral = np.clip(noisy_neutral, 0.0, 1.0)
+            
+            # Normalize pos/neg/neu to sum to 1
+            total = noisy_positive + noisy_negative + noisy_neutral
+            if total > 0:
+                noisy_positive /= total
+                noisy_negative /= total
+                noisy_neutral /= total
+            
+            # Create processed item
+            processed_item = {
+                'compound': noisy_compound,
+                'positive': noisy_positive,
+                'negative': noisy_negative,
+                'neutral': noisy_neutral,
+                'source': item['source'],
+                'entity': item['entity'],
+                'source_weight': source_weight,
+                'temporal_weight': temporal_weight,
+                'noise_sigma': adaptive_sigma,
+                'privacy_cost': required_epsilon
+            }
+            
+            processed_data.append(processed_item)
+        
+        # Update privacy budget
+        total_epsilon_used = required_epsilon * len(sentiment_data)
+        self.privacy_budget.consume_budget(total_epsilon_used)
+        
+        # Log privacy usage
+        self.privacy_log.append({
+            'timestamp': np.datetime64('now'),
+            'items_processed': len(sentiment_data),
+            'epsilon_used': total_epsilon_used,
+            'remaining_budget': self.privacy_budget.remaining_budget()
+        })
+        
+        self.logger.info(f"Processed {len(sentiment_data)} items with DP. "
+                        f"Remaining budget: {self.privacy_budget.remaining_budget():.6f}")
+        
+        return processed_data
+    
+    def validate_privacy_guarantees(self, original_data: List[Dict], 
+                                   noisy_data: List[Dict]) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Validate differential privacy guarantees
+        
+        Tests:
+        1. Noise magnitude is sufficient
+        2. No exact value reconstruction possible
+        3. Statistical properties preserved approximately  
+        4. Privacy budget properly consumed
+        """
+        if len(original_data) != len(noisy_data):
+            return {'valid': False, 'reason': 'Data length mismatch'}
+        
+        validation_results = {
+            'valid': True,
+            'noise_sufficiency': True,
+            'budget_tracking': True,
+            'statistical_preservation': True,
+            'details': {}
+        }
+        
+        # Check noise magnitude
+        compound_diffs = []
+        for orig, noisy in zip(original_data, noisy_data):
+            diff = abs(orig['compound'] - noisy['compound'])
+            compound_diffs.append(diff)
+        
+        avg_noise = np.mean(compound_diffs)
+        min_expected_noise = self.base_mechanism.sigma * 0.5
+        
+        validation_results['details']['avg_noise'] = avg_noise
+        validation_results['details']['min_expected_noise'] = min_expected_noise
+        
+        if avg_noise < min_expected_noise:
+            validation_results['noise_sufficiency'] = False
+            validation_results['valid'] = False
+        
+        # Check budget tracking
+        if self.privacy_budget.consumed_epsilon > self.privacy_budget.epsilon:
+            validation_results['budget_tracking'] = False
+            validation_results['valid'] = False
+        
+        return validation_results
+
+class PrivacyAuditor:
+    """Audit privacy usage and generate reports"""
+    
+    def __init__(self, dp_processor: DifferentialPrivacySentimentProcessor):
+        self.dp_processor = dp_processor
+        self.logger = logging.getLogger(__name__)
+    
+    def generate_privacy_report(self) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Generate comprehensive privacy audit report
+        
+        Report includes:
+        - Current budget status
+        - Historical usage patterns
+        - Privacy guarantee validation
+        - Recommendations for budget management
+        """
+        budget = self.dp_processor.privacy_budget
+        
+        report = {
+            'timestamp': str(np.datetime64('now')),
+            'budget_status': {
+                'total_epsilon': budget.epsilon,
+                'consumed_epsilon': budget.consumed_epsilon,
+                'remaining_epsilon': budget.remaining_budget(),
+                'utilization_rate': budget.consumed_epsilon / budget.epsilon,
+                'queries_made': budget.query_count,
+                'queries_remaining': budget.max_queries - budget.query_count
+            },
+            'usage_history': self.dp_processor.privacy_log[-10:],  # Last 10 uses
+            'recommendations': []
+        }
+        
+        # Generate recommendations
+        if report['budget_status']['utilization_rate'] > 0.8:
+            report['recommendations'].append({
+                'priority': 'high',
+                'message': 'Privacy budget nearly exhausted. Consider increasing epsilon or reducing query frequency.'
+            })
+        
+        if report['budget_status']['utilization_rate'] > 0.5:
+            report['recommendations'].append({
+                'priority': 'medium', 
+                'message': 'Monitor privacy budget consumption closely.'
+            })
+        
+        return report
+
+# TODO: Add privacy-preserving aggregation functions
+class PrivateAggregator:
+    """Aggregate sentiment data with differential privacy"""
+    
+    def __init__(self, epsilon: float, delta: float):
+        self.epsilon = epsilon
+        self.delta = delta
+        self.mechanism = GaussianMechanism(epsilon, delta)
+    
+    def private_mean(self, values: List[float], clip_bound: float = 1.0) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Calculate differentially private mean
+        
+        1. Clip values to bounds [-clip_bound, clip_bound]
+        2. Calculate true mean
+        3. Add calibrated noise
+        4. Return noisy mean
+        """
+        # Clip values
+        clipped_values = [np.clip(v, -clip_bound, clip_bound) for v in values]
+        
+        # Calculate true mean
+        true_mean = np.mean(clipped_values)
+        
+        # Sensitivity is 2*clip_bound/n for mean
+        n = len(values)
+        sensitivity = 2 * clip_bound / n
+        
+        # Create mechanism with appropriate sensitivity
+        mean_mechanism = GaussianMechanism(self.epsilon, self.delta, sensitivity)
+        
+        # Add noise and return
+        return mean_mechanism.add_noise(true_mean)
+    
+    def private_count_above_threshold(self, values: List[float], threshold: float) -> int:
+        """
+        TODO IMPLEMENTATION:
+        Count values above threshold with differential privacy
+        """
+        true_count = sum(1 for v in values if v > threshold)
+        
+        # Sensitivity is 1 for counting queries
+        count_mechanism = GaussianMechanism(self.epsilon, self.delta, sensitivity=1.0)
+        
+        noisy_count = count_mechanism.add_noise(float(true_count))
+        
+        # Round and ensure non-negative
+        return max(0, int(round(noisy_count)))
+
+# Example usage
+def example_dp_usage():
+    """Example of how to use DP sentiment processor"""
+    # Initialize DP processor
+    dp_processor = DifferentialPrivacySentimentProcessor(epsilon=1.0, delta=1e-5)
+    
+    # Sample sentiment data
+    sentiment_data = [
+        {
+            'compound': 0.5,
+            'positive': 0.7,
+            'negative': 0.1,
+            'neutral': 0.2,
+            'source': 'reuters',
+            'hours_ago': 2.0,
+            'entity': 'AKBNK'
+        },
+        {
+            'compound': -0.3,
+            'positive': 0.2,
+            'negative': 0.6,
+            'neutral': 0.2,
+            'source': 'twitter',
+            'hours_ago': 0.5,
+            'entity': 'GARAN'
+        }
+    ]
+    
+    # Process with differential privacy
+    noisy_data = dp_processor.process_sentiment_batch(sentiment_data)
+    
+    # Generate privacy report
+    auditor = PrivacyAuditor(dp_processor)
+    report = auditor.generate_privacy_report()
+    
+    print(f"Processed {len(noisy_data)} items")
+    print(f"Remaining privacy budget: {report['budget_status']['remaining_epsilon']:.6f}")
+
+# TODO: Add parameter optimization for epsilon/delta
+# TODO: Add composition analysis for multiple queries
+# TODO: Add privacy-preserving feature engineering
+```
+
+## ✅ COMPLETION CHECKLIST
+- [ ] GaussianMechanism class implemented with proper sigma calculation
+- [ ] AdaptiveNoiseCalibrator for source-aware noise calibration
+- [ ] DifferentialPrivacySentimentProcessor main pipeline
+- [ ] PrivacyBudget tracking and management
+- [ ] Privacy validation and audit system
+- [ ] Adaptive noise based on source credibility and time
+- [ ] Private aggregation functions (mean, count)
+- [ ] Comprehensive logging and monitoring
+- [ ] Unit tests for all DP mechanisms
+- [ ] Privacy guarantee validation tests
+
+## 🎯 SUCCESS CRITERIA
+- Provable (ε,δ)-differential privacy guarantees
+- Adaptive noise reduces variance by 15-25% vs fixed noise
+- Privacy budget tracking accuracy >99%
+- Utility preservation: <10% degradation in model performance
+- Audit system generates actionable reports
+
+## ➡️ NEXT: TODO-05-MODEL-ARCHITECTURE.md
+```
+
+---
+
+## 📁 TODO-05-MODEL-ARCHITECTURE.md
+
+```markdown  
+# TODO 05: ML Model Architecture
+
+## 🎯 OBJECTIVE
+Implement DP-LSTM, Transformer, and ensemble models for financial prediction
+
+## ✅ IMPLEMENTATION TASKS
+
+### 1. DP-LSTM Implementation
+
+**File: `src/models/lstm/dp_lstm.py`**
+
+```python
+import torch
+import torch.nn as nn
+import numpy as np
+from typing import Dict, List, Tuple, Optional
+from opacus import PrivacyEngine
+from opacus.validators import ModuleValidator
+
+class DP_LSTM(nn.Module):
+    """Differentially Private LSTM for financial time series"""
+    
+    def __init__(self, config: Dict):
+        """
+        TODO IMPLEMENTATION:
+        Initialize DP-LSTM with privacy-compatible layers
+        
+        config = {
+            'input_size': int,        # Number of features
+            'hidden_size': int,       # LSTM hidden dimension  
+            'num_layers': int,        # Number of LSTM layers
+            'output_size': int,       # Number of outputs
+            'dropout': float,         # Dropout probability
+            'batch_first': bool       # Batch dimension first
+        }
+        """
+        super().__init__()
+        self.config = config
+        
+        # LSTM layers
+        self.lstm = nn.LSTM(
+            input_size=config['input_size'],
+            hidden_size=config['hidden_size'], 
+            num_layers=config['num_layers'],
+            dropout=config['dropout'] if config['num_layers'] > 1 else 0,
+            batch_first=config.get('batch_first', True)
+        )
+        
+        # Output projection
+        self.output_layer = nn.Sequential(
+            nn.Linear(config['hidden_size'], config['hidden_size'] // 2),
+            nn.ReLU(),
+            nn.Dropout(config['dropout']),
+            nn.Linear(config['hidden_size'] // 2, config['output_size'])
+        )
+        
+        # Layer normalization for stability
+        self.layer_norm = nn.LayerNorm(config['hidden_size'])
+        
+        # Initialize weights properly
+        self._init_weights()
+    
+    def _init_weights(self):
+        """
+        TODO IMPLEMENTATION:
+        Initialize weights for better training stability
+        """
+        for name, param in self.named_parameters():
+            if 'weight_ih' in name:
+                nn.init.xavier_uniform_(param.data)
+            elif 'weight_hh' in name:
+                nn.init.orthogonal_(param.data)
+            elif 'bias' in name:
+                param.data.fill_(0)
+    
+    def forward(self, x: torch.Tensor, hidden: Optional[Tuple] = None) -> Dict[str, torch.Tensor]:
+        """
+        TODO IMPLEMENTATION:
+        Forward pass through DP-LSTM
+        
+        Args:
+            x: Input tensor [batch_size, seq_len, input_size]
+            hidden: Optional hidden state tuple (h_0, c_0)
+            
+        Returns:
+            Dict containing:
+            - 'prediction': Final prediction
+            - 'hidden_states': All hidden states 
+            - 'final_hidden': Final hidden state tuple
+        """
+        batch_size = x.size(0)
+        
+        # LSTM forward pass
+        lstm_out, final_hidden = self.lstm(x, hidden)
+        
+        # Apply layer normalization
+        lstm_out = self.layer_norm(lstm_out)
+        
+        # Use last timestep for prediction
+        last_hidden = lstm_out[:, -1, :]  # [batch_size, hidden_size]
+        
+        # Generate prediction
+        prediction = self.output_layer(last_hidden)
+        
+        return {
+            'prediction': prediction,
+            'hidden_states': lstm_out,
+            'final_hidden': final_hidden
+        }
+
+class DP_LSTMTrainer:
+    """Trainer for DP-LSTM with Opacus integration"""
+    
+    def __init__(self, model: DP_LSTM, config: Dict):
+        """
+        TODO IMPLEMENTATION:
+        Initialize trainer with privacy engine
+        
+        config = {
+            'learning_rate': float,
+            'target_epsilon': float,    # Privacy budget
+            'target_delta': float,      # Privacy delta
+            'max_grad_norm': float,     # Gradient clipping
+            'batch_size': int,
+            'epochs': int
+        }
+        """
+        self.model = model
+        self.config = config
+        
+        # Validate model for DP training
+        self.model = ModuleValidator.fix(self.model)
+        
+        # Setup optimizer
+        self.optimizer = torch.optim.AdamW(
+            self.model.parameters(),
+            lr=config['learning_rate'],
+            weight_decay=1e-4
+        )
+        
+        # Setup privacy engine
+        self.privacy_engine = PrivacyEngine()
+        
+        # Make model, optimizer, and data loader private
+        self.model, self.optimizer, _ = self.privacy_engine.make_private_with_epsilon(
+            module=self.model,
+            optimizer=self.optimizer,
+            data_loader=None,  # Will be set during training
+            epochs=config['epochs'],
+            target_epsilon=config['target_epsilon'],
+            target_delta=config['target_delta'],
+            max_grad_norm=config['max_grad_norm']
+        )
+        
+        # Loss function
+        self.criterion = nn.MSELoss()
+        
+        # Training history
+        self.history = {'train_loss': [], 'val_loss': [], 'epsilon_spent': []}
+    
+    def train_epoch(self, train_loader, epoch: int) -> Dict[str, float]:
+        """
+        TODO IMPLEMENTATION:
+        Train for one epoch with differential privacy
+        
+        1. Set model to training mode
+        2. Iterate through batches
+        3. Forward pass and loss calculation
+        4. Backward pass with DP gradients
+        5. Track privacy budget consumption
+        6. Return epoch metrics
+        """
+        self.model.train()
+        total_loss = 0.0
+        num_batches = 0
+        
+        for batch_idx, (data, targets) in enumerate(train_loader):
+            # Zero gradients
+            self.optimizer.zero_grad()
+            
+            # Forward pass
+            outputs = self.model(data)
+            loss = self.criterion(outputs['prediction'], targets)
+            
+            # Backward pass with DP
+            loss.backward()
+            
+            # Optimizer step (includes DP noise injection)
+            self.optimizer.step()
+            
+            total_loss += loss.item()
+            num_batches += 1
+        
+        # Calculate privacy spent
+        epsilon_spent = self.privacy_engine.get_epsilon(self.config['target_delta'])
+        
+        # Store metrics
+        avg_loss = total_loss / num_batches
+        self.history['train_loss'].append(avg_loss)
+        self.history['epsilon_spent'].append(epsilon_spent)
+        
+        return {
+            'avg_loss': avg_loss,
+            'epsilon_spent': epsilon_spent,
+            'batches_processed': num_batches
+        }
+    
+    def validate_epoch(self, val_loader, epoch: int) -> Dict[str, float]:
+        """
+        TODO IMPLEMENTATION:
+        Validate model performance (no privacy needed for validation)
+        """
+        self.model.eval()
+        total_loss = 0.0
+        num_batches = 0
+        
+        with torch.no_grad():
+            for data, targets in val_loader:
+                outputs = self.model(data)
+                loss = self.criterion(outputs['prediction'], targets)
+                
+                total_loss += loss.item()
+                num_batches += 1
+        
+        avg_loss = total_loss / num_batches
+        self.history['val_loss'].append(avg_loss)
+        
+        return {'avg_loss': avg_loss}
+    
+    def fit(self, train_loader, val_loader, epochs: int) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Complete training loop with privacy tracking
+        """
+        best_val_loss = float('inf')
+        patience_counter = 0
+        patience = 10
+        
+        for epoch in range(epochs):
+            print(f"Epoch {epoch+1}/{epochs}")
+            
+            # Training
+            train_metrics = self.train_epoch(train_loader, epoch)
+            
+            # Validation
+            val_metrics = self.validate_epoch(val_loader, epoch)
+            
+            # Print progress
+            print(f"Train Loss: {train_metrics['avg_loss']:.4f}, "
+                  f"Val Loss: {val_metrics['avg_loss']:.4f}, "
+                  f"Privacy ε: {train_metrics['epsilon_spent']:.4f}")
+            
+            # Early stopping
+            if val_metrics['avg_loss'] < best_val_loss:
+                best_val_loss = val_metrics['avg_loss']
+                patience_counter = 0
+                # Save best model
+                torch.save(self.model.state_dict(), 'best_dp_lstm.pt')
+            else:
+                patience_counter += 1
+                if patience_counter >= patience:
+                    print(f"Early stopping at epoch {epoch+1}")
+                    break
+        
+        return {
+            'history': self.history,
+            'best_val_loss': best_val_loss,
+            'final_epsilon': train_metrics['epsilon_spent']
+        }
+
+# TODO: Multi-task DP-LSTM for multiple prediction targets
+class MultiTaskDP_LSTM(nn.Module):
+    """Multi-task DP-LSTM for predicting price, volume, volatility"""
+    
+    def __init__(self, config: Dict):
+        """
+        TODO IMPLEMENTATION:
+        Multi-task architecture with shared LSTM backbone
+        
+        Tasks:
+        - Price direction (classification)
+        - Price magnitude (regression)
+        - Volume prediction (regression)
+        - Volatility forecast (regression)
+        """
+        super().__init__()
+        self.config = config
+        
+        # Shared LSTM backbone
+        self.shared_lstm = nn.LSTM(
+            input_size=config['input_size'],
+            hidden_size=config['hidden_size'],
+            num_layers=config['num_layers'],
+            dropout=config['dropout'] if config['num_layers'] > 1 else 0,
+            batch_first=True
+        )
+        
+        # Task-specific heads
+        hidden_size = config['hidden_size']
+        
+        # Price direction (3 classes: up, down, flat)
+        self.direction_head = nn.Sequential(
+            nn.Linear(hidden_size, hidden_size // 2),
+            nn.ReLU(),
+            nn.Dropout(config['dropout']),
+            nn.Linear(hidden_size // 2, 3)
+        )
+        
+        # Price magnitude (regression)
+        self.magnitude_head = nn.Sequential(
+            nn.Linear(hidden_size, hidden_size // 2),
+            nn.ReLU(),
+            nn.Dropout(config['dropout']),
+            nn.Linear(hidden_size // 2, 1)
+        )
+        
+        # Volume prediction (regression)
+        self.volume_head = nn.Sequential(
+            nn.Linear(hidden_size, hidden_size // 2),
+            nn.ReLU(), 
+            nn.Dropout(config['dropout']),
+            nn.Linear(hidden_size // 2, 1)
+        )
+        
+        # Volatility forecast (regression)
+        self.volatility_head = nn.Sequential(
+            nn.Linear(hidden_size, hidden_size // 2),
+            nn.ReLU(),
+            nn.Dropout(config['dropout']),
+            nn.Linear(hidden_size // 2, 1)
+        )
+        
+        # Task weighting (learnable)
+        self.task_weights = nn.Parameter(torch.ones(4))
+    
+    def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
+        """
+        TODO IMPLEMENTATION:
+        Multi-task forward pass
+        """
+        # Shared LSTM processing
+        lstm_out, _ = self.shared_lstm(x)
+        shared_repr = lstm_out[:, -1, :]  # Last timestep
+        
+        # Task-specific predictions
+        direction_logits = self.direction_head(shared_repr)
+        magnitude_pred = self.magnitude_head(shared_repr)
+        volume_pred = self.volume_head(shared_repr)
+        volatility_pred = self.volatility_head(shared_repr)
+        
+        return {
+            'direction': direction_logits,
+            'magnitude': magnitude_pred,
+            'volume': volume_pred,
+            'volatility': volatility_pred,
+            'task_weights': self.task_weights
+        }
+    
+    def compute_multitask_loss(self, predictions: Dict, targets: Dict) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Multi-task loss with uncertainty weighting
+        """
+        # Individual task losses
+        direction_loss = nn.CrossEntropyLoss()(predictions['direction'], targets['direction'])
+        magnitude_loss = nn.MSELoss()(predictions['magnitude'], targets['magnitude'])
+        volume_loss = nn.MSELoss()(predictions['volume'], targets['volume'])
+        volatility_loss = nn.MSELoss()(predictions['volatility'], targets['volatility'])
+        
+        # Uncertainty weighting (homoscedastic uncertainty)
+        weighted_loss = (
+            torch.exp(-self.task_weights[0]) * direction_loss + self.task_weights[0] +
+            torch.exp(-self.task_weights[1]) * magnitude_loss + self.task_weights[1] +
+            torch.exp(-self.task_weights[2]) * volume_loss + self.task_weights[2] +
+            torch.exp(-self.task_weights[3]) * volatility_loss + self.task_weights[3]
+        ) / 2
+        
+        return {
+            'total_loss': weighted_loss,
+            'direction_loss': direction_loss.item(),
+            'magnitude_loss': magnitude_loss.item(),
+            'volume_loss': volume_loss.item(),
+            'volatility_loss': volatility_loss.item()
+        }
+
+# Example usage and testing
+def example_dp_lstm_usage():
+    """Example of how to use DP-LSTM"""
+    
+    # Model configuration
+    model_config = {
+        'input_size': 20,      # Number of features
+        'hidden_size': 128,    # LSTM hidden size
+        'num_layers': 2,       # Number of LSTM layers
+        'output_size': 1,      # Single output (price prediction)
+        'dropout': 0.2,        # Dropout rate
+        'batch_first': True
+    }
+    
+    # Training configuration
+    train_config = {
+        'learning_rate': 1e-3,
+        'target_epsilon': 1.0,      # Privacy budget
+        'target_delta': 1e-5,       # Privacy delta
+        'max_grad_norm': 1.0,       # Gradient clipping
+        'batch_size': 32,
+        'epochs': 100
+    }
+    
+    # Initialize model and trainer
+    model = DP_LSTM(model_config)
+    trainer = DP_LSTMTrainer(model, train_config)
+    
+    print(f"Model initialized with {sum(p.numel() for p in model.parameters())} parameters")
+    print(f"Privacy budget: ε={train_config['target_epsilon']}, δ={train_config['target_delta']}")
+
+# TODO: Add model evaluation metrics
+# TODO: Add model interpretability tools
+# TODO: Add hyperparameter optimization
+```
+
+### 2. Simple Transformer Implementation
+
+**File: `src/models/transformers/simple_transformer.py`**
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import math
+from typing import Dict, Tuple, Optional
+
+class PositionalEncoding(nn.Module):
+    """Positional encoding for transformer"""
+    
+    def __init__(self, d_model: int, max_len: int = 5000):
+        """
+        TODO IMPLEMENTATION:
+        Create sinusoidal positional encodings
+        """
+        super().__init__()
+        
+        pe = torch.zeros(max_len, d_model)
+        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
+        
+        div_term = torch.exp(torch.arange(0, d_model, 2).float() * 
+                           (-math.log(10000.0) / d_model))
+        
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        pe = pe.unsqueeze(0).transpose(0, 1)
+        
+        self.register_buffer('pe', pe)
+    
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Add positional encoding to input"""
+        return x + self.pe[:x.size(0), :]
+
+class MultiHeadAttention(nn.Module):
+    """Multi-head self-attention mechanism"""
+    
+    def __init__(self, d_model: int, n_heads: int, dropout: float = 0.1):
+        """
+        TODO IMPLEMENTATION:
+        Initialize multi-head attention
+        """
+        super().__init__()
+        assert d_model % n_heads == 0
+        
+        self.d_model = d_model
+        self.n_heads = n_heads
+        self.d_k = d_model // n_heads
+        
+        self.w_q = nn.Linear(d_model, d_model)
+        self.w_k = nn.Linear(d_model, d_model)
+        self.w_v = nn.Linear(d_model, d_model)
+        self.w_o = nn.Linear(d_model, d_model)
+        
+        self.dropout = nn.Dropout(dropout)
+        self.layer_norm = nn.LayerNorm(d_model)
+    
+    def scaled_dot_product_attention(self, Q: torch.Tensor, K: torch.Tensor, 
+                                   V: torch.Tensor, mask: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
+        """
+        TODO IMPLEMENTATION:
+        Scaled dot-product attention
+        
+        Attention(Q,K,V) = softmax(QK^T / sqrt(d_k))V
+        """
+        d_k = Q.size(-1)
+        scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k)
+        
+        if mask is not None:
+            scores = scores.masked_fill(mask == 0, -1e9)
+        
+        attention_weights = F.softmax(scores, dim=-1)
+        attention_weights = self.dropout(attention_weights)
+        
+        attention_output = torch.matmul(attention_weights, V)
+        
+        return attention_output, attention_weights
+    
+    def forward(self, query: torch.Tensor, key: torch.Tensor, 
+                value: torch.Tensor, mask: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
+        """
+        TODO IMPLEMENTATION:
+        Multi-head attention forward pass
+        """
+        batch_size = query.size(0)
+        seq_len = query.size(1)
+        
+        # Linear projections
+        Q = self.w_q(query).view(batch_size, seq_len, self.n_heads, self.d_k).transpose(1, 2)
+        K = self.w_k(key).view(batch_size, seq_len, self.n_heads, self.d_k).transpose(1, 2)
+        V = self.w_v(value).view(batch_size, seq_len, self.n_heads, self.d_k).transpose(1, 2)
+        
+        # Apply attention
+        attention_output, attention_weights = self.scaled_dot_product_attention(Q, K, V, mask)
+        
+        # Concatenate heads
+        attention_output = attention_output.transpose(1, 2).contiguous().view(
+            batch_size, seq_len, self.d_model
+        )
+        
+        # Final linear projection
+        output = self.w_o(attention_output)
+        
+        # Residual connection and layer norm
+        output = self.layer_norm(output + query)
+        
+        return output, attention_weights
+
+class TransformerEncoderLayer(nn.Module):
+    """Single transformer encoder layer"""
+    
+    def __init__(self, d_model: int, n_heads: int, d_ff: int, dropout: float = 0.1):
+        """
+        TODO IMPLEMENTATION:
+        Initialize transformer encoder layer
+        """
+        super().__init__()
+        
+        self.self_attention = MultiHeadAttention(d_model, n_heads, dropout)
+        
+        self.feed_forward = nn.Sequential(
+            nn.Linear(d_model, d_ff),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(d_ff, d_model)
+        )
+        
+        self.norm1 = nn.LayerNorm(d_model)
+        self.norm2 = nn.LayerNorm(d_model)
+        self.dropout = nn.Dropout(dropout)
+    
+    def forward(self, x: torch.Tensor, mask: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
+        """
+        TODO IMPLEMENTATION:
+        Transformer layer forward pass with residual connections
+        """
+        # Self-attention with residual
+        attn_output, attention_weights = self.self_attention(x, x, x, mask)
+        x = self.norm1(x + self.dropout(attn_output))
+        
+        # Feed-forward with residual
+        ff_output = self.feed_forward(x)
+        x = self.norm2(x + self.dropout(ff_output))
+        
+        return x, attention_weights
+
+class FinancialTransformer(nn.Module):
+    """Transformer model for financial time series prediction"""
+    
+    def __init__(self, config: Dict):
+        """
+        TODO IMPLEMENTATION:
+        Initialize financial transformer
+        
+        config = {
+            'input_size': int,      # Number of input features
+            'd_model': int,         # Model dimension
+            'n_heads': int,         # Number of attention heads  
+            'n_layers': int,        # Number of encoder layers
+            'd_ff': int,            # Feed-forward dimension
+            'max_seq_len': int,     # Maximum sequence length
+            'output_size': int,     # Number of outputs
+            'dropout': float        # Dropout rate
+        }
+        """
+        super().__init__()
+        self.config = config
+        
+        # Input projection
+        self.input_projection = nn.Linear(config['input_size'], config['d_model'])
+        
+        # Positional encoding
+        self.pos_encoding = PositionalEncoding(config['d_model'], config['max_seq_len'])
+        
+        # Transformer encoder layers
+        self.encoder_layers = nn.ModuleList([
+            TransformerEncoderLayer(
+                config['d_model'], 
+                config['n_heads'], 
+                config['d_ff'], 
+                config['dropout']
+            ) for _ in range(config['n_layers'])
+        ])
+        
+        # Output projection
+        self.output_projection = nn.Sequential(
+            nn.Linear(config['d_model'], config['d_model'] // 2),
+            nn.ReLU(),
+            nn.Dropout(config['dropout']),
+            nn.Linear(config['d_model'] // 2, config['output_size'])
+        )
+        
+        self.dropout = nn.Dropout(config['dropout'])
+    
+    def forward(self, x: torch.Tensor, mask: Optional[torch.Tensor] = None) -> Dict[str, torch.Tensor]:
+        """
+        TODO IMPLEMENTATION:
+        Transformer forward pass
+        
+        Args:
+            x: Input tensor [batch_size, seq_len, input_size]
+            mask: Optional attention mask
+            
+        Returns:
+            Dict with predictions and attention weights
+        """
+        # Input projection and positional encoding
+        x = self.input_projection(x)
+        x = self.pos_encoding(x)
+        x = self.dropout(x)
+        
+        # Pass through encoder layers
+        attention_weights = []
+        for layer in self.encoder_layers:
+            x, attn_weights = layer(x, mask)
+            attention_weights.append(attn_weights)
+        
+        # Use last timestep for prediction
+        last_hidden = x[:, -1, :]
+        prediction = self.output_projection(last_hidden)
+        
+        return {
+            'prediction': prediction,
+            'attention_weights': attention_weights,
+            'hidden_states': x
+        }
+
+# TODO: Add training utilities for transformer
+class TransformerTrainer:
+    """Training utilities for financial transformer"""
+    
+    def __init__(self, model: FinancialTransformer, config: Dict):
+        """
+        TODO IMPLEMENTATION:
+        Initialize transformer trainer
+        """
+        self.model = model
+        self.config = config
+        
+        self.optimizer = torch.optim.AdamW(
+            model.parameters(),
+            lr=config['learning_rate'],
+            weight_decay=config.get('weight_decay', 1e-4)
+        )
+        
+        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+            self.optimizer, mode='min', factor=0.5, patience=5
+        )
+        
+        self.criterion = nn.MSELoss()
+        self.history = {'train_loss': [], 'val_loss': []}
+    
+    def train_epoch(self, train_loader, epoch: int) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Train transformer for one epoch
+        """
+        self.model.train()
+        total_loss = 0.0
+        num_batches = 0
+        
+        for batch_idx, (data, targets) in enumerate(train_loader):
+            self.optimizer.zero_grad()
+            
+            outputs = self.model(data)
+            loss = self.criterion(outputs['prediction'], targets)
+            
+            loss.backward()
+            
+            # Gradient clipping for stability
+            torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
+            
+            self.optimizer.step()
+            
+            total_loss += loss.item()
+            num_batches += 1
+        
+        avg_loss = total_loss / num_batches
+        self.history['train_loss'].append(avg_loss)
+        
+        return avg_loss
+    
+    def validate_epoch(self, val_loader, epoch: int) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Validate transformer performance
+        """
+        self.model.eval()
+        total_loss = 0.0
+        num_batches = 0
+        
+        with torch.no_grad():
+            for data, targets in val_loader:
+                outputs = self.model(data)
+                loss = self.criterion(outputs['prediction'], targets)
+                
+                total_loss += loss.item()
+                num_batches += 1
+        
+        avg_loss = total_loss / num_batches
+        self.history['val_loss'].append(avg_loss)
+        
+        return avg_loss
+
+# Example transformer usage
+def example_transformer_usage():
+    """Example of financial transformer usage"""
+    
+    config = {
+        'input_size': 25,       # Features: OHLCV + sentiment + technical indicators
+        'd_model': 256,         # Model dimension
+        'n_heads': 8,           # Attention heads
+        'n_layers': 6,          # Encoder layers
+        'd_ff': 1024,           # Feed-forward dimension
+        'max_seq_len': 60,      # 60-day lookback window
+        'output_size': 1,       # Single price prediction
+        'dropout': 0.1
+    }
+    
+    model = FinancialTransformer(config)
+    
+    # Sample input: [batch_size=32, seq_len=60, features=25]
+    sample_input = torch.randn(32, 60, 25)
+    
+    outputs = model(sample_input)
+    print(f"Prediction shape: {outputs['prediction'].shape}")
+    print(f"Number of attention layers: {len(outputs['attention_weights'])}")
+
+# TODO: Add model comparison utilities
+# TODO: Add attention visualization tools  
+# TODO: Add model interpretability features
+```
+
+## ✅ COMPLETION CHECKLIST
+- [ ] DP-LSTM implementation with Opacus integration
+- [ ] Multi-task DP-LSTM for multiple prediction targets
+- [ ] Simple Transformer with multi-head attention
+- [ ] Positional encoding and layer normalization
+- [ ] Privacy engine integration for DP training
+- [ ] Training utilities with early stopping
+- [ ] Gradient clipping and learning rate scheduling
+- [ ] Model evaluation and validation loops
+- [ ] Example usage and testing code
+- [ ] Privacy budget tracking during training
+
+## 🎯 SUCCESS CRITERIA
+- DP-LSTM trains without privacy violations
+- Transformer achieves stable training convergence
+- Privacy budget consumption tracked accurately
+- Models achieve baseline performance targets:
+  - Direction accuracy >55%
+  - MSE loss competitive with non-private models
+  - Training completes within reasonable time
+
+## ➡️ NEXT: TODO-06-TRADING-EXECUTION.md
+```
+
+---
+
+## 📁 TODO-06-TRADING-EXECUTION.md
+
+```markdown
+# TODO 06: Trading Signal Generation & Execution
+
+## 🎯 OBJECTIVE
+Build real-time signal generation and paper trading execution system
+
+## ✅ IMPLEMENTATION TASKS
+
+### 1. Signal Generation System
+
+**File: `src/execution/signal_generator.py`**
+
+```python
+import torch
+import numpy as np
+import pandas as pd
+from typing import Dict, List, Optional, Tuple
+from datetime import datetime
+import asyncio
+import logging
+
+class TradingSignal:
+    """Trading signal with all necessary information"""
+    
+    def __init__(self, symbol: str, timestamp: datetime, action: str, 
+                 confidence: float, expected_return: float, 
+                 stop_loss: float = None, take_profit: float = None):
+        """
+        TODO IMPLEMENTATION:
+        Initialize trading signal
+        
+        Args:
+            symbol: Stock symbol (e.g., 'AKBNK')
+            timestamp: Signal generation time
+            action: 'BUY', 'SELL', or 'HOLD'
+            confidence: Confidence score [0, 1]
+            expected_return: Expected return percentage
+            stop_loss: Stop loss percentage (optional)
+            take_profit: Take profit percentage (optional)
+        """
+        self.symbol = symbol
+        self.timestamp = timestamp
+        self.action = action
+        self.confidence = confidence
+        self.expected_return = expected_return
+        self.stop_loss = stop_loss
+        self.take_profit = take_profit
+        self.signal_id = self._generate_signal_id()
+    
+    def _generate_signal_id(self) -> str:
+        """Generate unique signal ID"""
+        return f"{self.symbol}_{self.timestamp.strftime('%Y%m%d_%H%M%S')}_{self.action}"
+    
+    def to_dict(self) -> Dict:
+        """Convert signal to dictionary"""
+        return {
+            'signal_id': self.signal_id,
+            'symbol': self.symbol,
+            'timestamp': self.timestamp.isoformat(),
+            'action': self.action,
+            'confidence': self.confidence,
+            'expected_return': self.expected_return,
+            'stop_loss': self.stop_loss,
+            'take_profit': self.take_profit
+        }
+    
+    @classmethod
+    def no_signal(cls, symbol: str, timestamp: datetime = None):
+        """Create a no-signal/hold signal"""
+        if timestamp is None:
+            timestamp = datetime.now()
+        return cls(symbol, timestamp, 'HOLD', 0.0, 0.0)
+
+class SignalGenerator:
+    """Generate trading signals from model predictions"""
+    
+    def __init__(self, model, feature_processor, config: Dict):
+        """
+        TODO IMPLEMENTATION:
+        Initialize signal generator
+        
+        config = {
+            'buy_threshold': float,      # Confidence threshold for buy signals
+            'sell_threshold': float,     # Confidence threshold for sell signals  
+            'min_expected_return': float, # Minimum expected return to trade
+            'stop_loss_pct': float,      # Default stop loss percentage
+            'take_profit_pct': float,    # Default take profit percentage
+            'max_signals_per_symbol': int # Max signals per symbol per day
+        }
+        """
+        self.model = model
+        self.feature_processor = feature_processor
+        self.config = config
+        self.logger = logging.getLogger(__name__)
+        
+        # Track signals generated per symbol
+        self.daily_signal_count = {}
+        self.last_reset_date = datetime.now().date()
+    
+    def _reset_daily_counters(self):
+        """Reset daily signal counters if new day"""
+        current_date = datetime.now().date()
+        if current_date > self.last_reset_date:
+            self.daily_signal_count = {}
+            self.last_reset_date = current_date
+    
+    async def generate_signal(self, symbol: str, market_data: Dict, 
+                            news_data: List[Dict]) -> TradingSignal:
+        """
+        TODO IMPLEMENTATION:
+        Generate trading signal for symbol
+        
+        Args:
+            symbol: Stock symbol
+            market_data: Recent price/volume data
+            news_data: Recent news with sentiment scores
+            
+        Returns:
+            TradingSignal object
+        
+        Processing steps:
+        1. Check if we can generate more signals for this symbol today
+        2. Process features from market_data and news_data  
+        3. Generate model prediction
+        4. Apply signal generation rules
+        5. Calculate stop loss and take profit levels
+        6. Return TradingSignal
+        """
+        self._reset_daily_counters()
+        
+        # Check daily signal limits
+        current_count = self.daily_signal_count.get(symbol, 0)
+        if current_count >= self.config['max_signals_per_symbol']:
+            self.logger.info(f"Daily signal limit reached for {symbol}")
+            return TradingSignal.no_signal(symbol)
+        
+        try:
+            # Process features
+            features = await self.feature_processor.process_features(market_data, news_data)
+            
+            if features is None or len(features) == 0:
+                return TradingSignal.no_signal(symbol)
+            
+            # Generate prediction
+            prediction = await self._generate_prediction(features)
+            
+            # Apply signal generation rules
+            signal = self._apply_signal_rules(symbol, prediction, market_data)
+            
+            # Update daily counter if signal generated
+            if signal.action != 'HOLD':
+                self.daily_signal_count[symbol] = current_count + 1
+            
+            return signal
+            
+        except Exception as e:
+            self.logger.error(f"Error generating signal for {symbol}: {e}")
+            return TradingSignal.no_signal(symbol)
+    
+    async def _generate_prediction(self, features: np.ndarray) -> Dict:
+        """
+        TODO IMPLEMENTATION:
+        Generate model prediction from features
+        
+        Returns:
+            {
+                'direction_prob': [prob_down, prob_flat, prob_up],
+                'magnitude': float,           # Expected return magnitude
+                'confidence': float,          # Overall prediction confidence
+                'volatility': float          # Expected volatility
+            }
+        """
+        self.model.eval()
+        
+        with torch.no_grad():
+            # Convert features to tensor
+            feature_tensor = torch.FloatTensor(features).unsqueeze(0)  # Add batch dimension
+            
+            # Get model prediction
+            outputs = self.model(feature_tensor)
+            
+            # Process outputs based on model type
+            if 'direction' in outputs:
+                # Multi-task model
+                direction_logits = outputs['direction']
+                direction_prob = torch.softmax(direction_logits, dim=1).cpu().numpy()[0]
+                
+                magnitude = outputs['magnitude'].cpu().item()
+                confidence = max(direction_prob)  # Use max probability as confidence
+                volatility = outputs.get('volatility', torch.tensor([0.02])).cpu().item()
+                
+            else:
+                # Single output model (regression)
+                prediction = outputs['prediction'].cpu().item()
+                magnitude = prediction
+                
+                # Convert regression output to direction probabilities
+                if magnitude > 0.01:  # Positive prediction
+                    direction_prob = [0.1, 0.2, 0.7]  # [down, flat, up]
+                elif magnitude < -0.01:  # Negative prediction
+                    direction_prob = [0.7, 0.2, 0.1]
+                else:  # Near zero prediction
+                    direction_prob = [0.3, 0.4, 0.3]
+                
+                confidence = abs(magnitude) * 10  # Scale confidence
+                confidence = min(confidence, 1.0)  # Cap at 1.0
+                volatility = 0.02  # Default volatility
+            
+            return {
+                'direction_prob': direction_prob,
+                'magnitude': magnitude,
+                'confidence': confidence,
+                'volatility': volatility
+            }
+    
+    def _apply_signal_rules(self, symbol: str, prediction: Dict, 
+                          market_data: Dict) -> TradingSignal:
+        """
+        TODO IMPLEMENTATION:
+        Apply trading rules to generate signal
+        
+        Rules:
+        1. Confidence must be above thresholds
+        2. Expected return must meet minimum requirements
+        3. Check current market conditions (volatility, trend)
+        4. Apply position sizing based on confidence
+        """
+        direction_prob = prediction['direction_prob']
+        magnitude = prediction['magnitude']
+        confidence = prediction['confidence']
+        
+        # Determine action based on probabilities
+        max_prob_idx = np.argmax(direction_prob)
+        max_prob = direction_prob[max_prob_idx]
+        
+        # Check confidence thresholds
+        if max_prob_idx == 2 and max_prob >= self.config['buy_threshold']:  # Up
+            action = 'BUY'
+        elif max_prob_idx == 0 and max_prob >= self.config['sell_threshold']:  # Down
+            action = 'SELL'
+        else:
+            action = 'HOLD'
+        
+        # Check minimum expected return
+        expected_return = abs(magnitude)
+        if expected_return < self.config['min_expected_return']:
+            action = 'HOLD'
+        
+        # Set expected return sign based on action
+        if action == 'SELL':
+            expected_return = -expected_return
+        elif action == 'HOLD':
+            expected_return = 0.0
+        
+        # Calculate stop loss and take profit
+        current_price = market_data.get('close', 100.0)
+        
+        if action in ['BUY', 'SELL']:
+            stop_loss = self.config['stop_loss_pct']
+            take_profit = self.config['take_profit_pct']
+        else:
+            stop_loss = None
+            take_profit = None
+        
+        return TradingSignal(
+            symbol=symbol,
+            timestamp=datetime.now(),
+            action=action,
+            confidence=confidence,
+            expected_return=expected_return,
+            stop_loss=stop_loss,
+            take_profit=take_profit
+        )
+
+class PortfolioManager:
+    """Manage portfolio positions and risk"""
+    
+    def __init__(self, initial_capital: float, config: Dict):
+        """
+        TODO IMPLEMENTATION:
+        Initialize portfolio manager
+        
+        config = {
+            'max_position_size': float,      # Max % of portfolio per position
+            'max_portfolio_risk': float,     # Max portfolio VaR
+            'max_correlation': float,        # Max correlation between positions
+            'rebalance_threshold': float     # Portfolio rebalance threshold
+        }
+        """
+        self.initial_capital = initial_capital
+        self.current_capital = initial_capital
+        self.config = config
+        
+        # Track positions: {symbol: position_info}
+        self.positions = {}
+        
+        # Track performance
+        self.trade_history = []
+        self.daily_returns = []
+        
+        self.logger = logging.getLogger(__name__)
+    
+    def can_open_position(self, signal: TradingSignal, current_price: float) -> Tuple[bool, str]:
+        """
+        TODO IMPLEMENTATION:
+        Check if we can open new position
+        
+        Checks:
+        1. Available capital
+        2. Position size limits
+        3. Risk limits
+        4. Correlation limits
+        
+        Returns:
+            (can_open: bool, reason: str)
+        """
+        # Check if position already exists
+        if signal.symbol in self.positions:
+            return False, "Position already exists"
+        
+        # Calculate position size
+        position_size = self._calculate_position_size(signal, current_price)
+        position_value = position_size * current_price
+        
+        # Check available capital
+        if position_value > self.current_capital * 0.95:  # Keep 5% cash
+            return False, "Insufficient capital"
+        
+        # Check position size limits
+        max_position_value = self.current_capital * self.config['max_position_size']
+        if position_value > max_position_value:
+            return False, "Position size too large"
+        
+        # TODO: Add correlation checks with existing positions
+        # TODO: Add portfolio risk checks
+        
+        return True, "OK"
+    
+    def _calculate_position_size(self, signal: TradingSignal, current_price: float) -> float:
+        """
+        TODO IMPLEMENTATION:
+        Calculate position size based on signal confidence and risk
+        
+        Position sizing approaches:
+        1. Fixed percentage
+        2. Risk-based (Kelly criterion)
+        3. Confidence-weighted
+        4. Volatility-adjusted
+        """
+        # Base position size as percentage of portfolio
+        base_size_pct = self.config['max_position_size'] * 0.5  # Conservative base
+        
+        # Adjust by confidence
+        confidence_multiplier = signal.confidence
+        adjusted_size_pct = base_size_pct * confidence_multiplier
+        
+        # Calculate number of shares
+        position_value = self.current_capital * adjusted_size_pct
+        position_size = position_value / current_price
+        
+        return position_size
+    
+    def open_position(self,

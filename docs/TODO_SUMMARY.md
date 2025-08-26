@@ -29,7 +29,7 @@
 - [ ] Client Dashboard
 
 ## Target KPIs
-- Direction Accuracy: ≥58% (MVP) → ≥65% (Production)
+- Direction Accuracy: ≥68% (MVP) → ≥75% (Production)
 - Sharpe Ratio: ≥0.8 (MVP) → ≥1.2 (Production)
 - Max Drawdown: ≤15% (MVP) → ≤10% (Production)
 - Prediction Latency: <200ms (MVP) → <100ms (Production)
