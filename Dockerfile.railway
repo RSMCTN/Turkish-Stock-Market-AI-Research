@@ -1,0 +1,47 @@
+# BIST DP-LSTM Trading System - Railway Optimized Dockerfile
+FROM python:3.10-slim
+
+# Set working directory
+WORKDIR /app
+
+# Set environment variables for Railway
+ENV PYTHONPATH=/app
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Railway-specific optimization
+ENV PORT=8000
+ENV HOST=0.0.0.0
+
+# Install system dependencies (minimal for Railway)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    curl \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+
+# Install Python packages with Railway optimizations
+RUN pip install --no-cache-dir --upgrade pip==23.3.1 && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy application source
+COPY src/ ./src/
+COPY scripts/ ./scripts/
+
+# Create necessary directories
+RUN mkdir -p /app/logs /app/data /app/models /app/cache
+
+# Railway health check endpoint
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:${PORT}/health || exit 1
+
+# Expose the port that Railway expects
+EXPOSE ${PORT}
+
+# Railway-optimized startup command
+CMD ["sh", "-c", "uvicorn src.api.main:app --host ${HOST} --port ${PORT} --workers 1 --access-log --log-level info"]
