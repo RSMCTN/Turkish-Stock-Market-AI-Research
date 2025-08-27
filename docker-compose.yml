@@ -1,0 +1,159 @@
+# BIST DP-LSTM Trading System - Production Docker Compose
+version: '3.8'
+
+services:
+  # Main Trading Application
+  bist-trading-api:
+    build: .
+    container_name: bist_trading_api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:bist_trading_2024@postgres:5432/bist_trading
+      - REDIS_URL=redis://redis:6379/0
+      - INFLUXDB_URL=http://influxdb:8086
+      - INFLUXDB_TOKEN=bist_trading_token_2024
+      - INFLUXDB_ORG=bist_trading
+      - INFLUXDB_BUCKET=market_data
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      influxdb:
+        condition: service_started
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./cache:/app/cache
+    restart: unless-stopped
+    networks:
+      - bist_trading_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: bist_trading_postgres
+    environment:
+      POSTGRES_DB: bist_trading
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: bist_trading_2024
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=en_US.UTF-8"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - bist_trading_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bist_trading"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: bist_trading_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - ./config/redis.conf:/etc/redis/redis.conf:ro
+    command: redis-server /etc/redis/redis.conf
+    restart: unless-stopped
+    networks:
+      - bist_trading_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # InfluxDB Time-Series Database
+  influxdb:
+    image: influxdb:2.7-alpine
+    container_name: bist_trading_influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      INFLUXDB_DB: market_data
+      INFLUXDB_ADMIN_USER: admin
+      INFLUXDB_ADMIN_PASSWORD: bist_trading_2024
+      INFLUXDB_ADMIN_TOKEN: bist_trading_token_2024
+      INFLUXDB_ORG: bist_trading
+      INFLUXDB_BUCKET: market_data
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+      - influxdb_config:/etc/influxdb2
+    restart: unless-stopped
+    networks:
+      - bist_trading_network
+
+  # Grafana Dashboard (Optional)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: bist_trading_grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: bist_trading_2024
+      GF_INSTALL_PLUGINS: grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
+      - ./config/grafana/dashboards:/var/lib/grafana/dashboards
+    restart: unless-stopped
+    networks:
+      - bist_trading_network
+    depends_on:
+      - influxdb
+
+  # Nginx Reverse Proxy (Optional)
+  nginx:
+    image: nginx:alpine
+    container_name: bist_trading_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/ssl:/etc/nginx/ssl:ro
+    restart: unless-stopped
+    networks:
+      - bist_trading_network
+    depends_on:
+      - bist-trading-api
+
+# Named volumes for data persistence
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  influxdb_data:
+    driver: local
+  influxdb_config:
+    driver: local
+  grafana_data:
+    driver: local
+
+# Custom network
+networks:
+  bist_trading_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
