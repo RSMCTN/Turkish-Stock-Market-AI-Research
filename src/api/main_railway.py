@@ -38,8 +38,9 @@ from src.sentiment.sentiment_pipeline import SentimentPipeline
 try:
     from src.data.services.bist_data_service import get_bist_service, BISTDataService
     BIST_SERVICE_AVAILABLE = True
+    print("✅ BIST Data Service import successful")
 except ImportError as e:
-    print(f"Warning: BIST Data Service not available: {e}")
+    print(f"❌ BIST Data Service import failed: {e}")
     BIST_SERVICE_AVAILABLE = False
     BISTDataService = None
 
@@ -192,13 +193,18 @@ async def startup_event():
             try:
                 logger.info("📊 Initializing BIST Data Service...")
                 profit_api_key = os.getenv("PROFIT_API_KEY")
+                logger.info(f"🔑 PROFIT_API_KEY available: {bool(profit_api_key)}")
+                
                 app_state.bist_service = get_bist_service(profit_api_key)
+                logger.info("✅ BIST Data Service created")
                 
                 # Preload stock data
                 stocks = await app_state.bist_service.get_all_stocks()
                 logger.info(f"📈 Loaded {len(stocks)} BIST stocks with real-time data")
+                logger.info("🟢 BIST Data Service fully operational")
             except Exception as e:
-                logger.error(f"Failed to initialize BIST Data Service: {str(e)}")
+                logger.error(f"❌ Failed to initialize BIST Data Service: {str(e)}")
+                logger.error(f"   Error type: {type(e).__name__}")
                 logger.info("🔄 Continuing without BIST service - will use fallback data")
                 app_state.bist_service = None
         else:
