@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_name": "bist-dp-lstm-trading",
+    "username": "RSMCTN",
+    "repository_id": "RSMCTN/bist-dp-lstm-trading",
+    "description": "Advanced BIST Stock Trading System with DP-LSTM & Sentiment Analysis",
+    "tags": ["finance", "trading", "lstm", "differential-privacy", "turkish-market", "bist", "sentiment-analysis"],
+    "license": "mit"
+  },
+  "models": {
+    "dp_lstm_ensemble": {
+      "path": "models/dp_lstm",
+      "type": "pytorch",
+      "description": "Differentially Private LSTM ensemble for stock price prediction"
+    },
+    "sentiment_model": {
+      "path": "models/sentiment",
+      "type": "pytorch", 
+      "description": "Turkish financial sentiment analysis model (VADER + FinBERT)"
+    },
+    "feature_selector": {
+      "path": "models/feature_selection",
+      "type": "sklearn",
+      "description": "Automated feature selection pipeline for financial indicators"
+    }
+  },
+  "datasets": {
+    "bist_historical": {
+      "path": "data/processed",
+      "description": "BIST 30 historical stock data with technical indicators",
+      "format": "parquet"
+    },
+    "turkish_financial_news": {
+      "path": "data/sentiment",
+      "description": "Turkish financial news corpus with sentiment labels",
+      "format": "json"
+    }
+  },
+  "spaces": {
+    "trading_dashboard": {
+      "type": "gradio",
+      "description": "Interactive BIST trading signals dashboard",
+      "framework": "gradio",
+      "sdk": "python",
+      "python_version": "3.10"
+    }
+  }
+}

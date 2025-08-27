@@ -43,6 +43,11 @@ transformers>=4.35.0
 tokenizers>=0.14.0
 sentencepiece>=0.1.99
 
+# Hugging Face Integration
+huggingface-hub>=0.20.0
+gradio>=4.16.0
+datasets>=2.16.0
+
 # System Monitoring & Metrics
 psutil>=5.9.0
 prometheus-client>=0.18.0
