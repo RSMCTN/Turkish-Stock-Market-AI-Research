@@ -206,13 +206,14 @@ sentiment_df = pd.read_json('turkish_financial_news.json')
 ```
 """
 
-    def upload_model(self, model_name: str) -> bool:
+    def upload_model(self, model_name: str, private: bool = False) -> bool:
         """Upload model to Hugging Face Hub"""
         try:
             model_info = self.config["models"][model_name]
             repo_id = f"{self.username}/{self.project_name}-{model_name}"
             
             logger.info(f"Uploading model: {repo_id}")
+            logger.info(f"Pro features enabled: {self.config['project_info'].get('pro_features', {}).get('enabled', False)}")
             
             # Create model directory if it doesn't exist
             model_path = self.project_root / model_info["path"]
@@ -229,14 +230,28 @@ sentiment_df = pd.read_json('turkish_financial_news.json')
             readme_path = model_path / "README.md"
             readme_path.write_text(model_card)
             
-            # Upload using huggingface-cli
+            # Upload using modern hf upload command
             cmd = [
-                "huggingface-cli", "upload", repo_id,
+                "hf", "repo", "create", repo_id,
+                "--type", "model"
+            ]
+            
+            # Add Pro features if enabled
+            pro_features = self.config["project_info"].get("pro_features", {})
+            if pro_features.get("enabled", False) and (private or pro_features.get("private_repos", False)):
+                cmd.append("--private")
+            
+            # Create repo first
+            subprocess.run(cmd, check=True)
+            
+            # Then upload files
+            upload_cmd = [
+                "hf", "upload", repo_id,
                 str(model_path), ".",
                 "--repo-type", "model"
             ]
             
-            subprocess.run(cmd, check=True)
+            subprocess.run(upload_cmd, check=True)
             logger.info(f"✅ Model uploaded successfully: https://huggingface.co/{repo_id}")
             return True
             
@@ -282,33 +297,39 @@ sentiment_df = pd.read_json('turkish_financial_news.json')
             logger.error(f"❌ Failed to upload dataset {dataset_name}: {str(e)}")
             return False
     
-    def create_space(self, space_name: str) -> bool:
-        """Create Hugging Face Space"""
+    def create_space(self, space_name: str, private: bool = False) -> bool:
+        """Create Hugging Face Space with Pro features"""
         try:
             space_info = self.config["spaces"][space_name]
             repo_id = f"{self.username}/{self.project_name}-{space_name}"
             
             logger.info(f"Creating space: {repo_id}")
+            logger.info(f"Pro features: {self.config['project_info'].get('pro_features', {})}")
             
-            # Create space using huggingface-cli
+            # Create space using modern hf command
             cmd = [
-                "huggingface-cli", "repo", "create", repo_id,
-                "--type", "space",
-                "--sdk", space_info["sdk"]
+                "hf", "repo", "create", repo_id,
+                "--type", "space"
             ]
+            
+            # Add Pro features
+            pro_features = self.config["project_info"].get("pro_features", {})
+            if pro_features.get("enabled", False) and (private or pro_features.get("private_repos", False)):
+                cmd.append("--private")
             
             subprocess.run(cmd, check=True)
             
             # Copy app.py and requirements to space
-            space_files = ["app.py", "requirements.txt"]
+            space_files = ["app.py", "requirements_huggingface.txt"]
             for file in space_files:
                 if (self.project_root / file).exists():
-                    cmd = [
-                        "huggingface-cli", "upload", repo_id,
-                        str(self.project_root / file), f"./{file}",
+                    target_name = "requirements.txt" if "requirements_huggingface" in file else file
+                    upload_file_cmd = [
+                        "hf", "upload", repo_id,
+                        str(self.project_root / file), target_name,
                         "--repo-type", "space"
                     ]
-                    subprocess.run(cmd, check=True)
+                    subprocess.run(upload_file_cmd, check=True)
             
             logger.info(f"✅ Space created successfully: https://huggingface.co/{repo_id}")
             return True

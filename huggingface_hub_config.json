@@ -1,11 +1,18 @@
 {
   "project_info": {
     "project_name": "bist-dp-lstm-trading",
-    "username": "RSMCTN",
-    "repository_id": "RSMCTN/bist-dp-lstm-trading",
+    "username": "rsmctn",
+    "repository_id": "rsmctn/bist-dp-lstm-trading",
     "description": "Advanced BIST Stock Trading System with DP-LSTM & Sentiment Analysis",
     "tags": ["finance", "trading", "lstm", "differential-privacy", "turkish-market", "bist", "sentiment-analysis"],
-    "license": "mit"
+    "license": "mit",
+    "pro_features": {
+      "enabled": true,
+      "large_model_upload": true,
+      "private_repos": true,
+      "advanced_analytics": true,
+      "priority_support": true
+    }
   },
   "models": {
     "dp_lstm_ensemble": {
