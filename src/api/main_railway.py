@@ -34,8 +34,14 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.sentiment.turkish_vader import TurkishVaderAnalyzer
 from src.sentiment.sentiment_pipeline import SentimentPipeline
 
-# REAL BIST DATA SERVICE
-from src.data.services.bist_data_service import get_bist_service, BISTDataService
+# REAL BIST DATA SERVICE (Conditional import for Railway)
+try:
+    from src.data.services.bist_data_service import get_bist_service, BISTDataService
+    BIST_SERVICE_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: BIST Data Service not available: {e}")
+    BIST_SERVICE_AVAILABLE = False
+    BISTDataService = None
 
 
 # =============================================================================
@@ -182,17 +188,21 @@ async def startup_event():
         app_state.sentiment_pipeline = SentimentPipeline("sqlite:///mamut_sentiment.db")
         
         # Initialize REAL BIST data service with error handling
-        try:
-            logger.info("📊 Initializing BIST Data Service...")
-            matriks_api_key = os.getenv("MATRIKS_API_KEY")
-            app_state.bist_service = get_bist_service(matriks_api_key)
-            
-            # Preload stock data
-            stocks = await app_state.bist_service.get_all_stocks()
-            logger.info(f"📈 Loaded {len(stocks)} BIST stocks with real-time data")
-        except Exception as e:
-            logger.error(f"Failed to initialize BIST Data Service: {str(e)}")
-            logger.info("🔄 Continuing without BIST service - will use fallback data")
+        if BIST_SERVICE_AVAILABLE:
+            try:
+                logger.info("📊 Initializing BIST Data Service...")
+                matriks_api_key = os.getenv("MATRIKS_API_KEY")
+                app_state.bist_service = get_bist_service(matriks_api_key)
+                
+                # Preload stock data
+                stocks = await app_state.bist_service.get_all_stocks()
+                logger.info(f"📈 Loaded {len(stocks)} BIST stocks with real-time data")
+            except Exception as e:
+                logger.error(f"Failed to initialize BIST Data Service: {str(e)}")
+                logger.info("🔄 Continuing without BIST service - will use fallback data")
+                app_state.bist_service = None
+        else:
+            logger.info("📊 BIST Data Service not available - using fallback data")
             app_state.bist_service = None
         logger.info("✅ Sentiment Analysis System initialized")
         

@@ -1,0 +1,34 @@
+# RAILWAY OPTIMIZED REQUIREMENTS - Minimal for Stable Deployment
+
+# Core Framework (Essential)
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+python-multipart>=0.0.6
+
+# Essential HTTP & Data
+aiohttp>=3.9.0
+requests>=2.31.0
+httpx>=0.25.0
+
+# Minimal ML (Only if needed)
+numpy>=1.24.0
+
+# Sentiment Analysis (Light)
+vaderSentiment>=3.3.2
+beautifulsoup4>=4.12.0
+newspaper3k>=0.2.8
+lxml_html_clean>=0.1.0
+
+# Database & Storage
+sqlalchemy>=2.0.0
+
+# Monitoring & Logging
+psutil>=5.9.0
+
+# Development
+python-dotenv>=1.0.0
+
+# Authentication
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.0
