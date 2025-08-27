@@ -19,8 +19,18 @@ sys.path.append(project_root)
 # Import our components
 from src.sentiment.turkish_vader import TurkishVaderAnalyzer
 from src.sentiment.entity_extractor import BISTEntityExtractor
-from src.data.collectors.news_crawler import TurkishNewsCrawler
-from src.data.storage.schemas import NewsData, Symbol, MarketData, Base
+try:
+    from src.data.collectors.news_crawler import TurkishNewsCrawler
+except ImportError:
+    # Fallback for Railway deployment
+    print("Warning: News crawler not available - using mock data")
+    TurkishNewsCrawler = None
+try:
+    from src.data.storage.schemas import NewsData, Symbol, MarketData, Base
+except ImportError:
+    # Fallback for Railway deployment
+    print("Warning: Data schemas not available - using mock data")
+    NewsData = Symbol = MarketData = Base = None
 
 
 class SentimentPipeline:
@@ -32,15 +42,26 @@ class SentimentPipeline:
     def __init__(self, database_url: str = "sqlite:///mamut_r600_sentiment.db"):
         self.logger = logging.getLogger(__name__)
         
-        # Initialize database
-        self.engine = create_engine(database_url, echo=False)
-        Base.metadata.create_all(self.engine)
-        self.Session = sessionmaker(bind=self.engine)
+        # Initialize database if schemas available
+        if Base is not None:
+            self.engine = create_engine(database_url, echo=False)
+            Base.metadata.create_all(self.engine)
+            self.Session = sessionmaker(bind=self.engine)
+        else:
+            self.logger.warning("Database schemas not available - running without database")
+            self.engine = None
+            self.Session = None
         
         # Initialize components
         self.sentiment_analyzer = TurkishVaderAnalyzer()
         self.entity_extractor = BISTEntityExtractor()
-        self.news_crawler = TurkishNewsCrawler(max_concurrent=3)
+        
+        # Initialize news crawler if available
+        if TurkishNewsCrawler:
+            self.news_crawler = TurkishNewsCrawler(max_concurrent=3)
+        else:
+            self.logger.warning("News crawler not available - sentiment will use mock data")
+            self.news_crawler = None
         
         # Processing stats
         self.stats = {

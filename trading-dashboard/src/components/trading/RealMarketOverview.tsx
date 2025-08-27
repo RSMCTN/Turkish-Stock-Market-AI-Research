@@ -55,8 +55,12 @@ export default function RealMarketOverview() {
     setError('');
 
     try {
-      // Fetch market overview
-      const overviewResponse = await fetch('https://bistai001-production.up.railway.app/api/bist/market-overview');
+      // Fetch market overview - Try Railway first, fallback to local
+      const baseUrl = process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:8000' 
+        : 'https://bistai001-production.up.railway.app';
+      
+      const overviewResponse = await fetch(`${baseUrl}/api/bist/market-overview`);
       
       if (!overviewResponse.ok) {
         throw new Error(`HTTP error! status: ${overviewResponse.status}`);
@@ -69,7 +73,7 @@ export default function RealMarketOverview() {
       }
 
       // Fetch top performers
-      const stocksResponse = await fetch('https://bistai001-production.up.railway.app/api/bist/all-stocks?limit=50');
+      const stocksResponse = await fetch(`${baseUrl}/api/bist/all-stocks?limit=50`);
       
       if (stocksResponse.ok) {
         const stocksData = await stocksResponse.json();

@@ -61,8 +61,12 @@ const RealSymbolSelector = ({
     setError('');
     
     try {
-      // Fetch stocks
-      const stocksResponse = await fetch(`https://bistai001-production.up.railway.app/api/bist/all-stocks?limit=${limit}`);
+      // Fetch stocks - Try Railway first, fallback to local
+      const baseUrl = process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:8000' 
+        : 'https://bistai001-production.up.railway.app';
+        
+      const stocksResponse = await fetch(`${baseUrl}/api/bist/all-stocks?limit=${limit}`);
       
       if (!stocksResponse.ok) {
         throw new Error(`HTTP error! status: ${stocksResponse.status}`);
@@ -76,7 +80,7 @@ const RealSymbolSelector = ({
       }
 
       // Fetch sectors
-      const sectorsResponse = await fetch('https://bistai001-production.up.railway.app/api/bist/sectors');
+      const sectorsResponse = await fetch(`${baseUrl}/api/bist/sectors`);
       
       if (sectorsResponse.ok) {
         const sectorsData = await sectorsResponse.json();
