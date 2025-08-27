@@ -11,14 +11,17 @@ aiohttp>=3.9.0
 requests>=2.31.0
 httpx>=0.25.0
 
-# Minimal ML (Only if needed)
+# Essential Data Processing & ML
 numpy>=1.24.0
+pandas>=2.0.0
 
 # Sentiment Analysis (Light)
 vaderSentiment>=3.3.2
 beautifulsoup4>=4.12.0
 newspaper3k>=0.2.8
 lxml_html_clean>=0.1.0
+feedparser>=6.0.0
+nltk>=3.8.0
 
 # Database & Storage
 sqlalchemy>=2.0.0
