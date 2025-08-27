@@ -181,14 +181,19 @@ async def startup_event():
         app_state.sentiment_analyzer = TurkishVaderAnalyzer()
         app_state.sentiment_pipeline = SentimentPipeline("sqlite:///mamut_sentiment.db")
         
-        # Initialize REAL BIST data service
-        logger.info("📊 Initializing BIST Data Service...")
-        matriks_api_key = os.getenv("MATRIKS_API_KEY")
-        app_state.bist_service = get_bist_service(matriks_api_key)
-        
-        # Preload stock data
-        stocks = await app_state.bist_service.get_all_stocks()
-        logger.info(f"📈 Loaded {len(stocks)} BIST stocks with real-time data")
+        # Initialize REAL BIST data service with error handling
+        try:
+            logger.info("📊 Initializing BIST Data Service...")
+            matriks_api_key = os.getenv("MATRIKS_API_KEY")
+            app_state.bist_service = get_bist_service(matriks_api_key)
+            
+            # Preload stock data
+            stocks = await app_state.bist_service.get_all_stocks()
+            logger.info(f"📈 Loaded {len(stocks)} BIST stocks with real-time data")
+        except Exception as e:
+            logger.error(f"Failed to initialize BIST Data Service: {str(e)}")
+            logger.info("🔄 Continuing without BIST service - will use fallback data")
+            app_state.bist_service = None
         logger.info("✅ Sentiment Analysis System initialized")
         
         # Mock components as healthy for demo
@@ -970,7 +975,49 @@ async def get_all_bist_stocks(
     """Get all BIST stocks with real-time data"""
     try:
         if not app_state.bist_service:
-            raise HTTPException(status_code=503, detail="BIST data service not initialized")
+            # Fallback mock data when service is not available
+            mock_stocks = [
+                {
+                    "symbol": "AKBNK",
+                    "name": "Akbank T.A.Ş.",
+                    "name_turkish": "Akbank",
+                    "sector": "Banking",
+                    "sector_turkish": "Bankacılık",
+                    "market_cap": 250000000000,
+                    "last_price": 72.45,
+                    "change": 1.25,
+                    "change_percent": 1.75,
+                    "volume": 25000000,
+                    "bist_markets": ["bist_30", "bist_100"],
+                    "market_segment": "yildiz_pazar",
+                    "is_active": True,
+                    "last_updated": datetime.now().isoformat()
+                },
+                {
+                    "symbol": "GARAN",
+                    "name": "Türkiye Garanti Bankası A.Ş.",
+                    "name_turkish": "Garanti BBVA",
+                    "sector": "Banking", 
+                    "sector_turkish": "Bankacılık",
+                    "market_cap": 220000000000,
+                    "last_price": 89.30,
+                    "change": -0.85,
+                    "change_percent": -0.94,
+                    "volume": 18500000,
+                    "bist_markets": ["bist_30", "bist_100"],
+                    "market_segment": "yildiz_pazar",
+                    "is_active": True,
+                    "last_updated": datetime.now().isoformat()
+                }
+            ]
+            
+            return {
+                "success": True,
+                "total": len(mock_stocks),
+                "stocks": mock_stocks[:limit],
+                "timestamp": datetime.now().isoformat(),
+                "note": "Using fallback data - BIST service not available"
+            }
         
         if sector:
             stocks = await app_state.bist_service.get_stocks_by_sector(sector)
@@ -1026,7 +1073,34 @@ async def get_market_overview():
     """Get BIST market overview and statistics"""
     try:
         if not app_state.bist_service:
-            raise HTTPException(status_code=503, detail="BIST data service not initialized")
+            # Fallback mock market overview
+            mock_overview = {
+                "bist_100": {
+                    "value": 8450.75,
+                    "change": 1.25,
+                    "change_direction": "up"
+                },
+                "bist_30": {
+                    "value": 9850.42,
+                    "change": 2.35,
+                    "change_direction": "up"
+                },
+                "market_statistics": {
+                    "total_volume": 25600000000,
+                    "total_value": 18500000000,
+                    "rising_stocks": 25,
+                    "falling_stocks": 20,
+                    "unchanged_stocks": 5
+                },
+                "last_updated": datetime.now().isoformat(),
+                "note": "Using fallback data - BIST service not available"
+            }
+            
+            return {
+                "success": True,
+                "market_overview": mock_overview,
+                "timestamp": datetime.now().isoformat()
+            }
         
         overview = await app_state.bist_service.get_market_overview()
         
