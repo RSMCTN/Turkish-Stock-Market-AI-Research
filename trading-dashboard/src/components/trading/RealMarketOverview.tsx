@@ -55,10 +55,8 @@ export default function RealMarketOverview() {
     setError('');
 
     try {
-      // Fetch market overview - Try Railway first, fallback to local
-      const baseUrl = process.env.NODE_ENV === 'development' 
-        ? 'http://localhost:8000' 
-        : 'https://bistai001-production.up.railway.app';
+      // Fetch market overview - Always use localhost for now (MatriksIQ development)
+      const baseUrl = 'http://localhost:8000';
       
       const overviewResponse = await fetch(`${baseUrl}/api/bist/market-overview`);
       

@@ -61,10 +61,8 @@ const RealSymbolSelector = ({
     setError('');
     
     try {
-      // Fetch stocks - Try Railway first, fallback to local
-      const baseUrl = process.env.NODE_ENV === 'development' 
-        ? 'http://localhost:8000' 
-        : 'https://bistai001-production.up.railway.app';
+      // Fetch stocks - Always use localhost for now (MatriksIQ development)
+      const baseUrl = 'http://localhost:8000';
         
       const stocksResponse = await fetch(`${baseUrl}/api/bist/all-stocks?limit=${limit}`);
       
