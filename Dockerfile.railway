@@ -31,9 +31,8 @@ COPY requirements_railway.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements_railway.txt
 
-# Copy application code
-COPY src/ ./src/
-COPY scripts/ ./scripts/
+# Copy application code (full project structure)
+COPY . .
 
 # Create necessary directories and files
 RUN mkdir -p /app/logs /app/data /app/models /app/cache /app/config && \
