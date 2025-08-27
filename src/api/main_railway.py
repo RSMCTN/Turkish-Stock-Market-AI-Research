@@ -34,36 +34,18 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.sentiment.turkish_vader import TurkishVaderAnalyzer
 from src.sentiment.sentiment_pipeline import SentimentPipeline
 
-# REAL BIST DATA SERVICE (Enhanced import for Railway)
-BIST_SERVICE_AVAILABLE = False
-BISTDataService = None
-get_bist_service = None
+# REAL BIST DATA SERVICE (Excel-based Real Data)
+REAL_DATA_SERVICE_AVAILABLE = False
+BISTRealDataService = None
+get_real_bist_service = None
 
-# Try multiple import paths for Railway compatibility
-import_attempts = [
-    "src.data.services.bist_data_service",
-    "data.services.bist_data_service", 
-    "MAMUT_R600.src.data.services.bist_data_service"
-]
-
-for attempt in import_attempts:
-    try:
-        if attempt == "src.data.services.bist_data_service":
-            from src.data.services.bist_data_service import get_bist_service, BISTDataService
-        elif attempt == "data.services.bist_data_service":
-            from data.services.bist_data_service import get_bist_service, BISTDataService
-        elif attempt == "MAMUT_R600.src.data.services.bist_data_service":
-            from MAMUT_R600.src.data.services.bist_data_service import get_bist_service, BISTDataService
-        
-        BIST_SERVICE_AVAILABLE = True
-        print(f"✅ BIST Data Service import successful via: {attempt}")
-        break
-    except ImportError as e:
-        print(f"❌ Import attempt failed ({attempt}): {e}")
-        continue
-
-if not BIST_SERVICE_AVAILABLE:
-    print("⚠️ All BIST service imports failed, using fallback mock data")
+try:
+    from src.data.services.bist_real_data_service import BISTRealDataService, get_real_bist_service
+    REAL_DATA_SERVICE_AVAILABLE = True
+    print("✅ REAL BIST Data Service (Excel-based) import successful")
+except ImportError as e:
+    print(f"❌ Real BIST Data Service import failed: {e}")
+    REAL_DATA_SERVICE_AVAILABLE = False
 
 
 # =============================================================================
@@ -180,8 +162,8 @@ class AppState:
         self.sentiment_analyzer = None
         self.sentiment_pipeline = None
         
-        # REAL BIST DATA SERVICE
-        self.bist_service: Optional[BISTDataService] = None
+        # REAL BIST DATA SERVICE (Excel-based)
+        self.real_bist_service: Optional[BISTRealDataService] = None
         
         # API metrics
         self.api_request_count = 0
@@ -209,28 +191,25 @@ async def startup_event():
         app_state.sentiment_analyzer = TurkishVaderAnalyzer()
         app_state.sentiment_pipeline = SentimentPipeline("sqlite:///mamut_sentiment.db")
         
-        # Initialize REAL BIST data service with error handling
-        if BIST_SERVICE_AVAILABLE:
+        # Initialize REAL BIST data service (Excel-based)
+        if REAL_DATA_SERVICE_AVAILABLE:
             try:
-                logger.info("📊 Initializing BIST Data Service...")
-                profit_api_key = os.getenv("PROFIT_API_KEY")
-                logger.info(f"🔑 PROFIT_API_KEY available: {bool(profit_api_key)}")
-                
-                app_state.bist_service = get_bist_service(profit_api_key)
-                logger.info("✅ BIST Data Service created")
+                logger.info("📊 Initializing Real BIST Data Service (Excel-based)...")
+                app_state.real_bist_service = get_real_bist_service()
+                logger.info("✅ Real BIST Data Service created")
                 
                 # Preload stock data
-                stocks = await app_state.bist_service.get_all_stocks()
-                logger.info(f"📈 Loaded {len(stocks)} BIST stocks with real-time data")
-                logger.info("🟢 BIST Data Service fully operational")
+                stocks = app_state.real_bist_service.get_all_stocks()
+                logger.info(f"📈 Loaded {len(stocks)} REAL BIST stocks from Excel data")
+                logger.info("🟢 Real BIST Data Service fully operational")
             except Exception as e:
-                logger.error(f"❌ Failed to initialize BIST Data Service: {str(e)}")
+                logger.error(f"❌ Failed to initialize Real BIST Data Service: {str(e)}")
                 logger.error(f"   Error type: {type(e).__name__}")
-                logger.info("🔄 Continuing without BIST service - will use fallback data")
-                app_state.bist_service = None
+                logger.info("🔄 Continuing without real BIST service - will use fallback data")
+                app_state.real_bist_service = None
         else:
-            logger.info("📊 BIST Data Service not available - using fallback data")
-            app_state.bist_service = None
+            logger.info("📊 Real BIST Data Service not available - using fallback data")
+            app_state.real_bist_service = None
         logger.info("✅ Sentiment Analysis System initialized")
         
         # Mock components as healthy for demo
@@ -1011,7 +990,7 @@ async def get_all_bist_stocks(
 ):
     """Get all BIST stocks with real-time data"""
     try:
-        if not app_state.bist_service:
+        if not app_state.real_bist_service:
             # Fallback mock data when service is not available
             mock_stocks = [
                 {
@@ -1056,15 +1035,8 @@ async def get_all_bist_stocks(
                 "note": "Using fallback data - BIST service not available"
             }
         
-        if sector:
-            stocks = await app_state.bist_service.get_stocks_by_sector(sector)
-        elif market:
-            stocks = await app_state.bist_service.get_stocks_by_market(market)
-        else:
-            stocks = await app_state.bist_service.get_all_stocks()
-        
-        # Convert to dict and limit results
-        stocks_data = [app_state.bist_service.to_dict(stock) for stock in stocks[:limit]]
+        # Use real BIST service with Excel data (sync methods)
+        stocks_data = app_state.real_bist_service.get_all_stocks(limit)
         
         return {
             "success": True,
@@ -1083,17 +1055,17 @@ async def get_all_bist_stocks(
 async def get_bist_stock(symbol: str):
     """Get specific BIST stock data"""
     try:
-        if not app_state.bist_service:
+        if not app_state.real_bist_service:
             raise HTTPException(status_code=503, detail="BIST data service not initialized")
         
-        stock = await app_state.bist_service.get_stock_by_symbol(symbol.upper())
+        stock = app_state.real_bist_service.get_stock(symbol.upper())
         
         if not stock:
             raise HTTPException(status_code=404, detail=f"Stock {symbol} not found")
         
         return {
             "success": True,
-            "stock": app_state.bist_service.to_dict(stock),
+            "stock": stock,
             "timestamp": datetime.now().isoformat()
         }
         
@@ -1109,7 +1081,7 @@ async def get_bist_stock(symbol: str):
 async def get_market_overview():
     """Get BIST market overview and statistics"""
     try:
-        if not app_state.bist_service:
+        if not app_state.real_bist_service:
             # Fallback mock market overview
             mock_overview = {
                 "bist_100": {
@@ -1139,30 +1111,11 @@ async def get_market_overview():
                 "timestamp": datetime.now().isoformat()
             }
         
-        overview = await app_state.bist_service.get_market_overview()
+        overview = app_state.real_bist_service.get_market_overview()
         
         return {
             "success": True,
-            "market_overview": {
-                "bist_100": {
-                    "value": overview.bist_100_value,
-                    "change": overview.bist_100_change,
-                    "change_direction": "up" if overview.bist_100_change > 0 else "down" if overview.bist_100_change < 0 else "neutral"
-                },
-                "bist_30": {
-                    "value": overview.bist_30_value,
-                    "change": overview.bist_30_change,
-                    "change_direction": "up" if overview.bist_30_change > 0 else "down" if overview.bist_30_change < 0 else "neutral"
-                },
-                "market_statistics": {
-                    "total_volume": overview.total_volume,
-                    "total_value": overview.total_value,
-                    "rising_stocks": overview.rising_stocks,
-                    "falling_stocks": overview.falling_stocks,
-                    "unchanged_stocks": overview.unchanged_stocks
-                },
-                "last_updated": overview.last_updated.isoformat()
-            },
+            "market_overview": overview,
             "timestamp": datetime.now().isoformat()
         }
         
@@ -1176,10 +1129,10 @@ async def get_market_overview():
 async def get_bist_sectors():
     """Get all BIST sectors with their companies"""
     try:
-        if not app_state.bist_service:
+        if not app_state.real_bist_service:
             raise HTTPException(status_code=503, detail="BIST data service not initialized")
         
-        sectors = app_state.bist_service.get_all_sectors()
+        sectors = app_state.real_bist_service.get_sectors()
         
         return {
             "success": True,
@@ -1198,10 +1151,10 @@ async def get_bist_sectors():
 async def get_bist_markets():
     """Get all BIST market segments (BIST 30, Yıldız Pazar, etc.)"""
     try:
-        if not app_state.bist_service:
+        if not app_state.real_bist_service:
             raise HTTPException(status_code=503, detail="BIST data service not initialized")
         
-        markets = app_state.bist_service.get_all_markets()
+        markets = app_state.real_bist_service.get_markets()
         
         return {
             "success": True,
@@ -1223,12 +1176,10 @@ async def search_bist_stocks(
 ):
     """Search BIST stocks by symbol or name"""
     try:
-        if not app_state.bist_service:
+        if not app_state.real_bist_service:
             raise HTTPException(status_code=503, detail="BIST data service not initialized")
         
-        stocks = await app_state.bist_service.search_stocks(q, limit)
-        
-        stocks_data = [app_state.bist_service.to_dict(stock) for stock in stocks]
+        stocks_data = app_state.real_bist_service.search_stocks(q)
         
         return {
             "success": True,
