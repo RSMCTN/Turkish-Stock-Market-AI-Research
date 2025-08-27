@@ -191,8 +191,8 @@ async def startup_event():
         if BIST_SERVICE_AVAILABLE:
             try:
                 logger.info("📊 Initializing BIST Data Service...")
-                matriks_api_key = os.getenv("MATRIKS_API_KEY")
-                app_state.bist_service = get_bist_service(matriks_api_key)
+                profit_api_key = os.getenv("PROFIT_API_KEY")
+                app_state.bist_service = get_bist_service(profit_api_key)
                 
                 # Preload stock data
                 stocks = await app_state.bist_service.get_all_stocks()

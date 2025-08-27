@@ -61,8 +61,8 @@ const RealSymbolSelector = ({
     setError('');
     
     try {
-      // Fetch stocks - Always use localhost for now (MatriksIQ development)
-      const baseUrl = 'http://localhost:8000';
+      // Fetch stocks - Use Railway production API
+      const baseUrl = 'https://bistai001-production.up.railway.app';
         
       const stocksResponse = await fetch(`${baseUrl}/api/bist/all-stocks?limit=${limit}`);
       

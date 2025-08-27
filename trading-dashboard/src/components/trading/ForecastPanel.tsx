@@ -35,6 +35,15 @@ interface ModelMetrics {
   trainingStatus: 'TRAINED' | 'TRAINING' | 'ERROR';
 }
 
+interface BISTStock {
+  symbol: string;
+  name: string;
+  name_turkish: string;
+  sector: string;
+  last_price: number;
+  change_percent: number;
+}
+
 export default function ForecastPanel() {
   const [selectedSymbol, setSelectedSymbol] = useState('GARAN');
   const [forecastHours, setForecastHours] = useState(24);
@@ -43,12 +52,37 @@ export default function ForecastPanel() {
   const [modelMetrics, setModelMetrics] = useState<ModelMetrics | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<string>('');
+  const [availableStocks, setAvailableStocks] = useState<BISTStock[]>([]);
+  const [stocksLoading, setStocksLoading] = useState(true);
 
-  // BIST symbols
-  const symbols = [
-    'GARAN', 'AKBNK', 'ISCTR', 'THYAO', 'ASELS', 'SISE', 'EREGL', 
-    'PETKM', 'ARCELIK', 'MGROS', 'TCELL', 'VAKBN', 'HALKB'
-  ];
+  // Fetch available stocks from Railway API
+  const fetchAvailableStocks = async () => {
+    try {
+      setStocksLoading(true);
+      const response = await fetch('https://bistai001-production.up.railway.app/api/bist/all-stocks?limit=100');
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.stocks) {
+          setAvailableStocks(data.stocks);
+          
+          // Set default symbol to first available stock if current not available
+          if (data.stocks.length > 0 && !data.stocks.find((s: BISTStock) => s.symbol === selectedSymbol)) {
+            setSelectedSymbol(data.stocks[0].symbol);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch available stocks:', error);
+      // Fallback to a few default symbols if API fails
+      setAvailableStocks([
+        { symbol: 'GARAN', name: 'Türkiye Garanti Bankası', name_turkish: 'Garanti BBVA', sector: 'Banking', last_price: 149.6, change_percent: 1.01 },
+        { symbol: 'AKBNK', name: 'Akbank T.A.Ş.', name_turkish: 'Akbank', sector: 'Banking', last_price: 69.85, change_percent: 2.34 }
+      ]);
+    } finally {
+      setStocksLoading(false);
+    }
+  };
 
   // BIST Market Hours: 10:00 - 18:00 (Mon-Fri)
   const isBISTMarketOpen = (date: Date): boolean => {
@@ -202,8 +236,14 @@ export default function ForecastPanel() {
   };
 
   useEffect(() => {
-    fetchForecast();
-  }, [selectedSymbol, forecastHours]);
+    fetchAvailableStocks();
+  }, []);
+
+  useEffect(() => {
+    if (availableStocks.length > 0) {
+      fetchForecast();
+    }
+  }, [selectedSymbol, forecastHours, availableStocks]);
 
   const ForecastTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
@@ -277,13 +317,21 @@ export default function ForecastPanel() {
             </div>
             
             <div className="flex items-center gap-3">
-              <Select value={selectedSymbol} onValueChange={setSelectedSymbol}>
+              <Select value={selectedSymbol} onValueChange={setSelectedSymbol} disabled={stocksLoading}>
                 <SelectTrigger className="w-32">
-                  <SelectValue />
+                  <SelectValue placeholder={stocksLoading ? "Loading..." : "Select Stock"} />
                 </SelectTrigger>
                 <SelectContent>
-                  {symbols.map(symbol => (
-                    <SelectItem key={symbol} value={symbol}>{symbol}</SelectItem>
+                  {availableStocks.map(stock => (
+                    <SelectItem key={stock.symbol} value={stock.symbol}>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono">{stock.symbol}</span>
+                        <span className="text-xs text-gray-500">
+                          {stock.change_percent > 0 ? '📈' : stock.change_percent < 0 ? '📉' : '➡️'}
+                          {stock.change_percent.toFixed(2)}%
+                        </span>
+                      </div>
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
