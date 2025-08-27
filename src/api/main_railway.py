@@ -34,15 +34,36 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.sentiment.turkish_vader import TurkishVaderAnalyzer
 from src.sentiment.sentiment_pipeline import SentimentPipeline
 
-# REAL BIST DATA SERVICE (Conditional import for Railway)
-try:
-    from src.data.services.bist_data_service import get_bist_service, BISTDataService
-    BIST_SERVICE_AVAILABLE = True
-    print("✅ BIST Data Service import successful")
-except ImportError as e:
-    print(f"❌ BIST Data Service import failed: {e}")
-    BIST_SERVICE_AVAILABLE = False
-    BISTDataService = None
+# REAL BIST DATA SERVICE (Enhanced import for Railway)
+BIST_SERVICE_AVAILABLE = False
+BISTDataService = None
+get_bist_service = None
+
+# Try multiple import paths for Railway compatibility
+import_attempts = [
+    "src.data.services.bist_data_service",
+    "data.services.bist_data_service", 
+    "MAMUT_R600.src.data.services.bist_data_service"
+]
+
+for attempt in import_attempts:
+    try:
+        if attempt == "src.data.services.bist_data_service":
+            from src.data.services.bist_data_service import get_bist_service, BISTDataService
+        elif attempt == "data.services.bist_data_service":
+            from data.services.bist_data_service import get_bist_service, BISTDataService
+        elif attempt == "MAMUT_R600.src.data.services.bist_data_service":
+            from MAMUT_R600.src.data.services.bist_data_service import get_bist_service, BISTDataService
+        
+        BIST_SERVICE_AVAILABLE = True
+        print(f"✅ BIST Data Service import successful via: {attempt}")
+        break
+    except ImportError as e:
+        print(f"❌ Import attempt failed ({attempt}): {e}")
+        continue
+
+if not BIST_SERVICE_AVAILABLE:
+    print("⚠️ All BIST service imports failed, using fallback mock data")
 
 
 # =============================================================================
