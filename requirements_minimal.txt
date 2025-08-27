@@ -1,0 +1,5 @@
+# Minimal Hugging Face Spaces Requirements - Gradio 5.44.0 Compatible
+gradio==5.44.0
+pandas==2.0.3
+numpy==1.24.3
+plotly==5.17.0
