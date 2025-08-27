@@ -40,6 +40,16 @@ class TurkishNewsCrawler:
         self.last_request_times = {}
         self.min_delay_between_requests = 2.0  # 2 seconds between requests per domain
         
+        print(f"📰 TURKISH NEWS SOURCES CONFIGURED:")
+        high_priority = len([s for s in self.news_sources.values() if s['priority'] == 'high'])
+        medium_priority = len([s for s in self.news_sources.values() if s['priority'] == 'medium'])
+        critical_priority = len([s for s in self.news_sources.values() if s['priority'] == 'critical'])
+        official_sources = len([s for s in self.news_sources.values() if s.get('official', False)])
+        print(f"   ✅ TOTAL: {len(self.news_sources)} sources")
+        print(f"   🚨 CRITICAL: {critical_priority} sources (KAP, TCMB, Borsa İstanbul)")
+        print(f"   🔥 HIGH PRIORITY: {high_priority} sources")
+        print(f"   📊 MEDIUM PRIORITY: {medium_priority} sources")
+        print(f"   🏛️  OFFICIAL SOURCES: {official_sources} (Government/Regulatory)")
         self.logger.info(f"Turkish News Crawler initialized with {len(self.news_sources)} sources")
     
     def _configure_news_sources(self) -> Dict[str, Dict[str, Any]]:
@@ -82,6 +92,269 @@ class TurkishNewsCrawler:
                 },
                 'encoding': 'utf-8',
                 'priority': 'medium',
+            },
+            
+            # NEW EXPANDED NEWS SOURCES
+            'cnnturk': {
+                'name': 'CNN Türk',
+                'rss_url': 'https://www.cnnturk.com/feed/rss/ekonomi/news',
+                'base_url': 'https://www.cnnturk.com',
+                'selectors': {
+                    'title': 'h1.content-title',
+                    'content': '.content-element p',
+                    'date': '.content-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'high',
+            },
+            
+            'haberturk': {
+                'name': 'Habertürk',
+                'rss_url': 'https://www.haberturk.com/rss/kategori/ekonomi.xml',
+                'base_url': 'https://www.haberturk.com',
+                'selectors': {
+                    'title': 'h1.article-title',
+                    'content': '.article-text p',
+                    'date': '.article-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'high',
+            },
+            
+            'sozcu': {
+                'name': 'Sözcü Gazetesi',
+                'rss_url': 'https://www.sozcu.com.tr/feed/?category_name=ekonomi',
+                'base_url': 'https://www.sozcu.com.tr',
+                'selectors': {
+                    'title': 'h1.single-title',
+                    'content': '.single-content p',
+                    'date': '.single-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'medium',
+            },
+            
+            'hurriyet': {
+                'name': 'Hürriyet Ekonomi',
+                'rss_url': 'https://www.hurriyet.com.tr/rss/ekonomi',
+                'base_url': 'https://www.hurriyet.com.tr',
+                'selectors': {
+                    'title': 'h1.article-title',
+                    'content': '.article-content p',
+                    'date': '.article-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'high',
+            },
+            
+            'milliyet': {
+                'name': 'Milliyet Ekonomi',
+                'rss_url': 'https://www.milliyet.com.tr/rss/rssNew/ekonomiRSS.xml',
+                'base_url': 'https://www.milliyet.com.tr',
+                'selectors': {
+                    'title': 'h1.DetailTitle',
+                    'content': '.DetailText p',
+                    'date': '.DetailDate',
+                },
+                'encoding': 'utf-8',
+                'priority': 'medium',
+            },
+            
+            'sabah': {
+                'name': 'Sabah Ekonomi',
+                'rss_url': 'https://www.sabah.com.tr/rss/ekonomi.xml',
+                'base_url': 'https://www.sabah.com.tr',
+                'selectors': {
+                    'title': 'h1.article-title',
+                    'content': '.article-text p',
+                    'date': '.article-info-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'medium',
+            },
+            
+            'ntv': {
+                'name': 'NTV Ekonomi',
+                'rss_url': 'https://www.ntv.com.tr/ekonomi.rss',
+                'base_url': 'https://www.ntv.com.tr',
+                'selectors': {
+                    'title': 'h1.article-title',
+                    'content': '.article-content p',
+                    'date': '.article-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'high',
+            },
+            
+            'yeni_safak': {
+                'name': 'Yeni Şafak Ekonomi',
+                'rss_url': 'https://www.yenisafak.com/Rss?CategoryId=100',
+                'base_url': 'https://www.yenisafak.com',
+                'selectors': {
+                    'title': 'h1.news-detail-title',
+                    'content': '.news-detail-text p',
+                    'date': '.news-detail-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'medium',
+            },
+            
+            'investing_tr': {
+                'name': 'Investing.com Türkiye',
+                'rss_url': 'https://tr.investing.com/rss/news.rss',
+                'base_url': 'https://tr.investing.com',
+                'selectors': {
+                    'title': 'h1.article-title',
+                    'content': '.article-content p',
+                    'date': '.article-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'high',
+            },
+            
+            'bigpara': {
+                'name': 'BigPara',
+                'rss_url': 'https://bigpara.hurriyet.com.tr/rss/',
+                'base_url': 'https://bigpara.hurriyet.com.tr',
+                'selectors': {
+                    'title': 'h1.page-title',
+                    'content': '.article-content p',
+                    'date': '.article-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'high',
+            },
+            
+            'foreks': {
+                'name': 'Foreks',
+                'rss_url': 'https://www.foreks.com/rss/news.xml',
+                'base_url': 'https://www.foreks.com',
+                'selectors': {
+                    'title': 'h1.article-title',
+                    'content': '.article-body p',
+                    'date': '.article-time',
+                },
+                'encoding': 'utf-8',
+                'priority': 'high',
+            },
+            
+            'paraanaliz': {
+                'name': 'Para Analiz',
+                'rss_url': 'https://www.paraanaliz.com/feed/',
+                'base_url': 'https://www.paraanaliz.com',
+                'selectors': {
+                    'title': 'h1.entry-title',
+                    'content': '.entry-content p',
+                    'date': '.entry-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'high',
+            },
+            
+            # KAP (Kamu Aydınlatma Platformu) - OFFICIAL
+            'kap': {
+                'name': 'KAP (Kamu Aydınlatma Platformu)',
+                'rss_url': 'https://www.kap.org.tr/tr/rss/bildirimler',
+                'api_url': 'https://www.kap.org.tr/tr/api/disclosures',  # Alternative API
+                'base_url': 'https://www.kap.org.tr',
+                'selectors': {
+                    'title': '.disclosure-title',
+                    'content': '.disclosure-content p',
+                    'date': '.disclosure-date',
+                    'company': '.company-name',
+                    'category': '.disclosure-category',
+                },
+                'encoding': 'utf-8',
+                'priority': 'critical',  # Highest priority - official disclosures
+                'official': True,
+                'data_type': 'disclosure',
+            },
+            
+            # ECONOMIC SOURCES EXPANSION
+            'investing_ekonomi': {
+                'name': 'Investing.com Ekonomik Takvim',
+                'rss_url': 'https://tr.investing.com/rss/news_285.rss',  # Economic Calendar
+                'base_url': 'https://tr.investing.com',
+                'selectors': {
+                    'title': 'h1.article-title',
+                    'content': '.articleContent p',
+                    'date': '.article-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'critical',
+                'data_type': 'economic_calendar',
+            },
+            
+            'bigpara_haber': {
+                'name': 'BigPara Haber',
+                'rss_url': 'https://bigpara.hurriyet.com.tr/haberler/rss/',
+                'base_url': 'https://bigpara.hurriyet.com.tr',
+                'selectors': {
+                    'title': 'h1.article-title',
+                    'content': '.article-body p',
+                    'date': '.article-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'high',
+                'data_type': 'financial_news',
+            },
+            
+            'mynet_ekonomi': {
+                'name': 'Mynet Ekonomi',
+                'rss_url': 'https://www.mynet.com/rss/ekonomi/',
+                'base_url': 'https://www.mynet.com',
+                'selectors': {
+                    'title': 'h1.article-title',
+                    'content': '.article-content p',
+                    'date': '.article-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'medium',
+                'data_type': 'general_economic',
+            },
+            
+            'ensonhaber_ekonomi': {
+                'name': 'Ensonhaber Ekonomi',
+                'rss_url': 'https://www.ensonhaber.com/rss/ekonomi.xml',
+                'base_url': 'https://www.ensonhaber.com',
+                'selectors': {
+                    'title': 'h1.news-title',
+                    'content': '.news-content p',
+                    'date': '.news-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'medium',
+                'data_type': 'general_economic',
+            },
+            
+            'tcmb': {
+                'name': 'TCMB (Türkiye Cumhuriyet Merkez Bankası)',
+                'rss_url': 'https://www.tcmb.gov.tr/rss/duyurular.xml',
+                'base_url': 'https://www.tcmb.gov.tr',
+                'selectors': {
+                    'title': '.announcement-title',
+                    'content': '.announcement-content p',
+                    'date': '.announcement-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'critical',
+                'official': True,
+                'data_type': 'central_bank_announcement',
+            },
+            
+            'borsa_istanbul': {
+                'name': 'Borsa İstanbul',
+                'rss_url': 'https://www.borsaistanbul.com/tr/rss/duyurular',
+                'base_url': 'https://www.borsaistanbul.com',
+                'selectors': {
+                    'title': '.announcement-title',
+                    'content': '.announcement-content',
+                    'date': '.announcement-date',
+                },
+                'encoding': 'utf-8',
+                'priority': 'critical',
+                'official': True,
+                'data_type': 'exchange_announcement',
             }
         }
     
