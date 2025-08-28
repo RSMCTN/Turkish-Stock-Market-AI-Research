@@ -90,7 +90,9 @@ class PostgreSQLBISTService:
                     FROM stocks s
                     LEFT JOIN latest_data l ON s.symbol = l.symbol AND l.rn = 1
                     LEFT JOIN prev_data p ON s.symbol = p.symbol AND p.rn = 1
-                    WHERE s.is_active = true
+                    WHERE s.is_active = true 
+                    AND s.symbol != '' 
+                    AND s.symbol IS NOT NULL
                     ORDER BY s.symbol
                     """
                     
