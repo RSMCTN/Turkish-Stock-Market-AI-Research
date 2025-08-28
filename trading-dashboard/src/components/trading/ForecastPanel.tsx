@@ -47,7 +47,7 @@ interface BISTStock {
 export default function ForecastPanel() {
   const [selectedSymbol, setSelectedSymbol] = useState('GARAN');
   const [forecastHours, setForecastHours] = useState(24);
-  const [forecastData, setForecastData] = useState<ForecastData[]>([]);
+  const [forecastData, setForecastData] = useState<any>({ predictions: [] });
   const [newsImpact, setNewsImpact] = useState<NewsImpact[]>([]);
   const [modelMetrics, setModelMetrics] = useState<ModelMetrics | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -215,8 +215,8 @@ export default function ForecastPanel() {
     setIsLoading(true);
     
     try {
-      // Call the local backend forecast endpoint (POST) - Railway'de henüz deploy edilmedi
-      const response = await fetch('http://localhost:8000/api/forecast', {
+      // Call the Railway backend forecast endpoint (POST)
+      const response = await fetch('https://bistai001-production.up.railway.app/api/forecast', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -400,10 +400,21 @@ export default function ForecastPanel() {
     return null;
   };
 
-  const currentPrediction = forecastData.find(d => !d.actualPrice);
-  const avgConfidence = forecastData.reduce((sum, d) => sum + d.confidence, 0) / forecastData.length;
-  const bullishSignals = forecastData.filter(d => d.signal === 'BUY').length;
-  const bearishSignals = forecastData.filter(d => d.signal === 'SELL').length;
+  // Safely handle forecastData - ensure it's an array
+  const predictions = Array.isArray(forecastData?.predictions) ? forecastData.predictions : [];
+  
+  const currentPrediction = predictions.find(d => !d.actualPrice) || {
+    prediction: forecastData?.nextHourPrediction || 0,
+    confidence: forecastData?.confidence || 0,
+    signal: 'HOLD'
+  };
+  
+  const avgConfidence = predictions.length > 0 
+    ? predictions.reduce((sum, d) => sum + d.confidence, 0) / predictions.length 
+    : forecastData?.confidence || 0;
+    
+  const bullishSignals = predictions.filter(d => d.signal === 'BUY').length;
+  const bearishSignals = predictions.filter(d => d.signal === 'SELL').length;
 
   return (
     <div className="space-y-6">
@@ -652,7 +663,7 @@ export default function ForecastPanel() {
           ) : (
             <div style={{ width: '100%', height: 320 }}>
               <ResponsiveContainer>
-                <LineChart data={forecastData}>
+                <LineChart data={predictions}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis 
                     dataKey="timestamp" 
