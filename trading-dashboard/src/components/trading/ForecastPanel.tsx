@@ -215,16 +215,12 @@ export default function ForecastPanel() {
     setIsLoading(true);
     
     try {
-      // Call the Railway backend forecast endpoint (POST)
-      const response = await fetch('https://bistai001-production.up.railway.app/api/forecast', {
-        method: 'POST',
+      // Call the Railway backend forecast endpoint (GET)
+      const response = await fetch(`https://bistai001-production.up.railway.app/api/forecast/${selectedSymbol}?hours=${forecastHours}`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          symbol: selectedSymbol,
-          days: Math.max(1, Math.ceil(forecastHours / 24))
-        })
+        }
       });
       
       if (response.ok) {
