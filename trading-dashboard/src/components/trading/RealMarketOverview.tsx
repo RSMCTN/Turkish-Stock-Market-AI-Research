@@ -7,23 +7,15 @@ import { Button } from '@/components/ui/button';
 import { TrendingUp, TrendingDown, Activity, BarChart3, AlertCircle, RefreshCw, Clock } from 'lucide-react';
 
 interface MarketOverview {
-  bist_100: {
-    value: number;
-    change: number;
-    change_direction: string;
-  };
-  bist_30: {
-    value: number;
-    change: number;
-    change_direction: string;
-  };
-  market_statistics: {
-    total_volume: number;
-    total_value: number;
-    rising_stocks: number;
-    falling_stocks: number;
-    unchanged_stocks: number;
-  };
+  bist_100_value: number;
+  bist_100_change: number;
+  bist_30_value: number;
+  bist_30_change: number;
+  total_volume: number;
+  total_value: number;
+  rising_stocks: number;
+  falling_stocks: number;
+  unchanged_stocks: number;
   last_updated: string;
 }
 
@@ -250,10 +242,10 @@ export default function RealMarketOverview() {
               <div className="text-sm text-gray-500">XU100</div>
             </div>
             <div className="text-right">
-              <div className="font-bold text-lg">{marketOverview.bist_100.value.toLocaleString('tr-TR', { maximumFractionDigits: 2 })}</div>
-              <div className={`text-sm flex items-center gap-1 justify-end ${getPriceChangeColor(marketOverview.bist_100.change)}`}>
-                {getPriceChangeIcon(marketOverview.bist_100.change)}
-                {marketOverview.bist_100.change >= 0 ? '+' : ''}{marketOverview.bist_100.change.toFixed(2)}%
+              <div className="font-bold text-lg">{marketOverview.bist_100_value.toLocaleString('tr-TR', { maximumFractionDigits: 2 })}</div>
+              <div className={`text-sm flex items-center gap-1 justify-end ${getPriceChangeColor(marketOverview.bist_100_change)}`}>
+                {getPriceChangeIcon(marketOverview.bist_100_change)}
+                {marketOverview.bist_100_change >= 0 ? '+' : ''}{marketOverview.bist_100_change.toFixed(2)}%
               </div>
             </div>
           </div>
@@ -265,10 +257,10 @@ export default function RealMarketOverview() {
               <div className="text-sm text-gray-500">XU030</div>
             </div>
             <div className="text-right">
-              <div className="font-bold text-lg">{marketOverview.bist_30.value.toLocaleString('tr-TR', { maximumFractionDigits: 2 })}</div>
-              <div className={`text-sm flex items-center gap-1 justify-end ${getPriceChangeColor(marketOverview.bist_30.change)}`}>
-                {getPriceChangeIcon(marketOverview.bist_30.change)}
-                {marketOverview.bist_30.change >= 0 ? '+' : ''}{marketOverview.bist_30.change.toFixed(2)}%
+              <div className="font-bold text-lg">{marketOverview.bist_30_value.toLocaleString('tr-TR', { maximumFractionDigits: 2 })}</div>
+              <div className={`text-sm flex items-center gap-1 justify-end ${getPriceChangeColor(marketOverview.bist_30_change)}`}>
+                {getPriceChangeIcon(marketOverview.bist_30_change)}
+                {marketOverview.bist_30_change >= 0 ? '+' : ''}{marketOverview.bist_30_change.toFixed(2)}%
               </div>
             </div>
           </div>
@@ -279,19 +271,19 @@ export default function RealMarketOverview() {
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
               <div className="text-lg font-bold text-green-600">
-                {marketOverview.market_statistics.rising_stocks}
+                {marketOverview.rising_stocks}
               </div>
               <div className="text-xs text-gray-500">Yükselen</div>
             </div>
             <div>
               <div className="text-lg font-bold text-red-600">
-                {marketOverview.market_statistics.falling_stocks}
+                {marketOverview.falling_stocks}
               </div>
               <div className="text-xs text-gray-500">Düşen</div>
             </div>
             <div>
               <div className="text-lg font-bold text-gray-600">
-                {marketOverview.market_statistics.unchanged_stocks}
+                {marketOverview.unchanged_stocks}
               </div>
               <div className="text-xs text-gray-500">Sabit</div>
             </div>
@@ -346,13 +338,13 @@ export default function RealMarketOverview() {
           <div className="grid grid-cols-2 gap-4 text-center">
             <div>
               <div className="text-lg font-bold text-gray-900">
-                {formatNumber(marketOverview.market_statistics.total_volume)}
+                {formatNumber(marketOverview.total_volume)}
               </div>
               <div className="text-xs text-gray-500">Günlük Hacim</div>
             </div>
             <div>
               <div className="text-lg font-bold text-gray-900">
-                {formatNumber(marketOverview.market_statistics.total_value)}
+                {formatNumber(marketOverview.total_value)}
               </div>
               <div className="text-xs text-gray-500">İşlem Değeri</div>
             </div>

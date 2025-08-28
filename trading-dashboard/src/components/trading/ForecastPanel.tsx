@@ -226,34 +226,45 @@ export default function ForecastPanel() {
       if (response.ok) {
         const data = await response.json();
         
-        if (data.success) {
+        if (data.predictions && data.predictions.length > 0) {
+          // Get the first future prediction (next hour)
+          const nextPrediction = data.predictions.find(p => p.actualPrice === null) || data.predictions[0];
+          const currentPrice = data.predictions[0].actualPrice || data.predictions[0].predictedPrice;
+          
+          // Calculate range from predictions
+          const prices = data.predictions.map(p => p.predictedPrice);
+          const minPrice = Math.min(...prices);
+          const maxPrice = Math.max(...prices);
+          
           // Transform backend response to frontend format
           setForecastData({
-            nextHourPrediction: data.prediction,
-            range: { min: data.range.min, max: data.range.max },
-            confidence: data.confidence / 100,
-            change: ((data.prediction - data.current_price) / data.current_price) * 100,
-            predictions: []
+            nextHourPrediction: nextPrediction.predictedPrice,
+            range: { min: minPrice, max: maxPrice },
+            confidence: nextPrediction.confidence,
+            change: nextPrediction.priceChangePercent,
+            predictions: data.predictions.slice(0, 12).map((p: any) => ({
+              time: p.timestamp,
+              price: p.predictedPrice,
+              confidence: p.confidence
+            }))
           });
           
-          // Use trading signals for simple news impact
-          setNewsImpact([
-            {
-              headline: `${selectedSymbol} Technical Analysis Update`,
-              sentiment: data.trading_signals.buy > data.trading_signals.sell ? 0.5 : -0.5,
-              impact: 'MEDIUM' as const,
-              timestamp: new Date().toLocaleString('tr-TR')
-            }
-          ]);
+          // Use news impact from API
+          setNewsImpact(data.newsImpact.slice(0, 5).map((news: any) => ({
+            headline: news.headline,
+            sentiment: news.sentiment,
+            impact: news.impact,
+            timestamp: news.timestamp
+          })));
           
           setModelMetrics({
-            accuracy: data.confidence / 100,
-            mse: 0.02,
-            lastUpdated: data.last_updated,
-            trainingStatus: 'TRAINED'
+            accuracy: data.modelMetrics.accuracy,
+            mse: data.modelMetrics.mse,
+            lastUpdated: data.modelMetrics.lastUpdated,
+            trainingStatus: data.modelMetrics.trainingStatus
           });
         } else {
-          throw new Error('Backend returned error');
+          throw new Error('Invalid forecast data structure');
         }
       } else {
         throw new Error('Backend not available');

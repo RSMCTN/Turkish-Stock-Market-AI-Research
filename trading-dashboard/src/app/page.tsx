@@ -54,14 +54,15 @@ export default function Home() {
 
   const fetchMarketStats = async () => {
     try {
-      // This will use our Redis-cached API
-      const response = await fetch('/api/bist/symbols?limit=5');
+      // Use Railway production API
+      const baseUrl = 'https://bistai001-production.up.railway.app';
+      const response = await fetch(`${baseUrl}/api/bist/all-stocks?limit=5`);
       const data = await response.json();
       
       if (data.success) {
         setMarketStats({
-          totalSymbols: data.data.total,
-          activeSignals: data.data.symbols?.length || 0, // Real active symbols count
+          totalSymbols: data.total,
+          activeSignals: data.stocks?.length || 0, // Real active symbols count
           totalUsers: 150, // Static for now  
           systemHealth: 'Operational'
         });
