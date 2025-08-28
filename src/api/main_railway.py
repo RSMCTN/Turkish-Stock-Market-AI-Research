@@ -832,7 +832,19 @@ async def get_price_forecast(
         from datetime import datetime, timedelta
         
         current_time = datetime.now()
-        base_price = 25 + random.random() * 50
+        
+        # GET REAL STOCK PRICE (not random!)
+        try:
+            if app_state.historical_service:
+                stock_data = app_state.historical_service.get_stock(symbol.upper())
+                if stock_data and stock_data.get('last_price'):
+                    base_price = float(stock_data['last_price'])
+                else:
+                    base_price = 100  # Fallback if stock not found
+            else:
+                base_price = 100  # Fallback if no service
+        except:
+            base_price = 100  # Error fallback
         
         predictions = []
         news_impact = []

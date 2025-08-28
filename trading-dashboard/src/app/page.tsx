@@ -46,11 +46,32 @@ export default function Home() {
 
   const [activeTab, setActiveTab] = useState('forecast');
   const [selectedSymbol, setSelectedSymbol] = useState('GARAN');
+  const [indicators, setIndicators] = useState([]);
 
   useEffect(() => {
     // Fetch market stats
     fetchMarketStats();
   }, []);
+
+  useEffect(() => {
+    // Fetch indicators when symbol changes
+    fetchIndicators();
+  }, [selectedSymbol]);
+
+  const fetchIndicators = async () => {
+    try {
+      const baseUrl = 'https://bistai001-production.up.railway.app';
+      const response = await fetch(`${baseUrl}/api/forecast/${selectedSymbol}?hours=24`);
+      const data = await response.json();
+      
+      if (data.technicalIndicators) {
+        setIndicators(data.technicalIndicators);
+      }
+    } catch (error) {
+      console.error('Failed to fetch indicators:', error);
+      setIndicators([]);
+    }
+  };
 
   const fetchMarketStats = async () => {
     try {
@@ -332,7 +353,7 @@ export default function Home() {
               showFilters={true}
               limit={600}
             />
-            <AdvancedIndicators symbol={selectedSymbol} />
+            <AdvancedIndicators symbol={selectedSymbol} indicators={indicators} />
           </div>
         )}
 

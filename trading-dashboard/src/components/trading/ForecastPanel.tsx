@@ -46,7 +46,7 @@ interface BISTStock {
 
 export default function ForecastPanel() {
   const [selectedSymbol, setSelectedSymbol] = useState('GARAN');
-  const [forecastHours, setForecastHours] = useState(24);
+  const [forecastHours, setForecastHours] = useState(8);  // BIST trading day (10:00-18:00)
   const [forecastData, setForecastData] = useState<any>({ predictions: [] });
   const [newsImpact, setNewsImpact] = useState<NewsImpact[]>([]);
   const [modelMetrics, setModelMetrics] = useState<ModelMetrics | null>(null);
@@ -244,8 +244,10 @@ export default function ForecastPanel() {
             change: nextPrediction.priceChangePercent,
             predictions: data.predictions.slice(0, 12).map((p: any) => ({
               time: p.timestamp,
-              price: p.predictedPrice,
-              confidence: p.confidence
+              predictedPrice: p.predictedPrice,
+              actualPrice: p.actualPrice,
+              confidence: p.confidence,
+              isMarketOpen: true  // Mock for now
             }))
           });
           
@@ -526,10 +528,10 @@ export default function ForecastPanel() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="6">6H</SelectItem>
-                  <SelectItem value="12">12H</SelectItem>
-                  <SelectItem value="24">24H</SelectItem>
-                  <SelectItem value="48">48H</SelectItem>
+                  <SelectItem value="4">4H (Yarım gün)</SelectItem>
+                  <SelectItem value="8">8H (1 işlem günü)</SelectItem>
+                  <SelectItem value="16">16H (2 işlem günü)</SelectItem>
+                  <SelectItem value="40">40H (1 hafta)</SelectItem>
                 </SelectContent>
               </Select>
               
@@ -619,7 +621,7 @@ export default function ForecastPanel() {
                     {bearishSignals} SELL
                   </span>
                 </div>
-                <p className="text-xs text-gray-500">Next {forecastHours}H</p>
+                <p className="text-xs text-gray-500">{forecastHours} saat tahmin</p>
               </div>
               <TrendingUp className="h-5 w-5 text-purple-500" />
             </div>
@@ -653,7 +655,7 @@ export default function ForecastPanel() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TrendingUp className="h-5 w-5" />
-            {forecastHours}H Price Forecast - {selectedSymbol}
+            BIST Fiyat Tahmini - {selectedSymbol}
           </CardTitle>
           <CardDescription>
             Dashed gray: Historical prices • Green solid: Market open predictions • Red dashed: Market closed predictions
@@ -670,10 +672,10 @@ export default function ForecastPanel() {
           ) : (
             <div style={{ width: '100%', height: 320 }}>
               <ResponsiveContainer>
-                <LineChart data={predictions}>
+                <LineChart data={forecastData.predictions}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis 
-                    dataKey="timestamp" 
+                    dataKey="time" 
                     tick={{ fontSize: 11, fill: '#6b7280' }}
                     axisLine={{ stroke: '#d1d5db' }}
                   />

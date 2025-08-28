@@ -358,8 +358,8 @@ export default function RealMarketOverview() {
             <div>
               <div className="text-sm font-semibold text-blue-900">Market Update</div>
               <div className="text-xs text-blue-700">
-                BIST 100 endeksi günün %{Math.abs(marketOverview.bist_100.change).toFixed(1)} 
-                {marketOverview.bist_100.change >= 0 ? ' yükselişle' : ' düşüşle'} işlem görüyor.
+                BIST 100 endeksi günün %{Math.abs(marketOverview.bist_100_change).toFixed(1)} 
+                {marketOverview.bist_100_change >= 0 ? ' yükselişle' : ' düşüşle'} işlem görüyor.
                 {topPerformers.gainers.length + topPerformers.losers.length} hisse analizde.
               </div>
             </div>
