@@ -13,7 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class SimpleBISTService:
-    def __init__(self, db_path: str = "data/bist_historical.db"):
+    def __init__(self, db_path: str = "data/bist_stocks.db"):
         self.db_path = Path(db_path)
         self.stocks_cache = {}
         self.last_cache_update = None

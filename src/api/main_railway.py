@@ -6,7 +6,8 @@ Production-ready FastAPI application with monitoring and real-time trading capab
 import asyncio
 import logging
 import time
-from datetime import datetime
+import random
+from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any
 from pathlib import Path
 
