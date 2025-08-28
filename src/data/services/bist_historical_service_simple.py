@@ -14,7 +14,27 @@ logger = logging.getLogger(__name__)
 
 class SimpleBISTService:
     def __init__(self, db_path: str = "data/bist_stocks.db"):
-        self.db_path = Path(db_path)
+        import os
+        # Railway environment check - multiple path options
+        possible_paths = [
+            db_path,  # Original path
+            f"/app/{db_path}",  # Railway container path
+            os.path.join(os.getcwd(), db_path),  # Current working directory
+            "data/bist_historical.db",  # Alternative database
+            f"/app/data/bist_historical.db"  # Railway alternative
+        ]
+        
+        self.db_path = None
+        for path in possible_paths:
+            if Path(path).exists():
+                self.db_path = Path(path)
+                logger.info(f"✅ Database found at: {path}")
+                break
+        
+        if self.db_path is None:
+            logger.error(f"❌ Database not found in any of: {possible_paths}")
+            self.db_path = Path(db_path)  # Use default for fallback
+        
         self.stocks_cache = {}
         self.last_cache_update = None
         self.cache_ttl = timedelta(minutes=5)
