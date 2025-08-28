@@ -69,10 +69,8 @@ class DatabaseMigrator:
                         close_price DECIMAL(10,4),
                         volume BIGINT,
                         rsi_14 DECIMAL(8,4),
-                        rsi_21 DECIMAL(8,4),
                         macd_line DECIMAL(10,6),
                         macd_signal DECIMAL(10,6),
-                        macd_histogram DECIMAL(10,6),
                         bollinger_upper DECIMAL(10,4),
                         bollinger_middle DECIMAL(10,4),
                         bollinger_lower DECIMAL(10,4),
@@ -117,16 +115,39 @@ class DatabaseMigrator:
             }
     
     def migrate_stocks(self):
-        """Migrate stocks table"""
+        """Migrate stocks table - create from unique historical data symbols if empty"""
         logger.info("📈 Migrating stocks table...")
         
         with self.connect_sqlite() as sqlite_conn, self.connect_postgresql() as pg_conn:
             sqlite_cursor = sqlite_conn.cursor()
             pg_cursor = pg_conn.cursor()
             
-            # Get all stocks from SQLite
-            sqlite_cursor.execute("SELECT * FROM stocks")
-            stocks = sqlite_cursor.fetchall()
+            # Get all stocks from SQLite stocks table
+            sqlite_cursor.execute("SELECT * FROM stocks WHERE symbol IS NOT NULL AND symbol != ''")
+            existing_stocks = sqlite_cursor.fetchall()
+            
+            if len(existing_stocks) == 0:
+                # If stocks table is empty, create stocks from unique symbols in historical_data
+                logger.info("🔧 Stocks table empty, extracting from historical_data...")
+                sqlite_cursor.execute("SELECT DISTINCT symbol FROM historical_data WHERE symbol IS NOT NULL ORDER BY symbol")
+                symbols = sqlite_cursor.fetchall()
+                
+                stock_data = []
+                for row in symbols:
+                    symbol = row['symbol']
+                    stock_data.append((
+                        symbol,
+                        symbol,  # Use symbol as name for now
+                        symbol,  # Use symbol as turkish name
+                        "Unknown",  # Default sector
+                        True  # Active by default
+                    ))
+                
+                logger.info(f"📊 Found {len(stock_data)} unique symbols in historical data")
+            else:
+                # Use existing stocks from stocks table
+                stock_data = [(row['symbol'], row['name'], row['name_turkish'], row['sector'], bool(row['is_active'])) for row in existing_stocks]
+                logger.info(f"📊 Found {len(stock_data)} stocks in stocks table")
             
             # Insert into PostgreSQL
             insert_query = """
@@ -139,11 +160,10 @@ class DatabaseMigrator:
                 is_active = EXCLUDED.is_active;
             """
             
-            stock_data = [(row['symbol'], row['name'], row['name_turkish'], row['sector'], row['is_active']) for row in stocks]
             execute_batch(pg_cursor, insert_query, stock_data)
             pg_conn.commit()
             
-            logger.info(f"✅ Migrated {len(stocks)} stocks")
+            logger.info(f"✅ Migrated {len(stock_data)} stocks")
     
     def migrate_historical_data(self):
         """Migrate historical_data table in batches"""
@@ -165,11 +185,11 @@ class DatabaseMigrator:
             insert_query = """
                 INSERT INTO historical_data (
                     symbol, date_time, open_price, high_price, low_price, close_price, volume,
-                    rsi_14, rsi_21, macd_line, macd_signal, macd_histogram,
+                    rsi_14, macd_line, macd_signal,
                     bollinger_upper, bollinger_middle, bollinger_lower,
                     tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, chikou_span,
                     atr_14, adx_14
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 ON CONFLICT (id) DO NOTHING;
             """
             
@@ -178,7 +198,7 @@ class DatabaseMigrator:
                 sqlite_cursor.execute(f"""
                     SELECT 
                         symbol, date_time, open_price, high_price, low_price, close_price, volume,
-                        rsi_14, rsi_21, macd_line, macd_signal, macd_histogram,
+                        rsi_14, macd_line, macd_signal,
                         bollinger_upper, bollinger_middle, bollinger_lower,
                         tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, chikou_span,
                         atr_14, adx_14

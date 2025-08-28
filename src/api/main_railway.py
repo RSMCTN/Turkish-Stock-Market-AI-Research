@@ -356,6 +356,7 @@ async def request_tracking_middleware(request, call_next):
 @app.get("/", response_model=Dict[str, Any])
 async def root():
     """Root endpoint with basic system information"""
+    import os
     return {
         "message": "BIST DP-LSTM Trading System API",
         "version": "1.0.0",
@@ -369,7 +370,13 @@ async def root():
             "signals": "/signals/generate",
             "portfolio": "/portfolio/summary"
         },
-        "description": "Advanced Trading System with Differential Privacy LSTM for BIST"
+        "description": "Advanced Trading System with Differential Privacy LSTM for BIST",
+        "debug": {
+            "database_url_set": bool(os.getenv('DATABASE_URL')),
+            "postgresql_available": POSTGRESQL_SERVICE_AVAILABLE,
+            "historical_available": HISTORICAL_SERVICE_AVAILABLE,
+            "historical_service_type": type(app_state.historical_service).__name__ if app_state.historical_service else None
+        }
     }
 
 
