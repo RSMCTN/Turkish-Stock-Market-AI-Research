@@ -61,8 +61,8 @@ export default function Home() {
       if (data.success) {
         setMarketStats({
           totalSymbols: data.data.total,
-          activeSignals: Math.floor(Math.random() * 150) + 50, // Mock for now
-          totalUsers: Math.floor(Math.random() * 500) + 100, // Mock for now  
+          activeSignals: data.data.symbols?.length || 0, // Real active symbols count
+          totalUsers: 150, // Static for now  
           systemHealth: 'Operational'
         });
       }
@@ -315,7 +315,7 @@ export default function Home() {
               onSymbolChange={setSelectedSymbol}
               showSearch={true}
               showFilters={true}
-              limit={100}
+              limit={600}
             />
             <AdvancedChart symbol={selectedSymbol} />
           </div>
@@ -329,7 +329,7 @@ export default function Home() {
               onSymbolChange={setSelectedSymbol}
               showSearch={true}
               showFilters={true}
-              limit={100}
+              limit={600}
             />
             <AdvancedIndicators symbol={selectedSymbol} />
           </div>
@@ -343,7 +343,7 @@ export default function Home() {
               onSymbolChange={setSelectedSymbol}
               showSearch={true}
               showFilters={true}
-              limit={100}
+              limit={600}
             />
             <AdvancedNewsSentiment symbol={selectedSymbol} />
           </div>

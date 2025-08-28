@@ -81,12 +81,28 @@ const BulkAnalysis = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [expandedAnalysis, setExpandedAnalysis] = useState<string | null>(null);
 
-  // Mock BIST symbols
-  const availableSymbols = [
-    'GARAN', 'AKBNK', 'ISCTR', 'THYAO', 'ASELS', 'SISE', 'EREGL', 
-    'PETKM', 'ARCELIK', 'MGROS', 'TCELL', 'VAKBN', 'HALKB', 'TUPRS',
-    'BIMAS', 'SAHOL', 'KCHOL', 'VESTL', 'KOZAL', 'TTKOM'
-  ];
+  // Real BIST symbols from backend
+  const [availableSymbols, setAvailableSymbols] = useState<string[]>([]);
+  
+  useEffect(() => {
+    const fetchSymbols = async () => {
+      try {
+        const response = await fetch('https://bistai001-production.up.railway.app/api/bist/all-stocks?limit=100');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.stocks) {
+            setAvailableSymbols(data.stocks.map((stock: any) => stock.symbol));
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch symbols:', error);
+        // Fallback to a few symbols if API fails
+        setAvailableSymbols(['GARAN', 'AKBNK', 'ISCTR', 'THYAO', 'ASELS']);
+      }
+    };
+    
+    fetchSymbols();
+  }, []);
 
   const toggleSymbol = (symbol: string) => {
     setSelectedSymbols(prev => 

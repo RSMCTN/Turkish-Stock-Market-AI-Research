@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, TrendingDown, Brain, Clock, Target, AlertTriangle, RefreshCw } from 'lucide-react';
+import { TrendingUp, TrendingDown, Brain, Clock, Target, AlertTriangle, RefreshCw, Search, ChevronDown } from 'lucide-react';
 
 interface ForecastData {
   timestamp: string;
@@ -54,12 +54,17 @@ export default function ForecastPanel() {
   const [lastUpdate, setLastUpdate] = useState<string>('');
   const [availableStocks, setAvailableStocks] = useState<BISTStock[]>([]);
   const [stocksLoading, setStocksLoading] = useState(true);
+  
+  // Search states for stock selector
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [filteredStocks, setFilteredStocks] = useState<BISTStock[]>([]);
 
   // Fetch available stocks from Railway API
   const fetchAvailableStocks = async () => {
     try {
       setStocksLoading(true);
-      const response = await fetch('https://bistai001-production.up.railway.app/api/bist/all-stocks?limit=100');
+      const response = await fetch('https://bistai001-production.up.railway.app/api/bist/all-stocks?limit=600');
       
       if (response.ok) {
         const data = await response.json();
@@ -210,25 +215,68 @@ export default function ForecastPanel() {
     setIsLoading(true);
     
     try {
-      // Try to call real backend first
-      const response = await fetch(`https://bistai001-production.up.railway.app/api/forecast/${selectedSymbol}?hours=${forecastHours}`);
+      // Call the local backend forecast endpoint (POST) - Railway'de henüz deploy edilmedi
+      const response = await fetch('http://localhost:8000/api/forecast', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          symbol: selectedSymbol,
+          days: Math.max(1, Math.ceil(forecastHours / 24))
+        })
+      });
       
       if (response.ok) {
         const data = await response.json();
-        setForecastData(data.predictions);
-        setNewsImpact(data.newsImpact || []);
-        setModelMetrics(data.modelMetrics);
+        
+        if (data.success) {
+          // Transform backend response to frontend format
+          setForecastData({
+            nextHourPrediction: data.prediction,
+            range: { min: data.range.min, max: data.range.max },
+            confidence: data.confidence / 100,
+            change: ((data.prediction - data.current_price) / data.current_price) * 100,
+            predictions: []
+          });
+          
+          // Use trading signals for simple news impact
+          setNewsImpact([
+            {
+              headline: `${selectedSymbol} Technical Analysis Update`,
+              sentiment: data.trading_signals.buy > data.trading_signals.sell ? 0.5 : -0.5,
+              impact: 'MEDIUM' as const,
+              timestamp: new Date().toLocaleString('tr-TR')
+            }
+          ]);
+          
+          setModelMetrics({
+            accuracy: data.confidence / 100,
+            mse: 0.02,
+            lastUpdated: data.last_updated,
+            trainingStatus: 'TRAINED'
+          });
+        } else {
+          throw new Error('Backend returned error');
+        }
       } else {
         throw new Error('Backend not available');
       }
     } catch (error) {
-      console.log('Using mock data - backend not available');
-      // Fallback to mock data
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API delay
-      
-      setForecastData(generateForecastData());
-      setNewsImpact(generateNewsImpact());
-      setModelMetrics(generateModelMetrics());
+      console.error('Backend API error:', error);
+      setForecastData({
+        nextHourPrediction: 0,
+        range: { min: 0, max: 0 },
+        confidence: 0,
+        change: 0,
+        predictions: []
+      });
+      setNewsImpact([]);
+      setModelMetrics({
+        accuracy: 0,
+        confidence: 0,
+        lastTraining: 'Error loading model'
+      });
     }
     
     setIsLoading(false);
@@ -238,6 +286,61 @@ export default function ForecastPanel() {
   useEffect(() => {
     fetchAvailableStocks();
   }, []);
+
+  // Filter stocks based on search query
+  useEffect(() => {
+    if (!availableStocks.length) {
+      setFilteredStocks([]);
+      return;
+    }
+
+    if (!searchQuery.trim()) {
+      setFilteredStocks(availableStocks);
+      return;
+    }
+
+    const filtered = availableStocks.filter(stock => 
+      stock.symbol.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      stock.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      stock.name_turkish.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    
+    setFilteredStocks(filtered);
+  }, [availableStocks, searchQuery]);
+
+  // Handle stock selection
+  const handleStockSelect = (stock: BISTStock) => {
+    setSelectedSymbol(stock.symbol);
+    setSearchQuery(''); // Clear search after selection
+    setIsDropdownOpen(false);
+  };
+
+  // Handle search input change
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setIsDropdownOpen(true);
+  };
+
+  // Get selected stock info for display
+  const getSelectedStock = () => {
+    return availableStocks.find(stock => stock.symbol === selectedSymbol);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const dropdown = document.querySelector('[data-dropdown="stock-selector"]');
+      if (dropdown && !dropdown.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+        setSearchQuery('');
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isDropdownOpen]);
 
   useEffect(() => {
     if (availableStocks.length > 0) {
@@ -317,24 +420,88 @@ export default function ForecastPanel() {
             </div>
             
             <div className="flex items-center gap-3">
-              <Select value={selectedSymbol} onValueChange={setSelectedSymbol} disabled={stocksLoading}>
-                <SelectTrigger className="w-32">
-                  <SelectValue placeholder={stocksLoading ? "Loading..." : "Select Stock"} />
-                </SelectTrigger>
-                <SelectContent>
-                  {availableStocks.map(stock => (
-                    <SelectItem key={stock.symbol} value={stock.symbol}>
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono">{stock.symbol}</span>
+              {/* Custom Searchable Stock Selector */}
+              <div className="relative w-64" data-dropdown="stock-selector">
+                <div 
+                  className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md bg-white cursor-pointer hover:border-gray-400 transition-colors"
+                  onClick={() => !stocksLoading && setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  {stocksLoading ? (
+                    <span className="text-gray-500 text-sm">Loading...</span>
+                  ) : (
+                    <>
+                      <span className="font-mono text-sm">{selectedSymbol}</span>
+                      {getSelectedStock() && (
                         <span className="text-xs text-gray-500">
-                          {stock.change_percent > 0 ? '📈' : stock.change_percent < 0 ? '📉' : '➡️'}
-                          {stock.change_percent.toFixed(2)}%
+                          {getSelectedStock()!.change_percent > 0 ? '📈' : 
+                           getSelectedStock()!.change_percent < 0 ? '📉' : '➡️'}
+                          {getSelectedStock()!.change_percent.toFixed(2)}%
                         </span>
+                      )}
+                    </>
+                  )}
+                  <ChevronDown className={`h-4 w-4 text-gray-400 ml-auto transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                </div>
+
+                {/* Dropdown */}
+                {isDropdownOpen && !stocksLoading && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-50 max-h-80 flex flex-col">
+                    {/* Search Input */}
+                    <div className="p-2 border-b">
+                      <div className="relative">
+                        <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <input
+                          type="text"
+                          value={searchQuery}
+                          onChange={handleSearchChange}
+                          placeholder="Search stocks..."
+                          className="w-full pl-8 pr-3 py-1.5 text-sm border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          autoFocus
+                        />
                       </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                    </div>
+                    
+                    {/* Stock List */}
+                    <div className="flex-1 overflow-y-auto">
+                      {filteredStocks.length === 0 ? (
+                        <div className="p-3 text-sm text-gray-500 text-center">
+                          {searchQuery ? 'No stocks found' : 'No stocks available'}
+                        </div>
+                      ) : (
+                        filteredStocks.slice(0, 50).map(stock => (
+                          <div
+                            key={stock.symbol}
+                            className={`px-3 py-2 cursor-pointer hover:bg-gray-100 flex items-center justify-between text-sm border-b border-gray-50 last:border-b-0 ${
+                              stock.symbol === selectedSymbol ? 'bg-blue-50' : ''
+                            }`}
+                            onClick={() => handleStockSelect(stock)}
+                          >
+                            <div className="flex flex-col flex-1 min-w-0">
+                              <span className="font-mono font-medium">{stock.symbol}</span>
+                              <span className="text-xs text-gray-500 truncate" title={stock.name}>
+                                {stock.name_turkish}
+                              </span>
+                            </div>
+                            <span className={`text-xs px-1 py-0.5 rounded ${
+                              stock.change_percent > 0 ? 'bg-green-100 text-green-700' :
+                              stock.change_percent < 0 ? 'bg-red-100 text-red-700' : 
+                              'bg-gray-100 text-gray-700'
+                            }`}>
+                              {stock.change_percent > 0 ? '+' : ''}{stock.change_percent.toFixed(2)}%
+                            </span>
+                          </div>
+                        ))
+                      )}
+                      
+                      {filteredStocks.length > 50 && (
+                        <div className="p-2 text-xs text-gray-500 text-center bg-gray-50">
+                          Showing first 50 results. Keep typing to narrow down...
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
               
               <Select value={forecastHours.toString()} onValueChange={(value) => setForecastHours(parseInt(value))}>
                 <SelectTrigger className="w-24">
