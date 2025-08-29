@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Calculator, TrendingUp, AlertCircle, CheckCircle, XCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 // Sector averages and benchmarks
 const getSectorBenchmarks = (sector: string) => {
@@ -54,8 +55,27 @@ const getSectorBenchmarks = (sector: string) => {
   };
 };
 
-// Company data (same as CompanyInfoCard)
-const getCompanyData = (symbol: string) => {
+// Dynamic company data loading
+const getCompanyData = (symbol: string, bistData?: any) => {
+  // If BIST data loaded, use it
+  if (bistData && bistData.stocks) {
+    const stock = bistData.stocks.find((s: any) => s.symbol === symbol);
+    if (stock) {
+      return {
+        name: stock.name,
+        sector: stock.sector,
+        pe: stock.pe_ratio || 0,
+        pb: stock.pb_ratio || 0,
+        roe: stock.roe || 0,
+        debtEquity: stock.debt_equity || 0,
+        revenue: stock.revenue || 0,
+        netIncome: stock.net_income || 0,
+        marketCap: stock.market_cap || 0
+      };
+    }
+  }
+
+  // Fallback to hard-coded data for backwards compatibility
   const companyData: { [key: string]: any } = {
     'AKSEN': {
       name: 'AKSA ENERJI URETIM',
@@ -169,9 +189,52 @@ interface FundamentalAnalysisProps {
 }
 
 export default function FundamentalAnalysis({ selectedSymbol = 'GARAN' }: FundamentalAnalysisProps) {
-  const companyData = getCompanyData(selectedSymbol);
+  const [bistData, setBistData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadBistData = async () => {
+      try {
+        const response = await fetch('/data/working_bist_data.json');
+        if (response.ok) {
+          const data = await response.json();
+          setBistData(data);
+          console.log(`📈 BIST data loaded for FundamentalAnalysis: ${data.stocks?.length || 0} stocks`);
+        } else {
+          console.warn('⚠️ Could not load BIST data for FundamentalAnalysis');
+        }
+      } catch (error) {
+        console.error('❌ Error loading BIST data in FundamentalAnalysis:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadBistData();
+  }, []);
+
+  const companyData = getCompanyData(selectedSymbol, bistData);
   const benchmark = getSectorBenchmarks(companyData.sector);
   const recommendation = getInvestmentRecommendation(companyData, benchmark);
+
+  if (loading) {
+    return (
+      <Card className="bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Calculator className="h-5 w-5 text-emerald-600" />
+            Temel Analiz - {selectedSymbol}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+            <p className="text-emerald-600">Şirket verileri yükleniyor...</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200">

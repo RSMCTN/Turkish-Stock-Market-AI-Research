@@ -3,9 +3,35 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Building2, TrendingUp, TrendingDown, BarChart3 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
-// Company fundamental data from basestock2808.xlsx
-const getCompanyData = (symbol: string) => {
+// Dynamic company data loading from working_bist_data.json
+const getCompanyData = (symbol: string, bistData?: any) => {
+  // If BIST data loaded, use it
+  if (bistData && bistData.stocks) {
+    const stock = bistData.stocks.find((s: any) => s.symbol === symbol);
+    if (stock) {
+      return {
+        name: stock.name,
+        sector: stock.sector,
+        marketCap: Math.round(stock.market_cap / 1000000), // Convert to Million TL
+        pe: stock.pe_ratio,
+        pb: stock.pb_ratio,
+        roe: stock.roe || 0, // Some stocks might not have ROE
+        debtEquity: stock.debt_equity || 0,
+        week52High: stock.week_52_high || stock.last_price * 1.2,
+        week52Low: stock.week_52_low || stock.last_price * 0.8,
+        volume: stock.volume,
+        lastPrice: stock.last_price,
+        change: stock.change,
+        changePercent: stock.change_percent,
+        bistMarkets: stock.bist_markets || [],
+        description: `${stock.sector} sektöründe faaliyet gösteren şirket`
+      };
+    }
+  }
+
+  // Fallback: existing hard-coded data for backwards compatibility
   const companyData: { [key: string]: any } = {
     'AKSEN': {
       name: 'AKSA ENERJI URETIM',
@@ -120,20 +146,57 @@ interface CompanyInfoCardProps {
 }
 
 export default function CompanyInfoCard({ selectedSymbol = 'GARAN' }: CompanyInfoCardProps) {
-  const companyData = getCompanyData(selectedSymbol);
-  
-  // Calculate performance metrics
-  const currentPrice = companyData.marketCap > 0 ? 
-    (selectedSymbol === 'AKSEN' ? 39.06 :
-     selectedSymbol === 'ASTOR' ? 113.7 :
-     selectedSymbol === 'GARAN' ? 145.8 :
-     selectedSymbol === 'THYAO' ? 340.0 :
-     selectedSymbol === 'TUPRS' ? 171.0 :
-     selectedSymbol === 'BRSAN' ? 499.25 :
-     selectedSymbol === 'AKBNK' ? 69.5 : 50.0) : 50.0;
+  const [bistData, setBistData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const loadBistData = async () => {
+      try {
+        // Try loading from local public data first
+        const response = await fetch('/data/working_bist_data.json');
+        if (response.ok) {
+          const data = await response.json();
+          setBistData(data);
+          console.log(`📊 BIST data loaded: ${data.stocks?.length || 0} stocks for CompanyInfoCard`);
+        } else {
+          console.warn('⚠️ Could not load local BIST data');
+        }
+      } catch (error) {
+        console.error('❌ Error loading BIST data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadBistData();
+  }, []);
+
+  const companyData = getCompanyData(selectedSymbol, bistData);
+  
+  // Use real current price from BIST data or fallback
+  const currentPrice = companyData.lastPrice || 50.0;
+  
   const week52Performance = companyData.week52High > 0 ? 
     ((currentPrice - companyData.week52Low) / (companyData.week52High - companyData.week52Low)) * 100 : 50;
+
+  if (loading) {
+    return (
+      <Card className="bg-gradient-to-br from-indigo-50 to-cyan-50 border-indigo-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Building2 className="h-5 w-5 text-indigo-600" />
+            Şirket Bilgileri - {selectedSymbol}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+            <p className="text-indigo-600">Şirket bilgileri yükleniyor...</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="bg-gradient-to-br from-indigo-50 to-cyan-50 border-indigo-200">
