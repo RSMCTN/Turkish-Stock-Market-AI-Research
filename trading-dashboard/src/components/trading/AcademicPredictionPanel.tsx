@@ -6,19 +6,27 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
-// Real BIST prices from basestock2808.xlsx (Updated 28/08)
-const getRealPrice = (symbol: string): number => {
+// Dynamic price from BIST data
+const getRealPrice = (symbol: string, bistData?: any): number => {
+  if (bistData?.stocks) {
+    const stock = bistData.stocks.find((s: any) => s.symbol === symbol);
+    if (stock) {
+      return stock.last_price;
+    }
+  }
+  
+  // Fallback to hard-coded prices only if BIST data unavailable
   const realPrices: { [key: string]: number } = {
-    'AKSEN': 39.06,  // Real closing price
-    'ASTOR': 113.7,  // Real closing price
-    'GARAN': 145.8,  // Real closing price
-    'THYAO': 340.0,  // Real closing price
-    'TUPRS': 171.0,  // Real closing price
-    'BRSAN': 499.25, // Real closing price
-    'AKBNK': 69.5,   // Real closing price
-    'ISCTR': 15.14,  // Real closing price
-    'SISE': 40.74,   // Real closing price
-    'ARCLK': 141.2,  // Real closing price
+    'AKSEN': 39.06,
+    'ASTOR': 113.7,
+    'GARAN': 145.8,
+    'THYAO': 340.0,
+    'TUPRS': 171.0,
+    'BRSAN': 499.25,
+    'AKBNK': 69.5,
+    'ISCTR': 15.14,
+    'SISE': 40.74,
+    'ARCLK': 141.2,
     'KCHOL': 184.8,
     'BIMAS': 536.0,
     'PETKM': 20.96,
@@ -32,10 +40,11 @@ interface AcademicPredictionPanelProps {
 }
 
 export default function AcademicPredictionPanel({ selectedSymbol = 'GARAN' }: AcademicPredictionPanelProps) {
+  const [bistData, setBistData] = useState<any>(null);
   const [prediction, setPrediction] = useState({
     symbol: selectedSymbol,
-    currentPrice: getRealPrice(selectedSymbol),
-    predictedPrice: getRealPrice(selectedSymbol) * 1.02, // +2% prediction
+    currentPrice: 50.0,
+    predictedPrice: 51.0,
     confidence: 0.87,
     dpLstmWeight: 0.35,
     sentimentArmaWeight: 0.30,
@@ -44,16 +53,61 @@ export default function AcademicPredictionPanel({ selectedSymbol = 'GARAN' }: Ac
     isMarketOpen: true
   });
 
+  // Load BIST data
   useEffect(() => {
-    // Update prediction when symbol changes
-    const currentPrice = getRealPrice(selectedSymbol);
-    setPrediction(prev => ({
-      ...prev,
-      symbol: selectedSymbol,
-      currentPrice: currentPrice,
-      predictedPrice: currentPrice * 1.02 // +2% prediction
-    }));
-  }, [selectedSymbol]);
+    const loadBistData = async () => {
+      try {
+        const response = await fetch('/data/working_bist_data.json');
+        if (response.ok) {
+          const data = await response.json();
+          setBistData(data);
+          console.log(`🎯 BIST data loaded for AcademicPrediction: ${data.stocks?.length || 0} stocks`);
+        }
+      } catch (error) {
+        console.error('❌ Error loading BIST data in AcademicPrediction:', error);
+      }
+    };
+
+    loadBistData();
+  }, []);
+
+  useEffect(() => {
+    // Update prediction when symbol or bistData changes
+    if (bistData) {
+      const currentPrice = getRealPrice(selectedSymbol, bistData);
+      
+      // Dynamic prediction logic based on symbol characteristics
+      const stock = bistData.stocks?.find((s: any) => s.symbol === selectedSymbol);
+      let predictionMultiplier = 1.02; // Default +2%
+      let confidence = 0.87;
+      
+      if (stock) {
+        // Adjust prediction based on stock characteristics
+        const changePercent = Math.abs(stock.change_percent || 0);
+        const peRatio = stock.pe_ratio || 15;
+        
+        // High volatility stocks get bigger prediction changes
+        if (changePercent > 5) predictionMultiplier = 1.05; 
+        // Low PE stocks might be undervalued, bigger upside
+        if (peRatio < 8) predictionMultiplier = 1.04;
+        // Banking stocks are more predictable, smaller changes
+        if (stock.sector === 'BANKA') predictionMultiplier = 1.015;
+        
+        // Confidence based on sector predictability
+        if (stock.sector === 'BANKA') confidence = 0.91;
+        else if (['TEKNOLOJI', 'METALESYA'].includes(stock.sector)) confidence = 0.78;
+        else confidence = 0.85;
+      }
+      
+      setPrediction(prev => ({
+        ...prev,
+        symbol: selectedSymbol,
+        currentPrice: currentPrice,
+        predictedPrice: currentPrice * predictionMultiplier,
+        confidence: confidence
+      }));
+    }
+  }, [selectedSymbol, bistData]);
 
   return (
     <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200">
