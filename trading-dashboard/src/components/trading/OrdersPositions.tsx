@@ -49,7 +49,7 @@ export default function OrdersPositions() {
     
     return Array.from({ length: 8 }, (_, i) => {
       const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-      const type = Math.random() > 0.5 ? 'BUY' : 'SELL';
+      const type = (Math.random() > 0.5 ? 'BUY' : 'SELL') as 'BUY' | 'SELL';
       const orderType = orderTypes[Math.floor(Math.random() * orderTypes.length)];
       const quantity = Math.floor(Math.random() * 500) + 50;
       const price = orderType !== 'MARKET' ? 20 + Math.random() * 60 : undefined;

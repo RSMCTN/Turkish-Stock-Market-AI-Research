@@ -1494,6 +1494,18 @@ async def search_bist_stocks(
 
 
 # =============================================================================
+# Include Additional Routers
+# =============================================================================
+
+# Import and include comprehensive analysis router
+try:
+    from .comprehensive_analysis import router as comprehensive_analysis_router
+    app.include_router(comprehensive_analysis_router, prefix="/api", tags=["comprehensive-analysis"])
+    print("✅ Comprehensive Analysis Router included successfully")
+except Exception as e:
+    print(f"❌ Failed to include comprehensive analysis router: {e}")
+
+# =============================================================================
 # Application Entry Point
 # =============================================================================
 

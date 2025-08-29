@@ -222,7 +222,7 @@ const AdvancedChart = ({ symbol, data = [], indicators = [], isLoading = false }
     return null;
   };
 
-  const renderChart = () => {
+  const renderChart = (): React.ReactElement | null => {
     switch (chartType) {
       case 'candlestick':
         return (
@@ -425,7 +425,7 @@ const AdvancedChart = ({ symbol, data = [], indicators = [], isLoading = false }
         {/* Main Chart */}
         <div style={{ width: '100%', height: 400 }}>
           <ResponsiveContainer>
-            {renderChart()}
+            {renderChart() || <div className="flex items-center justify-center h-full text-slate-500">Chart loading...</div>}
           </ResponsiveContainer>
         </div>
 

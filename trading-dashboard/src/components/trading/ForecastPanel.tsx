@@ -30,9 +30,11 @@ interface NewsImpact {
 
 interface ModelMetrics {
   accuracy: number;
-  mse: number;
-  lastUpdated: string;
-  trainingStatus: 'TRAINED' | 'TRAINING' | 'ERROR';
+  confidence?: number;
+  mse?: number;
+  lastUpdated?: string;
+  trainingStatus?: 'TRAINED' | 'TRAINING' | 'ERROR';
+  lastTraining?: string;
 }
 
 interface BISTStock {
@@ -228,11 +230,11 @@ export default function ForecastPanel() {
         
         if (data.predictions && data.predictions.length > 0) {
           // Get the first future prediction (next hour)
-          const nextPrediction = data.predictions.find(p => p.actualPrice === null) || data.predictions[0];
+          const nextPrediction = data.predictions.find((p: any) => p.actualPrice === null) || data.predictions[0];
           const currentPrice = data.predictions[0].actualPrice || data.predictions[0].predictedPrice;
           
           // Calculate range from predictions
-          const prices = data.predictions.map(p => p.predictedPrice);
+          const prices = data.predictions.map((p: any) => p.predictedPrice);
           const minPrice = Math.min(...prices);
           const maxPrice = Math.max(...prices);
           
@@ -412,18 +414,18 @@ export default function ForecastPanel() {
   // Safely handle forecastData - ensure it's an array
   const predictions = Array.isArray(forecastData?.predictions) ? forecastData.predictions : [];
   
-  const currentPrediction = predictions.find(d => !d.actualPrice) || {
+  const currentPrediction = predictions.find((d: any) => !d.actualPrice) || {
     prediction: forecastData?.nextHourPrediction || 0,
     confidence: forecastData?.confidence || 0,
     signal: 'HOLD'
   };
   
   const avgConfidence = predictions.length > 0 
-    ? predictions.reduce((sum, d) => sum + d.confidence, 0) / predictions.length 
+    ? predictions.reduce((sum: number, d: any) => sum + d.confidence, 0) / predictions.length 
     : forecastData?.confidence || 0;
     
-  const bullishSignals = predictions.filter(d => d.signal === 'BUY').length;
-  const bearishSignals = predictions.filter(d => d.signal === 'SELL').length;
+  const bullishSignals = predictions.filter((d: any) => d.signal === 'BUY').length;
+  const bearishSignals = predictions.filter((d: any) => d.signal === 'SELL').length;
 
   return (
     <div className="space-y-6">

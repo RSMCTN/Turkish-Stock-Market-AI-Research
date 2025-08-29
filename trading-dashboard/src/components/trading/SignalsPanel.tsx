@@ -41,7 +41,7 @@ export default function SignalsPanel() {
 
     return Array.from({ length: 8 }, (_, i) => {
       const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-      const action = Math.random() > 0.6 ? 'BUY' : 'SELL';
+      const action = (Math.random() > 0.6 ? 'BUY' : 'SELL') as 'BUY' | 'SELL';
       const price = 20 + Math.random() * 60;
       const confidence = 0.65 + Math.random() * 0.3;
       

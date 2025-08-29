@@ -61,7 +61,27 @@ const RealSymbolSelector = ({
     setError('');
     
     try {
-      // Fetch stocks - Use Railway production API
+      // Try enhanced local data first
+      try {
+        console.log('🎯 Loading enhanced BIST data...');
+        const localResponse = await fetch('/data/working_bist_data.json');
+        
+        if (localResponse.ok) {
+          const data = await localResponse.json();
+          console.log(`✅ Loaded ${data.stocks?.length || 0} enhanced stocks from ${Object.keys(data.sectors || {}).length} sectors`);
+          
+          if (data.stocks && data.sectors) {
+            setStocks(data.stocks);
+            setFilteredStocks(data.stocks);
+            setSectors(data.sectors);
+            return; // Success - exit early
+          }
+        }
+      } catch (localErr) {
+        console.log('📡 Enhanced data not available, falling back to Railway API...');
+      }
+      
+      // Fallback to Railway API
       const baseUrl = 'https://bistai001-production.up.railway.app';
         
       const stocksResponse = await fetch(`${baseUrl}/api/bist/all-stocks?limit=${limit}`);
@@ -75,9 +95,10 @@ const RealSymbolSelector = ({
       if (stocksData.success) {
         setStocks(stocksData.stocks);
         setFilteredStocks(stocksData.stocks);
+        console.log(`📡 Loaded ${stocksData.stocks?.length || 0} stocks from Railway API`);
       }
 
-      // Fetch sectors
+      // Fetch sectors from Railway
       const sectorsResponse = await fetch(`${baseUrl}/api/bist/sectors`);
       
       if (sectorsResponse.ok) {
@@ -89,7 +110,7 @@ const RealSymbolSelector = ({
       
     } catch (err) {
       console.error('Failed to fetch BIST data:', err);
-      setError('Failed to load BIST data');
+      setError('Failed to load BIST data. Check console for details.');
     } finally {
       setIsLoading(false);
     }
@@ -123,7 +144,7 @@ const RealSymbolSelector = ({
     // Apply market filter
     if (selectedMarket !== 'all') {
       filtered = filtered.filter(stock => 
-        stock.bist_markets.includes(selectedMarket) ||
+        stock.bist_markets?.includes(selectedMarket) ||
         stock.market_segment === selectedMarket
       );
     }
@@ -232,7 +253,7 @@ const RealSymbolSelector = ({
                 <option value="all">All Sectors</option>
                 {Object.entries(sectors).map(([sectorId, sector]) => (
                   <option key={sectorId} value={sector.name}>
-                    {sector.name_turkish} ({sector.companies.length})
+                    {sector.name_turkish} ({sector.companies?.length || 0})
                   </option>
                 ))}
               </select>
@@ -315,7 +336,7 @@ const RealSymbolSelector = ({
                     <Badge variant="outline" className="text-xs">
                       {stock.sector_turkish}
                     </Badge>
-                    {stock.bist_markets.includes('bist_30') && (
+                    {stock.bist_markets?.includes('bist_30') && (
                       <Badge className="bg-yellow-100 text-yellow-800 text-xs">BIST 30</Badge>
                     )}
                   </div>
