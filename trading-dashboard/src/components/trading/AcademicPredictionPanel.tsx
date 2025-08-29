@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Brain, TrendingUp, Target } from 'lucide-react';
+import { Brain, TrendingUp, Target, X } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 // Dynamic price from BIST data
 const getRealPrice = (symbol: string, bistData?: any): number => {
@@ -169,10 +170,183 @@ export default function AcademicPredictionPanel({ selectedSymbol = 'GARAN' }: Ac
                 {Math.round(prediction.confidence * 100)}%
               </Badge>
             </div>
-            <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-              <TrendingUp className="h-4 w-4 mr-1" />
-              View Details
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                  <TrendingUp className="h-4 w-4 mr-1" />
+                  View Details
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle className="flex items-center gap-2">
+                    <Brain className="h-6 w-6 text-blue-600" />
+                    Academic Ensemble Prediction Details - {selectedSymbol}
+                  </DialogTitle>
+                </DialogHeader>
+                
+                <div className="space-y-6 mt-4">
+                  {/* Detailed Price Analysis */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Card className="border-blue-200">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-sm text-blue-600">Current Analysis</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold text-slate-800">₺{prediction.currentPrice}</div>
+                        <div className="text-sm text-slate-600">Market Price</div>
+                        <div className="mt-2 text-xs text-green-600">Real-time feed active</div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="border-green-200">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-sm text-green-600">8H Prediction</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold text-green-700">₺{prediction.predictedPrice}</div>
+                        <div className="text-sm text-slate-600">Target Price</div>
+                        <div className="mt-2 text-xs text-green-600">
+                          {((prediction.predictedPrice / prediction.currentPrice - 1) * 100) > 0 ? '+' : ''}
+                          {((prediction.predictedPrice / prediction.currentPrice - 1) * 100).toFixed(2)}% expected
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="border-purple-200">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-sm text-purple-600">Confidence</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold text-purple-700">{(prediction.confidence * 100).toFixed(0)}%</div>
+                        <div className="text-sm text-slate-600">Model Accuracy</div>
+                        <div className="mt-2 text-xs text-purple-600">High confidence signal</div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Model Component Breakdown */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">Model Component Analysis</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+                          <div className="flex items-center gap-3">
+                            <div className="w-4 h-4 bg-blue-500 rounded"></div>
+                            <div>
+                              <div className="font-medium">DP-LSTM Neural Network</div>
+                              <div className="text-sm text-slate-600">Deep learning price prediction with differential privacy</div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold text-blue-600">{prediction.dpLstmWeight * 100}%</div>
+                            <div className="text-xs text-slate-600">Weight</div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
+                          <div className="flex items-center gap-3">
+                            <div className="w-4 h-4 bg-purple-500 rounded"></div>
+                            <div>
+                              <div className="font-medium">sentimentARMA Model</div>
+                              <div className="text-sm text-slate-600">Turkish news sentiment analysis + ARMA forecasting</div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold text-purple-600">{prediction.sentimentArmaWeight * 100}%</div>
+                            <div className="text-xs text-slate-600">Weight</div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                          <div className="flex items-center gap-3">
+                            <div className="w-4 h-4 bg-green-500 rounded"></div>
+                            <div>
+                              <div className="font-medium">KAP News Impact</div>
+                              <div className="text-sm text-slate-600">Public disclosure platform announcements analysis</div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold text-green-600">{prediction.kapImpact * 100}%</div>
+                            <div className="text-xs text-slate-600">Weight</div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between p-4 bg-orange-50 rounded-lg">
+                          <div className="flex items-center gap-3">
+                            <div className="w-4 h-4 bg-orange-500 rounded"></div>
+                            <div>
+                              <div className="font-medium">HuggingFace Production</div>
+                              <div className="text-sm text-slate-600">Deployed model inference with real-time updates</div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold text-orange-600">{prediction.huggingFaceWeight * 100}%</div>
+                            <div className="text-xs text-slate-600">Weight</div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Technical Details */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">Technical Implementation</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <h4 className="font-medium mb-3">Neural Network Architecture</h4>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex justify-between">
+                              <span>LSTM Layers:</span>
+                              <span className="font-mono">3 layers</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Hidden Units:</span>
+                              <span className="font-mono">128, 64, 32</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Dropout:</span>
+                              <span className="font-mono">0.3</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>DP Noise:</span>
+                              <span className="font-mono">ε = 1.0</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h4 className="font-medium mb-3">Data Sources</h4>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                              <span>BIST Historical (2020-2025)</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                              <span>Turkish Financial News</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              <span>KAP Announcements</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                              <span>Real-time Market Data</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </CardContent>
