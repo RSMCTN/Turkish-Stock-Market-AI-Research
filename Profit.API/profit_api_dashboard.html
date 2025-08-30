@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profit.com Multi-Market Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e74c3c;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-indicator.connected {
+            background: #27ae60;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .market-selector {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .market-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            text-align: center;
+        }
+        
+        .market-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .market-card.active {
+            border-color: #3498db;
+            background: #e3f2fd;
+        }
+        
+        .market-card.open {
+            border-left: 5px solid #27ae60;
+        }
+        
+        .market-card.closed {
+            border-left: 5px solid #e74c3c;
+        }
+        
+        .market-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .market-status {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        
+        .market-time {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+        
+        .stock-search {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            align-items: center;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .stock-suggestions {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .stock-chip {
+            background: #3498db;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .stock-chip:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+        
+        .stock-chip.selected {
+            background: #27ae60;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn.connect {
+            background: #27ae60;
+        }
+        
+        .btn.disconnect {
+            background: #e74c3c;
+        }
+        
+        .btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .token-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .token-input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+        
+        .current-price {
+            grid-column: span 3;
+            text-align: center;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .price-display {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .price-change {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        .price-change.positive {
+            color: #27ae60;
+        }
+        
+        .price-change.negative {
+            color: #e74c3c;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .data-row:last-child {
+            border-bottom: none;
+        }
+        
+        .data-label {
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+        
+        .data-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .live-feed {
+            grid-column: span 3;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .feed-item {
+            background: #f8f9fa;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+        
+        .feed-item.new {
+            background: #e8f5e8;
+            border-left-color: #27ae60;
+            animation: highlight 2s ease;
+        }
+        
+        @keyframes highlight {
+            0% { background: #d5f4e6; }
+            100% { background: #f8f9fa; }
+        }
+        
+        .feed-time {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .feed-data {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .log-area {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .log-entry {
+            margin: 5px 0;
+            opacity: 0.8;
+        }
+        
+        .log-entry.error {
+            color: #e74c3c;
+        }
+        
+        .log-entry.success {
+            color: #27ae60;
+        }
+        
+        .log-entry.info {
+            color: #3498db;
+        }
+        
+        .selected-stocks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .selected-stock {
+            background: #27ae60;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .remove-stock {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .remove-stock:hover {
+            opacity: 1;
+        }
+        
+        .market-status-badge {
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .market-open {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .market-closed {
+            background: #fce4ec;
+            color: #e74c3c;
+        }
+        
+        .market-pre {
+            background: #fff3e0;
+            color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌍 Multi-Market Dashboard</h1>
+            <div class="connection-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">Bağlantı Bekleniyor</span>
+            </div>
+        </div>
+        
+        <div class="market-selector">
+            <h3 style="margin-bottom: 15px; color: #2c3e50;">📊 Market Seçimi</h3>
+            <div class="market-grid" id="marketGrid">
+                <!-- Market kartları dinamik olarak eklenecek -->
+            </div>
+            
+            <div class="stock-search">
+                <input type="text" class="search-input" id="stockSearch" placeholder="Hisse sembolü ara (örn: AAPL, BRSAN, TSLA...)">
+                <button class="btn" id="addStockBtn">Hisse Ekle</button>
+            </div>
+            
+            <div class="stock-suggestions" id="stockSuggestions">
+                <!-- Hisse önerileri burada görünecek -->
+            </div>
+            
+            <div class="selected-stocks" id="selectedStocks">
+                <!-- Seçili hisseler burada görünecek -->
+            </div>
+        </div>
+        
+        <div class="controls">
+            <input type="text" class="token-input" id="tokenInput" placeholder="API Token'ınızı girin" value="a9a0bacbab08493d958244c05380da01">
+            <button class="btn connect" id="connectBtn">Bağlan</button>
+            <button class="btn disconnect" id="disconnectBtn" disabled>Bağlantıyı Kes</button>
+            <button class="btn" id="clearBtn">Geçmişi Temizle</button>
+        </div>
+        
+        <div class="dashboard-grid">
+            <div class="card current-price">
+                <h2 id="currentTicker">Market Seçin</h2>
+                <div class="price-display" id="currentPrice">--</div>
+                <div class="price-change" id="priceChange">Veri Bekleniyor</div>
+                <div style="font-size: 1rem; opacity: 0.9; margin-top: 10px;">
+                    Son Güncelleme: <span id="lastUpdate">--</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">💹 Anlık Veriler</div>
+                <div class="data-row">
+                    <span class="data-label">Aktif Ticker:</span>
+                    <span class="data-value" id="activeTicker">--</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Fiyat:</span>
+                    <span class="data-value" id="price">--</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Hacim:</span>
+                    <span class="data-value" id="volume">--</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Market:</span>
+                    <span class="data-value" id="marketInfo">--</span>
+                </div>
+            </div>
+            
+            <div class="card stats-card">
+                <div class="card-title">📊 Oturum İstatistikleri</div>
+                <div class="data-row">
+                    <span class="data-label">Toplam Mesaj:</span>
+                    <span class="data-value" id="totalMessages">0</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Aktif Hisseler:</span>
+                    <span class="data-value" id="activeStocks">0</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">En Yüksek:</span>
+                    <span class="data-value" id="sessionHigh">--</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">En Düşük:</span>
+                    <span class="data-value" id="sessionLow">--</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">📈 Fiyat Analizi</div>
+                <div class="data-row">
+                    <span class="data-label">Trend:</span>
+                    <span class="data-value" id="trend">--</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Değişim %:</span>
+                    <span class="data-value" id="changePercent">--</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Hareketli Ort.:</span>
+                    <span class="data-value" id="movingAvg">--</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Volatilite:</span>
+                    <span class="data-value" id="volatility">--</span>
+                </div>
+            </div>
+            
+            <div class="card live-feed">
+                <div class="card-title">🔄 Canlı Veri Akışı (Tüm Hisseler)</div>
+                <div id="liveFeed">
+                    <div style="text-align: center; color: #7f8c8d; margin: 50px 0;">
+                        Veri akışı bekleniyor...
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="log-area" id="logArea">
+            <div class="log-entry info">📡 Dashboard hazır - Market seçin ve hisse ekleyin</div>
+        </div>
+    </div>
+
+    <script>
+        class MultiMarketDashboard {
+            constructor() {
+                this.ws = null;
+                this.isConnected = false;
+                this.selectedStocks = new Set();
+                this.stockData = {};
+                this.totalMessages = 0;
+                this.sessionHigh = null;
+                this.sessionLow = null;
+                this.priceHistory = {};
+                this.currentMarket = null;
+                this.currentTicker = null;
+                
+                this.markets = {
+                    'US': {
+                        name: '🇺🇸 Amerika (NYSE/NASDAQ)',
+                        suffix: '.US',
+                        isOpen: this.isMarketOpen('US'),
+                        timezone: 'America/New_York',
+                        suggestions: ['AAPL', 'GOOGL', 'MSFT', 'TSLA', 'NVDA', 'META', 'AMZN', 'NFLX']
+                    },
+                    'TR': {
+                        name: '🇹🇷 Türkiye (BIST)',
+                        suffix: '.IS',
+                        isOpen: this.isMarketOpen('TR'),
+                        timezone: 'Europe/Istanbul',
+                        suggestions: ['BRSAN', 'AKBNK', 'THYAO', 'TUPRS', 'BIMAS', 'EREGL', 'KCHOL', 'SAHOL']
+                    },
+                    'UK': {
+                        name: '🇬🇧 İngiltere (LSE)',
+                        suffix: '.LON',
+                        isOpen: this.isMarketOpen('UK'),
+                        timezone: 'Europe/London',
+                        suggestions: ['LLOY', 'BP', 'SHEL', 'AZN', 'RIO', 'HSBA', 'VOD', 'GLEN']
+                    },
+                    'DE': {
+                        name: '🇩🇪 Almanya (XETRA)',
+                        suffix: '.DE',
+                        isOpen: this.isMarketOpen('DE'),
+                        timezone: 'Europe/Berlin',
+                        suggestions: ['SAP', 'DTE', 'ALV', 'SIE', 'MUV2', 'BMW', 'VOW3', 'BAS']
+                    },
+                    'JP': {
+                        name: '🇯🇵 Japonya (TSE)',
+                        suffix: '.T',
+                        isOpen: this.isMarketOpen('JP'),
+                        timezone: 'Asia/Tokyo',
+                        suggestions: ['7203', '6758', '9984', '8306', '4063', '6861', '9432', '4519']
+                    },
+                    'CRYPTO': {
+                        name: '₿ Kripto Para',
+                        suffix: '.USD',
+                        isOpen: true, // Kripto 7/24 açık
+                        timezone: 'UTC',
+                        suggestions: ['BTC', 'ETH', 'BNB', 'ADA', 'XRP', 'SOL', 'DOT', 'AVAX']
+                    }
+                };
+                
+                this.initializeElements();
+                this.initializeEventListeners();
+                this.renderMarkets();
+                this.updateMarketTimes();
+                
+                // Her dakika market saatlerini güncelle
+                setInterval(() => this.updateMarketTimes(), 60000);
+            }
+            
+            isMarketOpen(market) {
+                const now = new Date();
+                const currentHour = now.getHours();
+                const currentDay = now.getDay(); // 0=Pazar, 6=Cumartesi
+                
+                // Hafta sonu kontrolü
+                if (currentDay === 0 || currentDay === 6) {
+                    return false;
+                }
+                
+                switch(market) {
+                    case 'US':
+                        // EDT: 9:30-16:00 (Türkiye saati: 16:30-23:00)
+                        return currentHour >= 16 && currentHour < 23;
+                    case 'TR':
+                        // Türkiye: 10:00-18:00
+                        return currentHour >= 10 && currentHour < 18;
+                    case 'UK':
+                        // GMT: 8:00-16:30 (Türkiye saati: 11:00-19:30)
+                        return currentHour >= 11 && currentHour < 19;
+                    case 'DE':
+                        // CET: 9:00-17:30 (Türkiye saati: 11:00-19:30)
+                        return currentHour >= 11 && currentHour < 19;
+                    case 'JP':
+                        // JST: 9:00-15:00 (Türkiye saati: 3:00-9:00)
+                        return currentHour >= 3 && currentHour < 9;
+                    default:
+                        return true;
+                }
+            }
+            
+            initializeElements() {
+                this.statusIndicator = document.getElementById('statusIndicator');
+                this.statusText = document.getElementById('statusText');
+                this.tokenInput = document.getElementById('tokenInput');
+                this.connectBtn = document.getElementById('connectBtn');
+                this.disconnectBtn = document.getElementById('disconnectBtn');
+                this.clearBtn = document.getElementById('clearBtn');
+                this.stockSearch = document.getElementById('stockSearch');
+                this.addStockBtn = document.getElementById('addStockBtn');
+                
+                // Display elements
+                this.currentTickerEl = document.getElementById('currentTicker');
+                this.currentPrice = document.getElementById('currentPrice');
+                this.priceChange = document.getElementById('priceChange');
+                this.lastUpdate = document.getElementById('lastUpdate');
+                this.activeTicker = document.getElementById('activeTicker');
+                this.price = document.getElementById('price');
+                this.volume = document.getElementById('volume');
+                this.marketInfo = document.getElementById('marketInfo');
+                
+                // Stats elements
+                this.totalMessagesEl = document.getElementById('totalMessages');
+                this.activeStocksEl = document.getElementById('activeStocks');
+                this.sessionHighEl = document.getElementById('sessionHigh');
+                this.sessionLowEl = document.getElementById('sessionLow');
+                
+                // Analysis elements
+                this.trendEl = document.getElementById('trend');
+                this.changePercentEl = document.getElementById('changePercent');
+                this.movingAvgEl = document.getElementById('movingAvg');
+                this.volatilityEl = document.getElementById('volatility');
+                
+                this.liveFeed = document.getElementById('liveFeed');
+                this.logArea = document.getElementById('logArea');
+                this.marketGrid = document.getElementById('marketGrid');
+                this.stockSuggestions = document.getElementById('stockSuggestions');
+                this.selectedStocksEl = document.getElementById('selectedStocks');
+            }
+            
+            initializeEventListeners() {
+                this.connectBtn.addEventListener('click', () => this.connect());
+                this.disconnectBtn.addEventListener('click', () => this.disconnect());
+                this.clearBtn.addEventListener('click', () => this.clearHistory());
+                this.addStockBtn.addEventListener('click', () => this.addStock());
+                
+                this.stockSearch.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.addStock();
+                    }
+                });
+                
+                this.tokenInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !this.isConnected) {
+                        this.connect();
+                    }
+                });
+            }
+            
+            renderMarkets() {
+                this.marketGrid.innerHTML = '';
+                
+                Object.entries(this.markets).forEach(([key, market]) => {
+                    const marketCard = document.createElement('div');
+                    marketCard.className = `market-card ${market.isOpen ? 'open' : 'closed'}`;
+                    marketCard.dataset.market = key;
+                    
+                    const statusBadge = market.isOpen ? 
+                        '<span class="market-status-badge market-open">AÇIK</span>' :
+                        '<span class="market-status-badge market-closed">KAPALI</span>';
+                    
+                    marketCard.innerHTML = `
+                        <div class="market-name">${market.name}</div>
+                        <div class="market-status">${statusBadge}</div>
+                        <div class="market-time" id="time-${key}">--</div>
+                    `;
+                    
+                    marketCard.addEventListener('click', () => this.selectMarket(key));
+                    this.marketGrid.appendChild(marketCard);
+                });
+            }
+            
+            updateMarketTimes() {
+                Object.entries(this.markets).forEach(([key, market]) => {
+                    const timeEl = document.getElementById(`time-${key}`);
+                    if (timeEl) {
+                        const now = new Date();
+                        const options = {
+                            timeZone: market.timezone,
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        };
+                        timeEl.textContent = now.toLocaleTimeString('tr-TR', options);
+                    }
+                });
+                
+                // Market durumlarını güncelle
+                Object.keys(this.markets).forEach(key => {
+                    this.markets[key].isOpen = this.isMarketOpen(key);
+                });
+                this.renderMarkets();
+            }
+            
+            selectMarket(marketKey) {
+                // Önceki seçimi temizle
+                document.querySelectorAll('.market-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                
+                // Yeni seçimi işaretle
+                document.querySelector(`[data-market="${marketKey}"]`).classList.add('active');
+                
+                this.currentMarket = marketKey;
+                const market = this.markets[marketKey];
+                
+                this.addLog(`🌍 ${market.name} seçildi`, 'info');
+                this.renderStockSuggestions(marketKey);
+            }
+            
+            renderStockSuggestions(marketKey) {
+                const market = this.markets[marketKey];
+                this.stockSuggestions.innerHTML = '';
+                
+                market.suggestions.forEach(symbol => {
+                    const chip = document.createElement('div');
+                    chip.className = 'stock-chip';
+                    chip.textContent = symbol;
+                    chip.addEventListener('click', () => this.addStockFromSuggestion(symbol));
+                    this.stockSuggestions.appendChild(chip);
+                });
+            }
+            
+            addStockFromSuggestion(symbol) {
+                if (!this.currentMarket) {
+                    this.addLog('⚠️ Önce market seçin', 'error');
+                    return;
+                }
+                
+                const market = this.markets[this.currentMarket];
+                const fullSymbol = symbol + market.suffix;
+                this.addStockToSelection(fullSymbol);
+            }
+            
+            addStock() {
+                const symbol = this.stockSearch.value.trim().toUpperCase();
+                if (!symbol) return;
+                
+                if (!this.currentMarket) {
+                    this.addLog('⚠️ Önce market seçin', 'error');
+                    return;
+                }
+                
+                const market = this.markets[this.currentMarket];
+                let fullSymbol = symbol;
+                
+                // Suffix yoksa ekle
+                if (!symbol.includes('.')) {
+                    fullSymbol = symbol + market.suffix;
+                }
+                
+                this.addStockToSelection(fullSymbol);
+                this.stockSearch.value = '';
+            }
+            
+            addStockToSelection(symbol) {
+                if (this.selectedStocks.has(symbol)) {
+                    this.addLog(`⚠️ ${symbol} zaten seçili`, 'error');
+                    return;
+                }
+                
+                this.selectedStocks.add(symbol);
+                this.stockData[symbol] = {
+                    lastPrice: null,
+                    priceHistory: [],
+                    volumeHistory: []
+                };
+                
+                this.renderSelectedStocks();
+                this.addLog(`✅ ${symbol} eklendi`, 'success');
+                
+                // Eğer bağlıysa hemen abone ol
+                if (this.isConnected) {
+                    this.subscribeToStock(symbol);
+                }
+                
+                this.updateStats();
+            }
+            
+            removeStock(symbol) {
+                this.selectedStocks.delete(symbol);
+                delete this.stockData[symbol];
+                
+                if (this.currentTicker === symbol) {
+                    this.currentTicker = null;
+                    this.resetCurrentDisplay();
+                }
+                
+                this.renderSelectedStocks();
+                this.addLog(`❌ ${symbol} kaldırıldı`, 'info');
+                
+                // Eğer bağlıysa abonelikten çık
+                if (this.isConnected) {
+                    this.unsubscribeFromStock(symbol);
+                }
+                
+                this.updateStats();
+            }
+            
+            renderSelectedStocks() {
+                this.selectedStocksEl.innerHTML = '';
+                
+                this.selectedStocks.forEach(symbol => {
+                    const stockEl = document.createElement('div');
+                    stockEl.className = 'selected-stock';
+                    stockEl.innerHTML = `
+                        <span onclick="dashboard.setCurrentTicker('${symbol}')" style="cursor: pointer;">${symbol}</span>
+                        <span class="remove-stock" onclick="dashboard.removeStock('${symbol}')">×</span>
+                    `;
+                    this.selectedStocksEl.appendChild(stockEl);
+                });
+            }
+            
+            setCurrentTicker(symbol) {
+                this.currentTicker = symbol;
+                this.currentTickerEl.textContent = symbol;
+                
+                if (this.stockData[symbol] && this.stockData[symbol].lastPrice !== null) {
+                    this.updateCurrentDisplay(symbol);
+                }
+                
+                this.addLog(`🎯 Aktif ticker: ${symbol}`, 'info');
+            }
+            
+            resetCurrentDisplay() {
+                this.currentTickerEl.textContent = 'Market Seçin';
+                this.currentPrice.textContent = '--';
+                this.priceChange.textContent = 'Veri Bekleniyor';
+                this.lastUpdate.textContent = '--';
+            }
+            
+            connect() {
+                const token = this.tokenInput.value.trim();
+                if (!token) {
+                    this.addLog('⚠️ Lütfen API token girin', 'error');
+                    return;
+                }
+                
+                if (this.selectedStocks.size === 0) {
+                    this.addLog('⚠️ Lütfen en az bir hisse seçin', 'error');
+                    return;
+                }
+                
+                // Önce Profit.com REST API test et
+                this.addLog('🔍 Profit.com API erişimi test ediliyor...', 'info');
+                
+                const testEndpoints = [
+                    `https://api.profit.com/eod?ticker=AAPL.US&token=${token}&format=json`,
+                    `https://api.profit.com/v1/quote?symbol=AAPL.US&token=${token}`,
+                    `https://api.profit.com/quote?symbols=AAPL.US&token=${token}`,
+                    `https://api.profit.com/realtime?symbols=AAPL.US&token=${token}`
+                ];
+                
+                this.testRestEndpoints(testEndpoints, 0, token);
+            }
+            
+            testRestEndpoints(endpoints, index, token) {
+                if (index >= endpoints.length) {
+                    this.addLog('⚠️ REST API test tamamlandı, WebSocket bağlantısı deneniyor...', 'info');
+                    this.connectWebSocket(token);
+                    return;
+                }
+                
+                const endpoint = endpoints[index];
+                this.addLog(`🌐 REST Test [${index + 1}/${endpoints.length}]: ${endpoint.split('?')[0]}`, 'info');
+                
+                fetch(endpoint, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    this.addLog(`📡 REST Response: ${response.status} ${response.statusText}`, 
+                        response.ok ? 'success' : 'error');
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error(`HTTP ${response.status}`);
+                })
+                .then(data => {
+                    this.addLog(`✅ REST API çalışıyor! Örnek data alındı`, 'success');
+                    this.addLog(`📊 Data: ${JSON.stringify(data).substring(0, 200)}...`, 'info');
+                })
+                .catch(error => {
+                    this.addLog(`❌ REST Error: ${error.message}`, 'error');
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        this.testRestEndpoints(endpoints, index + 1, token);
+                    }, 1000);
+                });
+            }
+            
+            connectWebSocket(token) {
+                // Profit.com API dokümantasyonuna göre doğru WebSocket URL'leri
+                const possibleUrls = [
+                    `wss://api.profit.com/real-time?token=${token}`,
+                    `wss://api.profit.com/websocket?token=${token}`,
+                    `wss://ws.profit.com/v1/real-time?token=${token}`,
+                    `wss://stream.profit.com/real-time?token=${token}`,
+                    `wss://api.profit.com/v1/stream?token=${token}&format=json`,
+                    `ws://api.profit.com/real-time?token=${token}` // HTTP fallback
+                ];
+                
+                this.tryWebSocketConnection(possibleUrls, 0, token);
+            }
+            
+            tryWebSocketConnection(urls, index, token) {
+                if (index >= urls.length) {
+                    this.addLog('❌ Tüm WebSocket URL\'leri denendi, bağlantı başarısız', 'error');
+                    this.showConnectionHelp();
+                    return;
+                }
+                
+                const wsUrl = urls[index];
+                this.addLog(`🔌 Deneniyor [${index + 1}/${urls.length}]: ${wsUrl}`, 'info');
+                
+                try {
+                    this.ws = new WebSocket(wsUrl);
+                    
+                    // 5 saniye timeout
+                    const timeout = setTimeout(() => {
+                        if (this.ws.readyState === WebSocket.CONNECTING) {
+                            this.ws.close();
+                            this.addLog(`⏰ Bağlantı zaman aşımı: ${wsUrl}`, 'error');
+                            this.tryWebSocketConnection(urls, index + 1, token);
+                        }
+                    }, 5000);
+                    
+                    this.ws.onopen = () => {
+                        clearTimeout(timeout);
+                        this.addLog(`✅ WebSocket bağlantısı kuruldu: ${wsUrl}`, 'success');
+                        this.isConnected = true;
+                        this.updateConnectionStatus(true);
+                        
+                        // Tüm seçili hisselere abone ol
+                        this.subscribeToAllStocks();
+                    };
+                    
+                    this.ws.onmessage = (event) => {
+                        this.handleMessage(event.data);
+                    };
+                    
+                    this.ws.onerror = (error) => {
+                        clearTimeout(timeout);
+                        this.addLog(`❌ WebSocket hatası: ${wsUrl} - ${error}`, 'error');
+                        this.tryWebSocketConnection(urls, index + 1, token);
+                    };
+                    
+                    this.ws.onclose = (event) => {
+                        clearTimeout(timeout);
+                        if (!this.isConnected) {
+                            this.addLog(`🔌 Bağlantı başarısız: ${wsUrl} (Kod: ${event.code})`, 'error');
+                            this.tryWebSocketConnection(urls, index + 1, token);
+                        } else {
+                            this.addLog(`🔌 Bağlantı kapatıldı (Kod: ${event.code})`, 'info');
+                            this.isConnected = false;
+                            this.updateConnectionStatus(false);
+                        }
+                    };
+                    
+                } catch (error) {
+                    this.addLog(`❌ WebSocket oluşturma hatası: ${error.message}`, 'error');
+                    this.tryWebSocketConnection(urls, index + 1, token);
+                }
+            }
+            
+            showConnectionHelp() {
+                this.addLog('', 'info');
+                this.addLog('🆘 BAĞLANTI SORUNU GİDERME:', 'error');
+                this.addLog('1. Token\'ınızı profit.com hesabınızdan kontrol edin', 'info');
+                this.addLog('2. Farklı tarayıcı deneyin (Chrome önerilir)', 'info');  
+                this.addLog('3. VPN kullanıyorsanız kapatmayı deneyin', 'info');
+                this.addLog('4. Firewall/Antivirus ayarlarını kontrol edin', 'info');
+                this.addLog('5. Profit.com hesabınızda API erişim limitlerini kontrol edin', 'info');
+                this.addLog('', 'info');
+                this.addLog('💡 Demo Mod: Aşağıdaki butona basarak demo verilerle test yapabilirsiniz', 'success');
+                
+                // Demo mode butonu ekle
+                const demoBtn = document.createElement('button');
+                demoBtn.textContent = 'Demo Verilerle Test Et';
+                demoBtn.className = 'btn';
+                demoBtn.style.background = '#f39c12';
+                demoBtn.style.marginLeft = '10px';
+                demoBtn.onclick = () => this.startDemoMode();
+                
+                this.connectBtn.parentNode.appendChild(demoBtn);
+            }
+            
+            startDemoMode() {
+                this.addLog('🎭 Demo modu başlatılıyor...', 'success');
+                this.isConnected = true;
+                this.updateConnectionStatus(true);
+                
+                // Demo veri simülasyonu
+                this.demoInterval = setInterval(() => {
+                    this.selectedStocks.forEach(symbol => {
+                        const basePrice = symbol.includes('BTC') ? 45000 : 
+                                       symbol.includes('AAPL') ? 150 : 
+                                       symbol.includes('TSLA') ? 200 : 
+                                       symbol.includes('BRSAN') ? 25 : 100;
+                        
+                        const variation = (Math.random() - 0.5) * 0.02; // ±1%
+                        const price = basePrice * (1 + variation);
+                        const volume = Math.floor(Math.random() * 1000000) + 10000;
+                        
+                        const demoMessage = {
+                            t: symbol,
+                            p: price,
+                            v: volume,
+                            ts: Date.now()
+                        };
+                        
+                        this.handleMessage(JSON.stringify(demoMessage));
+                    });
+                }, 2000); // Her 2 saniyede yeni veri
+                
+                this.addLog('✅ Demo modu aktif! Simülasyon verileri görüntüleniyor', 'success');
+            }
+            
+            disconnect() {
+                if (this.ws) {
+                    this.ws.close();
+                }
+                
+                // Demo mode'u durdur
+                if (this.demoInterval) {
+                    clearInterval(this.demoInterval);
+                    this.demoInterval = null;
+                    this.addLog('🎭 Demo modu durduruldu', 'info');
+                }
+            }
+            
+            subscribeToAllStocks() {
+                if (!this.isConnected || this.selectedStocks.size === 0) return;
+                
+                const tickers = Array.from(this.selectedStocks);
+                
+                // Profit.com API formatına göre düzenle
+                const subscribeMsg = {
+                    action: "subscribe",
+                    symbols: tickers.join(','), // Virgülle ayırarak gönder
+                    format: "json"
+                };
+                
+                this.addLog(`📊 Abone olunacak semboller: ${tickers.join(', ')}`, 'info');
+                this.addLog(`📤 Gönderilen mesaj: ${JSON.stringify(subscribeMsg)}`, 'info');
+                
+                this.ws.send(JSON.stringify(subscribeMsg));
+                this.addLog(`✅ ${tickers.length} hisseye abone olundu`, 'success');
+            }
+            
+            subscribeToStock(symbol) {
+                if (!this.isConnected) return;
+                
+                const subscribeMsg = {
+                    action: "subscribe",
+                    symbols: symbol,
+                    format: "json"
+                };
+                
+                this.addLog(`📤 Tek hisse abone: ${JSON.stringify(subscribeMsg)}`, 'info');
+                this.ws.send(JSON.stringify(subscribeMsg));
+                this.addLog(`📊 ${symbol} hissesine abone olundu`, 'success');
+            }
+            
+            unsubscribeFromStock(symbol) {
+                if (!this.isConnected) return;
+                
+                const unsubscribeMsg = {
+                    action: "unsubscribe", 
+                    symbols: symbol,
+                    format: "json"
+                };
+                
+                this.ws.send(JSON.stringify(unsubscribeMsg));
+                this.addLog(`📊 ${symbol} aboneliğinden çıkıldı`, 'info');
+            }
+            
+            handleMessage(data) {
+                try {
+                    // Ham veriyi logla
+                    this.addLog(`📥 Ham veri: ${data}`, 'info');
+                    
+                    let message;
+                    try {
+                        message = JSON.parse(data);
+                    } catch (parseError) {
+                        this.addLog(`❌ JSON parse hatası: ${parseError.message}`, 'error');
+                        this.addLog(`📄 Ham data: ${data}`, 'error');
+                        return;
+                    }
+                    
+                    this.addLog(`📋 Parse edilmiş veri: ${JSON.stringify(message)}`, 'success');
+                    
+                    // Farklı mesaj formatlarını kontrol et
+                    if (message.error) {
+                        this.addLog(`❌ API Hatası: ${message.error}`, 'error');
+                        return;
+                    }
+                    
+                    if (message.status) {
+                        this.addLog(`📊 Durum mesajı: ${message.status}`, 'info');
+                        return;
+                    }
+                    
+                    // Başarı mesajı kontrolü
+                    if (message.action && message.action === 'subscribed') {
+                        this.addLog(`✅ Abonelik onaylandı: ${JSON.stringify(message)}`, 'success');
+                        return;
+                    }
+                    
+                    // Fiyat verisi kontrolü (farklı format olasılıkları)
+                    const symbol = message.t || message.symbol || message.ticker || message.s;
+                    const price = message.p || message.price || message.last || message.c;
+                    const volume = message.v || message.volume || message.vol;
+                    const timestamp = message.ts || message.timestamp || message.time || Date.now();
+                    
+                    if (!symbol) {
+                        this.addLog(`⚠️ Symbol bulunamadı mesajda: ${JSON.stringify(message)}`, 'error');
+                        return;
+                    }
+                    
+                    if (price === undefined || price === null) {
+                        this.addLog(`⚠️ Fiyat bulunamadı mesajda: ${JSON.stringify(message)}`, 'error');
+                        return;
+                    }
+                    
+                    // Mesajı standart formata çevir
+                    const standardMessage = {
+                        t: symbol,
+                        p: parseFloat(price),
+                        v: parseInt(volume || 0),
+                        ts: parseInt(timestamp)
+                    };
+                    
+                    this.totalMessages++;
+                    
+                    // Hisse verisini güncelle
+                    if (!this.stockData[symbol]) {
+                        this.stockData[symbol] = {
+                            lastPrice: null,
+                            priceHistory: [],
+                            volumeHistory: []
+                        };
+                    }
+                    
+                    const stockData = this.stockData[symbol];
+                    stockData.priceHistory.push(standardMessage.p);
+                    stockData.volumeHistory.push(standardMessage.v);
+                    
+                    // Son 50 veriyi sakla
+                    if (stockData.priceHistory.length > 50) {
+                        stockData.priceHistory.shift();
+                        stockData.volumeHistory.shift();
+                    }
+                    
+                    // Mevcut ticker için display güncelle
+                    if (symbol === this.currentTicker) {
+                        this.updateCurrentDisplay(symbol, standardMessage);
+                    }
+                    
+                    // Global istatistikleri güncelle
+                    this.updateGlobalStats(standardMessage.p);
+                    
+                    // Canlı feed'e ekle
+                    this.addToLiveFeed(standardMessage);
+                    
+                    // Son fiyatı güncelle
+                    stockData.lastPrice = standardMessage.p;
+                    
+                    this.updateStats();
+                    
+                    this.addLog(`✅ Veri işlendi: ${symbol} - ${standardMessage.p} - Vol: ${standardMessage.v}`, 'success');
+                    
+                } catch (error) {
+                    this.addLog(`❌ Veri işleme hatası: ${error.message}`, 'error');
+                    this.addLog(`📄 Hatalı veri: ${data}`, 'error');
+                }
+            }
+            
+            updateCurrentDisplay(symbol, message = null) {
+                const stockData = this.stockData[symbol];
+                if (!stockData) return;
+                
+                if (message) {
+                    const price = parseFloat(message.p);
+                    const volume = parseInt(message.v);
+                    const timestamp = new Date(message.ts);
+                    
+                    // Ana display
+                    this.currentTickerEl.textContent = symbol;
+                    this.currentPrice.textContent = this.formatPrice(price, symbol);
+                    this.lastUpdate.textContent = timestamp.toLocaleTimeString('tr-TR');
+                    
+                    // Detay bilgiler
+                    this.activeTicker.textContent = symbol;
+                    this.price.textContent = this.formatPrice(price, symbol);
+                    this.volume.textContent = volume.toLocaleString('tr-TR');
+                    this.marketInfo.textContent = this.getMarketInfo(symbol);
+                    
+                    // Fiyat değişimi
+                    if (stockData.priceHistory.length >= 2) {
+                        const prevPrice = stockData.priceHistory[stockData.priceHistory.length - 2];
+                        const change = price - prevPrice;
+                        const changePercent = ((change / prevPrice) * 100);
+                        
+                        let changeText = '';
+                        let changeClass = '';
+                        
+                        if (change > 0) {
+                            changeText = `+${this.formatPrice(change, symbol)} (+${changePercent.toFixed(2)}%)`;
+                            changeClass = 'positive';
+                        } else if (change < 0) {
+                            changeText = `${this.formatPrice(change, symbol)} (${changePercent.toFixed(2)}%)`;
+                            changeClass = 'negative';
+                        } else {
+                            changeText = 'Değişim yok';
+                            changeClass = '';
+                        }
+                        
+                        this.priceChange.textContent = changeText;
+                        this.priceChange.className = `price-change ${changeClass}`;
+                        this.changePercentEl.textContent = `${changePercent.toFixed(2)}%`;
+                    }
+                    
+                    // Analiz verileri
+                    this.updateAnalysisData(symbol);
+                }
+            }
+            
+            formatPrice(price, symbol) {
+                if (symbol.includes('.USD') || symbol.includes('BTC') || symbol.includes('ETH')) {
+                    return `${price.toFixed(2)}`;
+                } else if (symbol.includes('.IS')) {
+                    return `₺${price.toFixed(2)}`;
+                } else if (symbol.includes('.LON')) {
+                    return `£${price.toFixed(2)}`;
+                } else if (symbol.includes('.DE')) {
+                    return `€${price.toFixed(2)}`;
+                } else if (symbol.includes('.T')) {
+                    return `¥${price.toFixed(0)}`;
+                } else {
+                    return `${price.toFixed(2)}`;
+                }
+            }
+            
+            getMarketInfo(symbol) {
+                for (const [key, market] of Object.entries(this.markets)) {
+                    if (symbol.includes(market.suffix)) {
+                        return `${market.name} - ${market.isOpen ? 'AÇIK' : 'KAPALI'}`;
+                    }
+                }
+                return 'Bilinmeyen Market';
+            }
+            
+            updateAnalysisData(symbol) {
+                const stockData = this.stockData[symbol];
+                if (!stockData || stockData.priceHistory.length < 2) return;
+                
+                const prices = stockData.priceHistory;
+                const currentPrice = prices[prices.length - 1];
+                const previousPrice = prices[prices.length - 2];
+                
+                // Trend
+                let trend = '';
+                if (currentPrice > previousPrice) {
+                    trend = '📈 Yükseliş';
+                } else if (currentPrice < previousPrice) {
+                    trend = '📉 Düşüş';
+                } else {
+                    trend = '➡️ Sabit';
+                }
+                
+                // Hareketli ortalama (son 10)
+                const last10 = prices.slice(-10);
+                const movingAvg = last10.reduce((a, b) => a + b, 0) / last10.length;
+                
+                // Volatilite (son 10 verinin standart sapması)
+                const mean = movingAvg;
+                const variance = last10.reduce((acc, price) => acc + Math.pow(price - mean, 2), 0) / last10.length;
+                const volatility = Math.sqrt(variance);
+                
+                this.trendEl.textContent = trend;
+                this.movingAvgEl.textContent = this.formatPrice(movingAvg, symbol);
+                this.volatilityEl.textContent = `${volatility.toFixed(2)}%`;
+            }
+            
+            updateGlobalStats(price) {
+                // Session high/low (tüm hisseler için)
+                if (this.sessionHigh === null || price > this.sessionHigh) {
+                    this.sessionHigh = price;
+                }
+                if (this.sessionLow === null || price < this.sessionLow) {
+                    this.sessionLow = price;
+                }
+                
+                this.sessionHighEl.textContent = `${this.sessionHigh.toFixed(2)}`;
+                this.sessionLowEl.textContent = `${this.sessionLow.toFixed(2)}`;
+            }
+            
+            updateStats() {
+                this.totalMessagesEl.textContent = this.totalMessages.toLocaleString('tr-TR');
+                this.activeStocksEl.textContent = this.selectedStocks.size;
+            }
+            
+            addToLiveFeed(data) {
+                const timestamp = new Date(data.ts);
+                const price = parseFloat(data.p);
+                const volume = parseInt(data.v);
+                const symbol = data.t;
+                
+                // Eğer feed boşsa temizle
+                if (this.liveFeed.innerHTML.includes('Veri akışı bekleniyor')) {
+                    this.liveFeed.innerHTML = '';
+                }
+                
+                const feedItem = document.createElement('div');
+                feedItem.className = 'feed-item new';
+                
+                const marketInfo = this.getMarketInfo(symbol);
+                
+                feedItem.innerHTML = `
+                    <div class="feed-time">${timestamp.toLocaleString('tr-TR')}</div>
+                    <div class="feed-data">
+                        <div><strong>Ticker:</strong> ${symbol}</div>
+                        <div><strong>Fiyat:</strong> ${this.formatPrice(price, symbol)}</div>
+                        <div><strong>Hacim:</strong> ${volume.toLocaleString('tr-TR')}</div>
+                    </div>
+                    <div style="font-size: 0.8rem; color: #7f8c8d; margin-top: 5px;">${marketInfo}</div>
+                `;
+                
+                // Tıklanabilir yap
+                feedItem.style.cursor = 'pointer';
+                feedItem.addEventListener('click', () => this.setCurrentTicker(symbol));
+                
+                this.liveFeed.insertBefore(feedItem, this.liveFeed.firstChild);
+                
+                // Sadece son 30 item'ı sakla
+                while (this.liveFeed.children.length > 30) {
+                    this.liveFeed.removeChild(this.liveFeed.lastChild);
+                }
+                
+                // "new" class'ını 2 saniye sonra kaldır
+                setTimeout(() => {
+                    feedItem.classList.remove('new');
+                }, 2000);
+            }
+            
+            updateConnectionStatus(connected) {
+                if (connected) {
+                    this.statusIndicator.classList.add('connected');
+                    this.statusText.textContent = 'Bağlı';
+                    this.connectBtn.disabled = true;
+                    this.disconnectBtn.disabled = false;
+                    this.tokenInput.disabled = true;
+                } else {
+                    this.statusIndicator.classList.remove('connected');
+                    this.statusText.textContent = 'Bağlantısız';
+                    this.connectBtn.disabled = false;
+                    this.disconnectBtn.disabled = true;
+                    this.tokenInput.disabled = false;
+                }
+            }
+            
+            addLog(message, type = 'info') {
+                const timestamp = new Date().toLocaleTimeString('tr-TR');
+                const logEntry = document.createElement('div');
+                logEntry.className = `log-entry ${type}`;
+                logEntry.textContent = `[${timestamp}] ${message}`;
+                
+                this.logArea.appendChild(logEntry);
+                this.logArea.scrollTop = this.logArea.scrollHeight;
+                
+                // Son 100 log'u sakla
+                while (this.logArea.children.length > 100) {
+                    this.logArea.removeChild(this.logArea.firstChild);
+                }
+            }
+            
+            clearHistory() {
+                this.selectedStocks.forEach(symbol => {
+                    if (this.stockData[symbol]) {
+                        this.stockData[symbol].priceHistory = [];
+                        this.stockData[symbol].volumeHistory = [];
+                        this.stockData[symbol].lastPrice = null;
+                    }
+                });
+                
+                this.totalMessages = 0;
+                this.sessionHigh = null;
+                this.sessionLow = null;
+                this.currentTicker = null;
+                
+                // UI'ı sıfırla
+                this.liveFeed.innerHTML = '<div style="text-align: center; color: #7f8c8d; margin: 50px 0;">Veri akışı bekleniyor...</div>';
+                this.logArea.innerHTML = '<div class="log-entry info">📡 Geçmiş temizlendi</div>';
+                this.resetCurrentDisplay();
+                
+                // İstatistikleri sıfırla
+                this.updateStats();
+                this.sessionHighEl.textContent = '--';
+                this.sessionLowEl.textContent = '--';
+                this.trendEl.textContent = '--';
+                this.changePercentEl.textContent = '--';
+                this.movingAvgEl.textContent = '--';
+                this.volatilityEl.textContent = '--';
+            }
+        }
+        
+        // Global dashboard instance
+        const dashboard = new MultiMarketDashboard();
+        
+        // Sayfa yüklendiğinde BRSAN.IS'i otomatik ekle
+        window.addEventListener('load', () => {
+            // Türkiye marketini seç
+            dashboard.selectMarket('TR');
+            // BRSAN.IS'i ekle
+            dashboard.addStockToSelection('BRSAN.IS');
+            
+            // Amerika marketinden birkaç popüler hisse de ekle
+            dashboard.selectMarket('US');
+            dashboard.addStockToSelection('AAPL.US');
+            dashboard.addStockToSelection('TSLA.US');
+            
+            // Kripto da ekle
+            dashboard.selectMarket('CRYPTO');
+            dashboard.addStockToSelection('BTC.USD');
+            
+            // Varsayılan olarak BRSAN.IS'i aktif yap
+            dashboard.setCurrentTicker('BRSAN.IS');
+            
+            dashboard.addLog('🚀 Varsayılan hisseler eklendi: BRSAN.IS, AAPL.US, TSLA.US, BTC.USD', 'success');
+        });
+    </script>
+</body>
+</html>

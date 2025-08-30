@@ -1,0 +1,62 @@
+{
+  "database": {
+    "path": "enhanced_bist_data.db",
+    "optimize_frequency": "daily",
+    "enable_wal_mode": true,
+    "cache_size_mb": 128
+  },
+  "excel_data": {
+    "historical_directory": "data/New_excell_Graph_Sample",
+    "daily_directory": "data/daily_updates",
+    "enable_parallel_processing": false,
+    "batch_size": 50,
+    "supported_timeframes": ["30m", "60m", "daily"],
+    "backup_imported_files": true
+  },
+  "daily_updates": {
+    "basestock_path": "data/daily_updates/basestock.xls",
+    "enable_monitoring": true,
+    "check_interval_seconds": 60,
+    "backup_old_files": true,
+    "file_watch_patterns": ["*.xlsx", "*.xls", "*basestock*"]
+  },
+  "ai_retraining": {
+    "min_new_records": 1000,
+    "frequency_days": 7,
+    "enable_automatic": true,
+    "models_to_retrain": ["turkish_qa", "dp_lstm", "sentiment"],
+    "retrain_schedule": "weekly",
+    "backup_old_models": true
+  },
+  "technical_indicators": {
+    "enable_advanced_analysis": true,
+    "indicators_to_calculate": [
+      "rsi_14", "macd_26_12", "atr_14", "adx_14", 
+      "stochastic_k_5", "bollinger_bands", "ichimoku_cloud"
+    ],
+    "prediction_confidence_threshold": 0.6,
+    "signal_strength_calculation": "weighted_average"
+  },
+  "performance": {
+    "parallel_processing": true,
+    "max_workers": 4,
+    "chunk_size": 1000,
+    "memory_limit_gb": 4,
+    "enable_database_optimization": true,
+    "optimization_schedule": "daily_at_night"
+  },
+  "notifications": {
+    "enable_logging": true,
+    "log_level": "INFO",
+    "log_file": "enhanced_pipeline.log",
+    "enable_email_alerts": false,
+    "alert_on_errors": true
+  },
+  "predictions": {
+    "enable_generation": true,
+    "generation_schedule": "after_data_update",
+    "store_predictions": true,
+    "prediction_horizon_days": 5,
+    "confidence_levels": ["high", "medium", "low"]
+  }
+}

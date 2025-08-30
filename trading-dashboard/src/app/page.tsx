@@ -27,6 +27,7 @@ import RealMarketOverview from '@/components/trading/RealMarketOverview';
 import AdvancedIndicators from '@/components/trading/AdvancedIndicators';
 import AdvancedNewsSentiment from '@/components/trading/AdvancedNewsSentiment';
 import RealSymbolSelector from '@/components/trading/RealSymbolSelector';
+import AdvancedTechnicalPanel from '@/components/trading/AdvancedTechnicalPanel';
 
 export default function AcademicDashboard() {
   const [systemStatus, setSystemStatus] = useState({
@@ -186,6 +187,21 @@ export default function AcademicDashboard() {
               
               {/* Component Contributions */}
               <ComponentContributionChart selectedSymbol={selectedSymbol} />
+            </div>
+
+            {/* Advanced Technical Analysis Section */}
+            <div className="grid lg:grid-cols-2 gap-6">
+              {/* New Advanced Technical Panel */}
+              <AdvancedTechnicalPanel 
+                selectedSymbol={selectedSymbol} 
+                apiBaseUrl={process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://bistai001-production.up.railway.app'} 
+              />
+              
+              {/* AI Chat Panel */}
+              <AIChatPanel 
+                selectedSymbol={selectedSymbol}
+                apiBaseUrl={process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://bistai001-production.up.railway.app'} 
+              />
             </div>
 
             {/* Company Analysis Section */}
