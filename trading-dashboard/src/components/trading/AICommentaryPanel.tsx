@@ -68,11 +68,15 @@ export default function AICommentaryPanel({ selectedSymbol = 'GARAN' }: AICommen
       setLoading(true);
       
       try {
+        let loadedStockData = null;
+        let loadedHistoricalData = null;
+
         // Load enhanced stock data
         const enhancedResponse = await fetch('/data/enhanced_bist_data.json');
         if (enhancedResponse.ok) {
           const enhancedData = await enhancedResponse.json();
           const stock = enhancedData.stocks.find((s: any) => s.symbol === selectedSymbol);
+          loadedStockData = stock;
           setStockData(stock);
         }
 
@@ -80,13 +84,14 @@ export default function AICommentaryPanel({ selectedSymbol = 'GARAN' }: AICommen
         const historicalResponse = await fetch(`/data/historical/${selectedSymbol}.json`);
         if (historicalResponse.ok) {
           const historical = await historicalResponse.json();
+          loadedHistoricalData = historical;
           setHistoricalData(historical);
         }
 
-        // Generate AI forecasts and commentary
-        if (stockData || historicalData) {
-          const generatedForecasts = generateHourlyForecasts(selectedSymbol, stockData, historicalData);
-          const generatedCommentary = generateAICommentary(selectedSymbol, stockData, historicalData, generatedForecasts);
+        // Generate AI forecasts and commentary using the just-loaded data
+        if (loadedStockData || loadedHistoricalData) {
+          const generatedForecasts = generateHourlyForecasts(selectedSymbol, loadedStockData, loadedHistoricalData);
+          const generatedCommentary = generateAICommentary(selectedSymbol, loadedStockData, loadedHistoricalData, generatedForecasts);
           
           setForecasts(generatedForecasts);
           setCommentary(generatedCommentary);
@@ -100,7 +105,7 @@ export default function AICommentaryPanel({ selectedSymbol = 'GARAN' }: AICommen
     };
 
     loadAIAnalysis();
-  }, [selectedSymbol, stockData, historicalData]);
+  }, [selectedSymbol]);
 
   const generateHourlyForecasts = (symbol: string, stock: any, historical: any): DailyForecast[] => {
     const forecasts: DailyForecast[] = [];
@@ -223,35 +228,43 @@ export default function AICommentaryPanel({ selectedSymbol = 'GARAN' }: AICommen
   const generateAICommentary = (symbol: string, stock: any, historical: any, forecasts: DailyForecast[]): AICommentary => {
     const currentPrice = stock?.lastPrice || 100;
     const sector = stock?.sector || 'UNKNOWN';
-    const avgVolatility = forecasts.reduce((sum, f) => sum + f.hourlyForecasts.reduce((s, h) => s + h.volatility, 0) / f.hourlyForecasts.length, 0) / forecasts.length;
+    const avgVolatility = forecasts.length > 0 ? 
+      forecasts.reduce((sum, f) => sum + f.hourlyForecasts.reduce((s, h) => s + h.volatility, 0) / f.hourlyForecasts.length, 0) / forecasts.length : 
+      2.5; // Default volatility
     
     return {
       summary: `${symbol} hissesi için 5 günlük detaylı analiz: Mevcut fiyat ₺${currentPrice.toFixed(2)} seviyelerinde. ${sector} sektörü içerisinde ortalama %${avgVolatility.toFixed(1)} volatilite ile işlem görmekte.`,
       
-      technicalAnalysis: `Teknik analiz perspektifinden ${symbol}, son 60 dakikalık verilerde ${forecasts[0].hourlyForecasts[0].trend.toLowerCase()} trend gösteriyor. 
-      Destek: ₺${forecasts[0].hourlyForecasts[0].support.toFixed(2)}, Direnç: ₺${forecasts[0].hourlyForecasts[0].resistance.toFixed(2)}. 
-      RSI ve MACD göstergeleri ${avgVolatility > 3 ? 'yüksek' : 'normal'} volatilite sinyali veriyor.`,
+      technicalAnalysis: forecasts.length > 0 && forecasts[0].hourlyForecasts?.length > 0 ? 
+        `Teknik analiz perspektifinden ${symbol}, son 60 dakikalık verilerde ${forecasts[0].hourlyForecasts[0].trend.toLowerCase()} trend gösteriyor. 
+        Destek: ₺${forecasts[0].hourlyForecasts[0].support.toFixed(2)}, Direnç: ₺${forecasts[0].hourlyForecasts[0].resistance.toFixed(2)}. 
+        RSI ve MACD göstergeleri ${avgVolatility > 3 ? 'yüksek' : 'normal'} volatilite sinyali veriyor.` :
+        `${symbol} için teknik analiz verileri hazırlanıyor. RSI ve MACD göstergeleri ${avgVolatility > 3 ? 'yüksek' : 'normal'} volatilite sinyali veriyor.`,
       
-      sentimentAnalysis: `Piyasa duygu analizi: ${symbol} için ${forecasts.filter(f => f.riskLevel === 'LOW').length > 2 ? 'Olumlu' : 'Temkinli'} yaklaşım öneriliyor. 
+      sentimentAnalysis: `Piyasa duygu analizi: ${symbol} için ${forecasts.length > 0 && forecasts.filter(f => f.riskLevel === 'LOW').length > 2 ? 'Olumlu' : 'Temkinli'} yaklaşım öneriliyor. 
       KAP duyuruları ve sosyal medya verilerinde ${avgVolatility < 2.5 ? 'düşük' : 'orta'} seviyede aktivite gözlemleniyor.`,
       
       riskAssessment: `Risk değerlendirmesi: 5 günlük süreçte ortalama %${avgVolatility.toFixed(1)} volatilite beklenmekte. 
-      En riskli gün ${forecasts.find(f => f.riskLevel === 'HIGH')?.dayName || 'Cuma'}, en stabil gün ${forecasts.find(f => f.riskLevel === 'LOW')?.dayName || 'Pazartesi'} olarak öngörülüyor.`,
+      ${forecasts.length > 0 ? `En riskli gün ${forecasts.find(f => f.riskLevel === 'HIGH')?.dayName || 'Cuma'}, en stabil gün ${forecasts.find(f => f.riskLevel === 'LOW')?.dayName || 'Pazartesi'} olarak öngörülüyor.` : 'Risk analizi hazırlanıyor.'}`,
       
       tradingStrategy: `Önerilen strateji: ${avgVolatility > 3 ? 'Kısa vadeli pozisyon alma' : 'Orta vadeli yatırım yaklaşımı'} uygun. 
       Giriş için ₺${(currentPrice * 0.98).toFixed(2)} - ₺${currentPrice.toFixed(2)} aralığı, 
       çıkış için ₺${(currentPrice * 1.05).toFixed(2)} - ₺${(currentPrice * 1.08).toFixed(2)} hedefleri izlenebilir.`,
       
       keyInsights: [
-        `${symbol} son 5 günde ortalama %${((forecasts[4].close - currentPrice) / currentPrice * 100).toFixed(1)} getiri potansiyeli gösteriyor`,
-        `En yüksek fiyat ${forecasts[0].dayName} günü ${forecasts[0].hourlyForecasts.find(h => h.predictedPrice === Math.max(...forecasts[0].hourlyForecasts.map(hh => hh.predictedPrice)))?.time} saatinde bekleniyor`,
+        forecasts.length >= 5 ? 
+          `${symbol} son 5 günde ortalama %${((forecasts[4].close - currentPrice) / currentPrice * 100).toFixed(1)} getiri potansiyeli gösteriyor` :
+          `${symbol} için tahmin verileri hazırlanıyor`,
+        forecasts.length > 0 && forecasts[0].hourlyForecasts?.length > 0 ? 
+          `En yüksek fiyat ${forecasts[0].dayName} günü ${forecasts[0].hourlyForecasts.find(h => h.predictedPrice === Math.max(...forecasts[0].hourlyForecasts.map(hh => hh.predictedPrice)))?.time} saatinde bekleniyor` :
+          `Gün içi fiyat tahminleri hesaplanıyor`,
         `Volatilite ${avgVolatility > 3 ? 'yüksek' : 'normal'} seviyede, dikkatli pozisyon yönetimi öneriliyor`,
         `${sector} sektöründe ${avgVolatility > 3 ? 'aktif' : 'sakin'} dönem yaşanmakta`
       ],
       
       warnings: [
         avgVolatility > 4 ? '⚠️ Yüksek volatilite riski - Küçük pozisyonlarla başlayın' : '',
-        forecasts.some(f => f.riskLevel === 'HIGH') ? '⚠️ Yüksek riskli günler mevcut - Yakın takip yapın' : '',
+        forecasts.length > 0 && forecasts.some(f => f.riskLevel === 'HIGH') ? '⚠️ Yüksek riskli günler mevcut - Yakın takip yapın' : '',
         '⚠️ Tahminler geçmiş verilere dayalı olup garantili değildir'
       ].filter(w => w !== '')
     };
