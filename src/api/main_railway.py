@@ -1163,7 +1163,8 @@ async def generate_forecast(request: dict):
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Forecast generation error: {str(e)}")
+        error_logger = logging.getLogger("api.forecast")
+        error_logger.error(f"Forecast generation error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Forecast generation failed: {str(e)}")
 
 
@@ -1792,6 +1793,262 @@ async def get_current_data_stats():
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get data stats: {str(e)}")
+
+
+# =============================================================================
+# AI CHAT ENDPOINTS - TURKISH Q&A WITH BIST CONTEXT
+# =============================================================================
+
+class AIChatRequest(BaseModel):
+    """Request model for AI chat"""
+    question: str = Field(..., description="User's question in Turkish")
+    symbol: Optional[str] = Field(None, description="Optional stock symbol for context")
+    context_type: Optional[str] = Field("general", description="Context type: general, technical, fundamental")
+
+class AIChatResponse(BaseModel):
+    """Response model for AI chat"""
+    answer: str = Field(..., description="AI's answer in Turkish")
+    context_used: List[str] = Field(default_factory=list, description="BIST context data used")
+    confidence: float = Field(..., ge=0, le=1, description="Answer confidence score")
+    related_symbols: List[str] = Field(default_factory=list, description="Related stock symbols")
+    timestamp: str = Field(default_factory=lambda: datetime.now().isoformat())
+
+@app.post("/api/ai-chat", response_model=AIChatResponse)
+async def ai_chat_endpoint(request: AIChatRequest):
+    """
+    AI Chat endpoint with Turkish Q&A and BIST context
+    Supports questions about stocks, market analysis, and trading strategies
+    """
+    logger = logging.getLogger("api.ai_chat")
+    
+    try:
+        # Process the question
+        question = request.question.strip()
+        symbol = request.symbol.upper() if request.symbol else None
+        
+        logger.info(f"AI Chat request: '{question[:50]}...' for symbol: {symbol}")
+        
+        # Gather BIST context based on question and symbol
+        context_data = await gather_bist_context(question, symbol, request.context_type)
+        
+        # Generate AI response using Turkish Q&A model
+        ai_response = await generate_turkish_ai_response(question, context_data, symbol)
+        
+        # Find related symbols mentioned in the question
+        related_symbols = extract_symbols_from_text(question)
+        if symbol and symbol not in related_symbols:
+            related_symbols.insert(0, symbol)
+        
+        response = AIChatResponse(
+            answer=ai_response["answer"],
+            context_used=ai_response["context_sources"],
+            confidence=ai_response["confidence"],
+            related_symbols=related_symbols[:5],  # Limit to 5 symbols
+            timestamp=datetime.now().isoformat()
+        )
+        
+        logger.info(f"AI Chat response generated with confidence: {response.confidence:.2f}")
+        return response
+        
+    except Exception as e:
+        logger.error(f"AI Chat error: {str(e)}")
+        # Return a helpful error response instead of HTTP exception
+        return AIChatResponse(
+            answer=f"Üzgünüm, şu anda bu soruyu yanıtlayamıyorum. Lütfen daha sonra tekrar deneyin. Hata: {str(e)}",
+            context_used=[],
+            confidence=0.0,
+            related_symbols=[],
+            timestamp=datetime.now().isoformat()
+        )
+
+async def gather_bist_context(question: str, symbol: Optional[str], context_type: str) -> Dict[str, Any]:
+    """Gather relevant BIST data as context for AI response"""
+    context = {
+        "market_data": {},
+        "technical_data": {},
+        "news_sentiment": {},
+        "sector_info": {}
+    }
+    
+    try:
+        # Get market overview
+        if app_state.historical_service:
+            try:
+                market_overview = app_state.historical_service.get_market_overview()
+                context["market_data"] = market_overview
+            except:
+                pass
+        
+        # Get specific stock data if symbol provided
+        if symbol and app_state.historical_service:
+            try:
+                stock_data = app_state.historical_service.get_stock(symbol)
+                if stock_data:
+                    context["stock_data"] = stock_data
+                    
+                    # Get technical indicators
+                    if app_state.indicators_calculator:
+                        try:
+                            indicators = app_state.indicators_calculator.calculate_all_indicators(symbol, 50)
+                            context["technical_data"] = indicators
+                        except:
+                            pass
+            except:
+                pass
+        
+        # Get recent news sentiment
+        if context_type in ["general", "fundamental"]:
+            try:
+                news_impact = await get_real_sentiment_analysis(symbol or "BIST", 3)
+                context["news_sentiment"] = news_impact[:3]  # Limit to 3 items
+            except:
+                pass
+                
+    except Exception as e:
+        logging.getLogger("api.ai_chat.context").warning(f"Context gathering error: {e}")
+    
+    return context
+
+async def generate_turkish_ai_response(question: str, context: Dict[str, Any], symbol: Optional[str]) -> Dict[str, Any]:
+    """
+    Generate AI response in Turkish using BIST context
+    This is a sophisticated mock implementation - will be replaced with real AI model
+    """
+    
+    # Analyze question intent
+    question_lower = question.lower()
+    
+    # Stock-specific questions
+    if symbol and any(word in question_lower for word in ['nasıl', 'performans', 'durumu', 'analiz']):
+        stock_data = context.get("stock_data", {})
+        technical_data = context.get("technical_data", {})
+        
+        if stock_data:
+            current_price = stock_data.get("last_price", 0)
+            change_percent = stock_data.get("change_percent", 0)
+            
+            trend_word = "yükselişte" if change_percent > 0 else "düşüşte" if change_percent < 0 else "stabil"
+            
+            answer = f"""
+{symbol} hissesi hakkında güncel analiz:
+
+📊 **Mevcut Durum:**
+• Fiyat: ₺{current_price}
+• Günlük değişim: %{change_percent:.1f}
+• Trend: Hisse {trend_word}
+
+🔍 **Teknik Analiz:**
+"""
+            if technical_data.get("rsi"):
+                rsi = technical_data["rsi"]
+                rsi_status = "aşırı alım" if rsi > 70 else "aşırı satım" if rsi < 30 else "normal"
+                answer += f"• RSI: {rsi:.1f} ({rsi_status} bölgesi)\n"
+            
+            if technical_data.get("macd"):
+                macd_signal = "alım" if technical_data["macd"] > 0 else "satım"
+                answer += f"• MACD: {macd_signal} sinyali\n"
+            
+            # Add news sentiment
+            news_sentiment = context.get("news_sentiment", [])
+            if news_sentiment:
+                avg_sentiment = sum(item.get("sentiment", 0) for item in news_sentiment) / len(news_sentiment)
+                sentiment_text = "olumlu" if avg_sentiment > 0.1 else "olumsuz" if avg_sentiment < -0.1 else "nötr"
+                answer += f"\n📰 **Haber Duygusu:** {sentiment_text} (son 3 haber)\n"
+            
+            answer += "\n💡 Bu analiz geçmiş verilere dayanmaktadır ve yatırım tavsiyesi niteliği taşımaz."
+            
+            return {
+                "answer": answer.strip(),
+                "context_sources": ["stock_data", "technical_indicators", "news_sentiment"],
+                "confidence": 0.85
+            }
+    
+    # Market overview questions
+    elif any(word in question_lower for word in ['piyasa', 'borsa', 'genel', 'durum', 'bist']):
+        market_data = context.get("market_data", {})
+        
+        answer = """📈 **BIST Piyasa Durumu:**
+
+• Piyasa genel olarak aktif işlem görüyor
+• Yatırımcılar teknik seviyeleri yakından takip ediyor
+• Sektörel bazda farklılaşmalar devam ediyor
+
+🎯 **Öneriler:**
+• Riskinizi çeşitlendirin
+• Stop-loss seviyelerinizi belirleyin
+• Uzun vadeli yatırım yapın
+
+Bu değerlendirme genel bilgilendirme amaçlıdır."""
+
+        return {
+            "answer": answer,
+            "context_sources": ["market_overview", "general_analysis"],
+            "confidence": 0.75
+        }
+    
+    # Technical analysis questions
+    elif any(word in question_lower for word in ['teknik', 'rsi', 'macd', 'analiz', 'gösterge']):
+        answer = """🔍 **Teknik Analiz Hakkında:**
+
+**Ana Göstergeler:**
+• **RSI:** Momentum göstergesi (aşırı alım/satım seviyeleri)
+• **MACD:** Trend takip sistemi
+• **Bollinger Bantları:** Volatilite analizi
+• **İchimoku:** Kapsamlı trend sistemi
+
+**Kullanım Önerileri:**
+• Birden fazla gösterge birlikte kullanın
+• Hacim analizini ihmal etmeyin
+• Risk yönetimini ön planda tutun
+
+Bu bilgiler eğitim amaçlıdır."""
+
+        return {
+            "answer": answer,
+            "context_sources": ["technical_analysis_guide"],
+            "confidence": 0.80
+        }
+    
+    # Default response for other questions
+    else:
+        answer = f"""Sorunuz ile ilgili size yardımcı olmaya çalışayım.
+
+Daha detaylı bilgi için şunları sorabilirsiniz:
+• "{symbol or 'AKBNK'} hissesi nasıl performans gösteriyor?"
+• "Bugün piyasa durumu nasıl?"
+• "Teknik analiz göstergeleri nedir?"
+• "Hangi sektörler yükselişte?"
+
+💡 Hangi konuda daha fazla bilgi almak istersiniz?"""
+
+        return {
+            "answer": answer,
+            "context_sources": ["general_guidance"],
+            "confidence": 0.60
+        }
+
+def extract_symbols_from_text(text: str) -> List[str]:
+    """Extract potential stock symbols from text"""
+    import re
+    
+    # Common BIST stock symbols pattern
+    symbols = []
+    words = text.upper().split()
+    
+    # Known major symbols
+    major_symbols = [
+        "AKBNK", "GARAN", "ISCTR", "THYAO", "TUPRS", "ASELS", "SASA", "BRSAN",
+        "ARCLK", "KCHOL", "BIMAS", "PETKM", "TTKOM", "VAKBN", "HALKB"
+    ]
+    
+    for word in words:
+        # Remove punctuation
+        clean_word = re.sub(r'[^\w]', '', word)
+        if clean_word in major_symbols:
+            symbols.append(clean_word)
+    
+    return list(set(symbols))  # Remove duplicates
+
 
 if __name__ == "__main__":
     # Setup logging
