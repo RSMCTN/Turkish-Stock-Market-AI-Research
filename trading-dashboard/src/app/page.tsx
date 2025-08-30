@@ -17,6 +17,7 @@ import CompanyInfoCard from '@/components/trading/CompanyInfoCard';
 import FundamentalAnalysis from '@/components/trading/FundamentalAnalysis';
 import AIDecisionSupport from '@/components/trading/AIDecisionSupport';
 import EnhancedStockAnalysis from '@/components/trading/EnhancedStockAnalysis';
+import HistoricalChart from '@/components/trading/HistoricalChart';
 
 // Traditional Components
 import ForecastPanel from '@/components/trading/ForecastPanel';
@@ -278,6 +279,9 @@ export default function AcademicDashboard() {
 
               {/* Enhanced Stock Analysis */}
               <EnhancedStockAnalysis selectedSymbol={selectedSymbol} />
+
+              {/* Historical Chart with Technical Indicators */}
+              <HistoricalChart selectedSymbol={selectedSymbol} />
             </div>
           </TabsContent>
 
