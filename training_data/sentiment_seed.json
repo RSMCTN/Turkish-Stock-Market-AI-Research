@@ -1,0 +1,52 @@
+[
+  {
+    "text": "AKBNK'nin Q3 kârı beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8
+  },
+  {
+    "text": "BIST 100 güne yükselişle başladı",
+    "sentiment": "positive",
+    "score": 0.6
+  },
+  {
+    "text": "Piyasada kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7
+  },
+  {
+    "text": "Şirket temettü dağıtacağını açıkladı",
+    "sentiment": "positive",
+    "score": 0.9
+  },
+  {
+    "text": "Yönetim kurulu istifa etti",
+    "sentiment": "negative",
+    "score": -0.8
+  },
+  {
+    "text": "Hisse fiyatları stabil seyrini koruyor",
+    "sentiment": "neutral",
+    "score": 0.0
+  },
+  {
+    "text": "Analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7
+  },
+  {
+    "text": "Şirket zararını artırdı",
+    "sentiment": "negative",
+    "score": -0.9
+  },
+  {
+    "text": "İşlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.1
+  },
+  {
+    "text": "Güçlü bilanço açıklandı",
+    "sentiment": "positive",
+    "score": 0.8
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "question": "GARAN hissesi bugün nasıl performans gösteriyor?",
+    "context": "Türkiye Garanti Bankası A.Ş. (GARAN) hissesi bugün ₺89.30 fiyatında, günlük %-0.94 değişimle işlem görmektedir. Bankacılık sektöründe yer alan hisse, son 52 haftada ₺65.20 - ₺95.40 bandında hareket etmiştir.",
+    "answer": "GARAN hissesi bugün %-0.94 düşüş göstererek ₺89.30'da işlem görmektedir. Bankacılık sektöründeki bu performans genel piyasa hareketiyle uyumlu görünmektedir."
+  },
+  {
+    "question": "RSI göstergesi nedir ve nasıl kullanılır?",
+    "context": "RSI (Relative Strength Index) 0-100 arasında değer alan bir momentum osilatörüdür. 70 üzerindeki değerler aşırı alım, 30 altındaki değerler aşırı satım bölgesini gösterir.",
+    "answer": "RSI, hisse senedinin momentum durumunu gösteren teknik analiz göstergesidir. 70 üzerinde aşırı alım (satış sinyali), 30 altında aşırı satım (alım sinyali) bölgesini işaret eder."
+  },
+  {
+    "question": "BIST 100 endeksi bugün nasıl kapandı?",
+    "context": "BIST 100 endeksi bugün 8,450.75 seviyesinde, günlük %1.25 artışla kapanmıştır. İşlem hacmi 18.5 milyar TL olarak gerçekleşmiştir.",
+    "answer": "BIST 100 endeksi bugün %1.25 yükselişle 8,450.75 seviyesinde kapanmıştır. 18.5 milyar TL işlem hacmiyle aktif bir gün geçirilmiştir."
+  },
+  {
+    "question": "Teknik analiz nedir?",
+    "context": "Teknik analiz, geçmiş fiyat hareketleri ve işlem hacmi verilerini kullanarak gelecekteki fiyat hareketlerini tahmin etmeye çalışan analiz yöntemidir. RSI, MACD, Bollinger Bantları gibi göstergeler kullanır.",
+    "answer": "Teknik analiz, hisse fiyatlarının geçmiş verilerini inceleyerek gelecekteki hareket yönünü tahmin etmeye çalışan yöntemdir. Çeşitli matematiksel göstergeler ve grafik formasyonları kullanır."
+  },
+  {
+    "question": "AKBNK hissesi için stop loss ne olmalı?",
+    "context": "AKBNK hissesi ₺69.00 seviyesinde işlem görmektedir. Son 20 günlük ortalama ₺67.50, destek seviyesi ₺65.20 civarındadır.",
+    "answer": "AKBNK hissesi için stop loss seviyesi risk toleransınıza göre ₺65.00-₺66.50 aralığında belirlenebilir. Bu, önemli destek seviyesinin altında konumlanmış olur."
+  },
+  {
+    "question": "Piyasa durumu bugün nasıl?",
+    "context": "BIST 100 %1.25 yükselişte, yabancı yatırımcı net alımda, dolar/TL 27.45 seviyesinde. Bankacılık sektörü %2.1 artış göstermektedir.",
+    "answer": "Bugün piyasa pozitif bir görünüm sergiliyor. BIST 100'ün %1.25 yükselişi, yabancı net alımları ve bankacılık sektörünün güçlü performansı olumlu sinyaller veriyor."
+  }
+]
