@@ -14,14 +14,15 @@ else:
     print("❌ Runtime → Change runtime type → GPU seçin!")
 
 # ================================
-# STEP 2: Install Dependencies  
+# STEP 2: Install Dependencies (COLAB COMPATIBLE)
 # ================================
 # Bu kod sadece Colab'da çalıştırılmalı!
-get_ipython().system('pip install transformers==4.35.0 -q')
-get_ipython().system('pip install datasets==2.14.0 -q') 
-get_ipython().system('pip install accelerate==0.24.0 -q')
-get_ipython().system('pip install scikit-learn -q')
-print("✅ All packages installed!")
+get_ipython().system('pip install --upgrade huggingface-hub>=0.25.0 -q')
+get_ipython().system('pip install --upgrade transformers>=4.41.0 -q')
+get_ipython().system('pip install --upgrade datasets>=4.0.0 -q') 
+get_ipython().system('pip install --upgrade accelerate>=1.10.0 -q')
+get_ipython().system('pip install --upgrade scikit-learn -q')
+print("✅ All packages installed with compatible versions!")
 
 # ================================
 # STEP 3: HuggingFace Authentication
@@ -30,7 +31,7 @@ from huggingface_hub import login
 
 # TODO: HuggingFace token'ınızı buraya girin!
 # huggingface.co/settings/tokens adresinden token alın
-HF_TOKEN = "hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx"  # BURAYA TOKEN GİRİN!
+HF_TOKEN = "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"  # User's actual token
 HF_MODEL_NAME = "rsmctn/turkish-financial-qa-v1"  # Model adınızı girin
 
 login(HF_TOKEN)
