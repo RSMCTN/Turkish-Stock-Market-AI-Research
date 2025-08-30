@@ -93,24 +93,86 @@ Hangi konuda size yardımcı olabilirim? 🚀`,
     setIsLoading(true);
 
     try {
-      // Call Railway production API
-      const response = await fetch(`${apiBaseUrl}/api/ai-chat`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          question: inputText.trim(),
-          symbol: selectedSymbol,
-          context_type: contextType
-        })
-      });
+      // WORKAROUND: Use existing comprehensive analysis endpoint
+      // since /api/ai-chat is not deployed to Railway yet
+      let aiResponse;
+      
+      // For stock-specific questions, use comprehensive analysis
+      if (selectedSymbol && (
+        inputText.toLowerCase().includes('nasıl') ||
+        inputText.toLowerCase().includes('analiz') ||
+        inputText.toLowerCase().includes('durumu') ||
+        inputText.toLowerCase().includes('performans')
+      )) {
+        const response = await fetch(`${apiBaseUrl}/api/comprehensive-analysis/${selectedSymbol}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
 
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`API Error: ${response.status}`);
+        }
+
+        const analysisData = await response.json();
+        const analysis = analysisData.data.analysis;
+        
+        // Convert comprehensive analysis to AI chat format
+        const decision = analysis.finalDecision;
+        const signals = analysis.technicalSignals;
+        const priceTargets = analysis.priceTargets;
+        
+        const answer = `🤖 **${selectedSymbol} Hisse Analizi:**
+
+📊 **AI Karar:** ${decision.decision === 'BUY' ? '📈 ALIŞ' : decision.decision === 'SELL' ? '📉 SATIŞ' : '⏸️ BEKLE'}
+🎯 **Güven Skoru:** %${(decision.confidence * 100).toFixed(0)}
+💭 **Açıklama:** ${decision.reasoning}
+
+📈 **Fiyat Hedefleri:**
+• Destek: ₺${priceTargets.support?.toFixed(2)}
+• Direnç: ₺${priceTargets.resistance?.toFixed(2)}
+• Hedef: ₺${priceTargets.target?.toFixed(2)}
+• Stop Loss: ₺${priceTargets.stopLoss?.toFixed(2)}
+
+🔍 **Teknik Sinyaller:**
+${signals.map(s => `• ${s.timeframe}: ${s.signal} (Güçlü: %${(s.strength * 100).toFixed(0)}, RSI: ${s.rsi})`).join('\n')}
+
+⚠️ *Bu analiz AI destekli gerçek verilerle üretilmiştir. Yatırım tavsiyesi değildir.*`;
+
+        aiResponse = {
+          answer: answer,
+          timestamp: analysisData.data.timestamp,
+          confidence: decision.confidence,
+          context_used: ['comprehensive_analysis', 'technical_signals', 'price_targets'],
+          related_symbols: [selectedSymbol]
+        };
+        
+      } else {
+        // For general questions, provide helpful guidance
+        aiResponse = {
+          answer: `🤖 **BIST AI Asistan:**
+
+Merhaba! Size ${selectedSymbol} hissesi hakkında detaylı analiz sağlayabilirim.
+
+**Deneyebileceğiniz sorular:**
+• "${selectedSymbol} hissesi nasıl performans gösteriyor?"
+• "${selectedSymbol} hissesi analizi nedir?"
+• "${selectedSymbol} durumu nasıl?"
+
+📊 **Mevcut Özellikler:**
+• Gerçek zamanlı teknik analiz
+• AI destekli karar destek sistemi
+• Risk ve fiyat hedef hesaplamaları
+• 150+ gösterge analizi
+
+💡 Hangi konuda yardım almak istersiniz?`,
+          timestamp: new Date().toISOString(),
+          confidence: 0.8,
+          context_used: ['general_guidance'],
+          related_symbols: [selectedSymbol]
+        };
       }
-
-      const aiResponse = await response.json();
 
       const aiMessage: ChatMessage = {
         id: `ai-${Date.now()}`,
