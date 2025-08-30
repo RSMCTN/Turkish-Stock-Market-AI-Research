@@ -18,6 +18,7 @@ import FundamentalAnalysis from '@/components/trading/FundamentalAnalysis';
 import AIDecisionSupport from '@/components/trading/AIDecisionSupport';
 import EnhancedStockAnalysis from '@/components/trading/EnhancedStockAnalysis';
 import HistoricalChart from '@/components/trading/HistoricalChart';
+import AICommentaryPanel from '@/components/trading/AICommentaryPanel';
 
 // Traditional Components
 import ForecastPanel from '@/components/trading/ForecastPanel';
@@ -282,6 +283,9 @@ export default function AcademicDashboard() {
 
               {/* Historical Chart with Technical Indicators */}
               <HistoricalChart selectedSymbol={selectedSymbol} />
+
+              {/* AI Commentary Panel - 5 Day Hourly Forecasts */}
+              <AICommentaryPanel selectedSymbol={selectedSymbol} />
             </div>
           </TabsContent>
 
