@@ -1911,120 +1911,169 @@ async def gather_bist_context(question: str, symbol: Optional[str], context_type
 
 async def generate_turkish_ai_response(question: str, context: Dict[str, Any], symbol: Optional[str]) -> Dict[str, Any]:
     """
-    Generate AI response in Turkish using BIST context
-    This is a sophisticated mock implementation - will be replaced with real AI model
+    Generate AI response using REAL Turkish Financial Q&A model on HuggingFace
+    Model: rsmctn/turkish-financial-qa-v1 (Trained in Google Colab Pro+)
     """
+    import aiohttp
+    import json
     
-    # Analyze question intent
-    question_lower = question.lower()
+    # HuggingFace API configuration
+    HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/rsmctn/turkish-financial-qa-v1"
+    HUGGINGFACE_TOKEN = "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"
     
-    # Stock-specific questions
-    if symbol and any(word in question_lower for word in ['nasıl', 'performans', 'durumu', 'analiz']):
-        stock_data = context.get("stock_data", {})
-        technical_data = context.get("technical_data", {})
+    headers = {
+        "Authorization": f"Bearer {HUGGINGFACE_TOKEN}",
+        "Content-Type": "application/json"
+    }
+    
+    # Prepare context for the AI model
+    context_text = ""
+    context_sources = []
+    
+    # Add stock-specific context
+    if symbol and context.get("stock_data"):
+        stock_data = context["stock_data"]
+        current_price = stock_data.get("last_price", 0)
+        change_percent = stock_data.get("change_percent", 0)
+        sector = stock_data.get("sector", "Bilinmeyen")
         
-        if stock_data:
-            current_price = stock_data.get("last_price", 0)
-            change_percent = stock_data.get("change_percent", 0)
-            
-            trend_word = "yükselişte" if change_percent > 0 else "düşüşte" if change_percent < 0 else "stabil"
-            
-            answer = f"""
-{symbol} hissesi hakkında güncel analiz:
+        context_text += f"{symbol} hissesi ₺{current_price} fiyatında, günlük %{change_percent:.1f} değişimle işlem görüyor. {sector} sektöründe faaliyet gösteriyor. "
+        context_sources.append("stock_data")
+    
+    # Add technical analysis context
+    if context.get("technical_data"):
+        tech_data = context["technical_data"]
+        if tech_data.get("rsi"):
+            rsi = tech_data["rsi"]
+            rsi_status = "aşırı alım" if rsi > 70 else "aşırı satım" if rsi < 30 else "normal"
+            context_text += f"RSI değeri {rsi:.1f} olarak {rsi_status} bölgesinde. "
+            context_sources.append("technical_indicators")
+        
+        if tech_data.get("macd"):
+            macd_signal = "alım" if tech_data["macd"] > 0 else "satım"
+            context_text += f"MACD {macd_signal} sinyali veriyor. "
+    
+    # Add market sentiment context
+    if context.get("news_sentiment"):
+        news_items = context["news_sentiment"][:3]  # Use only top 3 news
+        avg_sentiment = sum(item.get("sentiment", 0) for item in news_items) / len(news_items) if news_items else 0
+        sentiment_text = "olumlu" if avg_sentiment > 0.1 else "olumsuz" if avg_sentiment < -0.1 else "nötr"
+        context_text += f"Son haberler {sentiment_text} duygu gösteriyor. "
+        context_sources.append("news_sentiment")
+    
+    # Add general market context
+    if context.get("market_data"):
+        context_text += "BIST piyasası aktif işlem görüyor. "
+        context_sources.append("market_overview")
+    
+    # Fallback context if no specific context available
+    if not context_text:
+        context_text = "BIST piyasasında güncel analiz ve trading bilgileri. Teknik göstergeler ve piyasa duygusu takip ediliyor."
+        context_sources = ["general_market"]
+    
+    try:
+        # Prepare HuggingFace API request
+        payload = {
+            "inputs": {
+                "question": question,
+                "context": context_text.strip()
+            }
+        }
+        
+        # Make API request to trained model
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                HUGGINGFACE_API_URL,
+                headers=headers,
+                json=payload,
+                timeout=aiohttp.ClientTimeout(total=10)
+            ) as response:
+                
+                if response.status == 200:
+                    result = await response.json()
+                    
+                    # Extract answer from HuggingFace response
+                    if isinstance(result, dict) and "answer" in result:
+                        ai_answer = result["answer"]
+                        confidence = result.get("score", 0.8)
+                    elif isinstance(result, list) and len(result) > 0:
+                        ai_answer = result[0].get("answer", "Cevap alınamadı")
+                        confidence = result[0].get("score", 0.8)
+                    else:
+                        raise ValueError("Unexpected HuggingFace response format")
+                    
+                    # Enhance answer with emoji and formatting
+                    enhanced_answer = f"🤖 **AI Analiz:**\n\n{ai_answer}"
+                    
+                    # Add context information
+                    if symbol:
+                        enhanced_answer += f"\n\n📊 **{symbol} Hakkında:** Bu analiz gerçek veriler kullanılarak üretilmiştir."
+                    
+                    enhanced_answer += "\n\n💡 *Bu AI destekli analiz bilgilendirme amaçlıdır ve yatırım tavsiyesi değildir.*"
+                    
+                    return {
+                        "answer": enhanced_answer,
+                        "context_sources": context_sources,
+                        "confidence": min(confidence, 0.95)  # Cap confidence at 95%
+                    }
+                
+                else:
+                    # Handle API errors
+                    error_text = await response.text()
+                    logging.getLogger("api.ai_response").warning(f"HuggingFace API error {response.status}: {error_text}")
+                    raise Exception(f"HuggingFace API hatası: {response.status}")
+    
+    except Exception as e:
+        # Fallback to enhanced mock response if API fails
+        logging.getLogger("api.ai_response").error(f"Real AI model failed, using fallback: {str(e)}")
+        
+        # Intelligent fallback based on question analysis
+        question_lower = question.lower()
+        
+        if symbol and any(word in question_lower for word in ['nasıl', 'performans', 'durumu', 'analiz']):
+            # Stock-specific fallback
+            stock_data = context.get("stock_data", {})
+            if stock_data:
+                current_price = stock_data.get("last_price", 0)
+                change_percent = stock_data.get("change_percent", 0)
+                trend_word = "yükselişte" if change_percent > 0 else "düşüşte" if change_percent < 0 else "stabil"
+                
+                answer = f"""🤖 **{symbol} Hisse Analizi:**
 
-📊 **Mevcut Durum:**
+📊 **Güncel Durum:**
 • Fiyat: ₺{current_price}
 • Günlük değişim: %{change_percent:.1f}
-• Trend: Hisse {trend_word}
+• Trend: {trend_word}
 
-🔍 **Teknik Analiz:**
-"""
-            if technical_data.get("rsi"):
-                rsi = technical_data["rsi"]
-                rsi_status = "aşırı alım" if rsi > 70 else "aşırı satım" if rsi < 30 else "normal"
-                answer += f"• RSI: {rsi:.1f} ({rsi_status} bölgesi)\n"
-            
-            if technical_data.get("macd"):
-                macd_signal = "alım" if technical_data["macd"] > 0 else "satım"
-                answer += f"• MACD: {macd_signal} sinyali\n"
-            
-            # Add news sentiment
-            news_sentiment = context.get("news_sentiment", [])
-            if news_sentiment:
-                avg_sentiment = sum(item.get("sentiment", 0) for item in news_sentiment) / len(news_sentiment)
-                sentiment_text = "olumlu" if avg_sentiment > 0.1 else "olumsuz" if avg_sentiment < -0.1 else "nötr"
-                answer += f"\n📰 **Haber Duygusu:** {sentiment_text} (son 3 haber)\n"
-            
-            answer += "\n💡 Bu analiz geçmiş verilere dayanmaktadır ve yatırım tavsiyesi niteliği taşımaz."
-            
-            return {
-                "answer": answer.strip(),
-                "context_sources": ["stock_data", "technical_indicators", "news_sentiment"],
-                "confidence": 0.85
-            }
-    
-    # Market overview questions
-    elif any(word in question_lower for word in ['piyasa', 'borsa', 'genel', 'durum', 'bist']):
-        market_data = context.get("market_data", {})
+🔍 **Değerlendirme:** Bu hisse {trend_word} bir seyir izliyor. Risk yönetimi önemli.
+
+⚠️ *AI model geçici olarak mevcut değil - fallback analiz kullanıldı*"""
+                
+                return {
+                    "answer": answer,
+                    "context_sources": context_sources or ["fallback_analysis"],
+                    "confidence": 0.65
+                }
         
-        answer = """📈 **BIST Piyasa Durumu:**
+        # General fallback
+        fallback_answer = f"""🤖 **AI Yardımcı:**
 
-• Piyasa genel olarak aktif işlem görüyor
-• Yatırımcılar teknik seviyeleri yakından takip ediyor
-• Sektörel bazda farklılaşmalar devam ediyor
+Şu anda AI modelimiz güncelleniyor. Bu arada size yardımcı olmaya devam ediyorum.
 
-🎯 **Öneriler:**
-• Riskinizi çeşitlendirin
-• Stop-loss seviyelerinizi belirleyin
-• Uzun vadeli yatırım yapın
+**Sorabilecekleriniz:**
+• Hisse analizi soruları
+• Teknik analiz bilgileri  
+• Piyasa durumu
+• Trading stratejileri
 
-Bu değerlendirme genel bilgilendirme amaçlıdır."""
+💡 Lütfen sorunuzu daha spesifik olarak tekrar sorun.
 
+⚠️ *Geçici fallback modu - AI model yakında aktif olacak*"""
+        
         return {
-            "answer": answer,
-            "context_sources": ["market_overview", "general_analysis"],
-            "confidence": 0.75
-        }
-    
-    # Technical analysis questions
-    elif any(word in question_lower for word in ['teknik', 'rsi', 'macd', 'analiz', 'gösterge']):
-        answer = """🔍 **Teknik Analiz Hakkında:**
-
-**Ana Göstergeler:**
-• **RSI:** Momentum göstergesi (aşırı alım/satım seviyeleri)
-• **MACD:** Trend takip sistemi
-• **Bollinger Bantları:** Volatilite analizi
-• **İchimoku:** Kapsamlı trend sistemi
-
-**Kullanım Önerileri:**
-• Birden fazla gösterge birlikte kullanın
-• Hacim analizini ihmal etmeyin
-• Risk yönetimini ön planda tutun
-
-Bu bilgiler eğitim amaçlıdır."""
-
-        return {
-            "answer": answer,
-            "context_sources": ["technical_analysis_guide"],
-            "confidence": 0.80
-        }
-    
-    # Default response for other questions
-    else:
-        answer = f"""Sorunuz ile ilgili size yardımcı olmaya çalışayım.
-
-Daha detaylı bilgi için şunları sorabilirsiniz:
-• "{symbol or 'AKBNK'} hissesi nasıl performans gösteriyor?"
-• "Bugün piyasa durumu nasıl?"
-• "Teknik analiz göstergeleri nedir?"
-• "Hangi sektörler yükselişte?"
-
-💡 Hangi konuda daha fazla bilgi almak istersiniz?"""
-
-        return {
-            "answer": answer,
-            "context_sources": ["general_guidance"],
-            "confidence": 0.60
+            "answer": fallback_answer,
+            "context_sources": ["fallback_guidance"],
+            "confidence": 0.50
         }
 
 def extract_symbols_from_text(text: str) -> List[str]:
