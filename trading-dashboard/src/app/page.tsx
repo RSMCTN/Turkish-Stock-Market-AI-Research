@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Brain, LineChart, Zap, Activity, TrendingUp, AlertCircle, BarChart3 } from 'lucide-react';
+import { Brain, LineChart, Zap, Activity, TrendingUp, AlertCircle, BarChart3, Target } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,7 @@ import HuggingFaceModelPanel from '@/components/trading/HuggingFaceModelPanel';
 import CompanyInfoCard from '@/components/trading/CompanyInfoCard';
 import FundamentalAnalysis from '@/components/trading/FundamentalAnalysis';
 import AIDecisionSupport from '@/components/trading/AIDecisionSupport';
+import EnhancedStockAnalysis from '@/components/trading/EnhancedStockAnalysis';
 
 // Traditional Components
 import ForecastPanel from '@/components/trading/ForecastPanel';
@@ -123,13 +124,20 @@ export default function AcademicDashboard() {
 
         {/* Academic Research Tabs */}
         <Tabs defaultValue="academic" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 bg-white/80 border border-slate-200">
+          <TabsList className="grid w-full grid-cols-4 bg-white/80 border border-slate-200">
             <TabsTrigger 
               value="academic" 
               className="flex items-center gap-2 data-[state=active]:bg-blue-100 data-[state=active]:text-blue-800"
             >
               <Brain className="h-4 w-4" />
               Academic Research
+            </TabsTrigger>
+            <TabsTrigger 
+              value="enhanced" 
+              className="flex items-center gap-2 data-[state=active]:bg-orange-100 data-[state=active]:text-orange-800"
+            >
+              <Target className="h-4 w-4" />
+              Kapsamlı Analiz
             </TabsTrigger>
             <TabsTrigger 
               value="traditional" 
@@ -256,6 +264,20 @@ export default function AcademicDashboard() {
 
               {/* Advanced Indicators */}
               <AdvancedIndicators symbol={selectedSymbol} indicators={indicators} />
+            </div>
+          </TabsContent>
+
+          {/* Enhanced Analysis Tab */}
+          <TabsContent value="enhanced" className="space-y-6">
+            <div className="space-y-6">
+              {/* Symbol Selector for Enhanced Analysis */}
+              <RealSymbolSelector 
+                selectedSymbol={selectedSymbol}
+                onSymbolChange={setSelectedSymbol}
+              />
+
+              {/* Enhanced Stock Analysis */}
+              <EnhancedStockAnalysis selectedSymbol={selectedSymbol} />
             </div>
           </TabsContent>
 
