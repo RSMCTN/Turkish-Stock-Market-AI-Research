@@ -191,7 +191,66 @@ Hisse ${trendWord} seyir izliyor. ${volume > 1000000 ? 'Hacim yüksek, hareket g
         const questionLower = inputText.toLowerCase();
         let answer = '';
         
-        if (questionLower.includes('piyasa') || questionLower.includes('borsa') || questionLower.includes('bist')) {
+        if (questionLower.includes('giriş') && questionLower.includes('çıkış') || 
+            questionLower.includes('fiyat') && (questionLower.includes('hedef') || questionLower.includes('seviye'))) {
+          answer = `💰 **Giriş ve Çıkış Fiyatları - ${selectedSymbol}:**
+
+🎯 **Giriş Stratejileri:**
+• **Destek Seviyesinde Alım**: Fiyat düştüğünde destek yakınında
+• **Trend Kırılımında**: Yukarı trend başladığında
+• **RSI 30'un Altında**: Aşırı satım bölgesinde
+• **MACD Pozitif Kesişim**: Sinyal çizgisini yukarı kesti
+
+📈 **Çıkış Stratejileri:**  
+• **Direnç Seviyesinde Satım**: Hedef fiyata ulaştığında
+• **RSI 70'in Üstünde**: Aşırı alım bölgesinde
+• **%5-10 Kar**: Risk seviyenize göre
+• **Stop Loss Tetiklenmesi**: %3-5 zarar durumunda
+
+⚡ **${selectedSymbol} Spesifik Seviyeler:**
+${selectedSymbol} için güncel giriş/çıkış fiyatları öğrenmek için:
+"${selectedSymbol} hissesi analizi?" sorun.
+
+🎯 **Pratik İpuçları:**
+• Pozisyon büyüklüğünüz risk toleransınıza uygun olsun
+• Stop loss belirlemeyi unutmayın  
+• Kademeli alım/satım yapabilirsiniz
+• Piyasa saatleri içinde işlem yapın
+
+⚠️ Bu genel stratejiler bilgilendirme amaçlıdır, yatırım tavsiyesi değildir.`;
+          
+        } else if (questionLower.includes('ne zaman') && (questionLower.includes('al') || questionLower.includes('sat'))) {
+          answer = `⏰ **Ne Zaman Alım/Satım Yapmalı:**
+
+📊 **Alım Zamanları:**
+• **Sabah 09:30-10:30**: Açılış volatilitesi sonrası
+• **Öğle 12:00-13:00**: Sakin dönem, iyi fiyatlar
+• **RSI < 30**: Aşırı satım fırsatları
+• **Destek Seviyesi Test**: Güçlü destek yakınında
+• **Pozitif Haber**: KAP bildirimleri sonrası
+
+📉 **Satım Zamanları:**
+• **Kapanıştan Önce 17:30-18:00**: Gün sonu karları
+• **RSI > 70**: Aşırı alım bölgesinde  
+• **Direnç Seviyesi**: Hedef fiyatlarda
+• **Negatif Sinyaller**: Trend kırılması
+• **Kar Realizasyonu**: %5-15 kar marjında
+
+🎯 **${selectedSymbol} İçin Özel Timing:**
+• Banka hisseleri: TCMB kararları öncesi/sonrası
+• Havayolu: Sezon başı/sonu
+• Enerji: Petrol fiyat hareketleri ile
+• Teknoloji: ABD piyasaları ile
+
+⚠️ **Dikkat Edilecekler:**
+• Hacim düşük saatlerde büyük işlem yapmayın
+• Haber beklentisi varsa pozisyon almayın
+• Cuma günleri dikkatli olun
+• Tatil öncesi erken pozisyon kapatın
+
+💡 Spesifik hisse analizi için "${selectedSymbol} analizi?" sorun.`;
+          
+        } else if (questionLower.includes('piyasa') || questionLower.includes('borsa') || questionLower.includes('bist')) {
           answer = `📈 **BIST Piyasa Durumu:**
 
 🏦 **Genel Market Analizi:**
@@ -448,8 +507,8 @@ Lütfen daha sonra tekrar deneyin veya farklı bir şekilde sorunuzu sorun.
   };
 
   return (
-    <Card className="h-[700px] flex flex-col bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      <CardHeader className="pb-3 border-b bg-white/80">
+    <Card className="h-[600px] max-h-[600px] flex flex-col bg-gradient-to-br from-blue-50 via-white to-purple-50 overflow-hidden">
+      <CardHeader className="pb-3 border-b bg-white/80 flex-shrink-0">
         <CardTitle className="flex items-center gap-2 text-lg">
           <Brain className="h-5 w-5 text-blue-600" />
           AI Chat Assistant
@@ -474,9 +533,9 @@ Lütfen daha sonra tekrar deneyin veya farklı bir şekilde sorunuzu sorun.
         </div>
       </CardHeader>
 
-      <CardContent className="flex-1 flex flex-col p-4">
+      <CardContent className="flex-1 flex flex-col p-4 overflow-hidden">
         {/* Messages Area */}
-        <ScrollArea className="flex-1 mb-4 pr-2">
+        <ScrollArea className="flex-1 mb-4 pr-2 max-h-[400px] overflow-y-auto">
           <div className="space-y-4">
             {messages.map((message) => (
               <div
@@ -498,12 +557,12 @@ Lütfen daha sonra tekrar deneyin veya farklı bir şekilde sorunuzu sorun.
 
                 {/* Message Content */}
                 <div className={`flex-1 ${message.type === 'user' ? 'text-right' : 'text-left'}`}>
-                  <div className={`inline-block p-3 rounded-lg max-w-[85%] ${
+                  <div className={`inline-block p-3 rounded-lg max-w-[85%] w-fit ${
                     message.type === 'user'
                       ? 'bg-blue-500 text-white'
                       : 'bg-white border shadow-sm'
                   }`}>
-                    <div className="whitespace-pre-wrap text-sm">
+                    <div className="whitespace-pre-wrap text-sm break-words overflow-hidden">
                       {message.content}
                     </div>
                     
@@ -566,42 +625,42 @@ Lütfen daha sonra tekrar deneyin veya farklı bir şekilde sorunuzu sorun.
           <div ref={messagesEndRef} />
         </ScrollArea>
 
-        {/* Sample Questions */}
+        {/* Sample Questions - Compact */}
         {messages.length <= 1 && (
-          <div className="mb-4">
-            <div className="text-xs text-gray-500 mb-2">💡 Örnek sorular:</div>
-            <div className="grid grid-cols-2 gap-1">
-              {getSampleQuestions().slice(0, 6).map((question, idx) => (
+          <div className="mb-3 flex-shrink-0">
+            <div className="text-xs text-gray-500 mb-1">💡 Örnek sorular:</div>
+            <div className="grid grid-cols-2 gap-1 max-h-[60px] overflow-hidden">
+              {getSampleQuestions().slice(0, 4).map((question, idx) => (
                 <Button
                   key={idx}
                   variant="ghost"
                   size="sm"
                   onClick={() => setInputText(question)}
-                  className="text-left text-xs h-auto p-2 justify-start text-gray-600 hover:text-blue-600"
+                  className="text-left text-xs h-auto py-1 px-2 justify-start text-gray-600 hover:text-blue-600 truncate"
                 >
-                  "{question}"
+                  "{question.length > 30 ? question.substring(0, 30) + '...' : question}"
                 </Button>
               ))}
             </div>
           </div>
         )}
 
-        {/* Input Area */}
-        <div className="flex gap-2">
+        {/* Input Area - Compact */}
+        <div className="flex gap-2 flex-shrink-0">
           <Textarea
             placeholder={`${selectedSymbol} hakkında soru sorun...`}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyPress={handleKeyPress}
             disabled={isLoading}
-            className="flex-1 min-h-[40px] max-h-[100px] resize-none"
+            className="flex-1 min-h-[36px] max-h-[80px] resize-none text-sm"
             rows={1}
           />
           <Button
             onClick={handleSendMessage}
             disabled={!inputText.trim() || isLoading}
             size="sm"
-            className="px-3 bg-blue-600 hover:bg-blue-700"
+            className="px-3 bg-blue-600 hover:bg-blue-700 flex-shrink-0"
           >
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -611,14 +670,14 @@ Lütfen daha sonra tekrar deneyin veya farklı bir şekilde sorunuzu sorun.
           </Button>
         </div>
 
-        {/* Status Footer */}
-        <div className="mt-2 flex items-center justify-between text-xs text-gray-500">
+        {/* Status Footer - Compact */}
+        <div className="mt-1 flex items-center justify-between text-xs text-gray-400 flex-shrink-0">
           <div className="flex items-center gap-1">
             <Zap className="h-3 w-3" />
-            Production Railway API
+            Railway API
           </div>
           <div>
-            Enter ile gönder • Shift+Enter yeni satır
+            Enter: gönder
           </div>
         </div>
       </CardContent>
