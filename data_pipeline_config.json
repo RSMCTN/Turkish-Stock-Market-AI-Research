@@ -1,0 +1,107 @@
+{
+  "database": {
+    "path": "data/bist_comprehensive.db",
+    "backup_interval_hours": 24,
+    "optimization_settings": {
+      "batch_size": 1000,
+      "commit_frequency": 10000,
+      "index_rebuild_days": 7
+    }
+  },
+  "historical_data": {
+    "directory": "historical_excel_data/",
+    "file_pattern": "*.xlsx",
+    "expected_files": 1200,
+    "parallel_processing": true,
+    "max_workers": 4,
+    "columns_mapping": {
+      "date": ["Date", "Tarih", "DATE", "date", "Date/Time", "Günlük"],
+      "symbol": ["Symbol", "Sembol", "SYMBOL", "Code", "Kod", "Hisse"],
+      "open": ["Open", "Acilis", "OPEN", "Opening", "Açılış", "Aç"],
+      "high": ["High", "Yuksek", "HIGH", "Yüksek", "Max", "En Yüksek"],
+      "low": ["Low", "Dusuk", "LOW", "Düşük", "Min", "En Düşük"],
+      "close": ["Close", "Kapanis", "CLOSE", "Kapanış", "Last", "Son"],
+      "volume": ["Volume", "Hacim", "VOLUME", "Vol", "Amount", "Miktar"]
+    },
+    "data_validation": {
+      "min_price": 0.01,
+      "max_price": 10000,
+      "min_volume": 0,
+      "date_format": "auto",
+      "remove_weekends": true,
+      "holiday_calendar": "TR"
+    }
+  },
+  "daily_updates": {
+    "basestock_path": "daily_updates/basestock.xls",
+    "watch_directory": "daily_updates/",
+    "file_patterns": ["basestock.xls", "basestock.xlsx", "daily_*.xls*"],
+    "check_interval_minutes": 5,
+    "auto_process": true,
+    "backup_daily_files": true,
+    "change_detection": {
+      "method": "hash",
+      "compare_content": true,
+      "minimum_change_threshold": 0.01
+    }
+  },
+  "ai_processing": {
+    "retrain_threshold": {
+      "new_records_count": 100,
+      "days_since_last_training": 7,
+      "significant_price_changes": 0.05
+    },
+    "prediction_settings": {
+      "horizon_days": [1, 3, 7, 14, 30],
+      "confidence_threshold": 0.6,
+      "model_versions": ["DP-LSTM-v1", "Turkish-QA-v1", "Sentiment-v1"]
+    },
+    "technical_indicators": {
+      "enabled": ["RSI", "MACD", "BB", "ICHIMOKU", "STOCH", "ADX", "ATR"],
+      "parameters": {
+        "RSI": {"period": 14},
+        "MACD": {"fast": 12, "slow": 26, "signal": 9},
+        "BB": {"period": 20, "std": 2},
+        "ICHIMOKU": {"tenkan": 9, "kijun": 26, "senkou": 52}
+      }
+    },
+    "sentiment_analysis": {
+      "enabled": true,
+      "sources": ["news", "social_media", "analyst_reports"],
+      "language": "turkish",
+      "update_frequency_hours": 6
+    },
+    "auto_deployment": {
+      "enabled": true,
+      "staging_tests": true,
+      "rollback_on_error": true,
+      "performance_threshold": 0.7
+    }
+  },
+  "monitoring": {
+    "logging_level": "INFO",
+    "log_file": "logs/data_pipeline.log",
+    "max_log_size_mb": 100,
+    "log_rotation_days": 30,
+    "email_alerts": {
+      "enabled": false,
+      "smtp_server": "",
+      "recipients": []
+    },
+    "metrics_collection": {
+      "enabled": true,
+      "export_prometheus": false,
+      "dashboard_port": 8080
+    }
+  },
+  "performance": {
+    "memory_limit_mb": 4096,
+    "max_concurrent_symbols": 50,
+    "cache_size_mb": 512,
+    "database_pool_size": 10,
+    "batch_processing": {
+      "chunk_size": 1000,
+      "progress_reporting_interval": 100
+    }
+  }
+}
