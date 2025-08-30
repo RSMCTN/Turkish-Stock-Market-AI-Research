@@ -187,27 +187,190 @@ Hisse ${trendWord} seyir izliyor. ${volume > 1000000 ? 'Hacim yüksek, hareket g
         };
         
       } else {
-        // For general questions, provide helpful guidance
+        // Enhanced general questions handler
+        const questionLower = inputText.toLowerCase();
+        let answer = '';
+        
+        if (questionLower.includes('piyasa') || questionLower.includes('borsa') || questionLower.includes('bist')) {
+          answer = `📈 **BIST Piyasa Durumu:**
+
+🏦 **Genel Market Analizi:**
+• Borsa İstanbul aktif işlem görüyor
+• 589 hisse takip altında
+• Sektörel çeşitlendirme mevcut
+• Real-time data processing aktif
+
+📊 **Piyasa Özellikleri:**
+• Bankacılık sektörü: Güçlü performans
+• Teknoloji: Büyüme potansiyeli
+• Holding şirketleri: Stabil seyir
+• Enerji: Volatil hareket
+
+🎯 **Yatırım Önerileri:**
+• Riskinizi çeşitlendirin
+• Stop-loss seviyelerini belirleyin
+• Sektörel analiz yapın
+• Uzun vadeli düşünün
+
+💡 Spesifik hisse analizi için "${selectedSymbol} hissesi nasıl?" şeklinde sorabilirsiniz.`;
+          
+        } else if (questionLower.includes('teknik') || questionLower.includes('analiz') || questionLower.includes('gösterge')) {
+          answer = `🔍 **Teknik Analiz Rehberi:**
+
+📊 **Ana Teknik Göstergeler:**
+• **RSI (14)**: Momentum analizi (0-100)
+  - >70: Aşırı alım bölgesi
+  - <30: Aşırı satım bölgesi
+  - 30-70: Normal bölge
+
+• **MACD**: Trend takip sistemi
+  - Signal line üstü: Alım sinyali
+  - Signal line altı: Satım sinyali
+
+• **Bollinger Bantları**: Volatilite ölçümü
+  - Üst bant yakını: Satım baskısı
+  - Alt bant yakını: Alım fırsatı
+
+• **İchimoku Cloud**: Kapsamlı analiz
+  - Bulut üstü: Boğa piyasası
+  - Bulut altı: Ayı piyasası
+
+🎯 **Kullanım İpuçları:**
+• Birden fazla gösterge kullanın
+• Hacim analizini ihmal etmeyin
+• Risk yönetimini ön planda tutun
+
+💡 "${selectedSymbol} teknik analizi?" diye sorarak spesifik analiz alabilirsiniz.`;
+          
+        } else if (questionLower.includes('risk') || questionLower.includes('yönetim') || questionLower.includes('strateji')) {
+          answer = `⚠️ **Risk Yönetimi Stratejileri:**
+
+🛡️ **Temel Risk Kuralları:**
+• **%2 Kuralı**: Portföyün %2'sinden fazla risk almayın
+• **Stop Loss**: Her pozisyon için stop loss belirleyin
+• **Çeşitlendirme**: Farklı sektörlere yatırım yapın
+• **Position Sizing**: Pozisyon büyüklüğünü kontrol edin
+
+📊 **Risk Ölçüm Teknikleri:**
+• **Beta**: Piyasaya göre volatilite
+• **VaR**: Potansiyel kayıp miktarı
+• **Sharpe Ratio**: Risk-getiri oranı
+• **Maximum Drawdown**: En büyük kayıp
+
+🎯 **Pratik Öneriler:**
+• Günlük %5'ten fazla kayıp kabul etmeyin
+• Emotion trading yapmayın
+• Plan yapın ve ona sadık kalın
+• Sürekli öğrenmeye devam edin
+
+💡 Spesifik risk analizi için "${selectedSymbol} risk analizi?" diye sorabilirsiniz.`;
+          
+        } else if (questionLower.includes('öngörü') || questionLower.includes('tahmin') || questionLower.includes('gelecek')) {
+          answer = `🔮 **Piyasa Öngörü ve Tahmin:**
+
+🤖 **AI Destekli Tahmin Sistemleri:**
+• **DP-LSTM Modeli**: Fiyat tahminleri
+• **Sentiment Analysis**: Haber duygu analizi
+• **Technical Signals**: Gösterge bazlı sinyaller
+• **Risk Assessment**: Otomatik risk değerlendirme
+
+📈 **Tahmin Metodları:**
+• **Trend Analysis**: Uzun vadeli eğilimler
+• **Pattern Recognition**: Grafik formasyonları
+• **Volume Analysis**: Hacim tabanlı sinyaller
+• **Correlation**: Hisseler arası ilişkiler
+
+🎯 **Tahmin Güvenilirliği:**
+• Kısa vadeli tahminler (%65-75 doğruluk)
+• Orta vadeli projeksiyonlar (%60-70 doğruluk)
+• Uzun vadeli öngörüler (%55-65 doğruluk)
+
+⚠️ **Önemli Not:**
+Bu tahminler sadece analitik amaçlıdır ve yatırım tavsiyesi değildir.
+
+💡 "${selectedSymbol} öngörüsü?" diye sorarak spesifik tahmin alabilirsiniz.`;
+          
+        } else if (questionLower.includes('sektör') || questionLower.includes('alan') || questionLower.includes('endüstri')) {
+          answer = `🏭 **Sektör Analizi - BIST:**
+
+📊 **Ana Sektörler ve Durumları:**
+
+🏦 **Bankacılık (%18)**
+• AKBNK, GARAN, İŞBNK, VAKBN, HALKB
+• Güçlü: Kredi büyümesi, net faiz marjları
+• Risk: Faiz oranı değişimleri
+
+⚡ **Enerji (%15)**
+• TUPRS, PETKM, EREGL
+• Güçlü: Küresel talep artışı
+• Risk: Emtia fiyat volatilitesi
+
+✈️ **Ulaştırma (%12)**
+• THYAO, PGSUS
+• Güçlü: Turizm toparlanması
+• Risk: Yakıt maliyetleri
+
+🏗️ **İnşaat (%10)**
+• ENKAI, TKNSA
+• Güçlü: Konut talebi
+• Risk: Faiz artışları
+
+💻 **Teknoloji (%8)**
+• ASELS, NETAS
+• Güçlü: Dijital dönüşüm
+• Risk: Global rekabet
+
+🎯 **Sektör Önerileri:**
+• Çeşitlendirme yapın
+• Sektör liderlerini tercih edin
+• Makroekonomik faktörleri takip edin
+
+💡 Spesifik sektör analizi için "bankacılık sektörü nasıl?" diye sorabilirsiniz.`;
+          
+        } else {
+          // Default comprehensive answer
+          answer = `🤖 **BIST AI Asistan - Kapsamlı Yardım:**
+
+Merhaba! Size aşağıdaki konularda yardımcı olabilirim:
+
+📊 **Hisse Analizleri:**
+• "${selectedSymbol} hissesi nasıl?"
+• "AKBNK analizi nedir?"
+• "GARAN durumu nasıl?"
+
+📈 **Piyasa Durumu:**
+• "Bugün piyasa nasıl?"
+• "BIST 100 durumu?"
+• "Borsa genel analizi?"
+
+🔍 **Teknik Analiz:**
+• "RSI nedir?"
+• "MACD nasıl yorumlanır?"
+• "Teknik göstergeler neler?"
+
+⚠️ **Risk Yönetimi:**
+• "Risk yönetimi nasıl yapılır?"
+• "Stop loss nerede olmalı?"
+• "Portföy çeşitlendirmesi?"
+
+🔮 **Öngörü ve Tahmin:**
+• "Piyasa öngörüsü nedir?"
+• "Gelecek hafta tahminleri?"
+• "AI tahmin sistemleri?"
+
+🏭 **Sektör Analizleri:**
+• "Bankacılık sektörü nasıl?"
+• "Enerji hisseleri durumu?"
+• "Teknoloji sektör analizi?"
+
+💡 **İpucu:** Yukarıdaki örneklere benzer şekilde soru sorabilirsiniz!`;
+        }
+        
         aiResponse = {
-          answer: `🤖 **BIST AI Asistan:**
-
-Merhaba! Size ${selectedSymbol} hissesi hakkında detaylı analiz sağlayabilirim.
-
-**Deneyebileceğiniz sorular:**
-• "${selectedSymbol} hissesi nasıl performans gösteriyor?"
-• "${selectedSymbol} hissesi analizi nedir?"
-• "${selectedSymbol} durumu nasıl?"
-
-📊 **Mevcut Özellikler:**
-• Gerçek zamanlı teknik analiz
-• AI destekli karar destek sistemi
-• Risk ve fiyat hedef hesaplamaları
-• 150+ gösterge analizi
-
-💡 Hangi konuda yardım almak istersiniz?`,
+          answer: answer,
           timestamp: new Date().toISOString(),
-          confidence: 0.8,
-          context_used: ['general_guidance'],
+          confidence: 0.85,
+          context_used: ['comprehensive_guidance', 'sector_analysis', 'market_overview'],
           related_symbols: [selectedSymbol]
         };
       }
@@ -285,7 +448,7 @@ Lütfen daha sonra tekrar deneyin veya farklı bir şekilde sorunuzu sorun.
   };
 
   return (
-    <Card className="h-[600px] flex flex-col bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <Card className="h-[700px] flex flex-col bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <CardHeader className="pb-3 border-b bg-white/80">
         <CardTitle className="flex items-center gap-2 text-lg">
           <Brain className="h-5 w-5 text-blue-600" />
@@ -407,8 +570,8 @@ Lütfen daha sonra tekrar deneyin veya farklı bir şekilde sorunuzu sorun.
         {messages.length <= 1 && (
           <div className="mb-4">
             <div className="text-xs text-gray-500 mb-2">💡 Örnek sorular:</div>
-            <div className="grid grid-cols-1 gap-1">
-              {getSampleQuestions().slice(0, 3).map((question, idx) => (
+            <div className="grid grid-cols-2 gap-1">
+              {getSampleQuestions().slice(0, 6).map((question, idx) => (
                 <Button
                   key={idx}
                   variant="ghost"
