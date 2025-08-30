@@ -461,8 +461,11 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
 
           {/* Volume Chart */}
           <TabsContent value="volume" className="space-y-4">
-            <div className="h-64">
-              <h4 className="text-sm font-medium mb-2">Volume Analysis</h4>
+            <div className="h-96">
+              <h4 className="text-sm font-medium mb-2 flex items-center gap-2">
+                <BarChart3 className="h-4 w-4" />
+                Volume Analysis - {selectedSymbol}
+              </h4>
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart data={currentData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -470,16 +473,71 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
                     dataKey="datetime" 
                     tickFormatter={formatXAxisLabel}
                     fontSize={10}
+                    stroke="#666"
                   />
-                  <YAxis yAxisId="price" orientation="right" fontSize={10} />
-                  <YAxis yAxisId="volume" orientation="left" fontSize={10} />
-                  <Tooltip />
+                  <YAxis 
+                    yAxisId="price" 
+                    orientation="right" 
+                    fontSize={10}
+                    stroke="#2563eb"
+                    tickFormatter={(value) => `₺${value.toFixed(1)}`}
+                  />
+                  <YAxis 
+                    yAxisId="volume" 
+                    orientation="left" 
+                    fontSize={10}
+                    stroke="#94a3b8"
+                    tickFormatter={(value) => {
+                      if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
+                      if (value >= 1000) return `${(value / 1000).toFixed(0)}K`;
+                      return value.toString();
+                    }}
+                  />
+                  <Tooltip 
+                    content={({ active, payload, label }) => {
+                      if (active && payload && payload.length) {
+                        const data = payload[0].payload;
+                        const date = new Date(label);
+                        
+                        return (
+                          <div className="bg-white p-3 border rounded-lg shadow-lg">
+                            <p className="font-medium text-gray-800">
+                              {date.toLocaleDateString('tr-TR', { 
+                                day: '2-digit', 
+                                month: '2-digit', 
+                                year: 'numeric',
+                                hour: timeframe === '60min' ? '2-digit' : undefined,
+                                minute: timeframe === '60min' ? '2-digit' : undefined
+                              })}
+                            </p>
+                            <div className="mt-2 space-y-1">
+                              <div className="flex justify-between gap-4">
+                                <span className="text-blue-600">Fiyat:</span>
+                                <span className="font-medium">₺{data.close?.toFixed(2)}</span>
+                              </div>
+                              <div className="flex justify-between gap-4">
+                                <span className="text-slate-600">Hacim:</span>
+                                <span className="font-medium">{data.volume?.toLocaleString('tr-TR')}</span>
+                              </div>
+                              <div className="flex justify-between gap-4">
+                                <span className="text-green-600">Hacim (TL):</span>
+                                <span className="font-medium">₺{((data.volume || 0) * (data.close || 0)).toLocaleString('tr-TR', { maximumFractionDigits: 0 })}</span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }}
+                  />
+                  <Legend />
+                  
                   <Bar 
                     yAxisId="volume"
                     dataKey="volume" 
                     fill="#94a3b8" 
-                    opacity={0.6}
-                    name="Hacim"
+                    opacity={0.7}
+                    name="Hacim (Adet)"
                   />
                   <Line 
                     yAxisId="price"
@@ -487,11 +545,42 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
                     dataKey="close" 
                     stroke="#2563eb" 
                     strokeWidth={2}
-                    name="Fiyat"
+                    name="Kapanış Fiyatı"
                     dot={false}
                   />
                 </ComposedChart>
               </ResponsiveContainer>
+              
+              {/* Volume Statistics */}
+              <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-slate-50 p-3 rounded-lg">
+                  <div className="text-sm text-gray-600">Toplam Hacim</div>
+                  <div className="text-lg font-bold text-slate-700">
+                    {currentData.reduce((sum, item) => sum + (item.volume || 0), 0).toLocaleString('tr-TR')}
+                  </div>
+                </div>
+                <div className="bg-blue-50 p-3 rounded-lg">
+                  <div className="text-sm text-gray-600">Ortalama Hacim</div>
+                  <div className="text-lg font-bold text-blue-700">
+                    {currentData.length > 0 ? 
+                      (currentData.reduce((sum, item) => sum + (item.volume || 0), 0) / currentData.length).toLocaleString('tr-TR', { maximumFractionDigits: 0 }) : 
+                      '0'
+                    }
+                  </div>
+                </div>
+                <div className="bg-green-50 p-3 rounded-lg">
+                  <div className="text-sm text-gray-600">Max Hacim</div>
+                  <div className="text-lg font-bold text-green-700">
+                    {Math.max(...currentData.map(item => item.volume || 0)).toLocaleString('tr-TR')}
+                  </div>
+                </div>
+                <div className="bg-purple-50 p-3 rounded-lg">
+                  <div className="text-sm text-gray-600">Toplam Değer (TL)</div>
+                  <div className="text-lg font-bold text-purple-700">
+                    ₺{currentData.reduce((sum, item) => sum + ((item.volume || 0) * (item.close || 0)), 0).toLocaleString('tr-TR', { maximumFractionDigits: 0 })}
+                  </div>
+                </div>
+              </div>
             </div>
           </TabsContent>
 

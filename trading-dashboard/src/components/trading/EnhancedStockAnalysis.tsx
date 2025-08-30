@@ -452,27 +452,86 @@ export default function EnhancedStockAnalysis({ selectedSymbol = 'GARAN' }: Enha
                 <CardTitle>Hacim Karşılaştırması</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div>
                     <div className="flex justify-between text-sm mb-1">
-                      <span>7 Günlük Ortalama</span>
-                      <span>{((stockData.volume / stockData.avgVolume7d) * 100).toFixed(0)}%</span>
+                      <span>7 Günlük Ortalamaya Göre</span>
+                      <span className="font-medium">
+                        {stockData.avgVolume7d > 0 ? 
+                          ((stockData.volume / stockData.avgVolume7d) * 100).toFixed(0) + '%' : 
+                          'N/A'
+                        }
+                      </span>
                     </div>
-                    <Progress value={Math.min(((stockData.volume / stockData.avgVolume7d) * 100), 100)} />
+                    <Progress 
+                      value={stockData.avgVolume7d > 0 ? 
+                        Math.min(((stockData.volume / stockData.avgVolume7d) * 100), 200) : 
+                        0
+                      } 
+                      className="h-2"
+                    />
+                    <div className="text-xs text-gray-500 mt-1">
+                      {stockData.volume > stockData.avgVolume7d ? '↑ Ortalamanın üzerinde' : '↓ Ortalamanın altında'}
+                    </div>
                   </div>
+                  
                   <div>
                     <div className="flex justify-between text-sm mb-1">
-                      <span>30 Günlük Ortalama</span>
-                      <span>{((stockData.volume / stockData.avgVolume30d) * 100).toFixed(0)}%</span>
+                      <span>30 Günlük Ortalamaya Göre</span>
+                      <span className="font-medium">
+                        {stockData.avgVolume30d > 0 ? 
+                          ((stockData.volume / stockData.avgVolume30d) * 100).toFixed(0) + '%' : 
+                          'N/A'
+                        }
+                      </span>
                     </div>
-                    <Progress value={Math.min(((stockData.volume / stockData.avgVolume30d) * 100), 100)} />
+                    <Progress 
+                      value={stockData.avgVolume30d > 0 ? 
+                        Math.min(((stockData.volume / stockData.avgVolume30d) * 100), 200) : 
+                        0
+                      } 
+                      className="h-2"
+                    />
+                    <div className="text-xs text-gray-500 mt-1">
+                      {stockData.volume > stockData.avgVolume30d ? '↑ Ortalamanın üzerinde' : '↓ Ortalamanın altında'}
+                    </div>
                   </div>
+                  
                   <div>
                     <div className="flex justify-between text-sm mb-1">
-                      <span>52 Haftalık Ortalama</span>
-                      <span>{((stockData.volume / stockData.avgVolume52w) * 100).toFixed(0)}%</span>
+                      <span>52 Haftalık Ortalamaya Göre</span>
+                      <span className="font-medium">
+                        {stockData.avgVolume52w > 0 ? 
+                          ((stockData.volume / stockData.avgVolume52w) * 100).toFixed(0) + '%' : 
+                          'N/A'
+                        }
+                      </span>
                     </div>
-                    <Progress value={Math.min(((stockData.volume / stockData.avgVolume52w) * 100), 100)} />
+                    <Progress 
+                      value={stockData.avgVolume52w > 0 ? 
+                        Math.min(((stockData.volume / stockData.avgVolume52w) * 100), 200) : 
+                        0
+                      } 
+                      className="h-2"
+                    />
+                    <div className="text-xs text-gray-500 mt-1">
+                      {stockData.volume > stockData.avgVolume52w ? '↑ Ortalamanın üzerinde' : '↓ Ortalamanın altında'}
+                    </div>
+                  </div>
+                  
+                  {/* Volume Insights */}
+                  <div className="border-t pt-3 mt-3">
+                    <div className="text-sm font-medium text-gray-700 mb-2">Hacim Analizi</div>
+                    <div className="grid grid-cols-2 gap-3 text-xs">
+                      <div className={`p-2 rounded ${stockData.volume > stockData.avgVolume7d ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                        <div className="font-medium">Kısa Vadeli</div>
+                        <div>{stockData.volume > stockData.avgVolume7d ? 'Aktif' : 'Sakin'}</div>
+                      </div>
+                      <div className={`p-2 rounded ${stockData.volume > stockData.avgVolume52w ? 'bg-blue-50 text-blue-700' : 'bg-gray-50 text-gray-700'}`}>
+                        <div className="font-medium">Uzun Vadeli</div>
+                        <div>{stockData.volume > stockData.avgVolume52w ? 'Yüksek' : 'Normal'}</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CardContent>
