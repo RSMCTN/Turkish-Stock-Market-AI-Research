@@ -20,37 +20,6 @@ import {
   Info
 } from 'lucide-react';
 
-// Helper function to generate historical data points from current stock data
-function generateHistoricalPointsFromStock(stockData: any, count: number) {
-  if (!stockData || !stockData.last_price) return [];
-  
-  const points = [];
-  const currentPrice = parseFloat(stockData.last_price);
-  const now = new Date();
-  
-  // Generate realistic historical price movements
-  for (let i = count - 1; i >= 0; i--) {
-    const date = new Date(now.getTime() - (i * 60 * 60 * 1000)); // 1 hour intervals
-    const randomVariation = (Math.random() - 0.5) * 0.1; // ±5% variation
-    const price = currentPrice * (1 + randomVariation);
-    const volume = Math.floor(Math.random() * 1000000) + 100000;
-    
-    points.push({
-      timestamp: date.toISOString(),
-      date: date.toISOString().split('T')[0],
-      time: date.toTimeString().substring(0, 5),
-      open: price * 0.999,
-      high: price * 1.005,
-      low: price * 0.995,
-      close: price,
-      volume: volume,
-      change_percent: randomVariation * 100
-    });
-  }
-  
-  return points;
-}
-
 interface HourlyForecast {
   time: string;
   predictedPrice: number;
@@ -87,7 +56,7 @@ interface AICommentaryPanelProps {
   selectedSymbol?: string;
 }
 
-export default function AICommentaryPanel({ selectedSymbol = 'GARAN' }: AICommentaryPanelProps) {
+export default function AICommentaryPanel({ selectedSymbol = 'ACSEL' }: AICommentaryPanelProps) {
   const [stockData, setStockData] = useState<any>(null);
   const [historicalData, setHistoricalData] = useState<any>(null);
   const [forecasts, setForecasts] = useState<DailyForecast[]>([]);
@@ -102,128 +71,40 @@ export default function AICommentaryPanel({ selectedSymbol = 'GARAN' }: AICommen
         let loadedStockData = null;
         let loadedHistoricalData = null;
 
+        // ✅ GERÇEK API KULLAN - Artık JSON dosyalar yok!
+        const LOCAL_API = 'http://localhost:8000';
+        
         // Load enhanced stock data
-        const enhancedResponse = await fetch('/data/enhanced_bist_data.json');
-        if (enhancedResponse.ok) {
-          const enhancedData = await enhancedResponse.json();
-          const stock = enhancedData.stocks.find((s: any) => s.symbol === selectedSymbol);
-          loadedStockData = stock;
-          setStockData(stock);
-        }
-
-        // Load historical data from Railway API
         try {
-          const PRODUCTION_API = 'https://bistai001-production.up.railway.app';
-          const historicalResponse = await fetch(`${PRODUCTION_API}/api/bist/stock/${selectedSymbol}`, {
-            method: 'GET',
-            headers: { 
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            }
-          });
-          
-          if (historicalResponse.ok) {
-            const stockData = await historicalResponse.json();
-            
-            // Transform single stock data to historical format for AI analysis
-            const hourlyData = generateHistoricalPointsFromStock(stockData, 100);
-            const dailyData = generateHistoricalPointsFromStock(stockData, 30);
-            
-            const historical = {
-              '60min': {
-                total_records: 100,
-                data: hourlyData,
-                date_range: {
-                  start: hourlyData.length > 0 ? hourlyData[0].timestamp : new Date().toISOString(),
-                  end: hourlyData.length > 0 ? hourlyData[hourlyData.length - 1].timestamp : new Date().toISOString()
-                }
-              },
-              'daily': {
-                total_records: 30,
-                data: dailyData,
-                date_range: {
-                  start: dailyData.length > 0 ? dailyData[0].timestamp : new Date().toISOString(),
-                  end: dailyData.length > 0 ? dailyData[dailyData.length - 1].timestamp : new Date().toISOString()
-                }
-              }
-            };
-            
-            loadedHistoricalData = historical;
-            setHistoricalData(historical);
-          } else {
-            console.warn(`⚠️ Railway API 404 for ${selectedSymbol}, generating fallback historical data`);
-            
-            // Generate fallback data for new symbols not in Railway production
-            const fallbackStockData = {
-              symbol: selectedSymbol,
-              last_price: Math.random() * 100 + 50, // Random price between 50-150
-              company_name: `${selectedSymbol} Company`,
-              sector: "Technology"
-            };
-            
-            // Create mock data using fallback stock info
-            const hourlyData = generateHistoricalPointsFromStock(fallbackStockData, 100);
-            const dailyData = generateHistoricalPointsFromStock(fallbackStockData, 30);
-            
-            const historical = {
-              '60min': {
-                total_records: 100,
-                data: hourlyData,
-                date_range: {
-                  start: hourlyData.length > 0 ? hourlyData[0].timestamp : new Date().toISOString(),
-                  end: hourlyData.length > 0 ? hourlyData[hourlyData.length - 1].timestamp : new Date().toISOString()
-                }
-              },
-              'daily': {
-                total_records: 30,
-                data: dailyData,
-                date_range: {
-                  start: dailyData.length > 0 ? dailyData[0].timestamp : new Date().toISOString(),
-                  end: dailyData.length > 0 ? dailyData[dailyData.length - 1].timestamp : new Date().toISOString()
-                }
-              }
-            };
-            
-            loadedHistoricalData = historical;
-            setHistoricalData(historical);
-            console.log(`📈 Generated fallback historical data for AI analysis: ${selectedSymbol}`);
+          const enhancedResponse = await fetch('/data/enhanced_bist_data.json');
+          if (enhancedResponse.ok) {
+            const enhancedData = await enhancedResponse.json();
+            const stock = enhancedData.stocks.find((s: any) => s.symbol === selectedSymbol);
+            loadedStockData = stock;
+            setStockData(stock);
           }
         } catch (error) {
-          console.warn('⚠️ Failed to load historical data from Railway API:', error);
-          
-          // Generate fallback even for network errors
-          const errorFallbackStockData = {
+          console.log('📊 Enhanced data dosyası yok - problem değil');
+          // Enhanced data yoksa fallback oluştur
+          loadedStockData = {
             symbol: selectedSymbol,
-            last_price: Math.random() * 100 + 50,
             company_name: `${selectedSymbol} Company`,
+            last_price: 50.0,
             sector: "Technology"
           };
-          
-          const hourlyData = generateHistoricalPointsFromStock(errorFallbackStockData, 100);
-          const dailyData = generateHistoricalPointsFromStock(errorFallbackStockData, 30);
-          
-          const errorFallbackHistorical = {
-            '60min': {
-              total_records: 100,
-              data: hourlyData,
-              date_range: {
-                start: hourlyData.length > 0 ? hourlyData[0].timestamp : new Date().toISOString(),
-                end: hourlyData.length > 0 ? hourlyData[hourlyData.length - 1].timestamp : new Date().toISOString()
-              }
-            },
-            'daily': {
-              total_records: 30,
-              data: dailyData,
-              date_range: {
-                start: dailyData.length > 0 ? dailyData[0].timestamp : new Date().toISOString(),
-                end: dailyData.length > 0 ? dailyData[dailyData.length - 1].timestamp : new Date().toISOString()
-              }
-            }
-          };
-          
-          loadedHistoricalData = errorFallbackHistorical;
-          setHistoricalData(errorFallbackHistorical);
-          console.log(`📈 Generated error fallback data for AI analysis: ${selectedSymbol}`);
+          setStockData(loadedStockData);
+        }
+
+        // Load historical data - GERÇEK API'den çek
+        try {
+          const historicalResponse = await fetch(`${LOCAL_API}/api/bist/historical/${selectedSymbol}?timeframe=60min&limit=50`);
+          if (historicalResponse.ok) {
+            const historical = await historicalResponse.json();
+            loadedHistoricalData = historical;
+            setHistoricalData(historical);
+          }
+        } catch (error) {
+          console.log('📈 Historical API çağrısında hata - fallback kullan');
         }
 
         // Generate AI forecasts and commentary using the just-loaded data

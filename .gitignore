@@ -113,3 +113,6 @@ coverage.xml
 
 # Node modules (if any)
 node_modules/
+enhanced_stock_data_part_*
+*.gz
+*.csv

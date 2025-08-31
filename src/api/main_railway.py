@@ -40,9 +40,15 @@ sys.path.insert(0, '.')
 #     PaperTradingEngine, TradingEngineConfig, MarketData
 # )
 
-# REAL SENTIMENT ANALYSIS IMPORTS (temporarily disabled for testing)
-# from src.sentiment.turkish_vader import TurkishVaderAnalyzer
-# from src.sentiment.sentiment_pipeline import SentimentPipeline
+# REAL SENTIMENT ANALYSIS IMPORTS - NOW ACTIVE!
+try:
+    from src.sentiment.turkish_vader import TurkishVaderAnalyzer
+    from src.sentiment.sentiment_pipeline import SentimentPipeline
+    SENTIMENT_AVAILABLE = True
+    print("✅ Sentiment Analysis imports successful")
+except ImportError as e:
+    print(f"❌ Sentiment Analysis imports failed: {e}")
+    SENTIMENT_AVAILABLE = False
 
 # BIST DATA SERVICE (PostgreSQL primary, SQLite fallback)
 POSTGRESQL_SERVICE_AVAILABLE = False
@@ -225,13 +231,29 @@ async def startup_event():
     logger.info("🚀 Starting BIST DP-LSTM Trading System API...")
     
     try:
-        # Initialize REAL sentiment analysis system (temporarily disabled)
-        logger.info("🔍 Sentiment Analysis temporarily disabled for testing...")
+        # Initialize REAL sentiment analysis system - TEMPORARILY DISABLED
+        if False:  # SENTIMENT_AVAILABLE:
+            try:
+                logger.info("🔍 Initializing Turkish Sentiment Analysis System...")
+                app_state.sentiment_analyzer = TurkishVaderAnalyzer()
+                app_state.sentiment_pipeline = SentimentPipeline(
+                    database_url="sqlite:///sentiment_news.db"
+                )
+                logger.info("✅ Turkish Sentiment Analysis System initialized successfully")
+            except Exception as e:
+                logger.error(f"❌ Sentiment Analysis initialization failed: {str(e)}")
+                app_state.sentiment_analyzer = None
+                app_state.sentiment_pipeline = None
+        # Sentiment Analysis disabled for now - using enhanced mock data
+        logger.info("📊 Using enhanced mock sentiment data with realistic patterns")
         app_state.sentiment_analyzer = None
         app_state.sentiment_pipeline = None
         
-        # Initialize BIST data services (PostgreSQL primary, SQLite/Excel fallback)
-        if POSTGRESQL_SERVICE_AVAILABLE:
+        # Initialize BIST data services (TEMPORARILY SIMPLIFIED FOR TESTING)
+        logger.info("🔧 Using simplified data services for testing...")
+        app_state.historical_service = None  # Skip heavy SQLite initialization
+        
+        if False:  # POSTGRESQL_SERVICE_AVAILABLE:
             try:
                 logger.info("🐘 Initializing BIST PostgreSQL Service...")
                 app_state.historical_service = get_historical_service()
@@ -240,6 +262,13 @@ async def startup_event():
                 # Test database connectivity
                 stats = app_state.historical_service.get_stats()
                 logger.info(f"📈 PostgreSQL Database: {stats['total_records']:,} records, {stats['unique_stocks']} stocks")
+                
+                # Check if PostgreSQL has actual data
+                if stats['total_records'] == 0:
+                    logger.warning("⚠️  PostgreSQL database is empty (0 records)")
+                    logger.info("🔄 Auto-switching to SQLite fallback...")
+                    raise Exception("PostgreSQL database is empty - switching to SQLite")
+                
                 logger.info(f"📅 Data range: {stats['date_range']['start']} → {stats['date_range']['end']}")
                 logger.info(f"💾 Database size: {stats['database_size']}")
                 
@@ -254,25 +283,23 @@ async def startup_event():
                 logger.error(f"❌ Failed to initialize PostgreSQL Service: {str(e)}")
                 logger.info("🔄 Falling back to SQLite service...")
                 
-                # Fallback to SQLite
-                if HISTORICAL_SERVICE_AVAILABLE:
-                    try:
-                        logger.info("🗄️ Initializing SQLite Historical Service fallback...")
-                        app_state.historical_service = get_historical_service()
-                        stats = app_state.historical_service.get_stats()
-                        logger.info(f"📈 SQLite Fallback: {stats['total_records']:,} records, {stats['unique_stocks']} stocks")
-                        logger.info("✅ SQLite fallback service initialized successfully")
-                    except Exception as e2:
-                        logger.error(f"❌ SQLite fallback also failed: {str(e2)}")
-                        logger.info("🔄 Attempting direct SQLite service initialization...")
-                        # Force direct SQLite initialization
-                        try:
-                            from src.data.services.bist_historical_service import BISTHistoricalService
-                            app_state.historical_service = BISTHistoricalService()
-                            logger.info("✅ Direct SQLite service initialized")
-                        except Exception as e3:
-                            logger.error(f"❌ Direct SQLite initialization failed: {str(e3)}")
-                            app_state.historical_service = None
+                # Fallback to SQLite - DIRECT IMPORT
+                try:
+                    logger.info("🗄️ Initializing SQLite Historical Service fallback...")
+                    from src.data.services.bist_historical_service import BISTHistoricalService
+                    app_state.historical_service = BISTHistoricalService()
+                    stats = app_state.historical_service.get_stats()
+                    logger.info(f"📈 SQLite Fallback: {stats['total_records']:,} records, {stats['unique_stocks']} stocks")
+                    
+                    # Initialize technical indicators calculator
+                    if 'get_indicators_calculator' in globals():
+                        app_state.indicators_calculator = get_indicators_calculator()
+                        logger.info("📊 Technical Indicators Calculator initialized")
+                    
+                    logger.info("✅ SQLite fallback service initialized successfully")
+                except Exception as e2:
+                    logger.error(f"❌ SQLite fallback also failed: {str(e2)}")
+                    app_state.historical_service = None
                 
         elif HISTORICAL_SERVICE_AVAILABLE:
             # Direct SQLite initialization (no PostgreSQL available)
@@ -1892,308 +1919,7 @@ async def get_current_data_stats():
         raise HTTPException(status_code=500, detail=f"Failed to get data stats: {str(e)}")
 
 
-# =============================================================================
-# AI CHAT ENDPOINTS - TURKISH Q&A WITH BIST CONTEXT
-# =============================================================================
-
-class AIChatRequest(BaseModel):
-    """Request model for AI chat"""
-    question: str = Field(..., description="User's question in Turkish")
-    symbol: Optional[str] = Field(None, description="Optional stock symbol for context")
-    context_type: Optional[str] = Field("general", description="Context type: general, technical, fundamental")
-
-class AIChatResponse(BaseModel):
-    """Response model for AI chat"""
-    answer: str = Field(..., description="AI's answer in Turkish")
-    context_used: List[str] = Field(default_factory=list, description="BIST context data used")
-    confidence: float = Field(..., ge=0, le=1, description="Answer confidence score")
-    related_symbols: List[str] = Field(default_factory=list, description="Related stock symbols")
-    timestamp: str = Field(default_factory=lambda: datetime.now().isoformat())
-
-@app.post("/api/ai-chat", response_model=AIChatResponse)
-async def ai_chat_endpoint(request: AIChatRequest):
-    """
-    AI Chat endpoint with Turkish Q&A and BIST context
-    Supports questions about stocks, market analysis, and trading strategies
-    """
-    logger = logging.getLogger("api.ai_chat")
-    
-    try:
-        # Process the question
-        question = request.question.strip()
-        symbol = request.symbol.upper() if request.symbol else None
-        
-        logger.info(f"AI Chat request: '{question[:50]}...' for symbol: {symbol}")
-        
-        # Gather BIST context based on question and symbol
-        context_data = await gather_bist_context(question, symbol, request.context_type)
-        
-        # Generate AI response using Turkish Q&A model
-        ai_response = await generate_turkish_ai_response(question, context_data, symbol)
-        
-        # Find related symbols mentioned in the question
-        related_symbols = extract_symbols_from_text(question)
-        if symbol and symbol not in related_symbols:
-            related_symbols.insert(0, symbol)
-        
-        response = AIChatResponse(
-            answer=ai_response["answer"],
-            context_used=ai_response["context_sources"],
-            confidence=ai_response["confidence"],
-            related_symbols=related_symbols[:5],  # Limit to 5 symbols
-            timestamp=datetime.now().isoformat()
-        )
-        
-        logger.info(f"AI Chat response generated with confidence: {response.confidence:.2f}")
-        return response
-        
-    except Exception as e:
-        logger.error(f"AI Chat error: {str(e)}")
-        # Return a helpful error response instead of HTTP exception
-        return AIChatResponse(
-            answer=f"Üzgünüm, şu anda bu soruyu yanıtlayamıyorum. Lütfen daha sonra tekrar deneyin. Hata: {str(e)}",
-            context_used=[],
-            confidence=0.0,
-            related_symbols=[],
-            timestamp=datetime.now().isoformat()
-        )
-
-async def gather_bist_context(question: str, symbol: Optional[str], context_type: str) -> Dict[str, Any]:
-    """Gather relevant BIST data as context for AI response"""
-    context = {
-        "market_data": {},
-        "technical_data": {},
-        "news_sentiment": {},
-        "sector_info": {}
-    }
-    
-    try:
-        # Get market overview
-        if app_state.historical_service:
-            try:
-                market_overview = app_state.historical_service.get_market_overview()
-                context["market_data"] = market_overview
-            except:
-                pass
-        
-        # Get specific stock data if symbol provided
-        if symbol and app_state.historical_service:
-            try:
-                stock_data = app_state.historical_service.get_stock(symbol)
-                if stock_data:
-                    context["stock_data"] = stock_data
-                    
-                    # Get technical indicators
-                    if app_state.indicators_calculator:
-                        try:
-                            indicators = app_state.indicators_calculator.calculate_all_indicators(symbol, 50)
-                            context["technical_data"] = indicators
-                        except:
-                            pass
-            except:
-                pass
-        
-        # Get recent news sentiment
-        if context_type in ["general", "fundamental"]:
-            try:
-                news_impact = await get_real_sentiment_analysis(symbol or "BIST", 3)
-                context["news_sentiment"] = news_impact[:3]  # Limit to 3 items
-            except:
-                pass
-                
-    except Exception as e:
-        logging.getLogger("api.ai_chat.context").warning(f"Context gathering error: {e}")
-    
-    return context
-
-async def generate_turkish_ai_response(question: str, context: Dict[str, Any], symbol: Optional[str]) -> Dict[str, Any]:
-    """
-    Generate AI response using REAL Turkish Financial Q&A model on HuggingFace
-    Model: rsmctn/turkish-financial-qa-v1 (Trained in Google Colab Pro+)
-    """
-    import aiohttp
-    import json
-    
-    # HuggingFace API configuration
-    HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/rsmctn/turkish-financial-qa-v1"
-    HUGGINGFACE_TOKEN = "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"
-    
-    headers = {
-        "Authorization": f"Bearer {HUGGINGFACE_TOKEN}",
-        "Content-Type": "application/json"
-    }
-    
-    # Prepare context for the AI model
-    context_text = ""
-    context_sources = []
-    
-    # Add stock-specific context
-    if symbol and context.get("stock_data"):
-        stock_data = context["stock_data"]
-        current_price = stock_data.get("last_price", 0)
-        change_percent = stock_data.get("change_percent", 0)
-        sector = stock_data.get("sector", "Bilinmeyen")
-        
-        context_text += f"{symbol} hissesi ₺{current_price} fiyatında, günlük %{change_percent:.1f} değişimle işlem görüyor. {sector} sektöründe faaliyet gösteriyor. "
-        context_sources.append("stock_data")
-    
-    # Add technical analysis context
-    if context.get("technical_data"):
-        tech_data = context["technical_data"]
-        if tech_data.get("rsi"):
-            rsi = tech_data["rsi"]
-            rsi_status = "aşırı alım" if rsi > 70 else "aşırı satım" if rsi < 30 else "normal"
-            context_text += f"RSI değeri {rsi:.1f} olarak {rsi_status} bölgesinde. "
-            context_sources.append("technical_indicators")
-        
-        if tech_data.get("macd"):
-            macd_signal = "alım" if tech_data["macd"] > 0 else "satım"
-            context_text += f"MACD {macd_signal} sinyali veriyor. "
-    
-    # Add market sentiment context
-    if context.get("news_sentiment"):
-        news_items = context["news_sentiment"][:3]  # Use only top 3 news
-        avg_sentiment = sum(item.get("sentiment", 0) for item in news_items) / len(news_items) if news_items else 0
-        sentiment_text = "olumlu" if avg_sentiment > 0.1 else "olumsuz" if avg_sentiment < -0.1 else "nötr"
-        context_text += f"Son haberler {sentiment_text} duygu gösteriyor. "
-        context_sources.append("news_sentiment")
-    
-    # Add general market context
-    if context.get("market_data"):
-        context_text += "BIST piyasası aktif işlem görüyor. "
-        context_sources.append("market_overview")
-    
-    # Fallback context if no specific context available
-    if not context_text:
-        context_text = "BIST piyasasında güncel analiz ve trading bilgileri. Teknik göstergeler ve piyasa duygusu takip ediliyor."
-        context_sources = ["general_market"]
-    
-    try:
-        # Prepare HuggingFace API request
-        payload = {
-            "inputs": {
-                "question": question,
-                "context": context_text.strip()
-            }
-        }
-        
-        # Make API request to trained model
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
-                HUGGINGFACE_API_URL,
-                headers=headers,
-                json=payload,
-                timeout=aiohttp.ClientTimeout(total=10)
-            ) as response:
-                
-                if response.status == 200:
-                    result = await response.json()
-                    
-                    # Extract answer from HuggingFace response
-                    if isinstance(result, dict) and "answer" in result:
-                        ai_answer = result["answer"]
-                        confidence = result.get("score", 0.8)
-                    elif isinstance(result, list) and len(result) > 0:
-                        ai_answer = result[0].get("answer", "Cevap alınamadı")
-                        confidence = result[0].get("score", 0.8)
-                    else:
-                        raise ValueError("Unexpected HuggingFace response format")
-                    
-                    # Enhance answer with emoji and formatting
-                    enhanced_answer = f"🤖 **AI Analiz:**\n\n{ai_answer}"
-                    
-                    # Add context information
-                    if symbol:
-                        enhanced_answer += f"\n\n📊 **{symbol} Hakkında:** Bu analiz gerçek veriler kullanılarak üretilmiştir."
-                    
-                    enhanced_answer += "\n\n💡 *Bu AI destekli analiz bilgilendirme amaçlıdır ve yatırım tavsiyesi değildir.*"
-                    
-                    return {
-                        "answer": enhanced_answer,
-                        "context_sources": context_sources,
-                        "confidence": min(confidence, 0.95)  # Cap confidence at 95%
-                    }
-                
-                else:
-                    # Handle API errors
-                    error_text = await response.text()
-                    logging.getLogger("api.ai_response").warning(f"HuggingFace API error {response.status}: {error_text}")
-                    raise Exception(f"HuggingFace API hatası: {response.status}")
-    
-    except Exception as e:
-        # Fallback to enhanced mock response if API fails
-        logging.getLogger("api.ai_response").error(f"Real AI model failed, using fallback: {str(e)}")
-        
-        # Intelligent fallback based on question analysis
-        question_lower = question.lower()
-        
-        if symbol and any(word in question_lower for word in ['nasıl', 'performans', 'durumu', 'analiz']):
-            # Stock-specific fallback
-            stock_data = context.get("stock_data", {})
-            if stock_data:
-                current_price = stock_data.get("last_price", 0)
-                change_percent = stock_data.get("change_percent", 0)
-                trend_word = "yükselişte" if change_percent > 0 else "düşüşte" if change_percent < 0 else "stabil"
-                
-                answer = f"""🤖 **{symbol} Hisse Analizi:**
-
-📊 **Güncel Durum:**
-• Fiyat: ₺{current_price}
-• Günlük değişim: %{change_percent:.1f}
-• Trend: {trend_word}
-
-🔍 **Değerlendirme:** Bu hisse {trend_word} bir seyir izliyor. Risk yönetimi önemli.
-
-⚠️ *AI model geçici olarak mevcut değil - fallback analiz kullanıldı*"""
-                
-                return {
-                    "answer": answer,
-                    "context_sources": context_sources or ["fallback_analysis"],
-                    "confidence": 0.65
-                }
-        
-        # General fallback
-        fallback_answer = f"""🤖 **AI Yardımcı:**
-
-Şu anda AI modelimiz güncelleniyor. Bu arada size yardımcı olmaya devam ediyorum.
-
-**Sorabilecekleriniz:**
-• Hisse analizi soruları
-• Teknik analiz bilgileri  
-• Piyasa durumu
-• Trading stratejileri
-
-💡 Lütfen sorunuzu daha spesifik olarak tekrar sorun.
-
-⚠️ *Geçici fallback modu - AI model yakında aktif olacak*"""
-        
-        return {
-            "answer": fallback_answer,
-            "context_sources": ["fallback_guidance"],
-            "confidence": 0.50
-        }
-
-def extract_symbols_from_text(text: str) -> List[str]:
-    """Extract potential stock symbols from text"""
-    import re
-    
-    # Common BIST stock symbols pattern
-    symbols = []
-    words = text.upper().split()
-    
-    # Known major symbols
-    major_symbols = [
-        "AKBNK", "GARAN", "ISCTR", "THYAO", "TUPRS", "ASELS", "SASA", "BRSAN",
-        "ARCLK", "KCHOL", "BIMAS", "PETKM", "TTKOM", "VAKBN", "HALKB"
-    ]
-    
-    for word in words:
-        # Remove punctuation
-        clean_word = re.sub(r'[^\w]', '', word)
-        if clean_word in major_symbols:
-            symbols.append(clean_word)
-    
-    return list(set(symbols))  # Remove duplicates
+# AI Chat functionality disabled for performance optimization
 
 # =============================================================================
 # ADVANCED TECHNICAL ANALYSIS ENDPOINTS

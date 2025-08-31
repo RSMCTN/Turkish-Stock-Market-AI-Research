@@ -21,15 +21,15 @@ def csv_to_postgresql():
         
     print(f"🔗 PostgreSQL: {DATABASE_URL[:50]}...")
     
-    # CSV parçalarını kontrol et
+    # CSV parçalarını kontrol et (plain CSV prioritize)
     csv_parts = []
     for suffix in ['aa', 'ab', 'ac', 'ad']:
-        gz_file = f"enhanced_stock_data_part_{suffix}.gz"
         csv_file = f"enhanced_stock_data_part_{suffix}"
-        if os.path.exists(gz_file):
-            csv_parts.append(gz_file)
-        elif os.path.exists(csv_file):
+        gz_file = f"enhanced_stock_data_part_{suffix}.gz"
+        if os.path.exists(csv_file):
             csv_parts.append(csv_file)
+        elif os.path.exists(gz_file):
+            csv_parts.append(gz_file)
     
     if not csv_parts:
         print("❌ CSV parçaları bulunamadı!")
@@ -57,7 +57,7 @@ def csv_to_postgresql():
             high DECIMAL(15,8),
             low DECIMAL(15,8),
             close DECIMAL(15,8),
-            volume BIGINT,
+            volume DECIMAL(20,8),
             rsi_14 DECIMAL(15,10),
             macd_26_12 DECIMAL(15,10),
             macd_trigger_9 DECIMAL(15,10),
@@ -69,11 +69,11 @@ def csv_to_postgresql():
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
         
-        -- High-performance indexes
-        CREATE INDEX CONCURRENTLY idx_enhanced_symbol_timeframe ON enhanced_stock_data(symbol, timeframe);
-        CREATE INDEX CONCURRENTLY idx_enhanced_date_desc ON enhanced_stock_data(date DESC);
-        CREATE INDEX CONCURRENTLY idx_enhanced_symbol_date_desc ON enhanced_stock_data(symbol, date DESC);
-        CREATE INDEX CONCURRENTLY idx_enhanced_timeframe ON enhanced_stock_data(timeframe);
+        -- High-performance indexes (removed CONCURRENTLY for transaction compatibility)
+        CREATE INDEX idx_enhanced_symbol_timeframe ON enhanced_stock_data(symbol, timeframe);
+        CREATE INDEX idx_enhanced_date_desc ON enhanced_stock_data(date DESC);
+        CREATE INDEX idx_enhanced_symbol_date_desc ON enhanced_stock_data(symbol, date DESC);
+        CREATE INDEX idx_enhanced_timeframe ON enhanced_stock_data(timeframe);
         """
         
         cursor.execute(drop_create_sql)

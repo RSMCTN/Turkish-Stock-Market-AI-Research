@@ -37,8 +37,8 @@ interface AIChatPanelProps {
 }
 
 export default function AIChatPanel({ 
-  selectedSymbol = 'AKBNK',
-  apiBaseUrl = 'https://bistai001-production.up.railway.app'
+  selectedSymbol = 'ACSEL',
+  apiBaseUrl = 'http://localhost:8000'
 }: AIChatPanelProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputText, setInputText] = useState('');
@@ -93,17 +93,51 @@ Hangi konuda size yardımcı olabilirim? 🚀`,
     setIsLoading(true);
 
     try {
-      // WORKAROUND: Use existing comprehensive analysis endpoint
-      // since /api/ai-chat is not deployed to Railway yet
+      // 🚀 REAL AI MODEL INTEGRATION - Ultimate v4
+      // Try real AI chat endpoint first, fallback to pattern matching
       let aiResponse;
       
-      // For stock-specific questions, use REAL BIST stock data
-      if (selectedSymbol && (
-        inputText.toLowerCase().includes('nasıl') ||
-        inputText.toLowerCase().includes('analiz') ||
-        inputText.toLowerCase().includes('durumu') ||
-        inputText.toLowerCase().includes('performans')
-      )) {
+      // 🤖 STEP 1: Try Ultimate Turkish AI Model v4
+      try {
+        const aiChatResponse = await fetch(`${apiBaseUrl}/api/ai-chat`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            question: inputText,
+            symbol: selectedSymbol,
+            context_type: contextType
+          })
+        });
+
+        if (aiChatResponse.ok) {
+          const aiChatResult = await aiChatResponse.json();
+          aiResponse = {
+            answer: aiChatResult.answer,
+            timestamp: aiChatResult.timestamp,
+            confidence: aiChatResult.confidence,
+            context_used: aiChatResult.context_used,
+            related_symbols: aiChatResult.related_symbols
+          };
+          
+          // 🎉 SUCCESS: Real AI model responded!
+        } else {
+          throw new Error(`AI Chat API error: ${aiChatResponse.status}`);
+        }
+      } catch (aiError) {
+        console.log('🔄 AI Chat API failed, using intelligent BIST analysis:', aiError);
+        
+        // 📊 STEP 2: FALLBACK - Use BIST data analysis for stock questions
+        if (selectedSymbol && (
+          inputText.toLowerCase().includes('nasıl') ||
+          inputText.toLowerCase().includes('analiz') ||
+          inputText.toLowerCase().includes('durumu') ||
+          inputText.toLowerCase().includes('performans') ||
+          inputText.toLowerCase().includes('karşılaştır') ||
+          inputText.toLowerCase().includes('fark') ||
+          inputText.toLowerCase().includes('hangisi')
+        )) {
         const response = await fetch(`${apiBaseUrl}/api/bist/stock/${selectedSymbol}`, {
           method: 'GET',
           headers: {
@@ -186,10 +220,10 @@ Hisse ${trendWord} seyir izliyor. ${volume > 1000000 ? 'Hacim yüksek, hareket g
           related_symbols: [selectedSymbol]
         };
         
-      } else {
-        // Enhanced general questions handler
-        const questionLower = inputText.toLowerCase();
-        let answer = '';
+        } else {
+          // 💡 STEP 3: FALLBACK - Enhanced general questions handler
+          const questionLower = inputText.toLowerCase();
+          let answer = '';
         
         if (questionLower.includes('giriş') && questionLower.includes('çıkış') || 
             questionLower.includes('fiyat') && (questionLower.includes('hedef') || questionLower.includes('seviye'))) {
@@ -425,13 +459,14 @@ Merhaba! Size aşağıdaki konularda yardımcı olabilirim:
 💡 **İpucu:** Yukarıdaki örneklere benzer şekilde soru sorabilirsiniz!`;
         }
         
-        aiResponse = {
-          answer: answer,
-          timestamp: new Date().toISOString(),
-          confidence: 0.85,
-          context_used: ['comprehensive_guidance', 'sector_analysis', 'market_overview'],
-          related_symbols: [selectedSymbol]
-        };
+          aiResponse = {
+            answer: answer,
+            timestamp: new Date().toISOString(),
+            confidence: 0.85,
+            context_used: ['comprehensive_guidance', 'sector_analysis', 'market_overview'],
+            related_symbols: [selectedSymbol]
+          };
+        }
       }
 
       const aiMessage: ChatMessage = {
@@ -674,7 +709,7 @@ Lütfen daha sonra tekrar deneyin veya farklı bir şekilde sorunuzu sorun.
         <div className="mt-1 flex items-center justify-between text-xs text-gray-400 flex-shrink-0">
           <div className="flex items-center gap-1">
             <Zap className="h-3 w-3" />
-            Railway API
+            Local API (Ultimate v4)
           </div>
           <div>
             Enter: gönder

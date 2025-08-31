@@ -110,7 +110,7 @@ function generateHistoricalPointsFromStock(stockData: any, count: number) {
   return points;
 }
 
-export default function HistoricalChart({ selectedSymbol = 'GARAN' }: HistoricalChartProps) {
+export default function HistoricalChart({ selectedSymbol = 'ACSEL' }: HistoricalChartProps) {
   const [symbolData, setSymbolData] = useState<HistoricalSymbolData | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeframe, setTimeframe] = useState<'60min' | 'daily'>('60min');
@@ -121,19 +121,19 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
       setLoading(true);
       
       try {
-                       // ✅ GERÇEK TARİHSEL VERİ - RAILWAY API KULLANIMI
-               const RAILWAY_API = 'https://bistai001-production.up.railway.app';
+                       // ✅ GERÇEK TARİHSEL VERİ - GEÇİCİ LOCAL API (RAILWAY MIGRATION BEKLIYOR)
+               const LOCAL_API = 'http://localhost:8000';
         
                        // Fetch real historical data for both timeframes
                const [hourlyResponse, dailyResponse] = await Promise.all([
-                 fetch(`${RAILWAY_API}/api/bist/historical/${selectedSymbol}?timeframe=60min&limit=100`, {
+                 fetch(`${LOCAL_API}/api/bist/historical/${selectedSymbol}?timeframe=60min&limit=100`, {
             method: 'GET',
             headers: { 
               'Content-Type': 'application/json',
               'Accept': 'application/json'
             }
           }),
-                           fetch(`${RAILWAY_API}/api/bist/historical/${selectedSymbol}?timeframe=daily&limit=30`, {
+                           fetch(`${LOCAL_API}/api/bist/historical/${selectedSymbol}?timeframe=daily&limit=30`, {
             method: 'GET',
             headers: { 
               'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
           console.warn(`⚠️ ${selectedSymbol} için tarihsel veri yok, veritabanında mevcut değil`);
           
                            // Get current stock data for fallback
-                 const stockResponse = await fetch(`${RAILWAY_API}/api/bist/stock/${selectedSymbol}`);
+                 const stockResponse = await fetch(`${LOCAL_API}/api/bist/stock/${selectedSymbol}`);
           let fallbackStockData = {
             symbol: selectedSymbol,
             last_price: Math.random() * 100 + 50,
