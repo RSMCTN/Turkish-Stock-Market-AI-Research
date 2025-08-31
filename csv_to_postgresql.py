@@ -21,15 +21,15 @@ def csv_to_postgresql():
         
     print(f"🔗 PostgreSQL: {DATABASE_URL[:50]}...")
     
-    # CSV parçalarını kontrol et (plain CSV prioritize)
+    # CSV parçalarını kontrol et (SADECE GZIP - Railway Git LFS için)
     csv_parts = []
     for suffix in ['aa', 'ab', 'ac', 'ad']:
-        csv_file = f"enhanced_stock_data_part_{suffix}"
         gz_file = f"enhanced_stock_data_part_{suffix}.gz"
-        if os.path.exists(csv_file):
-            csv_parts.append(csv_file)
-        elif os.path.exists(gz_file):
+        if os.path.exists(gz_file):
             csv_parts.append(gz_file)
+            print(f"  📁 Found: {gz_file} (size: {os.path.getsize(gz_file)/1024/1024:.1f} MB)")
+        else:
+            print(f"  ❌ Missing: {gz_file}")
     
     if not csv_parts:
         print("❌ CSV parçaları bulunamadı!")
@@ -87,12 +87,14 @@ def csv_to_postgresql():
         for i, csv_part in enumerate(csv_parts, 1):
             print(f"⚡ İşleniyor: Part {i}/{len(csv_parts)} - {csv_part}")
             
-            if csv_part.endswith('.gz'):
-                with gzip.open(csv_part, 'rt', encoding='utf-8') as f:
-                    # Skip header for first part only
-                    if i == 1:
-                        next(f)
-                    
+            # Railway'de sadece gzip dosyaları var - Git LFS nedeniyle
+            with gzip.open(csv_part, 'rt', encoding='utf-8', errors='ignore') as f:
+                # İlk parça için header'ı atla, diğerleri için de atla (hepsi header içeriyor)
+                header_line = next(f, None)
+                if header_line:
+                    print(f"  📋 Header: {header_line.strip()[:80]}...")
+                
+                try:
                     cursor.copy_expert(
                         """
                         COPY enhanced_stock_data 
@@ -102,21 +104,10 @@ def csv_to_postgresql():
                         FROM STDIN WITH CSV
                         """, f
                     )
-            else:
-                with open(csv_part, 'r', encoding='utf-8') as f:
-                    # Skip header for first part only
-                    if i == 1:
-                        next(f)
-                    
-                    cursor.copy_expert(
-                        """
-                        COPY enhanced_stock_data 
-                        (symbol, date, time, timeframe, open, high, low, close, volume,
-                         rsi_14, macd_26_12, macd_trigger_9, bol_upper_20_2,
-                         bol_middle_20_2, bol_lower_20_2, atr_14, adx_14)
-                        FROM STDIN WITH CSV
-                        """, f
-                    )
+                    print(f"  ✅ Part {i} COPY başarılı")
+                except Exception as copy_error:
+                    print(f"  ❌ Part {i} COPY hatası: {copy_error}")
+                    raise
             
             conn.commit()
             print(f"✅ Part {i} completed!")
