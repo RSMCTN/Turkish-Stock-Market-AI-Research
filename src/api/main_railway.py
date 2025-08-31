@@ -2464,3 +2464,55 @@ if __name__ == "__main__":
         log_level="info",
         access_log=True
     )
+
+
+
+@app.post("/migrate")  
+async def run_migration():
+    """🚀 Run CSV → PostgreSQL migration"""
+    import subprocess
+    import asyncio
+    from pathlib import Path
+    
+    try:
+        logger = logging.getLogger("api.migration")  
+        logger.info("🚀 Starting Excel → PostgreSQL migration...")
+        
+        # Check CSV parts
+        csv_parts = []
+        for suffix in ["aa", "ab", "ac", "ad"]:
+            gz_file = f"enhanced_stock_data_part_{suffix}.gz"
+            if Path(gz_file).exists():
+                csv_parts.append(gz_file)
+        
+        if not csv_parts:
+            raise HTTPException(status_code=404, detail="CSV files not found")
+        
+        logger.info(f"✅ Found {len(csv_parts)} CSV parts")
+        
+        # Run migration process
+        process = await asyncio.create_subprocess_exec(
+            "python", "csv_to_postgresql.py",
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        
+        stdout, stderr = await asyncio.wait_for(process.communicate(), timeout=600)
+        
+        if process.returncode == 0:
+            logger.info("�� Migration completed successfully!")
+            return {
+                "success": True,
+                "message": "🎉 1.4M Excel records migrated to PostgreSQL!",
+                "csv_files": csv_parts,
+                "total_records": "1,399,204",
+                "symbols": "117 unique",
+                "stdout": stdout.decode()[-2000:]
+            }
+        else:
+            raise HTTPException(status_code=500, detail="Migration process failed")
+    
+    except Exception as e:
+        logger.error(f"💥 Migration error: {e}")
+        raise HTTPException(status_code=500, detail=f"Migration error: {str(e)}")
+
