@@ -122,18 +122,18 @@ export default function HistoricalChart({ selectedSymbol = 'ACSEL' }: Historical
       
       try {
                        // ✅ GERÇEK TARİHSEL VERİ - GEÇİCİ LOCAL API (RAILWAY MIGRATION BEKLIYOR)
-               const LOCAL_API = 'http://localhost:8000';
+               const RAILWAY_API = 'https://bistai001-production.up.railway.app';
         
                        // Fetch real historical data for both timeframes
                const [hourlyResponse, dailyResponse] = await Promise.all([
-                 fetch(`${LOCAL_API}/api/bist/historical/${selectedSymbol}?timeframe=60min&limit=100`, {
+                 fetch(`${RAILWAY_API}/api/bist/historical/${selectedSymbol}?timeframe=60min&limit=100`, {
             method: 'GET',
             headers: { 
               'Content-Type': 'application/json',
               'Accept': 'application/json'
             }
           }),
-                           fetch(`${LOCAL_API}/api/bist/historical/${selectedSymbol}?timeframe=daily&limit=30`, {
+                           fetch(`${RAILWAY_API}/api/bist/historical/${selectedSymbol}?timeframe=daily&limit=30`, {
             method: 'GET',
             headers: { 
               'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ export default function HistoricalChart({ selectedSymbol = 'ACSEL' }: Historical
           console.warn(`⚠️ ${selectedSymbol} için tarihsel veri yok, veritabanında mevcut değil`);
           
                            // Get current stock data for fallback
-                 const stockResponse = await fetch(`${LOCAL_API}/api/bist/stock/${selectedSymbol}`);
+                 const stockResponse = await fetch(`${RAILWAY_API}/api/bist/stock/${selectedSymbol}`);
           let fallbackStockData = {
             symbol: selectedSymbol,
             last_price: Math.random() * 100 + 50,

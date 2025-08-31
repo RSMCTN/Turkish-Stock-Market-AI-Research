@@ -38,7 +38,7 @@ interface AIChatPanelProps {
 
 export default function AIChatPanel({ 
   selectedSymbol = 'ACSEL',
-  apiBaseUrl = 'http://localhost:8000'
+  apiBaseUrl = 'https://bistai001-production.up.railway.app'
 }: AIChatPanelProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputText, setInputText] = useState('');

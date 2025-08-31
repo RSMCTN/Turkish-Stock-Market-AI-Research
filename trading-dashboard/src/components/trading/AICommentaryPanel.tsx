@@ -72,7 +72,7 @@ export default function AICommentaryPanel({ selectedSymbol = 'ACSEL' }: AICommen
         let loadedHistoricalData = null;
 
         // ✅ GERÇEK API KULLAN - Artık JSON dosyalar yok!
-        const LOCAL_API = 'http://localhost:8000';
+        const RAILWAY_API = 'https://bistai001-production.up.railway.app';
         
         // Load enhanced stock data
         try {
@@ -97,7 +97,7 @@ export default function AICommentaryPanel({ selectedSymbol = 'ACSEL' }: AICommen
 
         // Load historical data - GERÇEK API'den çek
         try {
-          const historicalResponse = await fetch(`${LOCAL_API}/api/bist/historical/${selectedSymbol}?timeframe=60min&limit=50`);
+          const historicalResponse = await fetch(`${RAILWAY_API}/api/bist/historical/${selectedSymbol}?timeframe=60min&limit=50`);
           if (historicalResponse.ok) {
             const historical = await historicalResponse.json();
             loadedHistoricalData = historical;
