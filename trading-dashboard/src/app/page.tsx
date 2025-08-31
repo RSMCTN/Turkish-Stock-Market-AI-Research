@@ -28,6 +28,8 @@ import AdvancedIndicators from '@/components/trading/AdvancedIndicators';
 import AdvancedNewsSentiment from '@/components/trading/AdvancedNewsSentiment';
 import RealSymbolSelector from '@/components/trading/RealSymbolSelector';
 import AdvancedTechnicalPanel from '@/components/trading/AdvancedTechnicalPanel';
+import ProfessionalDecisionSupport from '@/components/trading/ProfessionalDecisionSupport';
+import EnhancedHistoricalChart from '@/components/trading/EnhancedHistoricalChart';
 
 export default function AcademicDashboard() {
   const [systemStatus, setSystemStatus] = useState({
@@ -128,7 +130,7 @@ export default function AcademicDashboard() {
 
         {/* Academic Research Tabs */}
         <Tabs defaultValue="academic" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 bg-white/80 border border-slate-200">
+          <TabsList className="grid w-full grid-cols-5 bg-white/80 border border-slate-200">
             <TabsTrigger 
               value="academic" 
               className="flex items-center gap-2 data-[state=active]:bg-blue-100 data-[state=active]:text-blue-800"
@@ -156,6 +158,13 @@ export default function AcademicDashboard() {
             >
               <Zap className="h-4 w-4" />
               Integrated View
+            </TabsTrigger>
+            <TabsTrigger 
+              value="professional" 
+              className="flex items-center gap-2 data-[state=active]:bg-emerald-100 data-[state=active]:text-emerald-800"
+            >
+              <Target className="h-4 w-4" />
+              Pro Decision
             </TabsTrigger>
           </TabsList>
 
@@ -401,6 +410,36 @@ export default function AcademicDashboard() {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Professional Decision Support Tab */}
+          <TabsContent value="professional" className="space-y-6">
+            <div className="space-y-6">
+              {/* Symbol Selector for Professional Analysis */}
+              <RealSymbolSelector 
+                selectedSymbol={selectedSymbol}
+                onSymbolSelect={setSelectedSymbol}
+              />
+              
+              {/* Enhanced Historical Chart with Advanced Features */}
+              <EnhancedHistoricalChart 
+                symbol={selectedSymbol}
+                autoRefresh={true}
+                refreshInterval={30000}
+                showTechnicalOverlay={true}
+                showPatternDetection={true}
+                showAlerts={true}
+              />
+              
+              {/* Professional Decision Support System */}
+              <ProfessionalDecisionSupport 
+                symbol={selectedSymbol}
+                onOrderPrepare={(orderData) => {
+                  console.log('Order prepared:', orderData);
+                  // Here you can integrate with order management system
+                }}
+              />
+            </div>
           </TabsContent>
         </Tabs>
 

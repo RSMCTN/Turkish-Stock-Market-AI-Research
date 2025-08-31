@@ -270,6 +270,15 @@ async def startup_event():
                 if 'get_indicators_calculator' in globals():
                     app_state.indicators_calculator = get_indicators_calculator()
                     logger.info("📊 Technical Indicators Calculator initialized")
+                else:
+                    # Import and initialize manually
+                    try:
+                        from src.data.services.technical_indicators import get_calculator
+                        app_state.indicators_calculator = get_calculator()
+                        logger.info("📊 Technical Indicators Calculator initialized (manual import)")
+                    except ImportError as import_e:
+                        logger.warning(f"⚠️  Technical Indicators Calculator import failed: {import_e}")
+                        app_state.indicators_calculator = None
                 
                 logger.info("🟢 BIST PostgreSQL Service fully operational")
                 
@@ -1156,6 +1165,7 @@ async def generate_forecast(request: dict):
 @app.get("/api/technical-indicators/{symbol}")
 async def get_technical_indicators(
     symbol: str,
+    timeframe: str = Query("60min", description="Data timeframe"),
     limit: int = Query(100, description="Number of historical records to use for calculation")
 ):
     """Get calculated technical indicators for a symbol"""
@@ -1163,8 +1173,11 @@ async def get_technical_indicators(
         if not app_state.indicators_calculator:
             raise HTTPException(status_code=503, detail="Technical indicators calculator not available")
         
-        # Calculate indicators
-        indicators_data = app_state.indicators_calculator.calculate_all_indicators(symbol.upper(), limit)
+        # Calculate indicators using our enhanced calculator
+        indicators_data = app_state.indicators_calculator.calculate_all_indicators(symbol.upper(), timeframe, limit)
+        
+        if 'error' in indicators_data:
+            raise HTTPException(status_code=404, detail=indicators_data['error'])
         
         # Transform to frontend format
         technical_indicators = [
@@ -1233,6 +1246,43 @@ async def get_technical_indicators(
         logger = logging.getLogger("api.technical_indicators")
         logger.error(f"Error calculating indicators for {symbol}: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to calculate technical indicators: {str(e)}")
+
+
+@app.get("/api/decision-support/{symbol}")
+async def get_decision_support(
+    symbol: str,
+    timeframe: str = Query("60min", description="Data timeframe for analysis")
+):
+    """🎯 Advanced Decision Support System - Professional Analysis"""
+    try:
+        if not app_state.indicators_calculator:
+            raise HTTPException(status_code=503, detail="Decision support calculator not available")
+        
+        logger = logging.getLogger("api.decision_support")
+        logger.info(f"🎯 Generating decision support for {symbol}")
+        
+        # Get comprehensive decision support analysis
+        decision_data = app_state.indicators_calculator.get_decision_support(symbol.upper(), timeframe)
+        
+        if 'error' in decision_data:
+            raise HTTPException(status_code=404, detail=decision_data['error'])
+        
+        logger.info(f"✅ Decision support generated: {decision_data['final_decision']} ({decision_data['confidence']:.1%})")
+        
+        return {
+            "success": True,
+            "symbol": symbol.upper(),
+            "decision_support": decision_data,
+            "timestamp": datetime.now().isoformat(),
+            "source": "Advanced Technical Analysis v2.0"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger = logging.getLogger("api.decision_support")
+        logger.error(f"Error generating decision support for {symbol}: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate decision support: {str(e)}")
 
 
 # =============================================================================

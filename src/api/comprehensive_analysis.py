@@ -89,7 +89,7 @@ class ComprehensiveAnalysisService:
                 },
                 'confidence': final_decision['confidence'],
                 'data_sources_count': 6,  # Historical, Technical, LSTM, KAP, Sentiment, Risk
-                'calculations_performed': 150+  # Rough estimate of calculations
+                'calculations_performed': 150  # Rough estimate of calculations
             }
             
         except Exception as e:

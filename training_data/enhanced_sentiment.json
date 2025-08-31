@@ -1,0 +1,2002 @@
+[
+  {
+    "text": "A1CAP hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7646029150943824
+  },
+  {
+    "text": "A1CAP Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8035291284621071
+  },
+  {
+    "text": "A1CAP için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6377542628873564
+  },
+  {
+    "text": "A1CAP hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7233686970607934
+  },
+  {
+    "text": "A1CAP Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7973583472848017
+  },
+  {
+    "text": "A1CAP için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7438752432787575
+  },
+  {
+    "text": "A1CAP hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.010128204507276445
+  },
+  {
+    "text": "A1CAP işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.04596279524743099
+  },
+  {
+    "text": "A1YEN hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.8661463899279114
+  },
+  {
+    "text": "A1YEN Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8501611685518413
+  },
+  {
+    "text": "A1YEN için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8145566610610178
+  },
+  {
+    "text": "A1YEN hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8726988944423656
+  },
+  {
+    "text": "A1YEN Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8898851486938958
+  },
+  {
+    "text": "A1YEN için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.864120775275689
+  },
+  {
+    "text": "A1YEN hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.12654925218106045
+  },
+  {
+    "text": "A1YEN işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.10126152265744254
+  },
+  {
+    "text": "ACSEL hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6221464657680691
+  },
+  {
+    "text": "ACSEL Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6025552708969113
+  },
+  {
+    "text": "ACSEL için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.837988825008455
+  },
+  {
+    "text": "ACSEL hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7352021103113062
+  },
+  {
+    "text": "ACSEL Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6780495488600782
+  },
+  {
+    "text": "ACSEL için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7565899114306904
+  },
+  {
+    "text": "ACSEL hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.1296014339087414
+  },
+  {
+    "text": "ACSEL işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.16600532739301815
+  },
+  {
+    "text": "ADEL hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6262956434120122
+  },
+  {
+    "text": "ADEL Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.861698189322752
+  },
+  {
+    "text": "ADEL için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8524853084043992
+  },
+  {
+    "text": "ADEL hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7919570441435004
+  },
+  {
+    "text": "ADEL Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.873612455187332
+  },
+  {
+    "text": "ADEL için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8190664576963659
+  },
+  {
+    "text": "ADEL hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.14127294815178315
+  },
+  {
+    "text": "ADEL işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.10397318668288874
+  },
+  {
+    "text": "ADESE hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6555822961916372
+  },
+  {
+    "text": "ADESE Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6004438136646325
+  },
+  {
+    "text": "ADESE için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6455745691264264
+  },
+  {
+    "text": "ADESE hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.877575184472632
+  },
+  {
+    "text": "ADESE Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8312049294642903
+  },
+  {
+    "text": "ADESE için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7259492182010003
+  },
+  {
+    "text": "ADESE hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.15174515947674558
+  },
+  {
+    "text": "ADESE işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.03363857091308614
+  },
+  {
+    "text": "ADGYO hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7509891243994391
+  },
+  {
+    "text": "ADGYO Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6850502846738834
+  },
+  {
+    "text": "ADGYO için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7596919589613913
+  },
+  {
+    "text": "ADGYO hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.667182344361031
+  },
+  {
+    "text": "ADGYO Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6618939574712683
+  },
+  {
+    "text": "ADGYO için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7156538328203756
+  },
+  {
+    "text": "ADGYO hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.025571492654307054
+  },
+  {
+    "text": "ADGYO işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.16546294102123796
+  },
+  {
+    "text": "AEFES hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6438903281310219
+  },
+  {
+    "text": "AEFES Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.7198906465838442
+  },
+  {
+    "text": "AEFES için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6685681847508101
+  },
+  {
+    "text": "AEFES hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.645469257908645
+  },
+  {
+    "text": "AEFES Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8623241828644033
+  },
+  {
+    "text": "AEFES için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7796466240665526
+  },
+  {
+    "text": "AEFES hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.19519935047958392
+  },
+  {
+    "text": "AEFES işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.13305235377055613
+  },
+  {
+    "text": "AFYON hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.8556601587579975
+  },
+  {
+    "text": "AFYON Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.7272234790784069
+  },
+  {
+    "text": "AFYON için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8266408449871125
+  },
+  {
+    "text": "AFYON hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8904189791399099
+  },
+  {
+    "text": "AFYON Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7541025198928007
+  },
+  {
+    "text": "AFYON için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8402360011772698
+  },
+  {
+    "text": "AFYON hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.09277065821179559
+  },
+  {
+    "text": "AFYON işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.18904285680503807
+  },
+  {
+    "text": "AGESA hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6363451988739178
+  },
+  {
+    "text": "AGESA Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8494926989223381
+  },
+  {
+    "text": "AGESA için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7505019800668534
+  },
+  {
+    "text": "AGESA hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8382806757560239
+  },
+  {
+    "text": "AGESA Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7630128875390023
+  },
+  {
+    "text": "AGESA için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7694896815732407
+  },
+  {
+    "text": "AGESA hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.02288202587407473
+  },
+  {
+    "text": "AGESA işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.048777533374280646
+  },
+  {
+    "text": "AGHOL hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6811871571006871
+  },
+  {
+    "text": "AGHOL Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.7101826277514823
+  },
+  {
+    "text": "AGHOL için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7478208092621411
+  },
+  {
+    "text": "AGHOL hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7250577156744595
+  },
+  {
+    "text": "AGHOL Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7086901056137748
+  },
+  {
+    "text": "AGHOL için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.6791407779954919
+  },
+  {
+    "text": "AGHOL hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.07351508316378805
+  },
+  {
+    "text": "AGHOL işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.1945378252680222
+  },
+  {
+    "text": "AGROT hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6196057980664801
+  },
+  {
+    "text": "AGROT Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6783087298253212
+  },
+  {
+    "text": "AGROT için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.803605795505884
+  },
+  {
+    "text": "AGROT hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8689105806830145
+  },
+  {
+    "text": "AGROT Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7947927000421131
+  },
+  {
+    "text": "AGROT için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7929171905080383
+  },
+  {
+    "text": "AGROT hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.15628947296025728
+  },
+  {
+    "text": "AGROT işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.12630318850720407
+  },
+  {
+    "text": "AGYO hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7852344866626174
+  },
+  {
+    "text": "AGYO Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.76378334048345
+  },
+  {
+    "text": "AGYO için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.799817349529692
+  },
+  {
+    "text": "AGYO hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.663098186035585
+  },
+  {
+    "text": "AGYO Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6973276322509695
+  },
+  {
+    "text": "AGYO için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7047885716831944
+  },
+  {
+    "text": "AGYO hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.15579140677880499
+  },
+  {
+    "text": "AGYO işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.10700671604272474
+  },
+  {
+    "text": "AHGAZ hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7103194653889663
+  },
+  {
+    "text": "AHGAZ Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.735901473427425
+  },
+  {
+    "text": "AHGAZ için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7804726909955677
+  },
+  {
+    "text": "AHGAZ hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.6187012116868049
+  },
+  {
+    "text": "AHGAZ Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7677376733475731
+  },
+  {
+    "text": "AHGAZ için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7567353509815289
+  },
+  {
+    "text": "AHGAZ hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.03128095553233648
+  },
+  {
+    "text": "AHGAZ işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.16772831569279528
+  },
+  {
+    "text": "AHSGY hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6880711913226168
+  },
+  {
+    "text": "AHSGY Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.687075891697445
+  },
+  {
+    "text": "AHSGY için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8678021177480582
+  },
+  {
+    "text": "AHSGY hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8005542509005947
+  },
+  {
+    "text": "AHSGY Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7327095428671051
+  },
+  {
+    "text": "AHSGY için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7186551715585355
+  },
+  {
+    "text": "AHSGY hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.1441725513666861
+  },
+  {
+    "text": "AHSGY işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.001128921348879125
+  },
+  {
+    "text": "AKBNK hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.8454355763610136
+  },
+  {
+    "text": "AKBNK Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6075642890579068
+  },
+  {
+    "text": "AKBNK için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6217795551180507
+  },
+  {
+    "text": "AKBNK hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8663069151746546
+  },
+  {
+    "text": "AKBNK Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7649431226121461
+  },
+  {
+    "text": "AKBNK için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7315302078013073
+  },
+  {
+    "text": "AKBNK hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.14661248455917114
+  },
+  {
+    "text": "AKBNK işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.04160890045457194
+  },
+  {
+    "text": "AKCNS hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7826563700624855
+  },
+  {
+    "text": "AKCNS Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8518423687914476
+  },
+  {
+    "text": "AKCNS için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8251201711138674
+  },
+  {
+    "text": "AKCNS hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7958689961964247
+  },
+  {
+    "text": "AKCNS Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8798922184161566
+  },
+  {
+    "text": "AKCNS için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.6342111318182115
+  },
+  {
+    "text": "AKCNS hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.09689092229124913
+  },
+  {
+    "text": "AKCNS işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.020762567717271446
+  },
+  {
+    "text": "AKENR hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.8363788871932095
+  },
+  {
+    "text": "AKENR Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6156307775789538
+  },
+  {
+    "text": "AKENR için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6809909426469329
+  },
+  {
+    "text": "AKENR hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8628095384343384
+  },
+  {
+    "text": "AKENR Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7104371023068418
+  },
+  {
+    "text": "AKENR için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.6366312646561967
+  },
+  {
+    "text": "AKENR hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.08631664707910464
+  },
+  {
+    "text": "AKENR işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.01512522575219788
+  },
+  {
+    "text": "AKFGY hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6207281320939233
+  },
+  {
+    "text": "AKFGY Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8914264615457063
+  },
+  {
+    "text": "AKFGY için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7319556871425457
+  },
+  {
+    "text": "AKFGY hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.869722249774504
+  },
+  {
+    "text": "AKFGY Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8541761733329728
+  },
+  {
+    "text": "AKFGY için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8446141222914562
+  },
+  {
+    "text": "AKFGY hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.0440853942249228
+  },
+  {
+    "text": "AKFGY işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.11877969885562217
+  },
+  {
+    "text": "AKFIS hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7194803673412511
+  },
+  {
+    "text": "AKFIS Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8438784393585339
+  },
+  {
+    "text": "AKFIS için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.863840246867106
+  },
+  {
+    "text": "AKFIS hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8756986113415859
+  },
+  {
+    "text": "AKFIS Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8545007716403935
+  },
+  {
+    "text": "AKFIS için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.6263287278108245
+  },
+  {
+    "text": "AKFIS hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.11235541771900776
+  },
+  {
+    "text": "AKFIS işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.08330563349682128
+  },
+  {
+    "text": "AKFYE hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.8412249770458231
+  },
+  {
+    "text": "AKFYE Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.651566943850405
+  },
+  {
+    "text": "AKFYE için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8113649254440616
+  },
+  {
+    "text": "AKFYE hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.6930498532792434
+  },
+  {
+    "text": "AKFYE Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7039601210124397
+  },
+  {
+    "text": "AKFYE için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7765074028614793
+  },
+  {
+    "text": "AKFYE hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.061484381119834564
+  },
+  {
+    "text": "AKFYE işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.06807414348177346
+  },
+  {
+    "text": "AKGRT hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6494324361063027
+  },
+  {
+    "text": "AKGRT Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6793013265394148
+  },
+  {
+    "text": "AKGRT için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8288447910861492
+  },
+  {
+    "text": "AKGRT hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.6296668919094105
+  },
+  {
+    "text": "AKGRT Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6929751911469397
+  },
+  {
+    "text": "AKGRT için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.88955193456475
+  },
+  {
+    "text": "AKGRT hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.014844545696445527
+  },
+  {
+    "text": "AKGRT işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.09155777842815088
+  },
+  {
+    "text": "AKMGY hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7753374392274703
+  },
+  {
+    "text": "AKMGY Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.7515199290580727
+  },
+  {
+    "text": "AKMGY için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8850629358898063
+  },
+  {
+    "text": "AKMGY hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8489007768142474
+  },
+  {
+    "text": "AKMGY Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6970678375681686
+  },
+  {
+    "text": "AKMGY için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7602938498562632
+  },
+  {
+    "text": "AKMGY hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.08733206229858476
+  },
+  {
+    "text": "AKMGY işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.1527419218388517
+  },
+  {
+    "text": "AKSA hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7277671195652268
+  },
+  {
+    "text": "AKSA Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.7685699483305863
+  },
+  {
+    "text": "AKSA için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6248842113116314
+  },
+  {
+    "text": "AKSA hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.848992641789607
+  },
+  {
+    "text": "AKSA Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6410289689599964
+  },
+  {
+    "text": "AKSA için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8963211364901047
+  },
+  {
+    "text": "AKSA hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.09106653563212841
+  },
+  {
+    "text": "AKSA işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.05057561639153296
+  },
+  {
+    "text": "AKSEN hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6964870615385278
+  },
+  {
+    "text": "AKSEN Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8396417694772216
+  },
+  {
+    "text": "AKSEN için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8029997891546189
+  },
+  {
+    "text": "AKSEN hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8779691767820662
+  },
+  {
+    "text": "AKSEN Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6156651474082526
+  },
+  {
+    "text": "AKSEN için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.725055384688311
+  },
+  {
+    "text": "AKSEN hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.07635472277440428
+  },
+  {
+    "text": "AKSEN işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.14499520775224486
+  },
+  {
+    "text": "AKSGY hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.766553836541131
+  },
+  {
+    "text": "AKSGY Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6894411829427898
+  },
+  {
+    "text": "AKSGY için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7855110223440065
+  },
+  {
+    "text": "AKSGY hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8766084870811719
+  },
+  {
+    "text": "AKSGY Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6874849561706042
+  },
+  {
+    "text": "AKSGY için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7756557127865924
+  },
+  {
+    "text": "AKSGY hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.046850574959261676
+  },
+  {
+    "text": "AKSGY işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.17262164541345504
+  },
+  {
+    "text": "AKSUE hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7422096486083988
+  },
+  {
+    "text": "AKSUE Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.636631936814818
+  },
+  {
+    "text": "AKSUE için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.703779994355174
+  },
+  {
+    "text": "AKSUE hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.6680997410780037
+  },
+  {
+    "text": "AKSUE Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7094308523961443
+  },
+  {
+    "text": "AKSUE için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.6602466333591923
+  },
+  {
+    "text": "AKSUE hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.06949349029731738
+  },
+  {
+    "text": "AKSUE işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.1640744489806965
+  },
+  {
+    "text": "AKYHO hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7780427797131974
+  },
+  {
+    "text": "AKYHO Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.7702561142410337
+  },
+  {
+    "text": "AKYHO için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7768887916098782
+  },
+  {
+    "text": "AKYHO hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8673785029524259
+  },
+  {
+    "text": "AKYHO Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7226625478418006
+  },
+  {
+    "text": "AKYHO için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7273079351120765
+  },
+  {
+    "text": "AKYHO hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.10499449740031513
+  },
+  {
+    "text": "AKYHO işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.1496063539129293
+  },
+  {
+    "text": "ALARK hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6991897274450403
+  },
+  {
+    "text": "ALARK Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8398890911984211
+  },
+  {
+    "text": "ALARK için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8219715866707156
+  },
+  {
+    "text": "ALARK hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8909245965996989
+  },
+  {
+    "text": "ALARK Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8432915376447028
+  },
+  {
+    "text": "ALARK için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.6481280709889861
+  },
+  {
+    "text": "ALARK hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.013028374369839835
+  },
+  {
+    "text": "ALARK işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.11558818006345782
+  },
+  {
+    "text": "ALBRK hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.644182655043792
+  },
+  {
+    "text": "ALBRK Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.7740224972213043
+  },
+  {
+    "text": "ALBRK için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7684179074854459
+  },
+  {
+    "text": "ALBRK hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8815520042090174
+  },
+  {
+    "text": "ALBRK Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.786730209601948
+  },
+  {
+    "text": "ALBRK için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8185235746598061
+  },
+  {
+    "text": "ALBRK hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.1903868625627182
+  },
+  {
+    "text": "ALBRK işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.07701638275168349
+  },
+  {
+    "text": "ALCAR hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7876640947335924
+  },
+  {
+    "text": "ALCAR Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.7381202930697235
+  },
+  {
+    "text": "ALCAR için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8370711485761633
+  },
+  {
+    "text": "ALCAR hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8410567729223697
+  },
+  {
+    "text": "ALCAR Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8273777079485505
+  },
+  {
+    "text": "ALCAR için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.728679046614531
+  },
+  {
+    "text": "ALCAR hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.15276195188336514
+  },
+  {
+    "text": "ALCAR işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.17100796614907854
+  },
+  {
+    "text": "ALCTL hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6509951286242293
+  },
+  {
+    "text": "ALCTL Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8388708461717294
+  },
+  {
+    "text": "ALCTL için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7917786480786425
+  },
+  {
+    "text": "ALCTL hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7391040105995689
+  },
+  {
+    "text": "ALCTL Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8908919562772604
+  },
+  {
+    "text": "ALCTL için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.6067597849869696
+  },
+  {
+    "text": "ALCTL hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.11079487783487388
+  },
+  {
+    "text": "ALCTL işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.19962072283285104
+  },
+  {
+    "text": "ALFAS hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7013673112853794
+  },
+  {
+    "text": "ALFAS Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6589151382585738
+  },
+  {
+    "text": "ALFAS için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6151189849980702
+  },
+  {
+    "text": "ALFAS hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.6215849214066231
+  },
+  {
+    "text": "ALFAS Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6085031577595508
+  },
+  {
+    "text": "ALFAS için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.6313845339820714
+  },
+  {
+    "text": "ALFAS hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.11545466420290945
+  },
+  {
+    "text": "ALFAS işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.19877996234869
+  },
+  {
+    "text": "ALGYO hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7289749863439847
+  },
+  {
+    "text": "ALGYO Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6373166647401725
+  },
+  {
+    "text": "ALGYO için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6179778062391665
+  },
+  {
+    "text": "ALGYO hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7287693970952359
+  },
+  {
+    "text": "ALGYO Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7833671334378506
+  },
+  {
+    "text": "ALGYO için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7298727590499252
+  },
+  {
+    "text": "ALGYO hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.15704779429632404
+  },
+  {
+    "text": "ALGYO işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.084295417604207
+  },
+  {
+    "text": "ALKA hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7656696217675077
+  },
+  {
+    "text": "ALKA Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.7360247018916227
+  },
+  {
+    "text": "ALKA için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8567357608124171
+  },
+  {
+    "text": "ALKA hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8357903209870211
+  },
+  {
+    "text": "ALKA Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8330669194152482
+  },
+  {
+    "text": "ALKA için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7038969043620268
+  },
+  {
+    "text": "ALKA hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.13380343300299252
+  },
+  {
+    "text": "ALKA işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.1853004240788757
+  },
+  {
+    "text": "ALKIM hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7782235584845187
+  },
+  {
+    "text": "ALKIM Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8562958552396871
+  },
+  {
+    "text": "ALKIM için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6647929955218269
+  },
+  {
+    "text": "ALKIM hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8850692914262586
+  },
+  {
+    "text": "ALKIM Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.84294840467498
+  },
+  {
+    "text": "ALKIM için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8039604496151802
+  },
+  {
+    "text": "ALKIM hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.12384238570958389
+  },
+  {
+    "text": "ALKIM işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.17087604074501603
+  },
+  {
+    "text": "ALKLC hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7458565950293777
+  },
+  {
+    "text": "ALKLC Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8043759139778875
+  },
+  {
+    "text": "ALKLC için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6413448795207161
+  },
+  {
+    "text": "ALKLC hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7592126898145086
+  },
+  {
+    "text": "ALKLC Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7866858359694477
+  },
+  {
+    "text": "ALKLC için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7018961952824244
+  },
+  {
+    "text": "ALKLC hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.038932201345360296
+  },
+  {
+    "text": "ALKLC işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.16676194599952543
+  },
+  {
+    "text": "ALTNY hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.881813497760082
+  },
+  {
+    "text": "ALTNY Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6179921361755608
+  },
+  {
+    "text": "ALTNY için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.875986530538864
+  },
+  {
+    "text": "ALTNY hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8818189979210266
+  },
+  {
+    "text": "ALTNY Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6556540728980036
+  },
+  {
+    "text": "ALTNY için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8244545628484299
+  },
+  {
+    "text": "ALTNY hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.07109328505404855
+  },
+  {
+    "text": "ALTNY işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.17552680833021037
+  },
+  {
+    "text": "ALVES hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.8935159213550132
+  },
+  {
+    "text": "ALVES Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6822788041048486
+  },
+  {
+    "text": "ALVES için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7840336344222281
+  },
+  {
+    "text": "ALVES hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7179746385811415
+  },
+  {
+    "text": "ALVES Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6130392104904177
+  },
+  {
+    "text": "ALVES için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7830089177253361
+  },
+  {
+    "text": "ALVES hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.11977809818141823
+  },
+  {
+    "text": "ALVES işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.12050245087876227
+  },
+  {
+    "text": "ANELE hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7314494403285912
+  },
+  {
+    "text": "ANELE Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6875635081272511
+  },
+  {
+    "text": "ANELE için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.728003654769414
+  },
+  {
+    "text": "ANELE hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.6947924334820691
+  },
+  {
+    "text": "ANELE Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7437634505982225
+  },
+  {
+    "text": "ANELE için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8424173572954746
+  },
+  {
+    "text": "ANELE hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.1971125725781771
+  },
+  {
+    "text": "ANELE işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.16268037736337262
+  },
+  {
+    "text": "ANGEN hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.652532250756145
+  },
+  {
+    "text": "ANGEN Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8842160632430817
+  },
+  {
+    "text": "ANGEN için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.823451973486314
+  },
+  {
+    "text": "ANGEN hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.6878008676415617
+  },
+  {
+    "text": "ANGEN Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8661988962025461
+  },
+  {
+    "text": "ANGEN için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8534764417893247
+  },
+  {
+    "text": "ANGEN hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.17893704517843864
+  },
+  {
+    "text": "ANGEN işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.020649987663524078
+  },
+  {
+    "text": "ANHYT hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6844965367993672
+  },
+  {
+    "text": "ANHYT Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8288370826855849
+  },
+  {
+    "text": "ANHYT için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6297102173142067
+  },
+  {
+    "text": "ANHYT hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7679009708270972
+  },
+  {
+    "text": "ANHYT Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6946926091683059
+  },
+  {
+    "text": "ANHYT için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7463732522327515
+  },
+  {
+    "text": "ANHYT hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.06725854395568998
+  },
+  {
+    "text": "ANHYT işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.01080809411753933
+  },
+  {
+    "text": "ANSGR hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6104797568665317
+  },
+  {
+    "text": "ANSGR Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.7468201357339656
+  },
+  {
+    "text": "ANSGR için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7050210175839506
+  },
+  {
+    "text": "ANSGR hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8912508334247451
+  },
+  {
+    "text": "ANSGR Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8397476847111224
+  },
+  {
+    "text": "ANSGR için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.6066854479749679
+  },
+  {
+    "text": "ANSGR hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.02212853309054158
+  },
+  {
+    "text": "ANSGR işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.1443225624948366
+  },
+  {
+    "text": "ARASE hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6237817532054339
+  },
+  {
+    "text": "ARASE Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8418416121781576
+  },
+  {
+    "text": "ARASE için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8294758143730379
+  },
+  {
+    "text": "ARASE hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8222242268074403
+  },
+  {
+    "text": "ARASE Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8399093297663808
+  },
+  {
+    "text": "ARASE için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8681673549485066
+  },
+  {
+    "text": "ARASE hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.08108757781701759
+  },
+  {
+    "text": "ARASE işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.1326703925028498
+  },
+  {
+    "text": "ARCLK hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.8761270433691362
+  },
+  {
+    "text": "ARCLK Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6104031652770844
+  },
+  {
+    "text": "ARCLK için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8561369612225664
+  },
+  {
+    "text": "ARCLK hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8103558118845913
+  },
+  {
+    "text": "ARCLK Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7760273898152045
+  },
+  {
+    "text": "ARCLK için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7154982341838432
+  },
+  {
+    "text": "ARCLK hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.12000798379209154
+  },
+  {
+    "text": "ARCLK işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.07669526925520287
+  },
+  {
+    "text": "ARDYZ hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.8620312898438509
+  },
+  {
+    "text": "ARDYZ Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8424288599398795
+  },
+  {
+    "text": "ARDYZ için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6138686178675153
+  },
+  {
+    "text": "ARDYZ hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7761847901404259
+  },
+  {
+    "text": "ARDYZ Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7950447643224118
+  },
+  {
+    "text": "ARDYZ için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.749378359804509
+  },
+  {
+    "text": "ARDYZ hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.01661062046331621
+  },
+  {
+    "text": "ARDYZ işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.18036432170154157
+  },
+  {
+    "text": "ARENA hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6856266337618965
+  },
+  {
+    "text": "ARENA Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8860128384438919
+  },
+  {
+    "text": "ARENA için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8295141308970888
+  },
+  {
+    "text": "ARENA hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8474985413957539
+  },
+  {
+    "text": "ARENA Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8564843690445344
+  },
+  {
+    "text": "ARENA için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8213439677704291
+  },
+  {
+    "text": "ARENA hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.0785246729173742
+  },
+  {
+    "text": "ARENA işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.18333470480765757
+  },
+  {
+    "text": "ARMGD hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7517837357694273
+  },
+  {
+    "text": "ARMGD Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6419240602876816
+  },
+  {
+    "text": "ARMGD için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.6125204408561276
+  },
+  {
+    "text": "ARMGD hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8762263210960871
+  },
+  {
+    "text": "ARMGD Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8199550663781446
+  },
+  {
+    "text": "ARMGD için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.6359233764910748
+  },
+  {
+    "text": "ARMGD hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.10182404173903836
+  },
+  {
+    "text": "ARMGD işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.10420838064982485
+  },
+  {
+    "text": "ARSAN hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6995164559800559
+  },
+  {
+    "text": "ARSAN Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.8437591384824841
+  },
+  {
+    "text": "ARSAN için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8117588633415587
+  },
+  {
+    "text": "ARSAN hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.8299404777334336
+  },
+  {
+    "text": "ARSAN Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.7310942431051375
+  },
+  {
+    "text": "ARSAN için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.7553195377935217
+  },
+  {
+    "text": "ARSAN hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": 0.19964139737176678
+  },
+  {
+    "text": "ARSAN işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.0002901377361877733
+  },
+  {
+    "text": "ARTMS hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.6176981082640413
+  },
+  {
+    "text": "ARTMS Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6761408187406455
+  },
+  {
+    "text": "ARTMS için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.7313129165433617
+  },
+  {
+    "text": "ARTMS hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.7263109514926551
+  },
+  {
+    "text": "ARTMS Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.8547176758022619
+  },
+  {
+    "text": "ARTMS için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8966669297678569
+  },
+  {
+    "text": "ARTMS hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.09175655693840229
+  },
+  {
+    "text": "ARTMS işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": 0.06200239305006422
+  },
+  {
+    "text": "ARZUM hissesi güçlü performans sergiliyor",
+    "sentiment": "positive",
+    "score": 0.7886523263455343
+  },
+  {
+    "text": "ARZUM Q3 sonuçları beklentileri aştı",
+    "sentiment": "positive",
+    "score": 0.6307425972581534
+  },
+  {
+    "text": "ARZUM için analistler alım tavsiyesi verdi",
+    "sentiment": "positive",
+    "score": 0.8206553757072481
+  },
+  {
+    "text": "ARZUM hissesinde kar realizasyonu baskısı",
+    "sentiment": "negative",
+    "score": -0.6318609027717363
+  },
+  {
+    "text": "ARZUM Q3 sonuçları hayal kırıklığı yarattı",
+    "sentiment": "negative",
+    "score": -0.6438705572283997
+  },
+  {
+    "text": "ARZUM için analistler satış tavsiyesi verdi",
+    "sentiment": "negative",
+    "score": -0.8304409602790832
+  },
+  {
+    "text": "ARZUM hissesi yatay seyir izliyor",
+    "sentiment": "neutral",
+    "score": -0.143349845178281
+  },
+  {
+    "text": "ARZUM işlem hacmi normale döndü",
+    "sentiment": "neutral",
+    "score": -0.026423659106414032
+  }
+]
