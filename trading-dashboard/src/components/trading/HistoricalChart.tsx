@@ -135,14 +135,25 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
           const stockData = await response.json();
           
           // Transform single stock data to historical format expected by chart
+          const hourlyData = generateHistoricalPointsFromStock(stockData, 100);
+          const dailyData = generateHistoricalPointsFromStock(stockData, 30);
+          
           const transformedData = {
             '60min': {
               total_records: 100, // Mock count
-              data: generateHistoricalPointsFromStock(stockData, 100)
+              data: hourlyData,
+              date_range: {
+                start: hourlyData.length > 0 ? hourlyData[0].timestamp : new Date().toISOString(),
+                end: hourlyData.length > 0 ? hourlyData[hourlyData.length - 1].timestamp : new Date().toISOString()
+              }
             },
             'daily': {
               total_records: 30, // Mock count  
-              data: generateHistoricalPointsFromStock(stockData, 30)
+              data: dailyData,
+              date_range: {
+                start: dailyData.length > 0 ? dailyData[0].timestamp : new Date().toISOString(),
+                end: dailyData.length > 0 ? dailyData[dailyData.length - 1].timestamp : new Date().toISOString()
+              }
             }
           };
           
