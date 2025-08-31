@@ -2516,3 +2516,33 @@ async def run_migration():
         logger.error(f"💥 Migration error: {e}")
         raise HTTPException(status_code=500, detail=f"Migration error: {str(e)}")
 
+
+@app.get("/debug/files")
+async def debug_files():
+    """🔍 Debug: Check CSV files and environment"""
+    from pathlib import Path
+    import os
+    
+    cwd = str(Path.cwd())
+    csv_files = []
+    
+    # Check CSV parts
+    for suffix in ["aa", "ab", "ac", "ad"]:
+        gz_file = f"enhanced_stock_data_part_{suffix}.gz"
+        if Path(gz_file).exists():
+            size = Path(gz_file).stat().st_size / (1024*1024)  # MB
+            csv_files.append({"file": gz_file, "size_mb": round(size, 1), "exists": True})
+        else:
+            csv_files.append({"file": gz_file, "size_mb": 0, "exists": False})
+    
+    # List all .gz files
+    all_gz = [str(f) for f in Path(".").glob("*.gz")]
+    
+    return {
+        "cwd": cwd,
+        "csv_parts": csv_files,
+        "all_gz_files": all_gz,
+        "database_url_set": bool(os.getenv("DATABASE_URL")),
+        "python_path": str(Path("csv_to_postgresql.py").exists())
+    }
+
