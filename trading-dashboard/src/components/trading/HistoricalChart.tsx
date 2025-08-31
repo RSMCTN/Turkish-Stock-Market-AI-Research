@@ -121,65 +121,75 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
       setLoading(true);
       
       try {
-        // Use Railway API instead of static files
-        const PRODUCTION_API = 'https://bistai001-production.up.railway.app';
-        const response = await fetch(`${PRODUCTION_API}/api/bist/stock/${selectedSymbol}`, {
-          method: 'GET',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }
-        });
+                       // ✅ GERÇEK TARİHSEL VERİ - RAILWAY API KULLANIMI
+               const RAILWAY_API = 'https://bistai001-production.up.railway.app';
         
-        if (response.ok) {
-          const stockData = await response.json();
-          
-          // Transform single stock data to historical format expected by chart
-          const hourlyData = generateHistoricalPointsFromStock(stockData, 100);
-          const dailyData = generateHistoricalPointsFromStock(stockData, 30);
-          
-          const transformedData = {
-            '60min': {
-              total_records: 100, // Mock count
-              data: hourlyData,
-              date_range: {
-                start: hourlyData.length > 0 ? hourlyData[0].timestamp : new Date().toISOString(),
-                end: hourlyData.length > 0 ? hourlyData[hourlyData.length - 1].timestamp : new Date().toISOString()
-              }
-            },
-            'daily': {
-              total_records: 30, // Mock count  
-              data: dailyData,
-              date_range: {
-                start: dailyData.length > 0 ? dailyData[0].timestamp : new Date().toISOString(),
-                end: dailyData.length > 0 ? dailyData[dailyData.length - 1].timestamp : new Date().toISOString()
-              }
+                       // Fetch real historical data for both timeframes
+               const [hourlyResponse, dailyResponse] = await Promise.all([
+                 fetch(`${RAILWAY_API}/api/bist/historical/${selectedSymbol}?timeframe=60min&limit=100`, {
+            method: 'GET',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
             }
-          };
-          
+          }),
+                           fetch(`${RAILWAY_API}/api/bist/historical/${selectedSymbol}?timeframe=daily&limit=30`, {
+            method: 'GET',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }
+          })
+        ]);
+        
+        const transformedData: any = {};
+        
+        // Process hourly data
+        if (hourlyResponse.ok) {
+          const hourlyData = await hourlyResponse.json();
+          transformedData['60min'] = hourlyData['60min'] || hourlyData.hourly;
+          console.log(`📈 GERÇEK VERİ: ${selectedSymbol} 60min - ${transformedData['60min']?.total_records || 0} kayıt`);
+        }
+        
+        // Process daily data  
+        if (dailyResponse.ok) {
+          const dailyData = await dailyResponse.json();
+          transformedData['daily'] = dailyData['daily'];
+          console.log(`📈 GERÇEK VERİ: ${selectedSymbol} daily - ${transformedData['daily']?.total_records || 0} kayıt`);
+        }
+        
+        // If we have real data, use it
+        if (transformedData['60min'] || transformedData['daily']) {
           setSymbolData(transformedData);
-          console.log(`📈 Loaded historical data for ${selectedSymbol}:`, {
+          console.log(`✅ BAŞARILI: ${selectedSymbol} için gerçek tarihsel veri yüklendi:`, {
             '60min': transformedData['60min']?.total_records || 0,
             daily: transformedData['daily']?.total_records || 0
           });
         } else {
-          console.warn(`⚠️ Railway API error for ${selectedSymbol}, generating fallback data`);
+          // Only fallback if no real data exists
+          console.warn(`⚠️ ${selectedSymbol} için tarihsel veri yok, veritabanında mevcut değil`);
           
-          // Generate fallback data for new symbols not in Railway production
-          const fallbackStockData = {
+                           // Get current stock data for fallback
+                 const stockResponse = await fetch(`${RAILWAY_API}/api/bist/stock/${selectedSymbol}`);
+          let fallbackStockData = {
             symbol: selectedSymbol,
-            last_price: Math.random() * 100 + 50, // Random price between 50-150
+            last_price: Math.random() * 100 + 50,
             company_name: `${selectedSymbol} Company`,
             sector: "Technology"
           };
           
-          // Create mock data using fallback stock info
-          const hourlyData = generateHistoricalPointsFromStock(fallbackStockData, 100);
-          const dailyData = generateHistoricalPointsFromStock(fallbackStockData, 30);
+          if (stockResponse.ok) {
+            const realStock = await stockResponse.json();
+            fallbackStockData = { ...fallbackStockData, ...realStock };
+          }
+          
+          // Generate minimal fallback with real current price
+          const hourlyData = generateHistoricalPointsFromStock(fallbackStockData, 24); // Last 24 hours
+          const dailyData = generateHistoricalPointsFromStock(fallbackStockData, 7);   // Last 7 days
           
           const fallbackData = {
             '60min': {
-              total_records: 100,
+              total_records: hourlyData.length,
               data: hourlyData,
               date_range: {
                 start: hourlyData.length > 0 ? hourlyData[0].timestamp : new Date().toISOString(),
@@ -187,7 +197,7 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
               }
             },
             'daily': {
-              total_records: 30,
+              total_records: dailyData.length,
               data: dailyData,
               date_range: {
                 start: dailyData.length > 0 ? dailyData[0].timestamp : new Date().toISOString(),
@@ -197,28 +207,28 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
           };
           
           setSymbolData(fallbackData);
-          console.log(`📈 Generated fallback data for ${selectedSymbol}:`, {
-            '60min': fallbackData['60min']?.total_records || 0,
-            daily: fallbackData['daily']?.total_records || 0
-          });
+          console.log(`📊 FALLBACK: ${selectedSymbol} için minimal veri üretildi (gerçek fiyat baz alınarak)`);
         }
       } catch (error) {
-        console.error('❌ Error loading historical data:', error);
+        console.error('❌ Network error loading historical data:', error);
         
-        // Generate fallback even for network errors
+                       // ⚠️ NETWORK ERROR: Sadece bağlantı hatalarında minimal fallback
+               console.warn(`🔌 Railway API'ye bağlanılamadı, ${selectedSymbol} için minimal fallback`);
+        
         const errorFallbackStockData = {
           symbol: selectedSymbol,
-          last_price: Math.random() * 100 + 50,
+          last_price: 50 + (selectedSymbol.length * 10), // Deterministic price based on symbol
           company_name: `${selectedSymbol} Company`,  
-          sector: "Technology"
+          sector: "Bilinmiyor"
         };
         
-        const hourlyData = generateHistoricalPointsFromStock(errorFallbackStockData, 100);
-        const dailyData = generateHistoricalPointsFromStock(errorFallbackStockData, 30);
+        // Minimal network error fallback - only essential data points
+        const hourlyData = generateHistoricalPointsFromStock(errorFallbackStockData, 12); // Last 12 hours only
+        const dailyData = generateHistoricalPointsFromStock(errorFallbackStockData, 5);   // Last 5 days only
         
         const errorFallbackData = {
           '60min': {
-            total_records: 100,
+            total_records: hourlyData.length,
             data: hourlyData,
             date_range: {
               start: hourlyData.length > 0 ? hourlyData[0].timestamp : new Date().toISOString(),
@@ -226,7 +236,7 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
             }
           },
           'daily': {
-            total_records: 30,
+            total_records: dailyData.length,
             data: dailyData,
             date_range: {
               start: dailyData.length > 0 ? dailyData[0].timestamp : new Date().toISOString(),
@@ -236,7 +246,7 @@ export default function HistoricalChart({ selectedSymbol = 'GARAN' }: Historical
         };
         
         setSymbolData(errorFallbackData);
-        console.log(`📈 Generated error fallback data: ${selectedSymbol}`);
+        console.log(`🔌 NETWORK ERROR FALLBACK: ${selectedSymbol} için minimal veri (${hourlyData.length}+${dailyData.length} kayıt)`);
       } finally {
         setLoading(false);
       }

@@ -257,13 +257,22 @@ async def startup_event():
                 # Fallback to SQLite
                 if HISTORICAL_SERVICE_AVAILABLE:
                     try:
+                        logger.info("🗄️ Initializing SQLite Historical Service fallback...")
                         app_state.historical_service = get_historical_service()
                         stats = app_state.historical_service.get_stats()
-                        logger.info(f"📈 SQLite Fallback: {stats['total_records']:,} records")
-                        logger.info("🟡 Using SQLite fallback service")
+                        logger.info(f"📈 SQLite Fallback: {stats['total_records']:,} records, {stats['unique_stocks']} stocks")
+                        logger.info("✅ SQLite fallback service initialized successfully")
                     except Exception as e2:
                         logger.error(f"❌ SQLite fallback also failed: {str(e2)}")
-                        app_state.historical_service = None
+                        logger.info("🔄 Attempting direct SQLite service initialization...")
+                        # Force direct SQLite initialization
+                        try:
+                            from src.data.services.bist_historical_service import BISTHistoricalService
+                            app_state.historical_service = BISTHistoricalService()
+                            logger.info("✅ Direct SQLite service initialized")
+                        except Exception as e3:
+                            logger.error(f"❌ Direct SQLite initialization failed: {str(e3)}")
+                            app_state.historical_service = None
                 
         elif HISTORICAL_SERVICE_AVAILABLE:
             # Direct SQLite initialization (no PostgreSQL available)
@@ -1462,6 +1471,94 @@ async def get_bist_markets():
         logger = logging.getLogger("api.bist.markets")
         logger.error(f"Error fetching markets: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch markets")
+
+
+@app.get("/api/bist/historical/{symbol}")
+async def get_bist_historical_data(
+    symbol: str,
+    timeframe: str = Query("60min", description="Timeframe (60min, daily, hourly)"),
+    limit: int = Query(100, description="Number of historical records")
+):
+    """Get historical OHLCV data for a symbol with technical indicators"""
+    try:
+        symbol = symbol.upper()
+        logger = logging.getLogger("api.bist.historical")
+        logger.info(f"📊 Fetching historical data for {symbol}, timeframe: {timeframe}, limit: {limit}")
+        
+        if not app_state.historical_service:
+            logger.error("❌ CRITICAL: app_state.historical_service is None!")
+            logger.info("🔧 Attempting emergency service initialization...")
+            try:
+                from src.data.services.bist_historical_service import BISTHistoricalService
+                app_state.historical_service = BISTHistoricalService()
+                logger.info("✅ Emergency service initialized successfully")
+            except Exception as emergency_e:
+                logger.error(f"❌ Emergency init failed: {emergency_e}")
+                raise HTTPException(
+                    status_code=503, 
+                    detail="Historical data service not initialized"
+                )
+        
+        # Get historical data from database
+        if hasattr(app_state.historical_service, 'get_historical_data'):
+            # PostgreSQL service uses (symbol, limit)
+            if 'postgresql' in str(type(app_state.historical_service)).lower():
+                historical_data = app_state.historical_service.get_historical_data(symbol, limit)
+            else:
+                # SQLite service uses (symbol, timeframe, limit)
+                historical_data = app_state.historical_service.get_historical_data(symbol, timeframe, limit)
+        else:
+            raise HTTPException(status_code=503, detail="Historical data method not available")
+        
+        # Convert to expected format for frontend
+        formatted_data = []
+        for record in historical_data:
+            # Map database field names to frontend expected names
+            formatted_record = {
+                'datetime': record.get('date_time') or record.get('datetime', ''),
+                'open': record.get('open') or record.get('open_price', 0),
+                'high': record.get('high') or record.get('high_price', 0),  
+                'low': record.get('low') or record.get('low_price', 0),
+                'close': record.get('close') or record.get('close_price', 0),
+                'volume': record.get('volume', 0),
+                # Technical indicators
+                'rsi': record.get('rsi_14'),
+                'macd': record.get('macd_line'),
+                'macd_signal': record.get('macd_signal'),
+                'bb_upper': record.get('bollinger_upper'),
+                'bb_middle': record.get('bollinger_middle'), 
+                'bb_lower': record.get('bollinger_lower'),
+                'atr': record.get('atr_14'),
+                'adx': record.get('adx_14'),
+                'ichimoku_tenkan': record.get('tenkan_sen'),
+                'ichimoku_kijun': record.get('kijun_sen'),
+            }
+            formatted_data.append(formatted_record)
+        
+        # Create response in format expected by frontend
+        response_data = {
+            timeframe: {
+                'symbol': symbol,
+                'timeframe': timeframe,
+                'total_records': len(formatted_data),
+                'date_range': {
+                    'start': formatted_data[-1]['datetime'] if formatted_data else '',
+                    'end': formatted_data[0]['datetime'] if formatted_data else ''
+                },
+                'data': formatted_data
+            }
+        }
+        
+        logger.info(f"✅ Retrieved {len(formatted_data)} historical records for {symbol}")
+        return response_data
+        
+    except Exception as e:
+        logger = logging.getLogger("api.bist.historical")
+        logger.error(f"❌ Error fetching historical data for {symbol}: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to fetch historical data: {str(e)}"
+        )
 
 
 @app.get("/api/bist/search")
