@@ -249,13 +249,10 @@ async def startup_event():
         app_state.sentiment_analyzer = None
         app_state.sentiment_pipeline = None
         
-        # Initialize BIST data services (TEMPORARILY SIMPLIFIED FOR TESTING)
-        logger.info("🔧 Using simplified data services for testing...")
-        app_state.historical_service = None  # Skip heavy SQLite initialization
-        
-        if False:  # POSTGRESQL_SERVICE_AVAILABLE:
+        # Initialize BIST data services (Railway PostgreSQL primary)
+        if POSTGRESQL_SERVICE_AVAILABLE:
+            logger.info("🐘 Initializing Railway PostgreSQL Service...")
             try:
-                logger.info("🐘 Initializing BIST PostgreSQL Service...")
                 app_state.historical_service = get_historical_service()
                 logger.info("✅ PostgreSQL Service created")
                 
@@ -263,14 +260,11 @@ async def startup_event():
                 stats = app_state.historical_service.get_stats()
                 logger.info(f"📈 PostgreSQL Database: {stats['total_records']:,} records, {stats['unique_stocks']} stocks")
                 
-                # Check if PostgreSQL has actual data
                 if stats['total_records'] == 0:
                     logger.warning("⚠️  PostgreSQL database is empty (0 records)")
-                    logger.info("🔄 Auto-switching to SQLite fallback...")
-                    raise Exception("PostgreSQL database is empty - switching to SQLite")
-                
-                logger.info(f"📅 Data range: {stats['date_range']['start']} → {stats['date_range']['end']}")
-                logger.info(f"💾 Database size: {stats['database_size']}")
+                else:
+                    logger.info(f"📅 Data range: {stats['date_range']['start']} → {stats['date_range']['end']}")
+                    logger.info(f"💾 Database size: {stats['database_size']}")
                 
                 # Initialize technical indicators calculator
                 if 'get_indicators_calculator' in globals():
@@ -281,60 +275,11 @@ async def startup_event():
                 
             except Exception as e:
                 logger.error(f"❌ Failed to initialize PostgreSQL Service: {str(e)}")
-                logger.info("🔄 Falling back to SQLite service...")
-                
-                # Fallback to SQLite - DIRECT IMPORT
-                try:
-                    logger.info("🗄️ Initializing SQLite Historical Service fallback...")
-                    from src.data.services.bist_historical_service import BISTHistoricalService
-                    app_state.historical_service = BISTHistoricalService()
-                    stats = app_state.historical_service.get_stats()
-                    logger.info(f"📈 SQLite Fallback: {stats['total_records']:,} records, {stats['unique_stocks']} stocks")
-                    
-                    # Initialize technical indicators calculator
-                    if 'get_indicators_calculator' in globals():
-                        app_state.indicators_calculator = get_indicators_calculator()
-                        logger.info("📊 Technical Indicators Calculator initialized")
-                    
-                    logger.info("✅ SQLite fallback service initialized successfully")
-                except Exception as e2:
-                    logger.error(f"❌ SQLite fallback also failed: {str(e2)}")
-                    app_state.historical_service = None
-                
-        elif HISTORICAL_SERVICE_AVAILABLE:
-            # Direct SQLite initialization (no PostgreSQL available)
-            try:
-                logger.info("🗄️ Initializing BIST Historical Data Service (SQLite-based)...")
-                app_state.historical_service = get_historical_service()
-                logger.info("✅ SQLite Historical Service created")
-                
-                # Test database connectivity
-                stats = app_state.historical_service.get_stats()
-                logger.info(f"📈 Database: {stats['total_records']:,} records, {stats['unique_stocks']} stocks")
-                logger.info(f"📅 Data range: {stats['date_range']['start']} → {stats['date_range']['end']}")
-                
-                # Initialize technical indicators calculator
-                if 'get_indicators_calculator' in globals():
-                    app_state.indicators_calculator = get_indicators_calculator()
-                    logger.info("📊 Technical Indicators Calculator initialized")
-                
-                logger.info("🟢 BIST SQLite Service operational")
-                
-            except Exception as e:
-                logger.error(f"❌ Failed to initialize SQLite Service: {str(e)}")
-                logger.info("🔄 Attempting Excel-based fallback...")
+                logger.info("🔄 PostgreSQL failed - using mock data")
                 app_state.historical_service = None
-                
-                # Try Excel fallback
-                if 'REAL_DATA_SERVICE_AVAILABLE' in globals() and REAL_DATA_SERVICE_AVAILABLE:
-                    try:
-                        app_state.real_bist_service = get_real_bist_service()
-                        stocks = app_state.real_bist_service.get_all_stocks()
-                        logger.info(f"📊 Fallback: Loaded {len(stocks)} stocks from Excel")
-                    except Exception as e2:
-                        logger.error(f"❌ Excel fallback also failed: {str(e2)}")
         else:
-            logger.info("📊 No data services available - using mock data")
+            logger.info("📊 PostgreSQL not available - using mock data")
+            app_state.historical_service = None
         logger.info("✅ Sentiment Analysis System initialized")
         
         # Mock components as healthy for demo
