@@ -61,10 +61,10 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
 
     const mockData: StockData[] = [];
     const startDate = new Date();
-    startDate.setDate(startDate.getDate() - 7); // 7 days historical - future focused
+    startDate.setDate(startDate.getDate() - 2); // 2 days historical - future dominant
 
-    // MINIMAL HISTORICAL DATA (7 days only - future focused)
-    for (let i = 0; i < 7; i++) {
+    // ULTRA MINIMAL HISTORICAL DATA (2 days only - future dominant) 
+    for (let i = 0; i < 2; i++) {
       const currentDate = new Date(startDate);
       currentDate.setDate(startDate.getDate() + i);
       
@@ -88,11 +88,11 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
       });
     }
 
-    // INTENSIVE FUTURE FORECAST DATA (Next 480 minutes = 8 hours)
+    // MASSIVE FUTURE FORECAST DATA (Next 960 minutes = 16 hours - FUTURE DOMINANT)
     const now = new Date();
     const currentPrice = basePrice;
     
-    for (let minute = 1; minute <= 480; minute++) {
+    for (let minute = 1; minute <= 960; minute++) {
       const futureDate = new Date(now.getTime() + (minute * 60 * 1000)); // +minute
       
       // Skip non-trading hours (before 10:00 and after 18:00)
@@ -143,9 +143,9 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
           <div className="flex items-center gap-3">
             <TrendingUp className="h-6 w-6 text-emerald-400" />
             <div>
-              <CardTitle className="text-slate-100">Multi-Periyot Fiyat Tahmin Grafiği - {selectedSymbol}</CardTitle>
+              <CardTitle className="text-slate-100">Future-Dominant Fiyat Tahmin - {selectedSymbol}</CardTitle>
               <p className="text-sm text-slate-400 mt-1">
-                Dakikalık • Saatlik • 2 Saatlik • Günlük DP-LSTM Forecast
+                2 Gün Minimal Context + 16 Saat Intensive Future Forecast
               </p>
             </div>
           </div>
@@ -154,13 +154,13 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
               {historicalData.length} historical
             </Badge>
             <Badge className="bg-purple-600 text-white text-xs">
-              {forecastData.length} forecast
+              {forecastData.length} future
             </Badge>
             <Badge className="bg-blue-600 text-white text-xs">
-              DP-LSTM
+              16H Forecast
             </Badge>
             <Badge className="bg-emerald-600 text-white text-xs">
-              Zoom+Pan
+              Future-Dom
             </Badge>
             <RefreshCw className="h-4 w-4 text-slate-400" />
           </div>
@@ -246,25 +246,25 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
                 bearFillColor="#dc2626"    // Same red, but with opacity
                 bullFillColor="#16a34a"    // Same green, but with opacity
                 name={`${selectedSymbol} (Forecast)`}
-                opacity={0.6}              // More transparent for forecast
+                opacity={0.9}              // High visibility for forecast (FUTURE DOMINANT)
               />
             </StockChartSeriesCollectionDirective>
           </StockChartComponent>
         </div>
         
-        {/* Multi-Period Chart Info */}
+        {/* Future-Dominant Chart Info */}
         <div className="mt-4 p-3 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg border border-blue-500/30">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
               <span className="text-slate-300">
-                <strong>Period Seçimi:</strong> Dakikalık → Günlük aralığı
+                <strong>Future Focus:</strong> 16 saatlik yoğun gelecek tahmini
               </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
               <span className="text-slate-300">
-                <strong>Chart Controls:</strong> Period butonları aktif
+                <strong>Minimal Historical:</strong> Sadece 2 gün context
               </span>
             </div>
           </div>
@@ -287,9 +287,9 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
               </div>
             </div>
             <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700 border-blue-500/30">
-              <div className="text-xs text-blue-400">8H Forecast</div>
+              <div className="text-xs text-blue-400">16H Forecast</div>
               <div className="text-lg font-bold text-blue-400">
-                ₺{forecastData[7]?.close.toFixed(2) || 'N/A'}
+                ₺{forecastData[forecastData.length - 1]?.close.toFixed(2) || 'N/A'}
               </div>
             </div>
             <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
@@ -304,15 +304,15 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
           <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 p-4 rounded-lg border border-purple-500/30">
             <div className="flex justify-between items-center">
               <div>
-                <div className="text-xs text-purple-400 mb-1">40H Forecast Range</div>
+                <div className="text-xs text-purple-400 mb-1">16H Future Range (DOMINANT)</div>
                 <div className="text-lg font-bold text-purple-300">
                   ₺{Math.min(...forecastData.map(d => d.low)).toFixed(2)} - ₺{Math.max(...forecastData.map(d => d.high)).toFixed(2)}
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-xs text-blue-400 mb-1">Prediction Confidence</div>
+                <div className="text-xs text-blue-400 mb-1">Future Visibility</div>
                 <div className="text-lg font-bold text-blue-300">
-                  93.7%
+                  90% Opaque
                 </div>
               </div>
             </div>
