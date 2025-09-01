@@ -88,44 +88,58 @@ export default function ProfessionalDecisionSupport({ symbol, onOrderPrepare }: 
       setLoading(true);
       setError(null);
       
-      // Get real historical data for analysis
       console.log(`🎯 Professional Decision Support fetching data for: ${symbol}`);
-      const response = await fetch(`https://bistai001-production.up.railway.app/api/bist/historical/${symbol}?timeframe=60min&limit=50`);
       
-      if (!response.ok) {
-        console.error(`❌ API Error ${response.status} for ${symbol}`);
-        throw new Error(`API Error: ${response.status}`);
-      }
-      
-      const historicalData = await response.json();
-      console.log(`📊 API Response for ${symbol}:`, historicalData);
-      
-      // Deep debug for 60min structure
-      if (historicalData['60min']) {
-        console.log(`🔍 60min object for ${symbol}:`, historicalData['60min']);
-        console.log(`📊 60min.data for ${symbol}:`, historicalData['60min'].data);
-        console.log(`📊 60min keys:`, Object.keys(historicalData['60min']));
-      }
-      
-      // Check both old and new API response formats
+      // Try multiple timeframes as fallback
+      const timeframes = ['60min', 'daily', 'günlük'];
       let data = null;
-      if (historicalData.success && historicalData.data) {
-        data = historicalData.data;
-        console.log(`✅ Using historicalData.data format`);
-      } else if (historicalData['60min'] && historicalData['60min'].data) {
-        data = historicalData['60min'].data;
-        console.log(`✅ Using historicalData['60min'].data format`);
-      } else if (Array.isArray(historicalData)) {
-        data = historicalData;
-        console.log(`✅ Using direct array format`);
+      let usedTimeframe = null;
+      
+      for (const timeframe of timeframes) {
+        try {
+          console.log(`🔄 Trying ${timeframe} for ${symbol}`);
+          const response = await fetch(`https://bistai001-production.up.railway.app/api/bist/historical/${symbol}?timeframe=${timeframe}&limit=50`);
+          
+          if (!response.ok) {
+            console.log(`⚠️ ${timeframe} failed with ${response.status} for ${symbol}`);
+            continue;
+          }
+          
+          const historicalData = await response.json();
+          console.log(`📊 ${timeframe} response for ${symbol}:`, historicalData);
+          
+          // Extract data based on response format
+          let extractedData = null;
+          
+          if (historicalData.success && historicalData.data && historicalData.data.length > 0) {
+            extractedData = historicalData.data;
+            console.log(`✅ Found ${extractedData.length} records in historicalData.data format`);
+          } else if (historicalData[timeframe] && historicalData[timeframe].data && historicalData[timeframe].data.length > 0) {
+            extractedData = historicalData[timeframe].data;
+            console.log(`✅ Found ${extractedData.length} records in historicalData['${timeframe}'].data format`);
+          } else if (Array.isArray(historicalData) && historicalData.length > 0) {
+            extractedData = historicalData;
+            console.log(`✅ Found ${extractedData.length} records in direct array format`);
+          }
+          
+          if (extractedData && extractedData.length > 0) {
+            data = extractedData;
+            usedTimeframe = timeframe;
+            console.log(`🎯 SUCCESS: Using ${timeframe} data (${data.length} records) for ${symbol}`);
+            break;
+          } else {
+            console.log(`⚠️ ${timeframe} returned empty data for ${symbol}`);
+          }
+          
+        } catch (timeframeError) {
+          console.log(`⚠️ ${timeframe} failed for ${symbol}:`, timeframeError.message);
+          continue;
+        }
       }
       
       if (!data || data.length === 0) {
-        console.error(`❌ No valid data found for ${symbol}. Response structure:`, Object.keys(historicalData));
-        if (historicalData['60min']) {
-          console.error(`❌ 60min structure:`, historicalData['60min']);
-        }
-        throw new Error('No historical data available');
+        console.error(`❌ No data available in any timeframe for ${symbol}`);
+        throw new Error(`No historical data available for ${symbol} in any timeframe`);
       }
       
       console.log(`✅ Found ${data.length} records for ${symbol}`);
@@ -168,7 +182,10 @@ export default function ProfessionalDecisionSupport({ symbol, onOrderPrepare }: 
         final_decision: decision,
         confidence: confidence,
         risk_level: riskLevel,
-        key_factors: generateKeyFactors(rsi, macd, priceChange, volatility),
+        key_factors: [
+          ...generateKeyFactors(rsi, macd, priceChange, volatility),
+          `Analysis based on ${usedTimeframe} timeframe data (${data.length} records)`
+        ],
         technical_score: Math.max(20, Math.min(100, rsi > 50 ? rsi : 100 - rsi)),
         fundamental_score: 65 + Math.random() * 25,
         sentiment_score: priceChange > 0 ? 65 + Math.random() * 25 : 35 + Math.random() * 25,
