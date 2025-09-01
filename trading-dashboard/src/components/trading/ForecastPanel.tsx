@@ -251,39 +251,26 @@ export default function ForecastPanel({ selectedSymbol: propSelectedSymbol = 'AK
           const minPrice = Math.min(...prices);
           const maxPrice = Math.max(...prices);
           
-          // Transform backend response to frontend format with BIST hours
+          // Transform backend response to frontend format with proper BIST sequential hours
+          const bistTradingHours = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
           const transformedPredictions = data.predictions.slice(0, forecastHours).map((p: any, index: number) => {
-            // Generate BIST-compliant timestamps starting from current time
-            const now = new Date();
-            const targetTime = new Date(now.getTime() + (index - 6) * 60 * 60 * 1000); // Start 6 hours ago
             
-            // Ensure we're in BIST trading hours (10:00-18:00) 
-            let adjustedTime = new Date(targetTime);
-            const hour = adjustedTime.getHours();
-            
-            // If outside BIST hours, adjust to next business day 10:00
-            if (hour < 10) {
-              adjustedTime.setHours(10, 0, 0, 0);
-            } else if (hour >= 18) {
-              // Move to next business day
-              adjustedTime.setDate(adjustedTime.getDate() + 1);
-              adjustedTime.setHours(10, 0, 0, 0);
-              
-              // Skip weekends
-              const dayOfWeek = adjustedTime.getDay();
-              if (dayOfWeek === 0) adjustedTime.setDate(adjustedTime.getDate() + 1); // Sunday -> Monday
-              if (dayOfWeek === 6) adjustedTime.setDate(adjustedTime.getDate() + 2); // Saturday -> Monday
+            // Use sequential BIST trading hours
+            let bistHour;
+            if (index < bistTradingHours.length) {
+              bistHour = bistTradingHours[index];
+            } else {
+              // If we need more hours than trading hours, cycle through or extend to next day
+              const cycleIndex = index % bistTradingHours.length;
+              bistHour = bistTradingHours[cycleIndex];
             }
             
-            const bistTimestamp = adjustedTime.toLocaleTimeString('tr-TR', { 
-              hour: '2-digit', 
-              minute: '2-digit' 
-            });
-            
-            const isMarketOpen = isBISTMarketOpen(adjustedTime);
+            // Determine market status based on hour
+            const hourNum = parseInt(bistHour.split(':')[0]);
+            const isMarketOpen = hourNum >= 10 && hourNum <= 17; // 10:00-17:00 açık, 18:00 kapanış
             
             return {
-              time: bistTimestamp,
+              time: bistHour,
               predictedPrice: p.predictedPrice,
               actualPrice: p.actualPrice,
               confidence: p.confidence,
