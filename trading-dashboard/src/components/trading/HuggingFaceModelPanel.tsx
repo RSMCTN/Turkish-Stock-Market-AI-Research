@@ -37,7 +37,7 @@ export default function HuggingFaceModelPanel({ selectedSymbol = 'GARAN' }: Hugg
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Brain className="h-5 w-5 text-orange-600" />
-          HuggingFace Production Model
+          HuggingFace Prodüksiyon Modeli
         </CardTitle>
         <div className="flex items-center gap-2">
           <Badge className="bg-orange-100 text-orange-700">@rsmctn/bist-dp-lstm</Badge>
@@ -52,11 +52,11 @@ export default function HuggingFaceModelPanel({ selectedSymbol = 'GARAN' }: Hugg
           {/* Model Stats */}
           <div className="grid grid-cols-2 gap-3">
             <div className="text-center p-3 bg-white/60 rounded-lg">
-              <div className="text-sm text-slate-600">Accuracy</div>
+              <div className="text-sm text-slate-600">Doğruluk</div>
               <div className="text-xl font-bold text-green-600">≥75%</div>
             </div>
             <div className="text-center p-3 bg-white/60 rounded-lg">
-              <div className="text-sm text-slate-600">Model Size</div>
+              <div className="text-sm text-slate-600">Model Boyutu</div>
               <div className="text-xl font-bold text-blue-600">2.4M</div>
             </div>
           </div>
@@ -64,22 +64,22 @@ export default function HuggingFaceModelPanel({ selectedSymbol = 'GARAN' }: Hugg
           {/* Model Info */}
           <div className="space-y-2">
             <div className="flex items-center justify-between p-2 bg-white/40 rounded">
-              <span className="text-sm">Architecture</span>
+              <span className="text-sm">Mimari</span>
               <Badge variant="outline">LSTM + DP</Badge>
             </div>
             <div className="flex items-center justify-between p-2 bg-white/40 rounded">
-              <span className="text-sm">Training Data</span>
-              <Badge variant="outline">BIST Historical</Badge>
+              <span className="text-sm">Eğitim Verisi</span>
+              <Badge variant="outline">BIST Tarihsel</Badge>
             </div>
             <div className="flex items-center justify-between p-2 bg-white/40 rounded">
-              <span className="text-sm">Last Updated</span>
-              <Badge variant="outline">Today</Badge>
+              <span className="text-sm">Son Güncelleme</span>
+              <Badge variant="outline">Bugün</Badge>
             </div>
           </div>
 
           {/* Current Prediction */}
           <div className="p-3 bg-gradient-to-r from-white/60 to-orange-100/60 rounded-lg border-l-4 border-orange-400">
-            <div className="text-sm font-medium text-slate-700 mb-1">Live Prediction for {selectedSymbol}</div>
+            <div className="text-sm font-medium text-slate-700 mb-1">{selectedSymbol} için Canlı Tahmin</div>
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-lg font-bold text-slate-800">₺{(getRealPrice(selectedSymbol) * 1.025).toFixed(2)}</div>

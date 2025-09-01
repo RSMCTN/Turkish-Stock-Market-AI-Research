@@ -215,7 +215,7 @@ const RealSymbolSelector = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <BarChart3 className="h-5 w-5 text-blue-600" />
-            <h3 className="font-semibold text-gray-900">BIST Stock Selector</h3>
+            <h3 className="font-semibold text-gray-900">Hisse Seçimi</h3>
             <Badge variant="outline" className="text-xs">
               {filteredStocks.length} stocks
             </Badge>

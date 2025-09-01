@@ -115,7 +115,7 @@ export default function AcademicPredictionPanel({ selectedSymbol = 'GARAN' }: Ac
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Brain className="h-5 w-5 text-blue-600" />
-          Academic Ensemble Prediction - {selectedSymbol}
+          Akademik Ensemble Tahmini - {selectedSymbol}
         </CardTitle>
         <div className="flex items-center gap-2">
           <Badge className="bg-blue-100 text-blue-700">DP-LSTM Active</Badge>
@@ -181,7 +181,7 @@ export default function AcademicPredictionPanel({ selectedSymbol = 'GARAN' }: Ac
                 <DialogHeader>
                   <DialogTitle className="flex items-center gap-2">
                     <Brain className="h-6 w-6 text-blue-600" />
-                    Academic Ensemble Prediction Details - {selectedSymbol}
+                    Akademik Ensemble Tahmin Detayları - {selectedSymbol}
                   </DialogTitle>
                 </DialogHeader>
                 

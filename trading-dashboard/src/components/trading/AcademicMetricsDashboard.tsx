@@ -90,9 +90,9 @@ export default function AcademicMetricsDashboard({ selectedSymbol = 'GARAN' }: A
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-purple-600" />
-          Academic Metrics - {selectedSymbol}
+          Akademik Metrikler - {selectedSymbol}
         </CardTitle>
-        <Badge className="w-fit bg-purple-100 text-purple-700">Dynamic Validation</Badge>
+        <Badge className="w-fit bg-purple-100 text-purple-700">Dinamik Doğrulama</Badge>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
