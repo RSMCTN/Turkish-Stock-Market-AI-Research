@@ -113,39 +113,31 @@ export default function MamutDashboard() {
       {/* MAMUT R600 Professional Dashboard */}
       <main className="container mx-auto px-6 py-8">
         
-        {/* Enhanced System Status Overview - WOW Design */}
-        <div className="mb-8 grid grid-cols-2 md:grid-cols-5 gap-4">
-          {Object.entries(systemStatus).map(([component, status]) => (
-            <Card key={component} className="bg-gradient-to-br from-slate-800/90 to-slate-700/80 border-slate-600 shadow-xl hover:shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500 hover:scale-105 hover:border-emerald-400 group backdrop-blur-sm">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs text-slate-300 capitalize font-medium">{component.replace(/([A-Z])/g, ' $1')}</p>
-                    <div className="flex items-center gap-2 mt-2">
-                      <div className="relative">
-                        <div className={`w-4 h-4 rounded-full ${
-                          status === 'active' ? 'bg-gradient-to-r from-emerald-400 to-green-400 animate-pulse shadow-lg shadow-emerald-400/50' : 
-                          'bg-gradient-to-r from-red-400 to-pink-400 shadow-lg shadow-red-400/50'
-                        }`} />
-                        {status === 'active' && (
-                          <div className="absolute inset-0 w-4 h-4 rounded-full bg-emerald-300 animate-ping opacity-40"></div>
-                        )}
-                      </div>
-                      <span className={`text-xs font-bold px-3 py-1 rounded-full ${
-                        status === 'active' ? 'text-emerald-100 bg-gradient-to-r from-emerald-600 to-green-600 shadow-lg' :
-                        'text-red-100 bg-gradient-to-r from-red-600 to-pink-600 shadow-lg'
-                      }`}>
-                        {status.toUpperCase()}
+        {/* KOMPAKT System Status - Daha Az Yorucu */}
+        <div className="mb-6">
+          <Card className="bg-slate-800/50 border-slate-700">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-emerald-400" />
+                  <h3 className="text-sm font-semibold text-white">System Status</h3>
+                </div>
+                <div className="flex items-center gap-2">
+                  {Object.entries(systemStatus).map(([component, status]) => (
+                    <div key={component} className="flex items-center gap-1">
+                      <div className={`w-2 h-2 rounded-full ${
+                        status === 'active' ? 'bg-emerald-400 animate-pulse' : 'bg-red-400'
+                      }`} />
+                      <span className="text-xs text-slate-300 capitalize">
+                        {component.replace(/([A-Z])/g, ' $1').slice(0, 8)}...
                       </span>
                     </div>
-                  </div>
-                  <Activity className={`h-6 w-6 transition-all duration-300 group-hover:scale-110 ${
-                    status === 'active' ? 'text-emerald-400 group-hover:text-emerald-300 drop-shadow-lg' : 'text-red-400 group-hover:text-red-300 drop-shadow-lg'
-                  }`} />
+                  ))}
+                  <Badge className="bg-emerald-600 text-white text-xs ml-2">ALL ACTIVE</Badge>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* MAMUT R600 Trading Modules */}
@@ -190,98 +182,112 @@ export default function MamutDashboard() {
 
           {/* AI Analytics Tab */}
           <TabsContent value="academic" className="space-y-6">
-            {/* Symbol Selector for AI Analytics */}
-            <RealSymbolSelector
-              selectedSymbol={selectedSymbol}
-              onSymbolChange={setSelectedSymbol}
-              showSearch={true}
-              showFilters={true}
-              limit={600}
-            />
-
-            <div className="grid lg:grid-cols-2 gap-6">
-              {/* AI Prediction System */}
-              <AcademicPredictionPanel selectedSymbol={selectedSymbol} />
-              
-              {/* HuggingFace Production Model */}
-              <HuggingFaceModelPanel selectedSymbol={selectedSymbol} />
+            {/* KOMPAKT Symbol Selector - Az Yer Kaplar */}
+            <div className="mb-4">
+              <Card className="bg-gradient-to-r from-slate-800 to-slate-700 border-slate-600 shadow-lg">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <TrendingUp className="h-5 w-5 text-emerald-400" />
+                        <h3 className="font-semibold text-white">Hisse Seçimi</h3>
+                      </div>
+                      <select 
+                        value={selectedSymbol} 
+                        onChange={(e) => setSelectedSymbol(e.target.value)}
+                        className="bg-slate-700 text-white border border-slate-600 rounded-lg px-4 py-2 min-w-[200px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      >
+                        <option value="AKBNK">AKBANK (AKBNK)</option>
+                        <option value="BIMAS">BİM (BIMAS)</option>
+                        <option value="GARAN">GARANTİ (GARAN)</option>
+                        <option value="BRSAN">BORUSAN (BRSAN)</option>
+                        <option value="THYAO">THY (THYAO)</option>
+                        <option value="TUPRS">TÜPRAŞ (TUPRS)</option>
+                        <option value="ASELS">ASELSAN (ASELS)</option>
+                        <option value="SASA">SASA (SASA)</option>
+                        <option value="KCHOL">KOÇ HOLDİNG (KCHOL)</option>
+                        <option value="ARCLK">ARÇELİK (ARCLK)</option>
+                      </select>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-emerald-600 text-white">
+                        LIVE
+                      </Badge>
+                      <RefreshCw className="h-4 w-4 text-slate-400" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-6">
-              {/* Live KAP Feed */}
-              <LiveKAPFeed selectedSymbol={selectedSymbol} />
-              
-              {/* AI Performance Metrics */}
-              <AcademicMetricsDashboard selectedSymbol={selectedSymbol} />
-              
-              {/* Component Contributions */}
-              <ComponentContributionChart selectedSymbol={selectedSymbol} />
+            {/* ANA AI PANELS - Daha Düzenli Layout */}
+            <div className="space-y-6">
+              {/* Üst: En Önemli AI Paneller */}
+              <div className="grid lg:grid-cols-2 gap-6">
+                <AcademicPredictionPanel selectedSymbol={selectedSymbol} />
+                <HuggingFaceModelPanel selectedSymbol={selectedSymbol} />
+              </div>
+
+              {/* Orta: KAP & Metrics & Technical */}
+              <div className="grid lg:grid-cols-3 gap-4">
+                <LiveKAPFeed selectedSymbol={selectedSymbol} />
+                <AcademicMetricsDashboard selectedSymbol={selectedSymbol} />
+                <ComponentContributionChart selectedSymbol={selectedSymbol} />
+              </div>
+
+              {/* Alt: Company & Decision Support */}
+              <div className="grid lg:grid-cols-3 gap-4">
+                <CompanyInfoCard selectedSymbol={selectedSymbol} />
+                <FundamentalAnalysis selectedSymbol={selectedSymbol} />
+                <AdvancedTechnicalPanel 
+                  selectedSymbol={selectedSymbol} 
+                  apiBaseUrl={process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://bistai001-production.up.railway.app'} 
+                />
+              </div>
+
+              {/* Son: AI Decision Support (Full Width - Çok Önemli) */}
+              <AIDecisionSupport selectedSymbol={selectedSymbol} />
             </div>
-
-            {/* Advanced Technical Analysis Section */}
-            <div className="grid lg:grid-cols-2 gap-6">
-              {/* New Advanced Technical Panel */}
-              <AdvancedTechnicalPanel 
-                selectedSymbol={selectedSymbol} 
-                apiBaseUrl={process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://bistai001-production.up.railway.app'} 
-              />
-              
-              {/* AI Chat Panel */}
-              <AIChatPanel 
-                selectedSymbol={selectedSymbol}
-                apiBaseUrl={process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://bistai001-production.up.railway.app'} 
-              />
-            </div>
-
-            {/* Company Analysis Section */}
-            <div className="grid lg:grid-cols-2 gap-6">
-              {/* Company Info Card */}
-              <CompanyInfoCard selectedSymbol={selectedSymbol} />
-              
-              {/* Fundamental Analysis */}
-              <FundamentalAnalysis selectedSymbol={selectedSymbol} />
-            </div>
-
-            {/* AI Decision Support System */}
-            <AIDecisionSupport selectedSymbol={selectedSymbol} />
-
-            {/* MAMUT System Status */}
-            <Card className="bg-gradient-to-r from-emerald-50 via-blue-50 to-purple-50 border-emerald-200 shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <div className="p-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg">
-                    <Brain className="h-5 w-5 text-white" />
-                  </div>
-                  MAMUT R600 System Status
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-3 gap-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600 mb-1">≥75%</div>
-                    <div className="text-sm text-slate-600">Model Accuracy</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600 mb-1">Real-time</div>
-                    <div className="text-sm text-slate-600">KAP Integration</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600 mb-1">Active</div>
-                    <div className="text-sm text-slate-600">DP Privacy</div>
-                  </div>
-                </div>
-                <div className="mt-4 p-3 bg-white/60 rounded-lg">
-                  <p className="text-sm text-slate-700">
-                    <strong>MAMUT R600:</strong> Professional AI-Powered Trading Platform with Advanced Analytics, 
-                    Real-time Market Intelligence, and Precision Trading Signals
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
           </TabsContent>
 
           {/* Traditional Trading Tab */}
           <TabsContent value="traditional" className="space-y-6">
+            {/* KOMPAKT Symbol Selector */}
+            <div className="mb-4">
+              <Card className="bg-gradient-to-r from-slate-800 to-slate-700 border-slate-600 shadow-lg">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <BarChart3 className="h-5 w-5 text-blue-400" />
+                        <h3 className="font-semibold text-white">Hisse Seçimi</h3>
+                      </div>
+                      <select 
+                        value={selectedSymbol} 
+                        onChange={(e) => setSelectedSymbol(e.target.value)}
+                        className="bg-slate-700 text-white border border-slate-600 rounded-lg px-4 py-2 min-w-[200px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      >
+                        <option value="AKBNK">AKBANK (AKBNK)</option>
+                        <option value="BIMAS">BİM (BIMAS)</option>
+                        <option value="GARAN">GARANTİ (GARAN)</option>
+                        <option value="BRSAN">BORUSAN (BRSAN)</option>
+                        <option value="THYAO">THY (THYAO)</option>
+                        <option value="TUPRS">TÜPRAŞ (TUPRS)</option>
+                        <option value="ASELS">ASELSAN (ASELS)</option>
+                        <option value="SASA">SASA (SASA)</option>
+                        <option value="KCHOL">KOÇ HOLDİNG (KCHOL)</option>
+                        <option value="ARCLK">ARÇELİK (ARCLK)</option>
+                      </select>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-blue-600 text-white">
+                        Traditional
+                      </Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
             <div className="space-y-6">
               {/* Traditional DP-LSTM Forecast */}
               <ForecastPanel selectedSymbol={selectedSymbol} />
@@ -390,24 +396,52 @@ export default function MamutDashboard() {
 
           {/* Enhanced Analysis Tab */}
           <TabsContent value="enhanced" className="space-y-6">
+            {/* KOMPAKT Symbol Selector */}
+            <div className="mb-4">
+              <Card className="bg-gradient-to-r from-slate-800 to-slate-700 border-slate-600 shadow-lg">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <LineChart className="h-5 w-5 text-purple-400" />
+                        <h3 className="font-semibold text-white">Enhanced Chart - Hisse Seçimi</h3>
+                      </div>
+                      <select 
+                        value={selectedSymbol} 
+                        onChange={(e) => setSelectedSymbol(e.target.value)}
+                        className="bg-slate-700 text-white border border-slate-600 rounded-lg px-4 py-2 min-w-[200px] focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                      >
+                        <option value="AKBNK">AKBANK (AKBNK)</option>
+                        <option value="BIMAS">BİM (BIMAS)</option>
+                        <option value="GARAN">GARANTİ (GARAN)</option>
+                        <option value="BRSAN">BORUSAN (BRSAN)</option>
+                        <option value="THYAO">THY (THYAO)</option>
+                        <option value="TUPRS">TÜPRAŞ (TUPRS)</option>
+                        <option value="ASELS">ASELSAN (ASELS)</option>
+                        <option value="SASA">SASA (SASA)</option>
+                        <option value="KCHOL">KOÇ HOLDİNG (KCHOL)</option>
+                        <option value="ARCLK">ARÇELİK (ARCLK)</option>
+                      </select>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-purple-600 text-white">
+                        Enhanced
+                      </Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
             <div className="space-y-6">
-              {/* Symbol Selector for Enhanced Analysis */}
-              <RealSymbolSelector 
-                selectedSymbol={selectedSymbol}
-                onSymbolChange={setSelectedSymbol}
-              />
 
               {/* Enhanced Stock Analysis */}
               <EnhancedStockAnalysis selectedSymbol={selectedSymbol} />
 
-              {/* Historical Chart with Technical Indicators */}
+              {/* Historical Chart with Technical Indicators (Chart Kaldırıldı - Sadece Forecast Panels) */}
               <HistoricalChart selectedSymbol={selectedSymbol} />
 
               {/* AI Commentary Panel - 5 Day Hourly Forecasts */}
               <AICommentaryPanel selectedSymbol={selectedSymbol} />
-
-              {/* AI Chat Panel - Interactive Assistant */}
-              <AIChatPanel selectedSymbol={selectedSymbol} />
             </div>
           </TabsContent>
 
