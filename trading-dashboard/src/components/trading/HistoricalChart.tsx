@@ -276,7 +276,8 @@ export default function HistoricalChart({ selectedSymbol = 'ACSEL' }: Historical
       data = data.filter(point => new Date(point.datetime) >= cutoffDate);
     }
     
-    return data;
+    // 🎯 FIX: Sort data chronologically (oldest to newest) for left-to-right chart
+    return data.sort((a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
   };
 
   const formatXAxisLabel = (tickItem: string) => {

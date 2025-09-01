@@ -28,6 +28,8 @@ import AdvancedIndicators from '@/components/trading/AdvancedIndicators';
 import AdvancedNewsSentiment from '@/components/trading/AdvancedNewsSentiment';
 import RealSymbolSelector from '@/components/trading/RealSymbolSelector';
 import AdvancedTechnicalPanel from '@/components/trading/AdvancedTechnicalPanel';
+import ProfessionalDecisionSupport from '@/components/trading/ProfessionalDecisionSupport';
+import EnhancedHistoricalChart from '@/components/trading/EnhancedHistoricalChart';
 
 export default function AcademicDashboard() {
   const [systemStatus, setSystemStatus] = useState({
@@ -419,13 +421,18 @@ export default function AcademicDashboard() {
                 onSymbolChange={setSelectedSymbol}
               />
               
-              {/* Historical Chart */}
-              <HistoricalChart 
+              {/* Enhanced Historical Chart with Advanced Features */}
+              <EnhancedHistoricalChart 
                 symbol={selectedSymbol}
+                autoRefresh={true}
+                refreshInterval={30000}
+                showTechnicalOverlay={true}
+                showPatternDetection={true}
+                showAlerts={true}
               />
               
-              {/* AI Decision Support System */}
-              <AIDecisionSupport 
+              {/* Professional Decision Support System */}
+              <ProfessionalDecisionSupport 
                 symbol={selectedSymbol}
                 onOrderPrepare={(orderData) => {
                   console.log('Order prepared:', orderData);
