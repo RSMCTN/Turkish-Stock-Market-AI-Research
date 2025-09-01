@@ -89,19 +89,34 @@ export default function ProfessionalDecisionSupport({ symbol, onOrderPrepare }: 
       setError(null);
       
       // Get real historical data for analysis
+      console.log(`🎯 Professional Decision Support fetching data for: ${symbol}`);
       const response = await fetch(`https://bistai001-production.up.railway.app/api/bist/historical/${symbol}?timeframe=60min&limit=50`);
       
       if (!response.ok) {
+        console.error(`❌ API Error ${response.status} for ${symbol}`);
         throw new Error(`API Error: ${response.status}`);
       }
       
       const historicalData = await response.json();
+      console.log(`📊 API Response for ${symbol}:`, historicalData);
       
-      if (!historicalData.success || !historicalData.data || historicalData.data.length === 0) {
+      // Check both old and new API response formats
+      let data = null;
+      if (historicalData.success && historicalData.data) {
+        data = historicalData.data;
+      } else if (historicalData['60min'] && historicalData['60min'].data) {
+        data = historicalData['60min'].data;
+      } else if (Array.isArray(historicalData)) {
+        data = historicalData;
+      }
+      
+      if (!data || data.length === 0) {
+        console.error(`❌ No valid data found for ${symbol}. Response structure:`, Object.keys(historicalData));
         throw new Error('No historical data available');
       }
       
-      const data = historicalData.data;
+      console.log(`✅ Found ${data.length} records for ${symbol}`);
+      
       const latestPrice = data[0]?.close || data[0]?.open || 0;
       const previousPrice = data[1]?.close || latestPrice;
       
