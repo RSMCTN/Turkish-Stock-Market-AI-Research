@@ -12,7 +12,12 @@ import {
   Crosshair,
   CandleSeries,
   IStockChartEventArgs,
-  ChartTheme
+  ChartTheme,
+  Zoom,
+  ScrollBar,
+  RangeNavigator,
+  PeriodSelector,
+  LineSeries
 } from '@syncfusion/ej2-react-charts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -142,7 +147,7 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
             <div>
               <CardTitle className="text-slate-100">Gelişmiş Fiyat Öngörü Grafiği - {selectedSymbol}</CardTitle>
               <p className="text-sm text-slate-400 mt-1">
-                Tarihsel + Saatlik DP-LSTM Forecast (40H Öngörü)
+                Tarihsel + Saatlik DP-LSTM Forecast • Zoom/Pan Aktif • Period Selector
               </p>
             </div>
           </div>
@@ -155,6 +160,9 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
             </Badge>
             <Badge className="bg-blue-600 text-white text-xs">
               DP-LSTM
+            </Badge>
+            <Badge className="bg-emerald-600 text-white text-xs">
+              Zoom+Pan
             </Badge>
             <RefreshCw className="h-4 w-4 text-slate-400" />
           </div>
@@ -196,9 +204,35 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
               lineType: 'Both',
               line: { color: 'rgba(16, 185, 129, 0.8)', width: 1 }
             }}
+            zoomSettings={{
+              enableMouseWheelZooming: true,
+              enablePinchZooming: true,
+              enableSelectionZooming: true,
+              mode: 'XY',
+              showToolbar: true,
+              toolbarItems: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset']
+            }}
+            scrollSettings={{
+              enable: true,
+              enableMouseWheelZooming: true,
+              range: {
+                start: new Date(new Date().getTime() - 24 * 60 * 60 * 1000), // 24 hours ago
+                end: new Date(new Date().getTime() + 8 * 60 * 60 * 1000)    // 8 hours future
+              }
+            }}
+            periods={[
+              { text: '1H', interval: 1, intervalType: 'Hours' },
+              { text: '3H', interval: 3, intervalType: 'Hours' },
+              { text: '8H', interval: 8, intervalType: 'Hours' },
+              { text: '24H', interval: 24, intervalType: 'Hours' },
+              { text: '3D', interval: 3, intervalType: 'Days' },
+              { text: 'Tümü', intervalType: 'Auto' }
+            ]}
+            enablePeriodSelector={true}
+            enableSelector={true}
             load={onLoad}
           >
-            <Inject services={[DateTime, Tooltip, Crosshair, CandleSeries]} />
+            <Inject services={[DateTime, Tooltip, Crosshair, CandleSeries, Zoom, ScrollBar, PeriodSelector, LineSeries]} />
             <StockChartSeriesCollectionDirective>
               {/* Historical Candlesticks */}
               <StockChartSeriesDirective
@@ -235,6 +269,30 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
           </StockChartComponent>
         </div>
         
+        {/* Chart Controls Info */}
+        <div className="mt-4 p-3 bg-slate-800/30 rounded-lg border border-slate-600">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+              <span className="text-slate-300">
+                <strong>Zoom:</strong> Mouse wheel veya sürükleme ile zoom
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <span className="text-slate-300">
+                <strong>Period:</strong> 1H, 3H, 8H, 24H butonları ile
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+              <span className="text-slate-300">
+                <strong>Pan:</strong> Shift+Drag ile kaydırma
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Enhanced Stats with Forecast */}
         <div className="mt-4 space-y-4">
           {/* Current vs Forecast */}
