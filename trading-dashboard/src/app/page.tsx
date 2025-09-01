@@ -364,13 +364,13 @@ export default function MamutDashboard() {
                       {/* Live KAP Feed */}
                       <div className="space-y-4">
                         <h3 className="font-semibold text-lg">📰 Live KAP Feed</h3>
-                        <LiveKAPFeed />
+                        <LiveKAPFeed selectedSymbol={selectedSymbol} />
                       </div>
                       
                       {/* Academic Metrics */}
                       <div className="space-y-4">
                         <h3 className="font-semibold text-lg">📊 Sentiment Metrics</h3>
-                        <AcademicMetricsDashboard />
+                        <AcademicMetricsDashboard selectedSymbol={selectedSymbol} />
                       </div>
                     </div>
                   </CardContent>
