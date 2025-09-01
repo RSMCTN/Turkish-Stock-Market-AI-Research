@@ -90,56 +90,26 @@ export default function ProfessionalDecisionSupport({ symbol, onOrderPrepare }: 
       
       console.log(`🎯 Professional Decision Support fetching data for: ${symbol}`);
       
-      // Try multiple timeframes as fallback
-      const timeframes = ['60min', 'daily', 'günlük'];
-      let data = null;
-      let usedTimeframe = null;
+      // Single API call - no fallback, only real data  
+      // Get substantial data for comprehensive analysis
+      const response = await fetch(`https://bistai001-production.up.railway.app/api/bist/historical/${symbol}?timeframe=60min&limit=500`);
       
-      for (const timeframe of timeframes) {
-        try {
-          console.log(`🔄 Trying ${timeframe} for ${symbol}`);
-          const response = await fetch(`https://bistai001-production.up.railway.app/api/bist/historical/${symbol}?timeframe=${timeframe}&limit=50`);
-          
-          if (!response.ok) {
-            console.log(`⚠️ ${timeframe} failed with ${response.status} for ${symbol}`);
-            continue;
-          }
-          
-          const historicalData = await response.json();
-          console.log(`📊 ${timeframe} response for ${symbol}:`, historicalData);
-          
-          // Extract data based on response format
-          let extractedData = null;
-          
-          if (historicalData.success && historicalData.data && historicalData.data.length > 0) {
-            extractedData = historicalData.data;
-            console.log(`✅ Found ${extractedData.length} records in historicalData.data format`);
-          } else if (historicalData[timeframe] && historicalData[timeframe].data && historicalData[timeframe].data.length > 0) {
-            extractedData = historicalData[timeframe].data;
-            console.log(`✅ Found ${extractedData.length} records in historicalData['${timeframe}'].data format`);
-          } else if (Array.isArray(historicalData) && historicalData.length > 0) {
-            extractedData = historicalData;
-            console.log(`✅ Found ${extractedData.length} records in direct array format`);
-          }
-          
-          if (extractedData && extractedData.length > 0) {
-            data = extractedData;
-            usedTimeframe = timeframe;
-            console.log(`🎯 SUCCESS: Using ${timeframe} data (${data.length} records) for ${symbol}`);
-            break;
-          } else {
-            console.log(`⚠️ ${timeframe} returned empty data for ${symbol}`);
-          }
-          
-        } catch (timeframeError) {
-          console.log(`⚠️ ${timeframe} failed for ${symbol}:`, timeframeError.message);
-          continue;
-        }
+      if (!response.ok) {
+        console.error(`❌ API Error ${response.status} for ${symbol}`);
+        throw new Error(`API connection failed (${response.status})`);
       }
       
-      if (!data || data.length === 0) {
-        console.error(`❌ No data available in any timeframe for ${symbol}`);
-        throw new Error(`No historical data available for ${symbol} in any timeframe`);
+      const historicalData = await response.json();
+      console.log(`📊 API Response for ${symbol}:`, historicalData);
+      
+      // Extract data from 60min timeframe
+      let data = null;
+      if (historicalData['60min'] && historicalData['60min'].data && historicalData['60min'].data.length > 0) {
+        data = historicalData['60min'].data;
+        console.log(`✅ Found ${data.length} records for ${symbol} (Total available: ${historicalData['60min'].total_records})`);
+      } else {
+        console.error(`❌ No historical data found for ${symbol}`);
+        throw new Error(`Bu sembol için historical data bulunamadı`);
       }
       
       console.log(`✅ Found ${data.length} records for ${symbol}`);
@@ -149,7 +119,7 @@ export default function ProfessionalDecisionSupport({ symbol, onOrderPrepare }: 
       
       // Calculate realistic price targets based on actual data
       const priceChange = ((latestPrice - previousPrice) / previousPrice) * 100;
-      const volatility = calculateVolatility(data.slice(0, 20));
+      const volatility = calculateVolatility(data.slice(0, 100)); // Use more data for better volatility calc
       const rsi = data[0]?.rsi || 50;
       const macd = data[0]?.macd || 0;
       
@@ -184,7 +154,7 @@ export default function ProfessionalDecisionSupport({ symbol, onOrderPrepare }: 
         risk_level: riskLevel,
         key_factors: [
           ...generateKeyFactors(rsi, macd, priceChange, volatility),
-          `Analysis based on ${usedTimeframe} timeframe data (${data.length} records)`
+          `Analysis based on ${data.length} 60-min records (${historicalData['60min'].total_records} total available)`
         ],
         technical_score: Math.max(20, Math.min(100, rsi > 50 ? rsi : 100 - rsi)),
         fundamental_score: 65 + Math.random() * 25,
