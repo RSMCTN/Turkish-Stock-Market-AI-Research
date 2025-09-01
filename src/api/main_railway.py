@@ -50,6 +50,20 @@ except ImportError as e:
     print(f"❌ Sentiment Analysis imports failed: {e}")
     SENTIMENT_AVAILABLE = False
 
+# ACADEMIC ENDPOINTS INTEGRATION
+try:
+    from src.api.academic_endpoints import (
+        get_academic_prediction_service, 
+        get_academic_metrics_service,
+        get_live_kap_feed_service,
+        get_academic_status_service
+    )
+    ACADEMIC_ENDPOINTS_AVAILABLE = True
+    print("✅ Academic Endpoints integration successful")
+except ImportError as e:
+    print(f"❌ Academic Endpoints integration failed: {e}")
+    ACADEMIC_ENDPOINTS_AVAILABLE = False
+
 # BIST DATA SERVICE (PostgreSQL primary, SQLite fallback)
 POSTGRESQL_SERVICE_AVAILABLE = False
 HISTORICAL_SERVICE_AVAILABLE = False
@@ -2301,4 +2315,47 @@ async def debug_files():
         "database_url_set": bool(os.getenv("DATABASE_URL")),
         "python_path": str(Path("csv_to_postgresql.py").exists())
     }
+
+
+# =============================================================================
+# ACADEMIC ENSEMBLE PREDICTION API ENDPOINTS - REAL INTEGRATION
+# =============================================================================
+
+@app.get("/api/academic/predict/{symbol}")
+async def get_academic_prediction(
+    symbol: str,
+    hours: int = Query(8, description="Prediction horizon in hours")
+):
+    """🎯 Academic Ensemble Prediction - Real Sentiment Integration"""
+    if not ACADEMIC_ENDPOINTS_AVAILABLE:
+        raise HTTPException(status_code=503, detail="Academic endpoints not available")
+    
+    return await get_academic_prediction_service(app_state, symbol, hours)
+
+
+@app.get("/api/academic/validation/{symbol}")
+async def get_academic_metrics(symbol: str):
+    """📊 Academic Validation Metrics - Real Performance Analytics"""
+    if not ACADEMIC_ENDPOINTS_AVAILABLE:
+        raise HTTPException(status_code=503, detail="Academic endpoints not available")
+        
+    return await get_academic_metrics_service(app_state, symbol)
+
+
+@app.get("/api/kap/live-announcements")
+async def get_live_kap_feed():
+    """📰 Live KAP Feed - Real News Sources Integration"""
+    if not ACADEMIC_ENDPOINTS_AVAILABLE:
+        raise HTTPException(status_code=503, detail="Academic endpoints not available")
+        
+    return await get_live_kap_feed_service(app_state)
+
+
+@app.get("/api/academic/status")
+async def get_academic_status():
+    """🚀 Academic System Status - Real Component Monitoring"""
+    if not ACADEMIC_ENDPOINTS_AVAILABLE:
+        return {"success": False, "status": "academic_endpoints_unavailable"}
+        
+    return get_academic_status_service(app_state)
 
