@@ -42,6 +42,7 @@ export default function MamutDashboard() {
 
   const [selectedSymbol, setSelectedSymbol] = useState('GARAN');
   const [indicators, setIndicators] = useState([]);
+  const [selectedTool, setSelectedTool] = useState<'indicators' | 'charts' | 'sentiment' | null>(null);
 
   // Mock user for demo
   const user = {
@@ -290,15 +291,27 @@ export default function MamutDashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <Button variant="outline" className="w-full justify-start">
+                      <Button 
+                        variant={selectedTool === 'indicators' ? 'default' : 'outline'} 
+                        className="w-full justify-start"
+                        onClick={() => setSelectedTool(selectedTool === 'indicators' ? null : 'indicators')}
+                      >
                         <BarChart3 className="h-4 w-4 mr-2" />
                         Technical Indicators
                       </Button>
-                      <Button variant="outline" className="w-full justify-start">
+                      <Button 
+                        variant={selectedTool === 'charts' ? 'default' : 'outline'} 
+                        className="w-full justify-start"
+                        onClick={() => setSelectedTool(selectedTool === 'charts' ? null : 'charts')}
+                      >
                         <TrendingUp className="h-4 w-4 mr-2" />
                         Advanced Charts
                       </Button>
-                      <Button variant="outline" className="w-full justify-start">
+                      <Button 
+                        variant={selectedTool === 'sentiment' ? 'default' : 'outline'} 
+                        className="w-full justify-start"
+                        onClick={() => setSelectedTool(selectedTool === 'sentiment' ? null : 'sentiment')}
+                      >
                         <AlertCircle className="h-4 w-4 mr-2" />
                         News Sentiment
                       </Button>
@@ -307,8 +320,67 @@ export default function MamutDashboard() {
                 </Card>
               </div>
 
-              {/* Advanced Indicators */}
-              <AdvancedIndicators symbol={selectedSymbol} indicators={indicators} />
+              {/* Traditional Tools Content */}
+              {selectedTool === 'indicators' && (
+                <Card className="mt-6">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <BarChart3 className="h-5 w-5 mr-2" />
+                      Technical Indicators - {selectedSymbol}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <AdvancedIndicators symbol={selectedSymbol} indicators={indicators} />
+                  </CardContent>
+                </Card>
+              )}
+
+              {selectedTool === 'charts' && (
+                <Card className="mt-6">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <TrendingUp className="h-5 w-5 mr-2" />
+                      Advanced Charts - {selectedSymbol}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <HistoricalChart 
+                      selectedSymbol={selectedSymbol}
+                    />
+                  </CardContent>
+                </Card>
+              )}
+
+              {selectedTool === 'sentiment' && (
+                <Card className="mt-6">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <AlertCircle className="h-5 w-5 mr-2" />
+                      News Sentiment Analysis - {selectedSymbol}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Live KAP Feed */}
+                      <div className="space-y-4">
+                        <h3 className="font-semibold text-lg">📰 Live KAP Feed</h3>
+                        <LiveKAPFeed />
+                      </div>
+                      
+                      {/* Academic Metrics */}
+                      <div className="space-y-4">
+                        <h3 className="font-semibold text-lg">📊 Sentiment Metrics</h3>
+                        <AcademicMetricsDashboard />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Advanced Indicators (shown when no tool is selected) */}
+              {!selectedTool && (
+                <AdvancedIndicators symbol={selectedSymbol} indicators={indicators} />
+              )}
             </div>
           </TabsContent>
 
