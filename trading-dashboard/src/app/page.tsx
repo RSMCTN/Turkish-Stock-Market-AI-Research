@@ -280,7 +280,7 @@ export default function MamutDashboard() {
           <TabsContent value="traditional" className="space-y-6">
             <div className="space-y-6">
               {/* Traditional DP-LSTM Forecast */}
-              <ForecastPanel />
+              <ForecastPanel selectedSymbol={selectedSymbol} />
 
               {/* Market Overview */}
               <div className="grid lg:grid-cols-2 gap-6">

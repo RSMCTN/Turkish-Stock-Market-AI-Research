@@ -46,8 +46,12 @@ interface BISTStock {
   change_percent: number;
 }
 
-export default function ForecastPanel() {
-  const [selectedSymbol, setSelectedSymbol] = useState('GARAN');
+interface ForecastPanelProps {
+  selectedSymbol?: string;
+}
+
+export default function ForecastPanel({ selectedSymbol: propSelectedSymbol = 'AKBNK' }: ForecastPanelProps) {
+  const [selectedSymbol, setSelectedSymbol] = useState(propSelectedSymbol);
   const [forecastHours, setForecastHours] = useState(8);  // BIST trading day (10:00-18:00)
   const [forecastData, setForecastData] = useState<any>({ predictions: [] });
   const [newsImpact, setNewsImpact] = useState<NewsImpact[]>([]);
@@ -61,6 +65,13 @@ export default function ForecastPanel() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filteredStocks, setFilteredStocks] = useState<BISTStock[]>([]);
+
+  // Update selectedSymbol when prop changes
+  useEffect(() => {
+    if (propSelectedSymbol && propSelectedSymbol !== selectedSymbol) {
+      setSelectedSymbol(propSelectedSymbol);
+    }
+  }, [propSelectedSymbol, selectedSymbol]);
 
   // Fetch available stocks from Railway API
   const fetchAvailableStocks = async () => {
