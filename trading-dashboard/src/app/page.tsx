@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Brain, LineChart, Zap, Activity, TrendingUp, AlertCircle, BarChart3, Target } from 'lucide-react';
+import { Brain, LineChart, Zap, Activity, TrendingUp, AlertCircle, BarChart3, Target, RefreshCw } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
