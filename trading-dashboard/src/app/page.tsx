@@ -182,43 +182,15 @@ export default function MamutDashboard() {
 
           {/* AI Analytics Tab */}
           <TabsContent value="academic" className="space-y-6">
-            {/* KOMPAKT Symbol Selector - Az Yer Kaplar */}
-            <div className="mb-4">
-              <Card className="bg-gradient-to-r from-slate-800 to-slate-700 border-slate-600 shadow-lg">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2">
-                        <TrendingUp className="h-5 w-5 text-emerald-400" />
-                        <h3 className="font-semibold text-white">Hisse Seçimi</h3>
-                      </div>
-                      <select 
-                        value={selectedSymbol} 
-                        onChange={(e) => setSelectedSymbol(e.target.value)}
-                        className="bg-slate-700 text-white border border-slate-600 rounded-lg px-4 py-2 min-w-[200px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      >
-                        <option value="AKBNK">AKBANK (AKBNK)</option>
-                        <option value="BIMAS">BİM (BIMAS)</option>
-                        <option value="GARAN">GARANTİ (GARAN)</option>
-                        <option value="BRSAN">BORUSAN (BRSAN)</option>
-                        <option value="THYAO">THY (THYAO)</option>
-                        <option value="TUPRS">TÜPRAŞ (TUPRS)</option>
-                        <option value="ASELS">ASELSAN (ASELS)</option>
-                        <option value="SASA">SASA (SASA)</option>
-                        <option value="KCHOL">KOÇ HOLDİNG (KCHOL)</option>
-                        <option value="ARCLK">ARÇELİK (ARCLK)</option>
-                      </select>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge className="bg-emerald-600 text-white">
-                        LIVE
-                      </Badge>
-                      <RefreshCw className="h-4 w-4 text-slate-400" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            {/* KOMPAKT RealSymbolSelector - 600 Hisse + Search */}
+            <RealSymbolSelector
+              selectedSymbol={selectedSymbol}
+              onSymbolChange={setSelectedSymbol}
+              showSearch={true}
+              showFilters={false}  // Kompakt için filter'ları kapat
+              limit={600}
+              compact={true}  // Kompakt görünüm
+            />
 
             {/* ANA AI PANELS - Daha Düzenli Layout */}
             <div className="space-y-6">
@@ -252,42 +224,15 @@ export default function MamutDashboard() {
 
           {/* Traditional Trading Tab */}
           <TabsContent value="traditional" className="space-y-6">
-            {/* KOMPAKT Symbol Selector */}
-            <div className="mb-4">
-              <Card className="bg-gradient-to-r from-slate-800 to-slate-700 border-slate-600 shadow-lg">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2">
-                        <BarChart3 className="h-5 w-5 text-blue-400" />
-                        <h3 className="font-semibold text-white">Hisse Seçimi</h3>
-                      </div>
-                      <select 
-                        value={selectedSymbol} 
-                        onChange={(e) => setSelectedSymbol(e.target.value)}
-                        className="bg-slate-700 text-white border border-slate-600 rounded-lg px-4 py-2 min-w-[200px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      >
-                        <option value="AKBNK">AKBANK (AKBNK)</option>
-                        <option value="BIMAS">BİM (BIMAS)</option>
-                        <option value="GARAN">GARANTİ (GARAN)</option>
-                        <option value="BRSAN">BORUSAN (BRSAN)</option>
-                        <option value="THYAO">THY (THYAO)</option>
-                        <option value="TUPRS">TÜPRAŞ (TUPRS)</option>
-                        <option value="ASELS">ASELSAN (ASELS)</option>
-                        <option value="SASA">SASA (SASA)</option>
-                        <option value="KCHOL">KOÇ HOLDİNG (KCHOL)</option>
-                        <option value="ARCLK">ARÇELİK (ARCLK)</option>
-                      </select>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge className="bg-blue-600 text-white">
-                        Traditional
-                      </Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            {/* KOMPAKT RealSymbolSelector - 600 Hisse + Search */}
+            <RealSymbolSelector
+              selectedSymbol={selectedSymbol}
+              onSymbolChange={setSelectedSymbol}
+              showSearch={true}
+              showFilters={false}  // Kompakt için filter'ları kapat
+              limit={600}
+              compact={true}  // Kompakt görünüm
+            />
             <div className="space-y-6">
               {/* Traditional DP-LSTM Forecast */}
               <ForecastPanel selectedSymbol={selectedSymbol} />
@@ -396,42 +341,15 @@ export default function MamutDashboard() {
 
           {/* Enhanced Analysis Tab */}
           <TabsContent value="enhanced" className="space-y-6">
-            {/* KOMPAKT Symbol Selector */}
-            <div className="mb-4">
-              <Card className="bg-gradient-to-r from-slate-800 to-slate-700 border-slate-600 shadow-lg">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2">
-                        <LineChart className="h-5 w-5 text-purple-400" />
-                        <h3 className="font-semibold text-white">Enhanced Chart - Hisse Seçimi</h3>
-                      </div>
-                      <select 
-                        value={selectedSymbol} 
-                        onChange={(e) => setSelectedSymbol(e.target.value)}
-                        className="bg-slate-700 text-white border border-slate-600 rounded-lg px-4 py-2 min-w-[200px] focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                      >
-                        <option value="AKBNK">AKBANK (AKBNK)</option>
-                        <option value="BIMAS">BİM (BIMAS)</option>
-                        <option value="GARAN">GARANTİ (GARAN)</option>
-                        <option value="BRSAN">BORUSAN (BRSAN)</option>
-                        <option value="THYAO">THY (THYAO)</option>
-                        <option value="TUPRS">TÜPRAŞ (TUPRS)</option>
-                        <option value="ASELS">ASELSAN (ASELS)</option>
-                        <option value="SASA">SASA (SASA)</option>
-                        <option value="KCHOL">KOÇ HOLDİNG (KCHOL)</option>
-                        <option value="ARCLK">ARÇELİK (ARCLK)</option>
-                      </select>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge className="bg-purple-600 text-white">
-                        Enhanced
-                      </Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            {/* KOMPAKT RealSymbolSelector - 600 Hisse + Search */}
+            <RealSymbolSelector
+              selectedSymbol={selectedSymbol}
+              onSymbolChange={setSelectedSymbol}
+              showSearch={true}
+              showFilters={false}  // Kompakt için filter'ları kapat
+              limit={600}
+              compact={true}  // Kompakt görünüm
+            />
             <div className="space-y-6">
 
               {/* Enhanced Stock Analysis */}

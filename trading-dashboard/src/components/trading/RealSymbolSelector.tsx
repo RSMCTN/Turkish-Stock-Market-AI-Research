@@ -37,6 +37,7 @@ interface RealSymbolSelectorProps {
   showSearch?: boolean;
   showFilters?: boolean;
   limit?: number;
+  compact?: boolean;
 }
 
 const RealSymbolSelector = ({ 
@@ -44,7 +45,8 @@ const RealSymbolSelector = ({
   onSymbolChange, 
   showSearch = true,
   showFilters = true,
-  limit = 50 
+  limit = 50,
+  compact = false
 }: RealSymbolSelectorProps) => {
   const [stocks, setStocks] = useState<BISTStock[]>([]);
   const [sectors, setSectors] = useState<Record<string, Sector>>({});
@@ -208,15 +210,15 @@ const RealSymbolSelector = ({
   }
 
   return (
-    <Card className="w-full">
-      <CardContent className="p-4 space-y-4">
+    <Card className={`w-full ${compact ? 'shadow-md' : ''}`}>
+      <CardContent className={`${compact ? 'p-3 space-y-3' : 'p-4 space-y-4'}`}>
         
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <BarChart3 className="h-5 w-5 text-blue-600" />
-            <h3 className="font-semibold text-gray-900">Hisse Seçimi</h3>
-            <Badge variant="outline" className="text-xs">
+            <h3 className={`font-semibold text-gray-900 ${compact ? 'text-sm' : ''}`}>Hisse Seçimi</h3>
+            <Badge variant="outline" className={`text-xs ${compact ? 'px-2 py-0' : ''}`}>
               {filteredStocks.length} stocks
             </Badge>
           </div>
@@ -235,7 +237,7 @@ const RealSymbolSelector = ({
               placeholder="Search by symbol or company name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className={`w-full pl-10 pr-4 ${compact ? 'py-1.5' : 'py-2'} border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
             />
           </div>
         )}
@@ -279,7 +281,7 @@ const RealSymbolSelector = ({
 
         {/* Selected Symbol Info */}
         {selectedSymbol && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+          <div className={`bg-blue-50 border border-blue-200 rounded-lg ${compact ? 'p-2' : 'p-3'}`}>
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
@@ -318,12 +320,12 @@ const RealSymbolSelector = ({
         )}
 
         {/* Stock List */}
-        <div className="max-h-64 overflow-y-auto space-y-1">
+        <div className={`${compact ? 'max-h-48' : 'max-h-64'} overflow-y-auto space-y-1`}>
           {filteredStocks.map((stock) => (
             <div
               key={stock.symbol}
               onClick={() => onSymbolChange(stock.symbol)}
-              className={`p-3 border rounded-lg cursor-pointer transition-all hover:shadow-md ${
+              className={`${compact ? 'p-2' : 'p-3'} border rounded-lg cursor-pointer transition-all hover:shadow-md ${
                 selectedSymbol === stock.symbol 
                   ? 'border-blue-500 bg-blue-50' 
                   : 'border-gray-200 hover:border-gray-300'
@@ -340,12 +342,16 @@ const RealSymbolSelector = ({
                       <Badge className="bg-yellow-100 text-yellow-800 text-xs">BIST 30</Badge>
                     )}
                   </div>
-                  <div className="text-sm text-gray-600 truncate">
-                    {stock.name_turkish}
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">
-                    Market Cap: {formatMarketCap(stock.market_cap)}
-                  </div>
+                  {!compact && (
+                    <div className="text-sm text-gray-600 truncate">
+                      {stock.name_turkish}
+                    </div>
+                  )}
+                  {!compact && (
+                    <div className="text-xs text-gray-500 mt-1">
+                      Market Cap: {formatMarketCap(stock.market_cap)}
+                    </div>
+                  )}
                 </div>
                 
                 <div className="text-right ml-4">
@@ -356,9 +362,11 @@ const RealSymbolSelector = ({
                     {getPriceChangeIcon(stock.change_percent)}
                     {stock.change_percent > 0 ? '+' : ''}{stock.change_percent.toFixed(2)}%
                   </div>
-                  <div className="text-xs text-gray-500 mt-1">
-                    Vol: {stock.volume.toLocaleString('tr-TR')}
-                  </div>
+                  {!compact && (
+                    <div className="text-xs text-gray-500 mt-1">
+                      Vol: {stock.volume.toLocaleString('tr-TR')}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
