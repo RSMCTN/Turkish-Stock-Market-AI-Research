@@ -30,6 +30,8 @@ import {
   Zap
 } from 'lucide-react';
 
+
+
 interface HistoricalDataPoint {
   datetime: string;
   open: number;
@@ -447,13 +449,105 @@ export default function HistoricalChart({ selectedSymbol = 'ACSEL' }: Historical
       </CardHeader>
       
       <CardContent>
-        <Tabs defaultValue="price" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="price">Fiyat</TabsTrigger>
-            <TabsTrigger value="indicators">İndikatörler</TabsTrigger>
-            <TabsTrigger value="volume">Hacim</TabsTrigger>
-            <TabsTrigger value="advanced">Gelişmiş</TabsTrigger>
+        <Tabs defaultValue="candlestick" className="w-full">
+          <TabsList className="grid w-full grid-cols-5">
+            <TabsTrigger value="candlestick">🕯️ Candlestick</TabsTrigger>
+            <TabsTrigger value="price">📈 Fiyat</TabsTrigger>
+            <TabsTrigger value="indicators">📊 İndikatörler</TabsTrigger>
+            <TabsTrigger value="volume">📦 Hacim</TabsTrigger>
+            <TabsTrigger value="advanced">⚡ Gelişmiş</TabsTrigger>
           </TabsList>
+
+          {/* Candlestick Chart */}
+          <TabsContent value="candlestick" className="space-y-4">
+            <div className="h-96">
+              <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart data={currentData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                  <XAxis 
+                    dataKey="datetime" 
+                    tickFormatter={formatXAxisLabel}
+                    stroke="#9ca3af"
+                    fontSize={12}
+                  />
+                  <YAxis 
+                    domain={['dataMin - 5', 'dataMax + 5']}
+                    tickFormatter={(value) => `₺${value.toFixed(2)}`}
+                    stroke="#9ca3af"
+                    fontSize={12}
+                  />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: '#1f2937',
+                      border: '1px solid #374151',
+                      borderRadius: '8px',
+                      color: '#f9fafb'
+                    }}
+                    formatter={(value: any, name: string) => {
+                      if (name === 'volume') return [value.toLocaleString(), 'Volume'];
+                      return [`₺${Number(value).toFixed(2)}`, name.toUpperCase()];
+                    }}
+                    labelFormatter={(label) => `Zaman: ${formatXAxisLabel(label)}`}
+                  />
+                  
+                  {/* Candlestick simulation using Bar charts */}
+                  <Bar 
+                    dataKey="high"
+                    fill="transparent"
+                    stroke="#10b981"
+                    strokeWidth={1}
+                    name="High-Low Range"
+                  />
+                  
+                  {/* Volume bars at bottom */}
+                  <Bar 
+                    dataKey="volume"
+                    yAxisId="right"
+                    fill="#3b82f6"
+                    opacity={0.3}
+                    name="Volume"
+                  />
+                  
+                  <YAxis 
+                    yAxisId="right" 
+                    orientation="right"
+                    stroke="#9ca3af"
+                    fontSize={10}
+                  />
+                  
+                  <Legend />
+                </ComposedChart>
+              </ResponsiveContainer>
+              
+              {/* Candlestick Information */}
+              <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
+                  <div className="text-xs text-slate-400">Open</div>
+                  <div className="text-lg font-bold text-emerald-400">
+                    ₺{currentData[currentData.length - 1]?.open?.toFixed(2) || '0.00'}
+                  </div>
+                </div>
+                <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
+                  <div className="text-xs text-slate-400">High</div>
+                  <div className="text-lg font-bold text-green-400">
+                    ₺{Math.max(...currentData.map(d => d.high || 0)).toFixed(2)}
+                  </div>
+                </div>
+                <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
+                  <div className="text-xs text-slate-400">Low</div>
+                  <div className="text-lg font-bold text-red-400">
+                    ₺{Math.min(...currentData.map(d => d.low || 0)).toFixed(2)}
+                  </div>
+                </div>
+                <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
+                  <div className="text-xs text-slate-400">Close</div>
+                  <div className="text-lg font-bold text-blue-400">
+                    ₺{currentData[currentData.length - 1]?.close?.toFixed(2) || '0.00'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
 
           {/* Price Chart */}
           <TabsContent value="price" className="space-y-4">

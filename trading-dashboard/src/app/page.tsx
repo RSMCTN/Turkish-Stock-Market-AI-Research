@@ -71,9 +71,9 @@ export default function MamutDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900/40 to-indigo-900/60">
       {/* MAMUT R600 Header */}
-      <header className="border-b bg-white/90 backdrop-blur-md shadow-xl border-slate-200/50">
+      <header className="border-b bg-slate-800/95 backdrop-blur-md shadow-xl border-slate-700/50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -86,23 +86,23 @@ export default function MamutDashboard() {
                   loading="lazy"
                 />
                 <div className="ml-2 hidden sm:block">
-                  <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 bg-clip-text text-transparent">
+                  <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-400 bg-clip-text text-transparent">
                     MAMUT R600
                   </h1>
-                  <p className="text-xs md:text-sm text-slate-500 font-medium">Professional AI-Powered Trading Platform</p>
+                  <p className="text-xs md:text-sm text-slate-300 font-medium">Professional AI-Powered Trading Platform</p>
                 </div>
               </div>
-              <Badge className="bg-gradient-to-r from-emerald-100 to-cyan-100 text-emerald-700 border-emerald-200">
+              <Badge className="bg-gradient-to-r from-emerald-600 to-cyan-600 text-white border-emerald-500 shadow-lg animate-pulse">
                 🚀 LIVE MODE
               </Badge>
             </div>
             
             <div className="flex items-center space-x-4">
-              <div className="text-sm text-slate-700">
-                <div className="font-medium">{user.name}</div>
-                <div className="text-xs text-slate-500">Professional Trading</div>
+              <div className="text-sm text-slate-300">
+                <div className="font-medium text-white">{user.name}</div>
+                <div className="text-xs text-slate-400">Professional Trading</div>
               </div>
-              <Button variant="outline" size="sm" className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 hover:from-blue-100 hover:to-purple-100">
+              <Button variant="outline" size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-blue-500 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg transition-all">
                 Export Data
               </Button>
             </div>
@@ -116,31 +116,31 @@ export default function MamutDashboard() {
         {/* Enhanced System Status Overview - WOW Design */}
         <div className="mb-8 grid grid-cols-2 md:grid-cols-5 gap-4">
           {Object.entries(systemStatus).map(([component, status]) => (
-            <Card key={component} className="bg-white/90 border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:border-emerald-300 group">
+            <Card key={component} className="bg-gradient-to-br from-slate-800/90 to-slate-700/80 border-slate-600 shadow-xl hover:shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500 hover:scale-105 hover:border-emerald-400 group backdrop-blur-sm">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-slate-600 capitalize font-medium">{component.replace(/([A-Z])/g, ' $1')}</p>
+                    <p className="text-xs text-slate-300 capitalize font-medium">{component.replace(/([A-Z])/g, ' $1')}</p>
                     <div className="flex items-center gap-2 mt-2">
                       <div className="relative">
-                        <div className={`w-3 h-3 rounded-full ${
-                          status === 'active' ? 'bg-gradient-to-r from-emerald-500 to-green-500 animate-pulse' : 
-                          'bg-gradient-to-r from-red-500 to-pink-500'
+                        <div className={`w-4 h-4 rounded-full ${
+                          status === 'active' ? 'bg-gradient-to-r from-emerald-400 to-green-400 animate-pulse shadow-lg shadow-emerald-400/50' : 
+                          'bg-gradient-to-r from-red-400 to-pink-400 shadow-lg shadow-red-400/50'
                         }`} />
                         {status === 'active' && (
-                          <div className="absolute inset-0 w-3 h-3 rounded-full bg-emerald-400 animate-ping opacity-30"></div>
+                          <div className="absolute inset-0 w-4 h-4 rounded-full bg-emerald-300 animate-ping opacity-40"></div>
                         )}
                       </div>
-                      <span className={`text-xs font-bold px-2 py-1 rounded-full ${
-                        status === 'active' ? 'text-emerald-700 bg-gradient-to-r from-emerald-100 to-green-100' :
-                        'text-red-700 bg-gradient-to-r from-red-100 to-pink-100'
+                      <span className={`text-xs font-bold px-3 py-1 rounded-full ${
+                        status === 'active' ? 'text-emerald-100 bg-gradient-to-r from-emerald-600 to-green-600 shadow-lg' :
+                        'text-red-100 bg-gradient-to-r from-red-600 to-pink-600 shadow-lg'
                       }`}>
                         {status.toUpperCase()}
                       </span>
                     </div>
                   </div>
-                  <Activity className={`h-5 w-5 transition-all duration-300 group-hover:scale-110 ${
-                    status === 'active' ? 'text-emerald-500 group-hover:text-emerald-600' : 'text-red-500 group-hover:text-red-600'
+                  <Activity className={`h-6 w-6 transition-all duration-300 group-hover:scale-110 ${
+                    status === 'active' ? 'text-emerald-400 group-hover:text-emerald-300 drop-shadow-lg' : 'text-red-400 group-hover:text-red-300 drop-shadow-lg'
                   }`} />
                 </div>
               </CardContent>
