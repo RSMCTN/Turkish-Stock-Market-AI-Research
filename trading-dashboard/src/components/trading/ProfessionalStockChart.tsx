@@ -14,8 +14,6 @@ import {
   IStockChartEventArgs,
   ChartTheme,
   Zoom,
-  ScrollBar,
-  PeriodSelector,
   LineSeries
 } from '@syncfusion/ej2-react-charts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -212,22 +210,12 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
               showToolbar: true,
               toolbarItems: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset']
             }}
-                              scrollsettings={{
-                    enable: true,
-                    enableMouseWheelZooming: true
-                  }}
-            periods={[
-              { text: 'Dakikalık', interval: 15, intervalType: 'Minutes' },
-              { text: 'Saatlik', interval: 1, intervalType: 'Hours' },
-              { text: '2 Saatlik', interval: 2, intervalType: 'Hours' },
-              { text: 'Günlük', interval: 1, intervalType: 'Days' },
-              { text: 'Tümü', intervalType: 'Auto' }
-            ]}
-            enablePeriodSelector={true}
-            enableSelector={true}
+
+            enablePeriodSelector={false}
+            enableSelector={false}
             load={onLoad}
           >
-            <Inject services={[DateTime, Tooltip, Crosshair, CandleSeries, Zoom, ScrollBar, PeriodSelector, LineSeries]} />
+            <Inject services={[DateTime, Tooltip, Crosshair, CandleSeries, Zoom, LineSeries]} />
             <StockChartSeriesCollectionDirective>
               {/* Historical Candlesticks */}
                               <StockChartSeriesDirective
