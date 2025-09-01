@@ -15,7 +15,6 @@ import {
   ChartTheme,
   Zoom,
   ScrollBar,
-  RangeNavigator,
   PeriodSelector,
   LineSeries
 } from '@syncfusion/ej2-react-charts';
@@ -212,14 +211,14 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
               showToolbar: true,
               toolbarItems: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset']
             }}
-            scrollSettings={{
-              enable: true,
-              enableMouseWheelZooming: true,
-              range: {
-                start: new Date(new Date().getTime() - 24 * 60 * 60 * 1000), // 24 hours ago
-                end: new Date(new Date().getTime() + 8 * 60 * 60 * 1000)    // 8 hours future
-              }
-            }}
+                              scrollsettings={{
+                    enable: true,
+                    enableMouseWheelZooming: true,
+                    range: {
+                      start: new Date(new Date().getTime() - 24 * 60 * 60 * 1000), // 24 hours ago
+                      end: new Date(new Date().getTime() + 8 * 60 * 60 * 1000)    // 8 hours future
+                    }
+                  }}
             periods={[
               { text: '1H', interval: 1, intervalType: 'Hours' },
               { text: '3H', interval: 3, intervalType: 'Hours' },
