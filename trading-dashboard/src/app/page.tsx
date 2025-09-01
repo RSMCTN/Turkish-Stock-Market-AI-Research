@@ -31,7 +31,7 @@ import AdvancedTechnicalPanel from '@/components/trading/AdvancedTechnicalPanel'
 import ProfessionalDecisionSupport from '@/components/trading/ProfessionalDecisionSupport';
 import EnhancedHistoricalChart from '@/components/trading/EnhancedHistoricalChart';
 
-export default function AcademicDashboard() {
+export default function MamutDashboard() {
   const [systemStatus, setSystemStatus] = useState({
     dpLstm: 'active',
     sentimentArma: 'active', 
@@ -45,8 +45,8 @@ export default function AcademicDashboard() {
 
   // Mock user for demo
   const user = {
-    name: "Academic Researcher",
-    email: "researcher@academic.edu"
+    name: "MAMUT Trader",
+    email: "trader@mamut-r600.com"
   };
 
   useEffect(() => {
@@ -70,9 +70,9 @@ export default function AcademicDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      {/* Academic Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm shadow-lg">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-blue-50">
+      {/* MAMUT R600 Header */}
+      <header className="border-b bg-white/90 backdrop-blur-md shadow-xl border-slate-200/50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -81,96 +81,111 @@ export default function AcademicDashboard() {
                   <Brain className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-800 to-purple-800 bg-clip-text text-transparent">
-                    Academic Trading Research Framework
+                  <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    MAMUT_R600
                   </h1>
-                  <p className="text-sm text-slate-600">Differential Privacy LSTM • sentimentARMA • KAP Integration</p>
+                  <p className="text-sm text-slate-500">Professional AI-Powered Trading Platform</p>
                 </div>
               </div>
-              <Badge className="bg-gradient-to-r from-green-100 to-blue-100 text-green-700 border-green-200">
-                🎓 Research Mode
+              <Badge className="bg-gradient-to-r from-emerald-100 to-cyan-100 text-emerald-700 border-emerald-200">
+                🚀 LIVE MODE
               </Badge>
             </div>
             
             <div className="flex items-center space-x-4">
               <div className="text-sm text-slate-700">
                 <div className="font-medium">{user.name}</div>
-                <div className="text-xs text-slate-500">Academic Dashboard</div>
+                <div className="text-xs text-slate-500">Professional Trading</div>
               </div>
-              <Button variant="outline" size="sm">
-                Export Research
+              <Button variant="outline" size="sm" className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 hover:from-blue-100 hover:to-purple-100">
+                Export Data
               </Button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Academic Dashboard */}
+      {/* MAMUT R600 Professional Dashboard */}
       <main className="container mx-auto px-6 py-8">
         
-        {/* System Status Overview */}
+        {/* Enhanced System Status Overview - WOW Design */}
         <div className="mb-8 grid grid-cols-2 md:grid-cols-5 gap-4">
           {Object.entries(systemStatus).map(([component, status]) => (
-            <Card key={component} className="bg-white/70 border-slate-200">
-              <CardContent className="p-3">
+            <Card key={component} className="bg-white/90 border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:border-emerald-300 group">
+              <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-slate-500 capitalize">{component.replace(/([A-Z])/g, ' $1')}</p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <div className={`w-2 h-2 rounded-full ${status === 'active' ? 'bg-green-500' : 'bg-red-500'}`} />
-                      <span className="text-sm font-medium text-slate-700">{status}</span>
+                    <p className="text-xs text-slate-600 capitalize font-medium">{component.replace(/([A-Z])/g, ' $1')}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="relative">
+                        <div className={`w-3 h-3 rounded-full ${
+                          status === 'active' ? 'bg-gradient-to-r from-emerald-500 to-green-500 animate-pulse' : 
+                          'bg-gradient-to-r from-red-500 to-pink-500'
+                        }`} />
+                        {status === 'active' && (
+                          <div className="absolute inset-0 w-3 h-3 rounded-full bg-emerald-400 animate-ping opacity-30"></div>
+                        )}
+                      </div>
+                      <span className={`text-xs font-bold px-2 py-1 rounded-full ${
+                        status === 'active' ? 'text-emerald-700 bg-gradient-to-r from-emerald-100 to-green-100' :
+                        'text-red-700 bg-gradient-to-r from-red-100 to-pink-100'
+                      }`}>
+                        {status.toUpperCase()}
+                      </span>
                     </div>
                   </div>
-                  <Activity className={`h-4 w-4 ${status === 'active' ? 'text-green-500' : 'text-red-500'}`} />
+                  <Activity className={`h-5 w-5 transition-all duration-300 group-hover:scale-110 ${
+                    status === 'active' ? 'text-emerald-500 group-hover:text-emerald-600' : 'text-red-500 group-hover:text-red-600'
+                  }`} />
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        {/* Academic Research Tabs */}
+        {/* MAMUT R600 Trading Modules */}
         <Tabs defaultValue="academic" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 bg-white/80 border border-slate-200">
+          <TabsList className="grid w-full grid-cols-5 bg-gradient-to-r from-white via-slate-50 to-white border border-slate-200 shadow-xl rounded-xl p-1">
             <TabsTrigger 
               value="academic" 
-              className="flex items-center gap-2 data-[state=active]:bg-blue-100 data-[state=active]:text-blue-800"
+              className="flex items-center gap-2 rounded-lg transition-all duration-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-500 data-[state=active]:to-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg hover:shadow-md"
             >
               <Brain className="h-4 w-4" />
-              Academic Research
+              AI Analytics
             </TabsTrigger>
             <TabsTrigger 
               value="enhanced" 
-              className="flex items-center gap-2 data-[state=active]:bg-orange-100 data-[state=active]:text-orange-800"
+              className="flex items-center gap-2 rounded-lg transition-all duration-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-red-500 data-[state=active]:text-white data-[state=active]:shadow-lg hover:shadow-md"
             >
               <Target className="h-4 w-4" />
-              Kapsamlı Analiz
+              Enhanced Chart
             </TabsTrigger>
             <TabsTrigger 
               value="traditional" 
-              className="flex items-center gap-2 data-[state=active]:bg-green-100 data-[state=active]:text-green-800"
+              className="flex items-center gap-2 rounded-lg transition-all duration-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg hover:shadow-md"
             >
               <LineChart className="h-4 w-4" />
-              Traditional Trading
+              Technical Analysis
             </TabsTrigger>
             <TabsTrigger 
               value="integrated" 
-              className="flex items-center gap-2 data-[state=active]:bg-purple-100 data-[state=active]:text-purple-800"
+              className="flex items-center gap-2 rounded-lg transition-all duration-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-lg hover:shadow-md"
             >
               <Zap className="h-4 w-4" />
               Integrated View
             </TabsTrigger>
             <TabsTrigger 
               value="professional" 
-              className="flex items-center gap-2 data-[state=active]:bg-emerald-100 data-[state=active]:text-emerald-800"
+              className="flex items-center gap-2 rounded-lg transition-all duration-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-lg hover:shadow-md"
             >
               <Target className="h-4 w-4" />
               Pro Decision
             </TabsTrigger>
           </TabsList>
 
-          {/* Academic Research Tab */}
+          {/* AI Analytics Tab */}
           <TabsContent value="academic" className="space-y-6">
-            {/* Symbol Selector for Academic Research */}
+            {/* Symbol Selector for AI Analytics */}
             <RealSymbolSelector
               selectedSymbol={selectedSymbol}
               onSymbolChange={setSelectedSymbol}
@@ -180,7 +195,7 @@ export default function AcademicDashboard() {
             />
 
             <div className="grid lg:grid-cols-2 gap-6">
-              {/* Academic Prediction System */}
+              {/* AI Prediction System */}
               <AcademicPredictionPanel selectedSymbol={selectedSymbol} />
               
               {/* HuggingFace Production Model */}
@@ -191,7 +206,7 @@ export default function AcademicDashboard() {
               {/* Live KAP Feed */}
               <LiveKAPFeed selectedSymbol={selectedSymbol} />
               
-              {/* Academic Metrics */}
+              {/* AI Performance Metrics */}
               <AcademicMetricsDashboard selectedSymbol={selectedSymbol} />
               
               {/* Component Contributions */}
@@ -225,12 +240,14 @@ export default function AcademicDashboard() {
             {/* AI Decision Support System */}
             <AIDecisionSupport selectedSymbol={selectedSymbol} />
 
-            {/* Academic Research Info */}
-            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+            {/* MAMUT System Status */}
+            <Card className="bg-gradient-to-r from-emerald-50 via-blue-50 to-purple-50 border-emerald-200 shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Brain className="h-5 w-5" />
-                  Research Framework Status
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <div className="p-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg">
+                    <Brain className="h-5 w-5 text-white" />
+                  </div>
+                  MAMUT R600 System Status
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -250,8 +267,8 @@ export default function AcademicDashboard() {
                 </div>
                 <div className="mt-4 p-3 bg-white/60 rounded-lg">
                   <p className="text-sm text-slate-700">
-                    <strong>Research Title:</strong> "Diferansiyel Gizlilikten Esinlenen LSTM ile Finansal Haberleri ve 
-                    Değerleri Kullanarak İsabet Oranı Yüksek Hisse Senedi Tahmini"
+                    <strong>MAMUT R600:</strong> Professional AI-Powered Trading Platform with Advanced Analytics, 
+                    Real-time Market Intelligence, and Precision Trading Signals
                   </p>
                 </div>
               </CardContent>
@@ -321,8 +338,8 @@ export default function AcademicDashboard() {
           {/* Integrated View Tab */}
           <TabsContent value="integrated" className="space-y-6">
             <div className="grid lg:grid-cols-2 gap-6">
-              {/* Combined Academic + Traditional */}
-              <Card className="bg-gradient-to-br from-blue-50 to-purple-50">
+              {/* Combined AI + Technical Analysis */}
+              <Card className="bg-gradient-to-br from-emerald-50 to-cyan-50 shadow-lg border-emerald-200">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Zap className="h-5 w-5" />
@@ -380,10 +397,12 @@ export default function AcademicDashboard() {
               </Card>
             </div>
 
-            {/* Comprehensive Research Summary */}
-            <Card className="bg-gradient-to-r from-slate-50 to-blue-50 border-slate-200">
+            {/* MAMUT R600 Complete System Summary */}
+            <Card className="bg-gradient-to-r from-slate-50 via-emerald-50 to-blue-50 border-emerald-200 shadow-xl">
               <CardHeader>
-                <CardTitle className="text-center">🎯 Complete Academic Framework</CardTitle>
+                <CardTitle className="text-center bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent text-xl">
+                  🚀 MAMUT R600 Complete Trading System
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-4 gap-4 text-center">
@@ -443,9 +462,9 @@ export default function AcademicDashboard() {
           </TabsContent>
         </Tabs>
 
-        {/* Footer Research Info */}
-        <div className="mt-8 text-center text-sm text-slate-600 bg-white/50 p-4 rounded-lg border">
-          <p className="font-medium mb-1">🎓 Academic Research Dashboard</p>
+        {/* Footer System Info */}
+        <div className="mt-8 text-center text-sm text-slate-600 bg-gradient-to-r from-white/60 to-emerald-50/60 p-4 rounded-lg border border-emerald-200 shadow-md">
+          <p className="font-medium mb-1 text-emerald-800">🚀 MAMUT R600 Professional Trading Platform</p>
           <p>
             Integrating <strong>5 Data Sources</strong> • <strong>4 ML Models</strong> • <strong>Real-time Processing</strong>
             • <strong>Differential Privacy</strong> • <strong>Turkish NLP</strong>
