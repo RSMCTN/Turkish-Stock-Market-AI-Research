@@ -100,18 +100,31 @@ export default function ProfessionalDecisionSupport({ symbol, onOrderPrepare }: 
       const historicalData = await response.json();
       console.log(`📊 API Response for ${symbol}:`, historicalData);
       
+      // Deep debug for 60min structure
+      if (historicalData['60min']) {
+        console.log(`🔍 60min object for ${symbol}:`, historicalData['60min']);
+        console.log(`📊 60min.data for ${symbol}:`, historicalData['60min'].data);
+        console.log(`📊 60min keys:`, Object.keys(historicalData['60min']));
+      }
+      
       // Check both old and new API response formats
       let data = null;
       if (historicalData.success && historicalData.data) {
         data = historicalData.data;
+        console.log(`✅ Using historicalData.data format`);
       } else if (historicalData['60min'] && historicalData['60min'].data) {
         data = historicalData['60min'].data;
+        console.log(`✅ Using historicalData['60min'].data format`);
       } else if (Array.isArray(historicalData)) {
         data = historicalData;
+        console.log(`✅ Using direct array format`);
       }
       
       if (!data || data.length === 0) {
         console.error(`❌ No valid data found for ${symbol}. Response structure:`, Object.keys(historicalData));
+        if (historicalData['60min']) {
+          console.error(`❌ 60min structure:`, historicalData['60min']);
+        }
         throw new Error('No historical data available');
       }
       
