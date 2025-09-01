@@ -176,7 +176,13 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
               valueType: 'DateTime',
               majorGridLines: { color: 'rgba(255,255,255,0.1)' },
               lineStyle: { color: 'rgba(255,255,255,0.2)' },
-              labelStyle: { color: '#9ca3af' }
+              labelStyle: { color: '#9ca3af' },
+              labelFormat: 'MMM dd HH:mm',
+              intervalType: 'Hours',
+              interval: 2,  // 2 saatlik aralıklar
+              // GENİŞ DEFAULT GÖRÜNÜM: 6 saat geçmiş + 12 saat gelecek
+              minimum: new Date(new Date().getTime() - 6 * 60 * 60 * 1000), // 6 saat geriye
+              maximum: new Date(new Date().getTime() + 12 * 60 * 60 * 1000)  // 12 saat ileriye
             }}
             primaryYAxis={{
               labelFormat: '₺{value}',
