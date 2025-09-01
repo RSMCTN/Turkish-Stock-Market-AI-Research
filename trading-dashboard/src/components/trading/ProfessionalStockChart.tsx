@@ -144,9 +144,9 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
           <div className="flex items-center gap-3">
             <TrendingUp className="h-6 w-6 text-emerald-400" />
             <div>
-              <CardTitle className="text-slate-100">Dakikalık Fiyat Tahmin Grafiği - {selectedSymbol}</CardTitle>
+              <CardTitle className="text-slate-100">Multi-Periyot Fiyat Tahmin Grafiği - {selectedSymbol}</CardTitle>
               <p className="text-sm text-slate-400 mt-1">
-                7 Gün Minimal Tarihsel + 8 Saat Dakikalık DP-LSTM Forecast
+                Dakikalık • Saatlik • 2 Saatlik • Günlük DP-LSTM Forecast
               </p>
             </div>
           </div>
@@ -215,16 +215,15 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
                     enable: true,
                     enableMouseWheelZooming: true,
                     range: {
-                      start: new Date(new Date().getTime() - 24 * 60 * 60 * 1000), // 24 hours ago
-                      end: new Date(new Date().getTime() + 8 * 60 * 60 * 1000)    // 8 hours future
+                      start: new Date(new Date().getTime() - 2 * 60 * 60 * 1000), // 2 hours ago - for minute view
+                      end: new Date(new Date().getTime() + 1 * 60 * 60 * 1000)    // 1 hour future - for minute view
                     }
                   }}
             periods={[
-              { text: '1H', interval: 1, intervalType: 'Hours' },
-              { text: '3H', interval: 3, intervalType: 'Hours' },
-              { text: '8H', interval: 8, intervalType: 'Hours' },
-              { text: '24H', interval: 24, intervalType: 'Hours' },
-              { text: '3D', interval: 3, intervalType: 'Days' },
+              { text: 'Dakikalık', interval: 15, intervalType: 'Minutes' },
+              { text: 'Saatlik', interval: 1, intervalType: 'Hours' },
+              { text: '2 Saatlik', interval: 2, intervalType: 'Hours' },
+              { text: 'Günlük', interval: 1, intervalType: 'Days' },
               { text: 'Tümü', intervalType: 'Auto' }
             ]}
             enablePeriodSelector={true}
@@ -268,19 +267,19 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
           </StockChartComponent>
         </div>
         
-        {/* Future-Focused Chart Info */}
+        {/* Multi-Period Chart Info */}
         <div className="mt-4 p-3 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg border border-blue-500/30">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
               <span className="text-slate-300">
-                <strong>Dakikalık Forecast:</strong> 8 saatlik gelecek tahminleri
+                <strong>Period Seçimi:</strong> Dakikalık → Günlük aralığı
               </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
               <span className="text-slate-300">
-                <strong>Minimal Historical:</strong> Sadece 7 gün context
+                <strong>Chart Controls:</strong> Period butonları aktif
               </span>
             </div>
           </div>

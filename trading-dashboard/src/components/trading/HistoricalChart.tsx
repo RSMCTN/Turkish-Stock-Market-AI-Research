@@ -12,7 +12,7 @@ interface HistoricalChartProps {
 
 export default function HistoricalChart({ selectedSymbol = 'AKBNK' }: HistoricalChartProps) {
   const [loading, setLoading] = useState(false);
-  const [forecastHours, setForecastHours] = useState<1 | 4 | 8 | 16>(1); // Default to minute-level forecasting
+  const [forecastHours, setForecastHours] = useState<1 | 8 | 16 | 24>(1); // Default to minute-level forecasting
       
       return (
     <div className="w-full space-y-6">
@@ -84,7 +84,7 @@ export default function HistoricalChart({ selectedSymbol = 'AKBNK' }: Historical
               </div>
             </div>
 
-            {/* Timeframe Selector */}
+            {/* Timeframe Selector - Corrected Order */}
             <div className="mb-6">
               <div className="flex gap-2 mb-4">
                 <button 
@@ -94,14 +94,6 @@ export default function HistoricalChart({ selectedSymbol = 'AKBNK' }: Historical
                   }`}
                 >
                   Dakikalık
-                </button>
-                <button 
-                  onClick={() => setForecastHours(4 as any)}
-                  className={`px-4 py-2 rounded text-sm font-medium transition-all ${
-                    forecastHours === 4 ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                  }`}
-                >
-                  15 Dakikalık
                 </button>
                 <button 
                   onClick={() => setForecastHours(8 as any)}
@@ -119,13 +111,26 @@ export default function HistoricalChart({ selectedSymbol = 'AKBNK' }: Historical
                 >
                   2 Saatlik
                 </button>
+                <button 
+                  onClick={() => setForecastHours(24 as any)}
+                  className={`px-4 py-2 rounded text-sm font-medium transition-all ${
+                    forecastHours === 24 ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                  }`}
+                >
+                  Günlük
+                </button>
               </div>
             </div>
 
             {/* Detailed Forecast Display */}
             <div className="space-y-3 max-h-80 overflow-y-auto">
-              {/* Generate detailed forecasts based on timeframe */}
-              {Array.from({ length: forecastHours === 1 ? 60 : forecastHours === 4 ? 16 : forecastHours === 8 ? 8 : 8 }, (_, i) => {
+              {/* Generate detailed forecasts based on corrected timeframe */}
+              {Array.from({ length: 
+                forecastHours === 1 ? 60 :   // 60 minutes
+                forecastHours === 8 ? 8 :    // 8 hours  
+                forecastHours === 16 ? 8 :   // 8 intervals of 2 hours
+                7                            // 7 days
+              }, (_, i) => {
                 const currentPrice = {
                   'AKBNK': 69.5,
                   'BIMAS': 536.0,
@@ -133,13 +138,17 @@ export default function HistoricalChart({ selectedSymbol = 'AKBNK' }: Historical
                   'A1YEN': 58.0,
                 }[selectedSymbol] || 50.0;
                 
-                const timeMultiplier = forecastHours === 1 ? 1 : forecastHours === 4 ? 15 : 60; // minutes
-                const timeLabel = forecastHours === 1 ? `${i + 1}dk` : forecastHours === 4 ? `${(i + 1) * 15}dk` : `${i + 1}s`;
+                // Corrected time labeling
+                const timeLabel = 
+                  forecastHours === 1 ? `${i + 1}dk` :        // Minutes
+                  forecastHours === 8 ? `${i + 1}s` :         // Hours
+                  forecastHours === 16 ? `${(i + 1) * 2}s` :  // 2-Hour intervals
+                  `${i + 1}g`;                                 // Days
                 
                 const forecastPrice = currentPrice * (1 + (Math.sin(i * 0.2) * 0.01) + (Math.random() - 0.5) * 0.02);
                 const change = ((forecastPrice - currentPrice) / currentPrice) * 100;
                 const isPositive = change > 0;
-                const confidence = 95 - (i * 0.5); // Decreasing confidence over time
+                const confidence = 95 - (i * (forecastHours === 1 ? 0.3 : forecastHours === 8 ? 0.5 : forecastHours === 16 ? 1.0 : 2.0)); // Different confidence decay per timeframe
                 
                 return (
                   <div key={i} className="flex justify-between items-center p-3 bg-slate-800/70 rounded-lg hover:bg-slate-700/70 transition-all">
