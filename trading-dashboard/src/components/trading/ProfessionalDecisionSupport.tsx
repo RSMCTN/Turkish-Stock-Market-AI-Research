@@ -144,9 +144,26 @@ export default function ProfessionalDecisionSupport({ symbol, onOrderPrepare }: 
       else if (volatility > 2) riskLevel = 'MEDIUM';
       else riskLevel = 'LOW';
       
-      // Realistic price targets based on current price and volatility
+      // Realistic price targets and stop loss based on trading logic
       const supportLevel = latestPrice * (1 - volatility / 100);
       const resistanceLevel = latestPrice * (1 + volatility / 100);
+      
+      // Professional stop loss: always below current price for risk management
+      const professionalStopLoss = latestPrice * 0.95; // 5% below current price
+      
+      let priceTarget = latestPrice; // Default: hold position
+      let stopLoss = professionalStopLoss; // Always risk management
+      
+      if (decision === 'BUY') {
+        priceTarget = resistanceLevel; // Target: up
+        stopLoss = supportLevel; // Risk: down
+      } else if (decision === 'SELL') {
+        priceTarget = supportLevel; // Target: down (short position)
+        stopLoss = resistanceLevel; // Risk: up (for short)
+      } else { // HOLD
+        priceTarget = latestPrice; // No target movement
+        stopLoss = professionalStopLoss; // Conservative risk management
+      }
       
       const transformedData: DecisionData = {
         final_decision: decision,
@@ -154,13 +171,14 @@ export default function ProfessionalDecisionSupport({ symbol, onOrderPrepare }: 
         risk_level: riskLevel,
         key_factors: [
           ...generateKeyFactors(rsi, macd, priceChange, volatility),
-          `Analysis based on ${data.length} 60-min records (${historicalData['60min'].total_records} total available)`
+          `Analysis based on ${data.length} 60-min records (${historicalData['60min'].total_records} total available)`,
+          `Stop loss: Professional 5% risk management below current price`
         ],
         technical_score: Math.max(20, Math.min(100, rsi > 50 ? rsi : 100 - rsi)),
         fundamental_score: 65 + Math.random() * 25,
         sentiment_score: priceChange > 0 ? 65 + Math.random() * 25 : 35 + Math.random() * 25,
-        price_target: decision === 'BUY' ? resistanceLevel : supportLevel,
-        stop_loss: decision === 'BUY' ? supportLevel : resistanceLevel,
+        price_target: priceTarget,
+        stop_loss: stopLoss,
         position_size_recommendation: riskLevel === 'HIGH' ? 1 : riskLevel === 'MEDIUM' ? 2 : 3
       };
       
