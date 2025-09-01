@@ -214,11 +214,7 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
             }}
                               scrollsettings={{
                     enable: true,
-                    enableMouseWheelZooming: true,
-                    range: {
-                      start: new Date(new Date().getTime() - 2 * 60 * 60 * 1000), // 2 hours ago - for minute view
-                      end: new Date(new Date().getTime() + 1 * 60 * 60 * 1000)    // 1 hour future - for minute view
-                    }
+                    enableMouseWheelZooming: true
                   }}
             periods={[
               { text: 'Dakikalık', interval: 15, intervalType: 'Minutes' },
