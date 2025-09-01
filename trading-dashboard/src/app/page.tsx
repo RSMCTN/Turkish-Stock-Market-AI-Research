@@ -78,14 +78,18 @@ export default function MamutDashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
-                <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg">
-                  <Brain className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    MAMUT_R600
+                {/* MAMUT R600 Premium Logo */}
+                <img 
+                  src="/mamut-logo.png" 
+                  alt="MAMUT R600 - Professional Trading Platform"
+                  className="h-12 md:h-14 w-auto object-contain hover:scale-105 transition-all duration-300 drop-shadow-lg cursor-pointer"
+                  loading="lazy"
+                />
+                <div className="ml-2 hidden sm:block">
+                  <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 bg-clip-text text-transparent">
+                    MAMUT R600
                   </h1>
-                  <p className="text-sm text-slate-500">Professional AI-Powered Trading Platform</p>
+                  <p className="text-xs md:text-sm text-slate-500 font-medium">Professional AI-Powered Trading Platform</p>
                 </div>
               </div>
               <Badge className="bg-gradient-to-r from-emerald-100 to-cyan-100 text-emerald-700 border-emerald-200">
