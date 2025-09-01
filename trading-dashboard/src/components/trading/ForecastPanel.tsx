@@ -73,6 +73,8 @@ export default function ForecastPanel({ selectedSymbol: propSelectedSymbol = 'AK
     }
   }, [propSelectedSymbol, selectedSymbol]);
 
+
+
   // Fetch available stocks from Railway API
   const fetchAvailableStocks = async () => {
     try {
@@ -249,19 +251,52 @@ export default function ForecastPanel({ selectedSymbol: propSelectedSymbol = 'AK
           const minPrice = Math.min(...prices);
           const maxPrice = Math.max(...prices);
           
-          // Transform backend response to frontend format
+          // Transform backend response to frontend format with BIST hours
+          const transformedPredictions = data.predictions.slice(0, forecastHours).map((p: any, index: number) => {
+            // Generate BIST-compliant timestamps starting from current time
+            const now = new Date();
+            const targetTime = new Date(now.getTime() + (index - 6) * 60 * 60 * 1000); // Start 6 hours ago
+            
+            // Ensure we're in BIST trading hours (10:00-18:00) 
+            let adjustedTime = new Date(targetTime);
+            const hour = adjustedTime.getHours();
+            
+            // If outside BIST hours, adjust to next business day 10:00
+            if (hour < 10) {
+              adjustedTime.setHours(10, 0, 0, 0);
+            } else if (hour >= 18) {
+              // Move to next business day
+              adjustedTime.setDate(adjustedTime.getDate() + 1);
+              adjustedTime.setHours(10, 0, 0, 0);
+              
+              // Skip weekends
+              const dayOfWeek = adjustedTime.getDay();
+              if (dayOfWeek === 0) adjustedTime.setDate(adjustedTime.getDate() + 1); // Sunday -> Monday
+              if (dayOfWeek === 6) adjustedTime.setDate(adjustedTime.getDate() + 2); // Saturday -> Monday
+            }
+            
+            const bistTimestamp = adjustedTime.toLocaleTimeString('tr-TR', { 
+              hour: '2-digit', 
+              minute: '2-digit' 
+            });
+            
+            const isMarketOpen = isBISTMarketOpen(adjustedTime);
+            
+            return {
+              time: bistTimestamp,
+              predictedPrice: p.predictedPrice,
+              actualPrice: p.actualPrice,
+              confidence: p.confidence,
+              isMarketOpen: isMarketOpen
+            };
+          });
+
           setForecastData({
             nextHourPrediction: nextPrediction.predictedPrice,
             range: { min: minPrice, max: maxPrice },
             confidence: nextPrediction.confidence,
             change: nextPrediction.priceChangePercent,
-            predictions: data.predictions.slice(0, 12).map((p: any) => ({
-              time: p.timestamp,
-              predictedPrice: p.predictedPrice,
-              actualPrice: p.actualPrice,
-              confidence: p.confidence,
-              isMarketOpen: true  // Mock for now
-            }))
+            predictions: transformedPredictions
           });
           
           // Use news impact from API
@@ -304,6 +339,13 @@ export default function ForecastPanel({ selectedSymbol: propSelectedSymbol = 'AK
     setIsLoading(false);
     setLastUpdate(new Date().toLocaleTimeString('tr-TR'));
   };
+
+  // Auto-fetch forecast data on component mount and when symbol/hours change
+  useEffect(() => {
+    if (selectedSymbol) {
+      fetchForecast();
+    }
+  }, [selectedSymbol, forecastHours]);
 
   useEffect(() => {
     fetchAvailableStocks();
