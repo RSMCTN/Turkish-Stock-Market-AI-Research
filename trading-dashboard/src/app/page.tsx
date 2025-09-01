@@ -40,7 +40,7 @@ export default function MamutDashboard() {
     differentialPrivacy: 'active'
   });
 
-  const [selectedSymbol, setSelectedSymbol] = useState('GARAN');
+  const [selectedSymbol, setSelectedSymbol] = useState('AKBNK');
   const [indicators, setIndicators] = useState([]);
   const [selectedTool, setSelectedTool] = useState<'indicators' | 'charts' | 'sentiment' | null>(null);
 
