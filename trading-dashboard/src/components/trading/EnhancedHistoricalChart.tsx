@@ -4,8 +4,8 @@ import { useEffect, useState, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Slider } from '@/components/ui/slider';
-import { Switch } from '@/components/ui/switch';
+// import { Slider } from '@/components/ui/slider'; // Not available
+// import { Switch } from '@/components/ui/switch'; // Not available
 import { 
   LineChart, 
   Line, 
@@ -302,25 +302,27 @@ export default function EnhancedHistoricalChart({
             <div className="space-y-2">
               <div className="flex items-center gap-4">
                 <span className="text-sm font-medium">Speed:</span>
-                <Slider
-                  value={[playbackSpeed]}
-                  onValueChange={(value) => setPlaybackSpeed(value[0])}
+                <input
+                  type="range"
+                  value={playbackSpeed}
+                  onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
                   max={5}
                   min={0.5}
                   step={0.5}
-                  className="w-32"
+                  className="w-32 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                 />
                 <span className="text-sm text-gray-600">{playbackSpeed}x</span>
               </div>
               
               <div className="flex items-center gap-4">
                 <span className="text-sm font-medium">Progress:</span>
-                <Slider
-                  value={[playbackIndex]}
-                  onValueChange={(value) => setPlaybackIndex(value[0])}
+                <input
+                  type="range"
+                  value={playbackIndex}
+                  onChange={(e) => setPlaybackIndex(parseInt(e.target.value))}
                   max={data.length - 1}
                   min={0}
-                  className="flex-1"
+                  className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                 />
                 <span className="text-sm text-gray-600">
                   {playbackIndex + 1} / {data.length}
@@ -334,41 +336,49 @@ export default function EnhancedHistoricalChart({
           {/* Indicator Controls */}
           <div className="mb-4 flex flex-wrap gap-4">
             <div className="flex items-center gap-2">
-              <Switch 
+              <input
+                type="checkbox"
                 checked={showIndicators.rsi}
-                onCheckedChange={(checked) => 
-                  setShowIndicators(prev => ({ ...prev, rsi: checked }))
+                onChange={(e) => 
+                  setShowIndicators(prev => ({ ...prev, rsi: e.target.checked }))
                 }
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
               />
               <span className="text-sm">RSI</span>
             </div>
             
             <div className="flex items-center gap-2">
-              <Switch 
+              <input
+                type="checkbox"
                 checked={showIndicators.patterns}
-                onCheckedChange={(checked) => 
-                  setShowIndicators(prev => ({ ...prev, patterns: checked }))
+                onChange={(e) => 
+                  setShowIndicators(prev => ({ ...prev, patterns: e.target.checked }))
                 }
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
               />
               <span className="text-sm">Patterns</span>
             </div>
             
             <div className="flex items-center gap-2">
-              <Switch 
+              <input
+                type="checkbox"
                 checked={showIndicators.signals}
-                onCheckedChange={(checked) => 
-                  setShowIndicators(prev => ({ ...prev, signals: checked }))
+                onChange={(e) => 
+                  setShowIndicators(prev => ({ ...prev, signals: e.target.checked }))
                 }
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
               />
               <span className="text-sm">Signals</span>
             </div>
             
             <div className="flex items-center gap-2">
-              <Switch 
+              <input
+                type="checkbox"
                 checked={showIndicators.supportResistance}
-                onCheckedChange={(checked) => 
-                  setShowIndicators(prev => ({ ...prev, supportResistance: checked }))
+                onChange={(e) => 
+                  setShowIndicators(prev => ({ ...prev, supportResistance: e.target.checked }))
                 }
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
               />
               <span className="text-sm">Support/Resistance</span>
             </div>
