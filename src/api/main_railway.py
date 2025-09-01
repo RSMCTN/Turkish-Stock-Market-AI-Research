@@ -1507,6 +1507,23 @@ async def get_bist_historical_data(
         logger = logging.getLogger("api.bist.historical")
         logger.info(f"📊 Fetching historical data for {symbol}, timeframe: {timeframe}, limit: {limit}")
         
+        # 🎯 TIMEFRAME MAPPING - Handle mixed database formats
+        timeframe_mapping = {
+            # Frontend format → Database formats (try both)
+            '60min': ['60min', '60m'],  
+            'daily': ['daily', 'günlük', 'Günlük'],
+            '30min': ['30min', '30m'],
+            'hourly': ['60min', '60m'],  # Alias
+            # Direct mapping for consistency  
+            '60m': ['60m'],
+            'günlük': ['günlük', 'Günlük'],
+            '30m': ['30m']
+        }
+        
+        # Get possible database timeframes for requested frontend timeframe
+        db_timeframes = timeframe_mapping.get(timeframe, [timeframe])
+        logger.info(f"🔄 Timeframe mapping: {timeframe} → {db_timeframes}")
+        
         if not app_state.historical_service:
             logger.error("❌ CRITICAL: app_state.historical_service is None!")
             logger.info("🔧 Attempting emergency service initialization...")
@@ -1522,10 +1539,28 @@ async def get_bist_historical_data(
                 )
         
         # Get historical data from database
+        historical_data = []
         if hasattr(app_state.historical_service, 'get_historical_data'):
-            # PostgreSQL service uses (symbol, limit)
+            # PostgreSQL service - try multiple timeframes
             if 'postgresql' in str(type(app_state.historical_service)).lower():
-                historical_data = app_state.historical_service.get_historical_data(symbol, limit)
+                # Try each possible timeframe until we get data
+                for db_timeframe in db_timeframes:
+                    logger.info(f"🔄 Trying timeframe: {db_timeframe}")
+                    try:
+                        # Use raw SQL query to get timeframe-specific data
+                        temp_data = app_state.historical_service.get_historical_data_with_timeframe(symbol, db_timeframe, limit)
+                        if temp_data:
+                            historical_data = temp_data
+                            logger.info(f"✅ Found {len(historical_data)} records with timeframe: {db_timeframe}")
+                            break
+                    except AttributeError:
+                        # Fallback to standard method if new method doesn't exist
+                        if db_timeframe == db_timeframes[0]:  # Only try once
+                            historical_data = app_state.historical_service.get_historical_data(symbol, limit)
+                        break
+                    except Exception as tf_e:
+                        logger.warning(f"⚠️ Timeframe {db_timeframe} failed: {tf_e}")
+                        continue
             else:
                 # SQLite service uses (symbol, timeframe, limit)
                 historical_data = app_state.historical_service.get_historical_data(symbol, timeframe, limit)

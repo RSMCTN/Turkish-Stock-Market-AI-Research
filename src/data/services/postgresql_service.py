@@ -287,13 +287,14 @@ class PostgreSQLBISTService:
                 with conn.cursor() as cursor:
                     cursor.execute("""
                         SELECT 
-                            date_time, open_price, high_price, low_price, close_price, volume,
-                            rsi_14, rsi_21, macd_line, macd_signal, macd_histogram,
-                            bollinger_upper, bollinger_middle, bollinger_lower,
-                            tenkan_sen, kijun_sen, atr_14, adx_14
-                        FROM historical_data
+                            CONCAT(date::text, ' ', COALESCE(time::text, '')) as date_time,
+                            open, high, low, close, volume,
+                            rsi_14, macd_26_12, macd_trigger_9,
+                            bol_upper_20_2, bol_middle_20_2, bol_lower_20_2,
+                            atr_14, adx_14
+                        FROM enhanced_stock_data
                         WHERE symbol = %s
-                        ORDER BY date_time DESC
+                        ORDER BY date DESC, time DESC
                         LIMIT %s
                     """, (symbol, limit))
                     
@@ -301,20 +302,17 @@ class PostgreSQLBISTService:
                     for row in cursor.fetchall():
                         data.append({
                             'date_time': str(row['date_time']),
-                            'open': float(row['open_price']) if row['open_price'] else 0,
-                            'high': float(row['high_price']) if row['high_price'] else 0,
-                            'low': float(row['low_price']) if row['low_price'] else 0,
-                            'close': float(row['close_price']) if row['close_price'] else 0,
+                            'open': float(row['open']) if row['open'] else 0,
+                            'high': float(row['high']) if row['high'] else 0,
+                            'low': float(row['low']) if row['low'] else 0,
+                            'close': float(row['close']) if row['close'] else 0,
                             'volume': int(row['volume']) if row['volume'] else 0,
                             'rsi_14': float(row['rsi_14']) if row['rsi_14'] else None,
-                            'rsi_21': float(row['rsi_21']) if row['rsi_21'] else None,
-                            'macd_line': float(row['macd_line']) if row['macd_line'] else None,
-                            'macd_signal': float(row['macd_signal']) if row['macd_signal'] else None,
-                            'bollinger_upper': float(row['bollinger_upper']) if row['bollinger_upper'] else None,
-                            'bollinger_middle': float(row['bollinger_middle']) if row['bollinger_middle'] else None,
-                            'bollinger_lower': float(row['bollinger_lower']) if row['bollinger_lower'] else None,
-                            'tenkan_sen': float(row['tenkan_sen']) if row['tenkan_sen'] else None,
-                            'kijun_sen': float(row['kijun_sen']) if row['kijun_sen'] else None,
+                            'macd_line': float(row['macd_26_12']) if row['macd_26_12'] else None,
+                            'macd_signal': float(row['macd_trigger_9']) if row['macd_trigger_9'] else None,
+                            'bollinger_upper': float(row['bol_upper_20_2']) if row['bol_upper_20_2'] else None,
+                            'bollinger_middle': float(row['bol_middle_20_2']) if row['bol_middle_20_2'] else None,
+                            'bollinger_lower': float(row['bol_lower_20_2']) if row['bol_lower_20_2'] else None,
                             'atr_14': float(row['atr_14']) if row['atr_14'] else None,
                             'adx_14': float(row['adx_14']) if row['adx_14'] else None
                         })
@@ -324,6 +322,50 @@ class PostgreSQLBISTService:
                     
         except Exception as e:
             logger.error(f"❌ Error fetching historical data for {symbol}: {e}")
+            return []
+    
+    def get_historical_data_with_timeframe(self, symbol: str, timeframe: str, limit: int = 100) -> List[Dict[str, Any]]:
+        """Get historical OHLCV data for a symbol with specific timeframe"""
+        try:
+            with self._get_connection() as conn:
+                with conn.cursor() as cursor:
+                    cursor.execute("""
+                        SELECT 
+                            CONCAT(date::text, ' ', COALESCE(time::text, '')) as date_time,
+                            open, high, low, close, volume,
+                            rsi_14, macd_26_12, macd_trigger_9,
+                            bol_upper_20_2, bol_middle_20_2, bol_lower_20_2,
+                            atr_14, adx_14
+                        FROM enhanced_stock_data
+                        WHERE symbol = %s AND timeframe = %s
+                        ORDER BY date DESC, time DESC
+                        LIMIT %s
+                    """, (symbol, timeframe, limit))
+                    
+                    data = []
+                    for row in cursor.fetchall():
+                        data.append({
+                            'date_time': str(row['date_time']),
+                            'open': float(row['open']) if row['open'] else 0,
+                            'high': float(row['high']) if row['high'] else 0,
+                            'low': float(row['low']) if row['low'] else 0,
+                            'close': float(row['close']) if row['close'] else 0,
+                            'volume': int(row['volume']) if row['volume'] else 0,
+                            'rsi_14': float(row['rsi_14']) if row['rsi_14'] else None,
+                            'macd_line': float(row['macd_26_12']) if row['macd_26_12'] else None,
+                            'macd_signal': float(row['macd_trigger_9']) if row['macd_trigger_9'] else None,
+                            'bollinger_upper': float(row['bol_upper_20_2']) if row['bol_upper_20_2'] else None,
+                            'bollinger_middle': float(row['bol_middle_20_2']) if row['bol_middle_20_2'] else None,
+                            'bollinger_lower': float(row['bol_lower_20_2']) if row['bol_lower_20_2'] else None,
+                            'atr_14': float(row['atr_14']) if row['atr_14'] else None,
+                            'adx_14': float(row['adx_14']) if row['adx_14'] else None
+                        })
+                    
+                    logger.info(f"✅ Retrieved {len(data)} records for {symbol} with timeframe {timeframe}")
+                    return data
+                    
+        except Exception as e:
+            logger.error(f"❌ Error fetching {timeframe} data for {symbol}: {e}")
             return []
 
 # Singleton
