@@ -63,10 +63,10 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
 
     const mockData: StockData[] = [];
     const startDate = new Date();
-    startDate.setDate(startDate.getDate() - 30); // 30 days historical
+    startDate.setDate(startDate.getDate() - 7); // 7 days historical - future focused
 
-    // HISTORICAL DATA (30 days)
-    for (let i = 0; i < 30; i++) {
+    // MINIMAL HISTORICAL DATA (7 days only - future focused)
+    for (let i = 0; i < 7; i++) {
       const currentDate = new Date(startDate);
       currentDate.setDate(startDate.getDate() + i);
       
@@ -90,12 +90,12 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
       });
     }
 
-    // FUTURE FORECAST DATA (Next 40 hours = 5 trading days)
+    // INTENSIVE FUTURE FORECAST DATA (Next 480 minutes = 8 hours)
     const now = new Date();
     const currentPrice = basePrice;
     
-    for (let hour = 1; hour <= 40; hour++) {
-      const futureDate = new Date(now.getTime() + (hour * 60 * 60 * 1000)); // +hour
+    for (let minute = 1; minute <= 480; minute++) {
+      const futureDate = new Date(now.getTime() + (minute * 60 * 1000)); // +minute
       
       // Skip non-trading hours (before 10:00 and after 18:00)
       const hourOfDay = futureDate.getHours();
@@ -104,10 +104,10 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
       // Skip weekends
       if (futureDate.getDay() === 0 || futureDate.getDay() === 6) continue;
       
-      // DP-LSTM FORECAST: Trending prediction with volatility
-      const trend = Math.sin(hour * 0.05) * 0.02; // 2% trend component
-      const randomWalk = (Math.random() - 0.5) * 0.01; // 1% random component  
-      const volatility = 0.005 + (Math.random() * 0.01); // 0.5-1.5% volatility
+      // DP-LSTM MINUTE-LEVEL FORECAST: High-frequency prediction
+      const trend = Math.sin(minute * 0.001) * 0.002; // 0.2% trend component for minute-level
+      const randomWalk = (Math.random() - 0.5) * 0.001; // 0.1% random component for minute-level
+      const volatility = 0.0005 + (Math.random() * 0.001); // 0.05-0.15% volatility for minute-level
       
       const forecastPrice = currentPrice * (1 + trend + randomWalk);
       const forecastHigh = forecastPrice * (1 + volatility);
@@ -145,9 +145,9 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
           <div className="flex items-center gap-3">
             <TrendingUp className="h-6 w-6 text-emerald-400" />
             <div>
-              <CardTitle className="text-slate-100">Gelişmiş Fiyat Öngörü Grafiği - {selectedSymbol}</CardTitle>
+              <CardTitle className="text-slate-100">Dakikalık Fiyat Tahmin Grafiği - {selectedSymbol}</CardTitle>
               <p className="text-sm text-slate-400 mt-1">
-                Tarihsel + Saatlik DP-LSTM Forecast • Zoom/Pan Aktif • Period Selector
+                7 Gün Minimal Tarihsel + 8 Saat Dakikalık DP-LSTM Forecast
               </p>
             </div>
           </div>
@@ -269,25 +269,19 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
           </StockChartComponent>
         </div>
         
-        {/* Chart Controls Info */}
-        <div className="mt-4 p-3 bg-slate-800/30 rounded-lg border border-slate-600">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        {/* Future-Focused Chart Info */}
+        <div className="mt-4 p-3 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg border border-blue-500/30">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
               <span className="text-slate-300">
-                <strong>Zoom:</strong> Mouse wheel veya sürükleme ile zoom
+                <strong>Dakikalık Forecast:</strong> 8 saatlik gelecek tahminleri
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
               <span className="text-slate-300">
-                <strong>Period:</strong> 1H, 3H, 8H, 24H butonları ile
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-              <span className="text-slate-300">
-                <strong>Pan:</strong> Shift+Drag ile kaydırma
+                <strong>Minimal Historical:</strong> Sadece 7 gün context
               </span>
             </div>
           </div>
