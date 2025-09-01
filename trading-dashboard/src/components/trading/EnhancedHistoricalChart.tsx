@@ -77,73 +77,94 @@ export default function EnhancedHistoricalChart({
     signals: true
   });
 
-  // Mock enhanced data generation
-  const generateEnhancedData = useCallback(() => {
-    const points: EnhancedDataPoint[] = [];
-    const basePrice = 100 + Math.random() * 100;
-    
-    for (let i = 0; i < 100; i++) {
-      const timestamp = new Date();
-      timestamp.setHours(timestamp.getHours() - (100 - i));
+  // Real data fetching from Railway API
+  const fetchRealData = useCallback(async () => {
+    try {
+      console.log(`📊 EnhancedChart: Fetching real data for ${symbol}`);
+      const response = await fetch(`https://bistai001-production.up.railway.app/api/bist/historical/${symbol}?timeframe=60min&limit=200`);
       
-      const price = basePrice + Math.sin(i * 0.1) * 20 + (Math.random() - 0.5) * 10;
-      const volume = Math.random() * 1000000;
-      
-      // Generate technical indicators
-      const rsi = 30 + Math.random() * 40; // RSI between 30-70
-      const macd = (Math.random() - 0.5) * 2; // MACD oscillating around 0
-      
-      // Pattern detection (mock)
-      let pattern: string | undefined;
-      let signal: 'BUY' | 'SELL' | null = null;
-      
-      if (Math.random() > 0.95) {
-        const patterns = ['Doji', 'Hammer', 'Engulfing', 'Shooting Star'];
-        pattern = patterns[Math.floor(Math.random() * patterns.length)];
-        
-        if (pattern === 'Hammer' || pattern === 'Engulfing') {
-          signal = 'BUY';
-        } else if (pattern === 'Shooting Star') {
-          signal = 'SELL';
-        }
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
       }
       
-      // Support/Resistance levels
-      const support = price - (10 + Math.random() * 5);
-      const resistance = price + (10 + Math.random() * 5);
+      const historicalData = await response.json();
       
-      points.push({
-        datetime: timestamp.toISOString(),
-        open: price + (Math.random() - 0.5) * 2,
-        high: price + Math.random() * 3,
-        low: price - Math.random() * 3,
-        close: price,
-        volume,
-        rsi,
-        macd,
-        pattern,
-        signal,
-        support,
-        resistance
+      if (!historicalData['60min'] || !historicalData['60min'].data || historicalData['60min'].data.length === 0) {
+        console.error(`❌ No real data found for ${symbol}`);
+        return [];
+      }
+      
+      const apiData = historicalData['60min'].data;
+      console.log(`✅ EnhancedChart: Found ${apiData.length} real records for ${symbol}`);
+      
+      // Transform API data to chart format
+      const points: EnhancedDataPoint[] = apiData.map((item: any, index: number) => {
+        // Pattern detection based on price movement
+        let pattern: string | undefined;
+        let signal: 'BUY' | 'SELL' | null = null;
+        
+        if (index > 0) {
+          const prevItem = apiData[index - 1];
+          const priceChange = ((item.close - prevItem.close) / prevItem.close) * 100;
+          
+          if (priceChange > 3) {
+            pattern = 'Bullish Breakout';
+            signal = 'BUY';
+          } else if (priceChange < -3) {
+            pattern = 'Bearish Breakdown';
+            signal = 'SELL';
+          } else if (Math.abs(priceChange) < 0.5 && item.rsi) {
+            if (item.rsi < 30) {
+              pattern = 'Oversold';
+              signal = 'BUY';
+            } else if (item.rsi > 70) {
+              pattern = 'Overbought';
+              signal = 'SELL';
+            }
+          }
+        }
+        
+        return {
+          datetime: item.datetime,
+          open: item.open,
+          high: item.high,
+          low: item.low,
+          close: item.close,
+          volume: item.volume,
+          rsi: item.rsi,
+          macd: item.macd,
+          pattern,
+          signal,
+          support: item.close * 0.98, // 2% below as support
+          resistance: item.close * 1.02 // 2% above as resistance
+        };
       });
+      
+      // Sort by datetime to ensure correct chronological order
+      return points.sort((a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
+      
+    } catch (error) {
+      console.error(`❌ EnhancedChart error for ${symbol}:`, error);
+      return [];
     }
-    
-    // Sort chronologically (oldest to newest)
-    return points.sort((a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
-  }, []);
+  }, [symbol]);
 
+  // Load real data when symbol changes
   useEffect(() => {
     if (symbol) {
       setLoading(true);
-      // Simulate API call delay
-      setTimeout(() => {
-        const enhancedData = generateEnhancedData();
-        setData(enhancedData);
-        setPlaybackIndex(enhancedData.length - 1);
+      fetchRealData().then((realData) => {
+        console.log(`📊 EnhancedChart: Setting ${realData.length} real data points for ${symbol}`);
+        setData(realData);
+        setPlaybackIndex(realData.length - 1);
         setLoading(false);
-      }, 1000);
+      }).catch((error) => {
+        console.error(`❌ EnhancedChart: Failed to load data for ${symbol}:`, error);
+        setData([]);
+        setLoading(false);
+      });
     }
-  }, [symbol, generateEnhancedData]);
+  }, [symbol, fetchRealData]);
 
   // Playback functionality
   useEffect(() => {
