@@ -43,7 +43,7 @@ interface ProfessionalStockChartProps {
 const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
   selectedSymbol = 'AKBNK',
   data,
-  height = '500px'
+  height = '650px'
 }) => {
   // Generate realistic mock data WITH FUTURE FORECASTS
   const generateMockData = (): StockData[] => {
@@ -51,6 +51,7 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
       'AKBNK': 69.5,
       'BIMAS': 536.0,
       'GARAN': 145.8,
+      'BRSAN': 454.0,      // BRSAN doğru fiyat seviyesi
       'THYAO': 340.0,
       'TUPRS': 171.0,
       'ISCTR': 15.14,
@@ -233,20 +234,20 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
             <Inject services={[DateTime, Tooltip, Crosshair, CandleSeries, Zoom, ScrollBar, PeriodSelector, LineSeries]} />
             <StockChartSeriesCollectionDirective>
               {/* Historical Candlesticks */}
-              <StockChartSeriesDirective
-                dataSource={historicalData}
-                type="Candle"
-                xName="date"
-                yName="close"
-                high="high"
-                low="low"
-                open="open"
-                close="close"
-                volume="volume"
-                bearFillColor="#ef4444"
-                bullFillColor="#10b981"
-                name={`${selectedSymbol} (Historical)`}
-              />
+                              <StockChartSeriesDirective
+                  dataSource={historicalData}
+                  type="Candle"
+                  xName="date"
+                  yName="close"
+                  high="high"
+                  low="low"
+                  open="open"
+                  close="close"
+                  volume="volume"
+                  bearFillColor="#dc2626"    // Bright red for bearish
+                  bullFillColor="#16a34a"    // Bright green for bullish  
+                  name={`${selectedSymbol} (Historical)`}
+                />
               {/* Forecast Candlesticks */}
               <StockChartSeriesDirective
                 dataSource={forecastData}
@@ -258,10 +259,10 @@ const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
                 open="open"
                 close="close"
                 volume="volume"
-                bearFillColor="#a855f7"
-                bullFillColor="#3b82f6"
+                bearFillColor="#dc2626"    // Same red, but with opacity
+                bullFillColor="#16a34a"    // Same green, but with opacity
                 name={`${selectedSymbol} (Forecast)`}
-                opacity={0.8}
+                opacity={0.6}              // More transparent for forecast
               />
             </StockChartSeriesCollectionDirective>
           </StockChartComponent>

@@ -37,6 +37,7 @@ export default function HistoricalChart({ selectedSymbol = 'AKBNK' }: Historical
                     'AKBNK': 69.5,
                     'BIMAS': 536.0,
                     'GARAN': 145.8,
+                    'BRSAN': 454.0,    // BRSAN doğru fiyat
                     'A1YEN': 58.0,
                   }[selectedSymbol] || 50.0).toFixed(2)}
                 </div>
@@ -49,6 +50,7 @@ export default function HistoricalChart({ selectedSymbol = 'AKBNK' }: Historical
                     'AKBNK': 69.5,
                     'BIMAS': 536.0,
                     'GARAN': 145.8,
+                    'BRSAN': 454.0,    // BRSAN doğru fiyat
                     'A1YEN': 58.0,
                   }[selectedSymbol] || 50.0) * 1.001).toFixed(3)}
                 </div>
@@ -64,7 +66,7 @@ export default function HistoricalChart({ selectedSymbol = 'AKBNK' }: Historical
         <div>
           <ProfessionalStockChart 
             selectedSymbol={selectedSymbol}
-            height="450px"
+            height="650px"
           />
         </div>
         
@@ -135,6 +137,7 @@ export default function HistoricalChart({ selectedSymbol = 'AKBNK' }: Historical
                   'AKBNK': 69.5,
                   'BIMAS': 536.0,
                   'GARAN': 145.8,
+                  'BRSAN': 454.0,    // BRSAN doğru fiyat
                   'A1YEN': 58.0,
                 }[selectedSymbol] || 50.0;
                 
