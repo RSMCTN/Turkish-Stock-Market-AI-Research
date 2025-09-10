@@ -1,0 +1,97 @@
+{
+  "sector_mapping": {
+    "AKBNK": {"sector": "Bankacılık", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "GARAN": {"sector": "Bankacılık", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "ISCTR": {"sector": "Bankacılık", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "YKBNK": {"sector": "Bankacılık", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "VAKBN": {"sector": "Bankacılık", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "TUPRS": {"sector": "Petrol & Kimya", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "THYAO": {"sector": "Taşımacılık", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "TCELL": {"sector": "Telekomünikasyon", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "ASELS": {"sector": "Teknoloji", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "KCHOL": {"sector": "Holding", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "SAHOL": {"sector": "Holding", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "ARCLK": {"sector": "Ev Aletleri", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "BIMAS": {"sector": "Perakende", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "EREGL": {"sector": "Metal", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "KOZAL": {"sector": "Madencilik", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "SISE": {"sector": "Cam", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "TOASO": {"sector": "Otomotiv", "index": ["BIST 30", "BIST 100"], "market": "Ana Pazar"},
+    "ENKAI": {"sector": "Tekstil", "index": ["BIST 100"], "market": "Ana Pazar"},
+    "FROTO": {"sector": "Otomotiv", "index": ["BIST 100"], "market": "Ana Pazar"},
+    "HALKB": {"sector": "Bankacılık", "index": ["BIST 100"], "market": "Ana Pazar"}
+  },
+  
+  "sector_categories": {
+    "Bankacılık": {
+      "color": "#3B82F6",
+      "icon": "🏦",
+      "description": "Mevduat bankaları ve finansal hizmetler"
+    },
+    "Teknoloji": {
+      "color": "#8B5CF6", 
+      "icon": "💻",
+      "description": "Teknoloji, yazılım ve elektronik"
+    },
+    "Telekomünikasyon": {
+      "color": "#06B6D4",
+      "icon": "📡", 
+      "description": "İletişim hizmetleri ve altyapı"
+    },
+    "Petrol & Kimya": {
+      "color": "#F59E0B",
+      "icon": "⚡",
+      "description": "Petrol ürünleri ve kimyasallar"
+    },
+    "Holding": {
+      "color": "#10B981",
+      "icon": "🏢",
+      "description": "Çok sektörlü holding şirketleri"
+    },
+    "Metal": {
+      "color": "#6B7280",
+      "icon": "🔩",
+      "description": "Demir-çelik ve metal işleme"
+    },
+    "Taşımacılık": {
+      "color": "#EF4444",
+      "icon": "✈️",
+      "description": "Havacılık ve nakliye hizmetleri"
+    },
+    "Otomotiv": {
+      "color": "#F97316",
+      "icon": "🚗",
+      "description": "Otomotiv üretimi ve yan sanayi"
+    },
+    "Perakende": {
+      "color": "#EC4899",
+      "icon": "🛒",
+      "description": "Perakende mağazacılık"
+    },
+    "Ev Aletleri": {
+      "color": "#84CC16",
+      "icon": "🏠",
+      "description": "Ev aletleri ve beyaz eşya"
+    },
+    "Unknown": {
+      "color": "#64748B",
+      "icon": "❓", 
+      "description": "Sektör bilgisi bulunmayan"
+    }
+  },
+  
+  "bist_indices": {
+    "BIST 30": {
+      "description": "En yüksek piyasa değeri ve işlem hacmi olan 30 hisse",
+      "color": "#DC2626"
+    },
+    "BIST 100": {
+      "description": "En likit 100 hisse senedi endeksi",
+      "color": "#2563EB"  
+    },
+    "BIST ALL": {
+      "description": "Tüm Borsa İstanbul hisseleri",
+      "color": "#059669"
+    }
+  }
+}

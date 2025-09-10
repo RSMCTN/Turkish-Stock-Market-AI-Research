@@ -1,11 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Brain, LineChart, Zap, Activity, TrendingUp, AlertCircle, BarChart3, Target, RefreshCw } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import LoadingSpinner from '@/components/ui/loading-spinner';
+import PriceCard from '@/components/ui/price-card';
+import QuickActions from '@/components/ui/quick-actions';
 
 // Academic Components
 import AcademicPredictionPanel from '@/components/trading/AcademicPredictionPanel';
@@ -43,6 +46,8 @@ export default function MamutDashboard() {
   const [selectedSymbol, setSelectedSymbol] = useState('AKBNK');
   const [indicators, setIndicators] = useState([]);
   const [selectedTool, setSelectedTool] = useState<'indicators' | 'charts' | 'sentiment' | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('academic');
 
   // Mock user for demo
   const user = {
@@ -54,6 +59,14 @@ export default function MamutDashboard() {
     // Initialize system health checks
     checkSystemHealth();
   }, []);
+
+  // Memoized market data for performance  
+  const marketData = useMemo(() => ({
+    AKBNK: { price: 70.25, change: 1.25, changePercent: 1.8 },
+    GARAN: { price: 85.40, change: -0.60, changePercent: -0.7 },
+    ISCTR: { price: 54.30, change: 2.10, changePercent: 4.0 },
+    YKBNK: { price: 42.15, change: 0.85, changePercent: 2.1 }
+  }), []);
 
   const checkSystemHealth = async () => {
     try {
@@ -84,15 +97,19 @@ export default function MamutDashboard() {
                   alt="MAMUT R600 - Professional Trading Platform"
                   className="h-12 md:h-14 w-auto object-contain hover:scale-105 transition-all duration-300 drop-shadow-lg cursor-pointer"
                   loading="lazy"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGNTk2MTAiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSI4IiB5PSI4Ij4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMSA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDMgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+';
+                  }}
                 />
                 <div className="ml-2 hidden sm:block">
-                  <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                  <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-400 bg-clip-text text-transparent hover:from-amber-300 hover:via-yellow-300 hover:to-orange-300 transition-all duration-300 cursor-pointer">
                     MAMUT R600
                   </h1>
                   <p className="text-xs md:text-sm text-slate-300 font-medium">Professional AI-Powered Trading Platform</p>
                 </div>
               </div>
-              <Badge className="bg-gradient-to-r from-emerald-600 to-cyan-600 text-white border-emerald-500 shadow-lg animate-pulse">
+              <Badge className="bg-gradient-to-r from-emerald-600 to-cyan-600 text-white border-emerald-500 shadow-lg animate-pulse hover:shadow-xl transition-all duration-300 cursor-pointer">
                 🚀 LIVE MODE
               </Badge>
             </div>
@@ -114,17 +131,18 @@ export default function MamutDashboard() {
       <main className="container mx-auto px-6 py-8">
         
         {/* KOMPAKT System Status - Daha Az Yorucu */}
+        {/* System Status Card - Enhanced */}
         <div className="mb-6">
-          <Card className="bg-slate-800/50 border-slate-700">
+          <Card className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-all duration-300">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Activity className="h-5 w-5 text-emerald-400" />
+                  <Activity className="h-5 w-5 text-emerald-400 animate-pulse" />
                   <h3 className="text-sm font-semibold text-white">System Status</h3>
                 </div>
                 <div className="flex items-center gap-2">
                   {Object.entries(systemStatus).map(([component, status]) => (
-                    <div key={component} className="flex items-center gap-1">
+                    <div key={component} className="flex items-center gap-1 hover:scale-105 transition-transform cursor-pointer">
                       <div className={`w-2 h-2 rounded-full ${
                         status === 'active' ? 'bg-emerald-400 animate-pulse' : 'bg-red-400'
                       }`} />
@@ -133,12 +151,39 @@ export default function MamutDashboard() {
                       </span>
                     </div>
                   ))}
-                  <Badge className="bg-emerald-600 text-white text-xs ml-2">ALL ACTIVE</Badge>
+                  <Badge className="bg-emerald-600 text-white text-xs ml-2 hover:bg-emerald-700 transition-colors">ALL ACTIVE</Badge>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
+
+        {/* Quick Price Overview */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          {Object.entries(marketData).map(([symbol, data]) => (
+            <div
+              key={symbol}
+              onClick={() => setSelectedSymbol(symbol)}
+              className="cursor-pointer"
+            >
+              <PriceCard
+                symbol={symbol}
+                price={data.price}
+                change={data.change}
+                changePercent={data.changePercent}
+                className={selectedSymbol === symbol ? 'ring-2 ring-blue-500 bg-blue-50' : ''}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Quick Actions */}
+        <QuickActions 
+          className="mb-6"
+          onRefresh={() => window.location.reload()}
+          onExport={() => alert('Export functionality coming soon!')}
+          onShare={() => navigator.share ? navigator.share({title: 'MAMUT R600 Trading Dashboard', url: window.location.href}) : alert('Share functionality not supported')}
+        />
 
         {/* MAMUT R600 Trading Modules */}
         <Tabs defaultValue="academic" className="space-y-6">

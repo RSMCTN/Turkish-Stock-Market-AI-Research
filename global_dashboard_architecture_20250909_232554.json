@@ -1,0 +1,381 @@
+{
+  "title": "MAMUT R600 - Global Multi-Market Dashboard Architecture",
+  "api_usage_analysis": {
+    "turkey": {
+      "region": "Türkiye",
+      "daily_calls": 28800,
+      "stocks": 660,
+      "update_freq": "5min",
+      "languages": [
+        "Turkish"
+      ],
+      "sentiment": "High"
+    },
+    "english_markets": {
+      "region": "English Speaking",
+      "daily_calls": 29760,
+      "stocks": 310,
+      "update_freq": "15min",
+      "languages": [
+        "English"
+      ],
+      "sentiment": "High"
+    },
+    "major_eu": {
+      "region": "Major European",
+      "daily_calls": 2400,
+      "stocks": 50,
+      "update_freq": "30min",
+      "languages": [
+        "German",
+        "French"
+      ],
+      "sentiment": "Medium"
+    },
+    "asian_markets": {
+      "region": "Asian",
+      "daily_calls": 1680,
+      "stocks": 70,
+      "update_freq": "60min",
+      "languages": [
+        "Japanese",
+        "Chinese"
+      ],
+      "sentiment": "Low"
+    },
+    "summary": {
+      "total_daily_calls": 62640,
+      "turkey_allocation": 37500,
+      "global_allocation": 75000,
+      "reserve_allocation": 37500,
+      "usage_percentage": 41.8,
+      "remaining_calls": 87360
+    }
+  },
+  "dashboard_configuration": {
+    "meta": {
+      "name": "MAMUT R600 Global Dashboard",
+      "version": "2.0 - Global Multi-Market",
+      "created": "2025-09-09T23:25:54.592520",
+      "api_daily_limit": 150000,
+      "railway_project": "https://railway.com/project/5f254ec7-154c-421b-8d57-d7ed461ec6ee"
+    },
+    "infrastructure": {
+      "database": {
+        "primary": "PostgreSQL (Railway)",
+        "cache": "Redis (Railway)",
+        "status": "✅ Ready"
+      },
+      "backend": {
+        "api": "FastAPI",
+        "deployment": "Railway",
+        "status": "✅ Running"
+      },
+      "frontend": {
+        "framework": "Next.js + React",
+        "styling": "TailwindCSS",
+        "charts": "TradingView Widgets",
+        "status": "🔄 Updating"
+      }
+    },
+    "market_coverage": {
+      "turkey": {
+        "allocation": "25% (37,500 calls)",
+        "exchanges": [
+          "BIST"
+        ],
+        "stocks": {
+          "vip": {
+            "count": 30,
+            "interval": "5min",
+            "desc": "BIST 30"
+          },
+          "premium": {
+            "count": 70,
+            "interval": "15min",
+            "desc": "BIST 100-30"
+          },
+          "standard": {
+            "count": 560,
+            "interval": "60min",
+            "desc": "Other Turkish"
+          }
+        },
+        "languages": [
+          "Turkish"
+        ],
+        "sentiment": "✅ Ready"
+      },
+      "global": {
+        "allocation": "50% (75,000 calls)",
+        "priority_markets": {
+          "english": {
+            "markets": [
+              "NYSE",
+              "NASDAQ",
+              "LSE",
+              "TSX",
+              "ASX",
+              "HKEX"
+            ],
+            "stocks": 310,
+            "interval": "15min",
+            "sentiment": "🔄 Phase 1"
+          },
+          "european": {
+            "markets": [
+              "XETRA",
+              "Euronext"
+            ],
+            "stocks": 50,
+            "interval": "30min",
+            "sentiment": "📋 Phase 2"
+          },
+          "asian": {
+            "markets": [
+              "TSE",
+              "SSE",
+              "TWSE"
+            ],
+            "stocks": 70,
+            "interval": "60min",
+            "sentiment": "📋 Phase 3"
+          }
+        }
+      }
+    },
+    "dashboard_views": {
+      "heat_map": {
+        "title": "🔥 Global Heat Map",
+        "description": "Multi-market overview with color coding",
+        "data_sources": [
+          "turkey_vip",
+          "english_markets",
+          "eu_major"
+        ],
+        "update_frequency": "5-15min",
+        "tradingview_widget": "Market Overview"
+      },
+      "turkey_focus": {
+        "title": "🇹🇷 Turkey Deep Dive",
+        "description": "Comprehensive BIST analysis",
+        "data_sources": [
+          "all_turkish_stocks"
+        ],
+        "update_frequency": "5-60min",
+        "tradingview_widget": "Advanced Chart + Screener"
+      },
+      "global_watch": {
+        "title": "🌍 Global Watchlist",
+        "description": "International portfolio tracking",
+        "data_sources": [
+          "user_selected_global"
+        ],
+        "update_frequency": "15min",
+        "tradingview_widget": "Mini Charts Grid"
+      },
+      "sentiment_radar": {
+        "title": "🎯 Multi-Language Sentiment",
+        "description": "AI sentiment across markets",
+        "data_sources": [
+          "turkish_sentiment",
+          "english_sentiment"
+        ],
+        "update_frequency": "60min",
+        "tradingview_widget": "Custom Sentiment Display"
+      }
+    },
+    "tradingview_integration": {
+      "plan": "FREE (initially)",
+      "upgrade_path": "PRO ($14.95/month) after user validation",
+      "widgets": {
+        "advanced_chart": {
+          "use_case": "Main stock analysis",
+          "features": [
+            "Candlesticks",
+            "Volume",
+            "Technical indicators"
+          ],
+          "placement": "Turkey Focus + Global Watch"
+        },
+        "market_overview": {
+          "use_case": "Heat map view",
+          "features": [
+            "Multi-asset grid",
+            "Color coding",
+            "Performance sorting"
+          ],
+          "placement": "Heat Map view"
+        },
+        "mini_chart": {
+          "use_case": "Stock list previews",
+          "features": [
+            "Compact design",
+            "Quick overview"
+          ],
+          "placement": "Search results, watchlists"
+        },
+        "screener": {
+          "use_case": "Stock filtering",
+          "features": [
+            "Custom filters",
+            "Sortable columns",
+            "Export"
+          ],
+          "placement": "Explorer/Search page"
+        }
+      }
+    },
+    "sentiment_analysis": {
+      "current": {
+        "turkish": {
+          "status": "✅ Production Ready",
+          "models": [
+            "Turkish BERT",
+            "Custom LSTM"
+          ],
+          "sources": [
+            "KAP",
+            "Turkish financial news"
+          ]
+        }
+      },
+      "roadmap": {
+        "phase_1_english": {
+          "timeline": "2-3 weeks",
+          "models": [
+            "FinBERT",
+            "RoBERTa"
+          ],
+          "sources": [
+            "Reuters",
+            "Bloomberg",
+            "Yahoo Finance"
+          ],
+          "markets": [
+            "US",
+            "UK",
+            "Canada",
+            "Australia"
+          ]
+        },
+        "phase_2_european": {
+          "timeline": "3-4 weeks",
+          "models": [
+            "German BERT",
+            "French FinancialBERT"
+          ],
+          "sources": [
+            "Handelsblatt",
+            "Les Echos"
+          ],
+          "markets": [
+            "Germany",
+            "France"
+          ]
+        },
+        "phase_3_asian": {
+          "timeline": "4-6 weeks",
+          "models": [
+            "Multilingual BERT",
+            "Japanese FinBERT"
+          ],
+          "sources": [
+            "Nikkei",
+            "China Daily"
+          ],
+          "markets": [
+            "Japan",
+            "China",
+            "Hong Kong"
+          ]
+        }
+      }
+    },
+    "user_experience": {
+      "language_selector": {
+        "primary": "Turkish",
+        "secondary": [
+          "English"
+        ],
+        "future": [
+          "German",
+          "French",
+          "Japanese",
+          "Chinese"
+        ]
+      },
+      "market_selector": {
+        "default": "Turkey",
+        "available": [
+          "Turkey",
+          "US",
+          "UK",
+          "Germany",
+          "Japan",
+          "Global"
+        ],
+        "quick_switch": true
+      },
+      "responsive_design": {
+        "mobile_first": true,
+        "breakpoints": [
+          "mobile",
+          "tablet",
+          "desktop",
+          "ultra-wide"
+        ],
+        "pwa_ready": true
+      },
+      "performance": {
+        "lazy_loading": true,
+        "infinite_scroll": true,
+        "virtual_scrolling": "For large lists",
+        "caching_strategy": "Redis + Browser cache"
+      }
+    }
+  },
+  "implementation_priorities": [
+    {
+      "priority": "P1 - Critical",
+      "tasks": [
+        "TradingView widget integration",
+        "English sentiment analysis setup",
+        "Global market data pipeline",
+        "Multi-language UI framework"
+      ]
+    },
+    {
+      "priority": "P2 - High",
+      "tasks": [
+        "Heat map view implementation",
+        "Advanced filtering system",
+        "Mobile responsive optimization",
+        "Performance monitoring"
+      ]
+    },
+    {
+      "priority": "P3 - Medium",
+      "tasks": [
+        "European markets integration",
+        "Advanced charting features",
+        "Portfolio tracking",
+        "Alert system"
+      ]
+    }
+  ],
+  "success_metrics": {
+    "technical": {
+      "api_usage": "< 80% daily limit",
+      "response_time": "< 2s page load",
+      "uptime": "> 99.5%",
+      "cache_hit_rate": "> 85%"
+    },
+    "business": {
+      "user_engagement": "Daily active users growth",
+      "market_coverage": "Turkey + Top 5 global markets",
+      "sentiment_accuracy": "> 75% precision",
+      "mobile_usage": "> 60% traffic"
+    }
+  }
+}

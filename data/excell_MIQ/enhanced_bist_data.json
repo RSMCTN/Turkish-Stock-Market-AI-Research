@@ -1,0 +1,12 @@
+{
+  "stocks": [],
+  "sectors": {},
+  "metadata": {
+    "total_stocks": 0,
+    "total_sectors": 0,
+    "bist_30_count": 0,
+    "bist_100_count": 0,
+    "source_file": "basestock2808.xlsx",
+    "generated_at": "2025-08-29T01:05:07.083169"
+  }
+}

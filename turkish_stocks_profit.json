@@ -1,0 +1,4502 @@
+[
+  {
+    "ticker": "QNBTR.IS",
+    "symbol": "QNBTR",
+    "name": "Qnb Finansbank AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ASELS.IS",
+    "symbol": "ASELS",
+    "name": "Aselsan Elektronik Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GARAN.IS",
+    "symbol": "GARAN",
+    "name": "Turkiye Garanti Bankasi A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "THYAO.IS",
+    "symbol": "THYAO",
+    "name": "Turkish Airlines",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KCHOL.IS",
+    "symbol": "KCHOL",
+    "name": "Koc Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ENKAI.IS",
+    "symbol": "ENKAI",
+    "name": "ENKA Insaat ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ISBTR.IS",
+    "symbol": "ISBTR",
+    "name": "Turkiye Is Bankasi AS Class B",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ISCTR.IS",
+    "symbol": "ISCTR",
+    "name": "Turkiye Is Bankasi AS Class C",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "FROTO.IS",
+    "symbol": "FROTO",
+    "name": "Ford Otomotiv Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKBNK.IS",
+    "symbol": "AKBNK",
+    "name": "Akbank TAS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TUPRS.IS",
+    "symbol": "TUPRS",
+    "name": "Turkiye Petrol Rafinerileri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BIMAS.IS",
+    "symbol": "BIMAS",
+    "name": "BIM Birlesik Magazalar AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YKBNK.IS",
+    "symbol": "YKBNK",
+    "name": "Yapi ve Kredi Bankasi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VAKBN.IS",
+    "symbol": "VAKBN",
+    "name": "Turkiye Vakiflar Bankasi TAO",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KENT.IS",
+    "symbol": "KENT",
+    "name": "Kent Gida Maddeleri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TCELL.IS",
+    "symbol": "TCELL",
+    "name": "Turkcell Iletisim Hizmetleri AS ORD",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SAHOL.IS",
+    "symbol": "SAHOL",
+    "name": "Haci Omer Sabanci Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HALKB.IS",
+    "symbol": "HALKB",
+    "name": "Turkiye Halk Bankasi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TTKOM.IS",
+    "symbol": "TTKOM",
+    "name": "Turk Telekomunikasyon AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EREGL.IS",
+    "symbol": "EREGL",
+    "name": "Eregli Demir ve Celik Fabrikalari TAS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SASA.IS",
+    "symbol": "SASA",
+    "name": "SASA Polyester Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PKENT.IS",
+    "symbol": "PKENT",
+    "name": "Petrokent Turizm AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CCOLA.IS",
+    "symbol": "CCOLA",
+    "name": "Coca-Cola Icecek AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SISE.IS",
+    "symbol": "SISE",
+    "name": "Turkiye Sise ve Cam Fabrikalari AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KLNMA.IS",
+    "symbol": "KLNMA",
+    "name": "Turkiye Kalkinma Bankasi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PGSUS.IS",
+    "symbol": "PGSUS",
+    "name": "Pegasus Hava Tasimaciligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DOCO.IS",
+    "symbol": "DOCO",
+    "name": "DO & CO AG",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OYAKC.IS",
+    "symbol": "OYAKC",
+    "name": "Oyak Cimento Fabrikalari AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TOASO.IS",
+    "symbol": "TOASO",
+    "name": "Tofas Turk Otomobil Fabrikasi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ISDMR.IS",
+    "symbol": "ISDMR",
+    "name": "Iskenderun Demir ve Celik AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ZRGYO.IS",
+    "symbol": "ZRGYO",
+    "name": "Ziraat Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KLRHO.IS",
+    "symbol": "KLRHO",
+    "name": "Kiler Holding A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AEFES.IS",
+    "symbol": "AEFES",
+    "name": "Anadolu Efes Biracilik ve Malt Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TURSG.IS",
+    "symbol": "TURSG",
+    "name": "Turkiye Sigorta AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "INVES.IS",
+    "symbol": "INVES",
+    "name": "Investco Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GUBRF.IS",
+    "symbol": "GUBRF",
+    "name": "Gubre Fabrikalari TAS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TAVHL.IS",
+    "symbol": "TAVHL",
+    "name": "TAV Havalimanlari Holding",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ENERY.IS",
+    "symbol": "ENERY",
+    "name": "Enerya Enerji Anonim Sirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ARCLK.IS",
+    "symbol": "ARCLK",
+    "name": "Arcelik AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MGROS.IS",
+    "symbol": "MGROS",
+    "name": "Migros Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "QNBFK.IS",
+    "symbol": "QNBFK",
+    "name": "QNB Finansal Kiralama A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ENJSA.IS",
+    "symbol": "ENJSA",
+    "name": "Enerjisa Enerji AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KOZAL.IS",
+    "symbol": "KOZAL",
+    "name": "Koza Altin Isletmeleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TRGYO.IS",
+    "symbol": "TRGYO",
+    "name": "Torunlar Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AGHOL.IS",
+    "symbol": "AGHOL",
+    "name": "AG Anadolu Group Holding",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MPARK.IS",
+    "symbol": "MPARK",
+    "name": "MLP Saglik Hizmetleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EKGYO.IS",
+    "symbol": "EKGYO",
+    "name": "Emlak Konut Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OTKAR.IS",
+    "symbol": "OTKAR",
+    "name": "Otokar Otomotiv ve Savunma Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BRYAT.IS",
+    "symbol": "BRYAT",
+    "name": "Borusan Yatirim ve Pazarlama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ISMEN.IS",
+    "symbol": "ISMEN",
+    "name": "Is Yatirim Menkul Degerler AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TTRAK.IS",
+    "symbol": "TTRAK",
+    "name": "Turk Traktor ve Ziraat Makineleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MAGEN.IS",
+    "symbol": "MAGEN",
+    "name": "Margun Enerji Uretim Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SELEC.IS",
+    "symbol": "SELEC",
+    "name": "Selcuk Ecza Deposu Ticaret ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TABGD.IS",
+    "symbol": "TABGD",
+    "name": "TAB GIDA",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GENIL.IS",
+    "symbol": "GENIL",
+    "name": "Gen Ilac ve Saglik Urunleri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TBORG.IS",
+    "symbol": "TBORG",
+    "name": "Turk Tuborg Bira ve Malt Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BRSAN.IS",
+    "symbol": "BRSAN",
+    "name": "Borusan Mannesmann Boru Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKSEN.IS",
+    "symbol": "AKSEN",
+    "name": "Aksa Enerji Uretim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DOHOL.IS",
+    "symbol": "DOHOL",
+    "name": "Dogan Sirketler Grubu Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "RYGYO.IS",
+    "symbol": "RYGYO",
+    "name": "Reysas Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PETKM.IS",
+    "symbol": "PETKM",
+    "name": "Petkim Petrokimya Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "RGYAS.IS",
+    "symbol": "RGYAS",
+    "name": "RONESANS GAYRIMENKUL YAT.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CIMSA.IS",
+    "symbol": "CIMSA",
+    "name": "Cimsa Cimento Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DOAS.IS",
+    "symbol": "DOAS",
+    "name": "Dogus Otomotiv Servis ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ANSGR.IS",
+    "symbol": "ANSGR",
+    "name": "Anadolu Anonim Turk Sigorta Sti",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "UFUK.IS",
+    "symbol": "UFUK",
+    "name": "Ufuk Yatirim Yonetim Ve Gayrimenkul AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ECILC.IS",
+    "symbol": "ECILC",
+    "name": "EIS Eczacibasi Ilac Sinai ve Finansal Yatirimlar Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "RAYSG.IS",
+    "symbol": "RAYSG",
+    "name": "Ray Sigorta AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "LIDER.IS",
+    "symbol": "LIDER",
+    "name": "LDR Turizm AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ULKER.IS",
+    "symbol": "ULKER",
+    "name": "Ulker Biskuvi Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DAPGM.IS",
+    "symbol": "DAPGM",
+    "name": "Dap Gayrimenkul Gelistirme AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PEKGY.IS",
+    "symbol": "PEKGY",
+    "name": "Peker Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CLEBI.IS",
+    "symbol": "CLEBI",
+    "name": "Celebi Hava Servisi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "RYSAS.IS",
+    "symbol": "RYSAS",
+    "name": "Reysas Tasimacilik ve Lojistik Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "RALYH.IS",
+    "symbol": "RALYH",
+    "name": "Ral Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HEKTS.IS",
+    "symbol": "HEKTS",
+    "name": "Hektas Ticaret TAS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CMENT.IS",
+    "symbol": "CMENT",
+    "name": "Cimentas Izmir Cimento Fabrikasi TAS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ALARK.IS",
+    "symbol": "ALARK",
+    "name": "Alarko Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKSA.IS",
+    "symbol": "AKSA",
+    "name": "Aksa Akrilik Kimya Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TSKB.IS",
+    "symbol": "TSKB",
+    "name": "Turkiye Sinai Kalkinma Bankasi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TKFEN.IS",
+    "symbol": "TKFEN",
+    "name": "Tekfen Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AYGAZ.IS",
+    "symbol": "AYGAZ",
+    "name": "Aygaz AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ANHYT.IS",
+    "symbol": "ANHYT",
+    "name": "Anadolu Hayat Emeklilik AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KRDMD.IS",
+    "symbol": "KRDMD",
+    "name": "Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class D",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KRDMB.IS",
+    "symbol": "KRDMB",
+    "name": "Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class B",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KRDMA.IS",
+    "symbol": "KRDMA",
+    "name": "Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class A",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "NUHCM.IS",
+    "symbol": "NUHCM",
+    "name": "Nuh Cimento Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MAVI.IS",
+    "symbol": "MAVI",
+    "name": "Mavi Giyim Sanayi Ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GRSEL.IS",
+    "symbol": "GRSEL",
+    "name": "GurSel Turizm Tasimacilik Ve Servis Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AGESA.IS",
+    "symbol": "AGESA",
+    "name": "Agesa Hayat ve Emeklilik AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VERUS.IS",
+    "symbol": "VERUS",
+    "name": "Verusa Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "POLTK.IS",
+    "symbol": "POLTK",
+    "name": "Politeknik Metal Sanayi ve",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KCAER.IS",
+    "symbol": "KCAER",
+    "name": "Kocaer Celik Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KOZAA.IS",
+    "symbol": "KOZAA",
+    "name": "Koza Anadolu Metal Madencilik Isletmeleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HEDEF.IS",
+    "symbol": "HEDEF",
+    "name": "Hedef Holdings AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KONYA.IS",
+    "symbol": "KONYA",
+    "name": "Konya Cimento Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ECZYT.IS",
+    "symbol": "ECZYT",
+    "name": "Eczacibasi Yatirim Holding Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKCNS.IS",
+    "symbol": "AKCNS",
+    "name": "Akcansa Cimento Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OBAMS.IS",
+    "symbol": "OBAMS",
+    "name": "Oba Makarnacılık San As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ESEN.IS",
+    "symbol": "ESEN",
+    "name": "Esenboga Elektrik Uretim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AVPGY.IS",
+    "symbol": "AVPGY",
+    "name": "AVRUPAKENT GMYO",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BALSU.IS",
+    "symbol": "BALSU",
+    "name": "BALSU GIDA",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EGEEN.IS",
+    "symbol": "EGEEN",
+    "name": "Ege Endustri ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BASGZ.IS",
+    "symbol": "BASGZ",
+    "name": "Baskent Dogalgaz Dagitim Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MOGAN.IS",
+    "symbol": "MOGAN",
+    "name": "Mogan Enerji Yatırım Holding As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ENTRA.IS",
+    "symbol": "ENTRA",
+    "name": "Ic Enterra Yenilenebilir Enerji As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "NTHOL.IS",
+    "symbol": "NTHOL",
+    "name": "Net Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BRISA.IS",
+    "symbol": "BRISA",
+    "name": "Brisa Bridgestone Sabanci Lastik Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IZENR.IS",
+    "symbol": "IZENR",
+    "name": "IZDEMIR Enerji Elektrik Uretim A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SOKM.IS",
+    "symbol": "SOKM",
+    "name": "Sok Marketler Ticaret As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BFREN.IS",
+    "symbol": "BFREN",
+    "name": "Bosch Fren Sistemleri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BTCIM.IS",
+    "symbol": "BTCIM",
+    "name": "Baticim Bati Anadolu Cimento Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GESAN.IS",
+    "symbol": "GESAN",
+    "name": "Girisim Elektrik Taahhut Ticaret & Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BSOKE.IS",
+    "symbol": "BSOKE",
+    "name": "Batisoke Soke Cimento Sanayi TAS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KUYAS.IS",
+    "symbol": "KUYAS",
+    "name": "Kuyas Yatirim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EFORC.IS",
+    "symbol": "EFORC",
+    "name": "EFOR CAY SANAYI",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YGGYO.IS",
+    "symbol": "YGGYO",
+    "name": "Yeni Gimat Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BANVT.IS",
+    "symbol": "BANVT",
+    "name": "Banvit Bandirma Vitaminli Yem Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ALBRK.IS",
+    "symbol": "ALBRK",
+    "name": "Albaraka Turk Katilim Bankasi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ZOREN.IS",
+    "symbol": "ZOREN",
+    "name": "Zorlu Enerji Elektrik Uretim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OZKGY.IS",
+    "symbol": "OZKGY",
+    "name": "Ozak Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GSRAY.IS",
+    "symbol": "GSRAY",
+    "name": "Galatasaray Sportif Sinai ve Ticari Yatirimlar AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SUNTK.IS",
+    "symbol": "SUNTK",
+    "name": "Sun Tekstil Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "QUAGR.IS",
+    "symbol": "QUAGR",
+    "name": "Qua Granite Hayal Yapi ve Urunleri Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SMRTG.IS",
+    "symbol": "SMRTG",
+    "name": "Smart Gunes Enerjisi Teknolojileri Arastirma Gelistirme Uretim Sanayi ve Ticaret",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MIATK.IS",
+    "symbol": "MIATK",
+    "name": "Mia Teknoloji AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MRSHL.IS",
+    "symbol": "MRSHL",
+    "name": "Marshall Boya ve Vernik Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GIPTA.IS",
+    "symbol": "GIPTA",
+    "name": "Gipta Ofis Kirtasiye ve Promosyon ÃrÃ¼nleri Imalat Sanayi A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SKBNK.IS",
+    "symbol": "SKBNK",
+    "name": "Sekerbank TAS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GRTHO.IS",
+    "symbol": "GRTHO",
+    "name": "GRAINTURK Holding A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ADESE.IS",
+    "symbol": "ADESE",
+    "name": "Adese Gayrimenkul Yatirim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GZNMI.IS",
+    "symbol": "GZNMI",
+    "name": "Gezinomi Seyahat Turizm Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ISGYO.IS",
+    "symbol": "ISGYO",
+    "name": "Is Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKSGY.IS",
+    "symbol": "AKSGY",
+    "name": "Akis Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SNGYO.IS",
+    "symbol": "SNGYO",
+    "name": "Sinpas Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GLYHO.IS",
+    "symbol": "GLYHO",
+    "name": "Global Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "JANTS.IS",
+    "symbol": "JANTS",
+    "name": "Jantsa Jant Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KONTR.IS",
+    "symbol": "KONTR",
+    "name": "Kontrolmatik Teknoloji Enerji ve Mu",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SNPAM.IS",
+    "symbol": "SNPAM",
+    "name": "Sonmez Pamuklu Sanayii AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ALTNY.IS",
+    "symbol": "ALTNY",
+    "name": "ALTINAY SAVUNMA",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KZBGY.IS",
+    "symbol": "KZBGY",
+    "name": "Kizilbuk Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HLGYO.IS",
+    "symbol": "HLGYO",
+    "name": "Halk Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VESBE.IS",
+    "symbol": "VESBE",
+    "name": "Vestel Beyaz Esya Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KLSER.IS",
+    "symbol": "KLSER",
+    "name": "Kaleseramik Canakkale Kalebodur Seramik Sanayi A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "LOGO.IS",
+    "symbol": "LOGO",
+    "name": "Logo Yazilim Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CANTE.IS",
+    "symbol": "CANTE",
+    "name": "Can2 Termik AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "FZLGY.IS",
+    "symbol": "FZLGY",
+    "name": "Fuzul Gayrimenkul Yatirim Ortakligi Anonim Sirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "FENER.IS",
+    "symbol": "FENER",
+    "name": "Fenerbahce Futbol AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ASUZU.IS",
+    "symbol": "ASUZU",
+    "name": "Anadolu Isuzu Otomotiv Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BINHO.IS",
+    "symbol": "BINHO",
+    "name": "BINHO",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ULUSE.IS",
+    "symbol": "ULUSE",
+    "name": "Ulusoy Elektrik Imalat",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "POLHO.IS",
+    "symbol": "POLHO",
+    "name": "Polisan Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "LILAK.IS",
+    "symbol": "LILAK",
+    "name": "LILA KAGIT",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ODINE.IS",
+    "symbol": "ODINE",
+    "name": "Odine Solutions Teknoloji As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GEDIK.IS",
+    "symbol": "GEDIK",
+    "name": "Gedik Yatirim Menkul Degerler AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PSGYO.IS",
+    "symbol": "PSGYO",
+    "name": "Pasifik Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EUREN.IS",
+    "symbol": "EUREN",
+    "name": "Europen Endustri Insaat Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KSTUR.IS",
+    "symbol": "KSTUR",
+    "name": "Kustur Kusadasi Turizm Endustrisi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "LINK.IS",
+    "symbol": "LINK",
+    "name": "Link Bilgisayar Sistemleri Yazilimi ve Donanimi Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ESCAR.IS",
+    "symbol": "ESCAR",
+    "name": "Escar Turizm Tasimacilik Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "LMKDC.IS",
+    "symbol": "LMKDC",
+    "name": "Limak Dogu Anadolu Cimento San As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KLKIM.IS",
+    "symbol": "KLKIM",
+    "name": "Kalekim Kimyevi Maddeler Sanayi & Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BORLS.IS",
+    "symbol": "BORLS",
+    "name": "Borlease Otomotiv A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HTTBT.IS",
+    "symbol": "HTTBT",
+    "name": "Hitit Bilgisayar Hizmetleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GWIND.IS",
+    "symbol": "GWIND",
+    "name": "Galata Wind Enerji Anonim Sirket",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TMSN.IS",
+    "symbol": "TMSN",
+    "name": "Tumosan Motor ve Traktor Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PATEK.IS",
+    "symbol": "PATEK",
+    "name": "Pasifik Donanım ve Yazılım Bilgi Tek As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ARASE.IS",
+    "symbol": "ARASE",
+    "name": "Dogu Aras Enerji Yatirimlari AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KOTON.IS",
+    "symbol": "KOTON",
+    "name": "KOTON MAGAZACILIK ",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TUKAS.IS",
+    "symbol": "TUKAS",
+    "name": "Tukas Gida Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AYDEM.IS",
+    "symbol": "AYDEM",
+    "name": "Aydem Yenilenebilir Enerji AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VAKFN.IS",
+    "symbol": "VAKFN",
+    "name": "Vakif Finansal Kiralama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IPEKE.IS",
+    "symbol": "IPEKE",
+    "name": "Ipek Dogal Enerji Kaynaklari Arastirma ve Uretim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ICBCT.IS",
+    "symbol": "ICBCT",
+    "name": "ICBC Turkey Bank AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EMKEL.IS",
+    "symbol": "EMKEL",
+    "name": "EMEK Elektrik Endustrisi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YEOTK.IS",
+    "symbol": "YEOTK",
+    "name": "Yeo Teknoloji Enerji ve Endustri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ADGYO.IS",
+    "symbol": "ADGYO",
+    "name": "Adra Gayrimenkul Yatirim Ortakligi Anonim Sirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DEVA.IS",
+    "symbol": "DEVA",
+    "name": "Deva Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EGPRO.IS",
+    "symbol": "EGPRO",
+    "name": "Ege Profil Ticaret ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VESTL.IS",
+    "symbol": "VESTL",
+    "name": "Vestel Elektronik Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "INVEO.IS",
+    "symbol": "INVEO",
+    "name": "Inveo Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YYLGD.IS",
+    "symbol": "YYLGD",
+    "name": "Yayla Agro Gida Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OYYAT.IS",
+    "symbol": "OYYAT",
+    "name": "Oyak Yatirim Menkul Degerler AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KORDS.IS",
+    "symbol": "KORDS",
+    "name": "Kordsa Global Endustriyel Iplik ve Kord Bezi Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SRVGY.IS",
+    "symbol": "SRVGY",
+    "name": "Servet Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ISFIN.IS",
+    "symbol": "ISFIN",
+    "name": "Is Finansal Kiralama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SARKY.IS",
+    "symbol": "SARKY",
+    "name": "Sarkuysan Elektrolitik Bakir Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AYCES.IS",
+    "symbol": "AYCES",
+    "name": "Altin Yunus Cesme Turistik Tesisler AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TUREX.IS",
+    "symbol": "TUREX",
+    "name": "Tureks Turizm Tasimacilik AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BERA.IS",
+    "symbol": "BERA",
+    "name": "Bera Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKFGY.IS",
+    "symbol": "AKFGY",
+    "name": "Akfen Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BASCM.IS",
+    "symbol": "BASCM",
+    "name": "Bastas Baskent Cimento Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DGGYO.IS",
+    "symbol": "DGGYO",
+    "name": "Dogus Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HATSN.IS",
+    "symbol": "HATSN",
+    "name": "Hat-San Gemi Insaa Bakim Onarim Deniz Nakliyat Sanayi ve Ticaret Anonim Sirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CRFSA.IS",
+    "symbol": "CRFSA",
+    "name": "CarrefourSA Carrefour Sabanci Ticaret Merkezi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BUCIM.IS",
+    "symbol": "BUCIM",
+    "name": "Bursa Cimento Fabrikasi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SURGY.IS",
+    "symbol": "SURGY",
+    "name": "SUR TATIL EVLERI GMYO",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKGRT.IS",
+    "symbol": "AKGRT",
+    "name": "AK Sigorta AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ALCAR.IS",
+    "symbol": "ALCAR",
+    "name": "Alarko Carrier Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YBTAS.IS",
+    "symbol": "YBTAS",
+    "name": "Yibitas Yozgat Isci Birligi Insaat Malzemeleri Ticaret Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BIOEN.IS",
+    "symbol": "BIOEN",
+    "name": "Biotrend Cevre ve Enerji Yatirimlari AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EGGUB.IS",
+    "symbol": "EGGUB",
+    "name": "Ege Gubre Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BOSSA.IS",
+    "symbol": "BOSSA",
+    "name": "Bossa Ticaret ve Sanayi Isletmeleri TAS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ENSRI.IS",
+    "symbol": "ENSRI",
+    "name": "Ensari Deri Gida Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BEGYO.IS",
+    "symbol": "BEGYO",
+    "name": "BATI EGE GMYO",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DOBUR.IS",
+    "symbol": "DOBUR",
+    "name": "Dogan Burda Dergi Yayincilik ve Pazarlama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GARFA.IS",
+    "symbol": "GARFA",
+    "name": "Garanti Faktoring AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GLCVY.IS",
+    "symbol": "GLCVY",
+    "name": "Gelecek Varlik Yonetimi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TEKTU.IS",
+    "symbol": "TEKTU",
+    "name": "Tek-Art Insaat Ticaret Turizm Sanayi ve Yatirimlar AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BJKAS.IS",
+    "symbol": "BJKAS",
+    "name": "Besiktas Futbol Yatirimlari Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ADEL.IS",
+    "symbol": "ADEL",
+    "name": "Adel Kalemcilik Ticaret ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AGROT.IS",
+    "symbol": "AGROT",
+    "name": "AGROT",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KARSN.IS",
+    "symbol": "KARSN",
+    "name": "Karsan Otomotiv Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TSPOR.IS",
+    "symbol": "TSPOR",
+    "name": "Trabzonspor Sportif Yatirim ve Futbol Isletmeciligi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IZMDC.IS",
+    "symbol": "IZMDC",
+    "name": "Izmir Demir Celik Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VAKKO.IS",
+    "symbol": "VAKKO",
+    "name": "Vakko Tekstil ve Hazir Giyim Sanayi Isletmeleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ISKPL.IS",
+    "symbol": "ISKPL",
+    "name": "Isik Plastik Sanayi ve Dis Ticaret Pazarlama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "REEDR.IS",
+    "symbol": "REEDR",
+    "name": "Reeder Teknoloji Sanayi ve Ticaret Anonim Sirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MERCN.IS",
+    "symbol": "MERCN",
+    "name": "Mercan Kimya Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ALKLC.IS",
+    "symbol": "ALKLC",
+    "name": "Altinkilic Gida ve Sut Sanayi Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VKGYO.IS",
+    "symbol": "VKGYO",
+    "name": "Vakif Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SONME.IS",
+    "symbol": "SONME",
+    "name": "Sonmez Filament Sentetik Iplik ve Elyaf Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HRKET.IS",
+    "symbol": "HRKET",
+    "name": "Hareket Proje Tasimaciligi ve Yuk Muhendisligi Anonim Sirketi ",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MEGMT.IS",
+    "symbol": "MEGMT",
+    "name": "MEGA METAL",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GOZDE.IS",
+    "symbol": "GOZDE",
+    "name": "Gozde Girisim Sermayesi Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IEYHO.IS",
+    "symbol": "IEYHO",
+    "name": "Isiklar Enerji ve Yapi Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TRCAS.IS",
+    "symbol": "TRCAS",
+    "name": "Turcas Petrol AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KLGYO.IS",
+    "symbol": "KLGYO",
+    "name": "Kiler Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EBEBK.IS",
+    "symbol": "EBEBK",
+    "name": "Ebebek Magazacilik Anonim Sirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ODAS.IS",
+    "symbol": "ODAS",
+    "name": "ODAS Elektrik Uretim Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KBORU.IS",
+    "symbol": "KBORU",
+    "name": "KUZEY BORU",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKMGY.IS",
+    "symbol": "AKMGY",
+    "name": "Akmerkez Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DOKTA.IS",
+    "symbol": "DOKTA",
+    "name": "Doktas Dokumculuk Ticaret ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MAALT.IS",
+    "symbol": "MAALT",
+    "name": "Marmaris Altinyunus Turistik Tesisleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BMSTL.IS",
+    "symbol": "BMSTL",
+    "name": "Bms Birlesik Metal Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IZFAS.IS",
+    "symbol": "IZFAS",
+    "name": "Izmir Firca Sanayi ve Ticaret",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YIGIT.IS",
+    "symbol": "YIGIT",
+    "name": "Yigit Aku Malzemeleri Nakliyat Turizm Insaat Sanayi ve Ticaret A.S. ",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKENR.IS",
+    "symbol": "AKENR",
+    "name": "Akenerji Elektrik Uretim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OFSYM.IS",
+    "symbol": "OFSYM",
+    "name": "Ofis Yem Gida Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MOBTL.IS",
+    "symbol": "MOBTL",
+    "name": "Mobiltel Iletisim Hizmetleri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KMPUR.IS",
+    "symbol": "KMPUR",
+    "name": "Kimteks Poliuretan Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PRKAB.IS",
+    "symbol": "PRKAB",
+    "name": "Turk Prysmian Kablo ve Sistemleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "NATEN.IS",
+    "symbol": "NATEN",
+    "name": "Naturel Yenilenebilir Enerji Ticare",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BULGS.IS",
+    "symbol": "BULGS",
+    "name": "BULLS GSYO",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BOBET.IS",
+    "symbol": "BOBET",
+    "name": "Bogazici Beton Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ASGYO.IS",
+    "symbol": "ASGYO",
+    "name": "Asce Gayrimenkul Yatirim Ortakligi A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AYEN.IS",
+    "symbol": "AYEN",
+    "name": "Ayen Enerji AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TEZOL.IS",
+    "symbol": "TEZOL",
+    "name": "Europap Tezol Kagit Sanayi Ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EKOS.IS",
+    "symbol": "EKOS",
+    "name": "EKOS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TARKM.IS",
+    "symbol": "TARKM",
+    "name": "Tarkim Bitki Koruma Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KOCMT.IS",
+    "symbol": "KOCMT",
+    "name": "KOC METALURJI",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GEREL.IS",
+    "symbol": "GEREL",
+    "name": "Gersan Elektrik Ticaret ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ATATP.IS",
+    "symbol": "ATATP",
+    "name": "Atp Ticari Bilgisayar Agi ve Elektrik Guc Kaynaklari Uretim Pazarlama ve Ticaret",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KAREL.IS",
+    "symbol": "KAREL",
+    "name": "Karel Elektronik Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DAGHL.IS",
+    "symbol": "DAGHL",
+    "name": "Dagi Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ATAKP.IS",
+    "symbol": "ATAKP",
+    "name": "Atakey Patates Gida Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MERIT.IS",
+    "symbol": "MERIT",
+    "name": "Merit Turizm Yatirim ve Isletme AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "NTGAZ.IS",
+    "symbol": "NTGAZ",
+    "name": "Naturelgaz Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PARSN.IS",
+    "symbol": "PARSN",
+    "name": "Parsan Makina Parcalari Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "METUR.IS",
+    "symbol": "METUR",
+    "name": "Metemtur Yatırım Enerji Turizm ve İnşaat A.Ş.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IHAAS.IS",
+    "symbol": "IHAAS",
+    "name": "Ihlas Haber Ajansi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DESA.IS",
+    "symbol": "DESA",
+    "name": "Desa Deri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KATMR.IS",
+    "symbol": "KATMR",
+    "name": "Katmerciler Arac Ustu Ekipman Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GENTS.IS",
+    "symbol": "GENTS",
+    "name": "Gentas Genel Metal Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KARTN.IS",
+    "symbol": "KARTN",
+    "name": "Kartonsan Karton Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PENTA.IS",
+    "symbol": "PENTA",
+    "name": "Penta Teknoloji Urunleri Dagitim Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DMRGD.IS",
+    "symbol": "DMRGD",
+    "name": "Dmr Unlu Mamuller Uretim Gida Toptan Perakende Ihracat A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CEMTS.IS",
+    "symbol": "CEMTS",
+    "name": "Cemtas Celik Makina Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ERCB.IS",
+    "symbol": "ERCB",
+    "name": "Erciyas Celik Boru Sanayi A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ANELE.IS",
+    "symbol": "ANELE",
+    "name": "Anel Elektrik Proje Taahhut ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "INDES.IS",
+    "symbol": "INDES",
+    "name": "Indeks Bilgisayar Sistemleri Muhendislik Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GOLTS.IS",
+    "symbol": "GOLTS",
+    "name": "Goltas Goller Bolgesi Cimento Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CEMAS.IS",
+    "symbol": "CEMAS",
+    "name": "Cemas Dokum Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CGCAM.IS",
+    "symbol": "CGCAM",
+    "name": "Cagdas Cam Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BORSK.IS",
+    "symbol": "BORSK",
+    "name": "Bor Seker As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ALGYO.IS",
+    "symbol": "ALGYO",
+    "name": "Alarko Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ORGE.IS",
+    "symbol": "ORGE",
+    "name": "Orge Enerji Elektrik Taahhut AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ULUUN.IS",
+    "symbol": "ULUUN",
+    "name": "Ulusoy Un Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SUWEN.IS",
+    "symbol": "SUWEN",
+    "name": "Suwen Tekstil Sanayi Pazarlama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CATES.IS",
+    "symbol": "CATES",
+    "name": "CATES ELEKTRIK",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ALVES.IS",
+    "symbol": "ALVES",
+    "name": "Alves Kablo San As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AFYON.IS",
+    "symbol": "AFYON",
+    "name": "Afyon Cimento Sanayi TAS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DARDL.IS",
+    "symbol": "DARDL",
+    "name": "Dardanel Onentas Gida Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ALKIM.IS",
+    "symbol": "ALKIM",
+    "name": "Alkim Alkali Kimya AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ALKA.IS",
+    "symbol": "ALKA",
+    "name": "Alkim Kagit Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TKNSA.IS",
+    "symbol": "TKNSA",
+    "name": "Teknosa Ic ve Dis Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "USAK.IS",
+    "symbol": "USAK",
+    "name": "Usak Seramik Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ONRYT.IS",
+    "symbol": "ONRYT",
+    "name": "ONUR TEKNOLOJI ",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HOROZ.IS",
+    "symbol": "HOROZ",
+    "name": "Horoz Lojistik Kargo Hizmetleri ve Ticaret Anonim Sirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TCKRC.IS",
+    "symbol": "TCKRC",
+    "name": "KIRAC GALVANIZ",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KRVGD.IS",
+    "symbol": "KRVGD",
+    "name": "Kervan Gıda Sanayi Ve Ticaret As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ORMA.IS",
+    "symbol": "ORMA",
+    "name": "Orma Orman Mahsulleri Integre Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KONKA.IS",
+    "symbol": "KONKA",
+    "name": "Konya Kagit Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MHRGY.IS",
+    "symbol": "MHRGY",
+    "name": "MHR Gayrimenkul Yatirim Ortakligi Anonim Sirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BARMA.IS",
+    "symbol": "BARMA",
+    "name": "Barem Ambalaj Sanayi ve Ticaret a.s.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TURGG.IS",
+    "symbol": "TURGG",
+    "name": "Turker Proje Gayrimenkul Ve Yatirim Gelistirme AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TSGYO.IS",
+    "symbol": "TSGYO",
+    "name": "TSKB Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BAGFS.IS",
+    "symbol": "BAGFS",
+    "name": "Bagfas Bandirma Gubre Fabrikalari AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ARDYZ.IS",
+    "symbol": "ARDYZ",
+    "name": "Ard Grup Bilisim Teknolojileri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ARSAN.IS",
+    "symbol": "ARSAN",
+    "name": "Arsan Tekstil Ticaret ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GOODY.IS",
+    "symbol": "GOODY",
+    "name": "Goodyear Lastikleri TAS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EGEPO.IS",
+    "symbol": "EGEPO",
+    "name": "Nasmed Ozel Saglik Hizmetleri Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ELITE.IS",
+    "symbol": "ELITE",
+    "name": "Elite Naturel Organik Gida Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YATAS.IS",
+    "symbol": "YATAS",
+    "name": "Yatas Yatak ve Yorgan Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YAPRK.IS",
+    "symbol": "YAPRK",
+    "name": "Yaprak Sut ve Besi Ciftlikleri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GSDHO.IS",
+    "symbol": "GSDHO",
+    "name": "GSD Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IHLAS.IS",
+    "symbol": "IHLAS",
+    "name": "Ihlas Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DYOBY.IS",
+    "symbol": "DYOBY",
+    "name": "DYO Boya Fabrikalari Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KNFRT.IS",
+    "symbol": "KNFRT",
+    "name": "Konfrut Gida Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AZTEK.IS",
+    "symbol": "AZTEK",
+    "name": "Aztek Teknoloji Urunleri Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "NETAS.IS",
+    "symbol": "NETAS",
+    "name": "Netas Telekomunikasyon AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HURGZ.IS",
+    "symbol": "HURGZ",
+    "name": "Hurriyet Gazetecilik ve Matbaacilik AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "FMIZP.IS",
+    "symbol": "FMIZP",
+    "name": "Federal Mogul Izmit Piston ve Pim Uretim Tesisleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "LRSHO.IS",
+    "symbol": "LRSHO",
+    "name": "Ittifak Holding A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ALCTL.IS",
+    "symbol": "ALCTL",
+    "name": "Alcatel Lucent Teletas Telekomunikasyon AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KAPLM.IS",
+    "symbol": "KAPLM",
+    "name": "Kaplamin Ambalaj Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DERHL.IS",
+    "symbol": "DERHL",
+    "name": "Derluks Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "INTEM.IS",
+    "symbol": "INTEM",
+    "name": "Intema Insaat ve Tesisat Malzemeleri Yatirim ve Pazarlama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AHSGY.IS",
+    "symbol": "AHSGY",
+    "name": "AHES GMYO",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HUNER.IS",
+    "symbol": "HUNER",
+    "name": "Hun Yenilenebilir Enerji Uretim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "FORMT.IS",
+    "symbol": "FORMT",
+    "name": "Formet Celik Kapi Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ISBIR.IS",
+    "symbol": "ISBIR",
+    "name": "Isbir Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OSMEN.IS",
+    "symbol": "OSMEN",
+    "name": "Osmanli Menkul Degerler AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PEHOL.IS",
+    "symbol": "PEHOL",
+    "name": "Pera Yatirim Holding Anonim Sirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SAYAS.IS",
+    "symbol": "SAYAS",
+    "name": "Say Yenilenebilir Enerji Ekipmanları Sanayi ve Ticaret Anonim Şirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SAFKR.IS",
+    "symbol": "SAFKR",
+    "name": "Safkar Ege Sogutmacilik Klima Soguk Hava Tesisleri Ihracat Ithalat Sanayi ve Tic",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IMASM.IS",
+    "symbol": "IMASM",
+    "name": "Imas Makina Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CMBTN.IS",
+    "symbol": "CMBTN",
+    "name": "Cimbeton Hazirbeton ve Prefabrik Yapi Elemanlari Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MARBL.IS",
+    "symbol": "MARBL",
+    "name": "Tureks Turunc Madencilik Ic ve Dis Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "INFO.IS",
+    "symbol": "INFO",
+    "name": "Info Yatirim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DCTTR.IS",
+    "symbol": "DCTTR",
+    "name": "DCT TRADING DIS TICARET",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "INTEK.IS",
+    "symbol": "INTEK",
+    "name": "Uzertas Boya Sanayi Ticaret ve Yatirim A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BRLSM.IS",
+    "symbol": "BRLSM",
+    "name": "Birlesim Muhendislik Isitma Sogutma Havalandirma Sanayi & Ticaret Sirketi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PNSUT.IS",
+    "symbol": "PNSUT",
+    "name": "Pinar Sut Mamulleri Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PAMEL.IS",
+    "symbol": "PAMEL",
+    "name": "Pamel Yenilenebilir Elektrik Uretim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PAPIL.IS",
+    "symbol": "PAPIL",
+    "name": "Papilon Savunma Guvenlik Sistemleri",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MNDRS.IS",
+    "symbol": "MNDRS",
+    "name": "Menderes Tekstil Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KUTPO.IS",
+    "symbol": "KUTPO",
+    "name": "Kutahya Porselen Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "NUGYO.IS",
+    "symbol": "NUGYO",
+    "name": "Nurol Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MEDTR.IS",
+    "symbol": "MEDTR",
+    "name": "Meditera Tibbi Malzeme Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "LKMNH.IS",
+    "symbol": "LKMNH",
+    "name": "Lokman Hekim Engurusag Saglik Turizm Egitim Hizmetleri ve Insaat Taahhut AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ERBOS.IS",
+    "symbol": "ERBOS",
+    "name": "Erbosan Erciyas Boru Sanayi Ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PETUN.IS",
+    "symbol": "PETUN",
+    "name": "Pinar Entegre Et ve Un Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OTTO.IS",
+    "symbol": "OTTO",
+    "name": "Otto Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ISSEN.IS",
+    "symbol": "ISSEN",
+    "name": "Isbir Sentetik Dokuma Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TRILC.IS",
+    "symbol": "TRILC",
+    "name": "Turk Ilac ve Serum Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ARENA.IS",
+    "symbol": "ARENA",
+    "name": "Arena Bilgisayar Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KRGYO.IS",
+    "symbol": "KRGYO",
+    "name": "Korfez Gayrimenkul Yatirim",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SEGYO.IS",
+    "symbol": "SEGYO",
+    "name": "Seker Gayrimenkul Yatirim Ortakligi A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MEKAG.IS",
+    "symbol": "MEKAG",
+    "name": "Meka Beton Santralleri Imalat Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SANKO.IS",
+    "symbol": "SANKO",
+    "name": "Sanko Pazarlama Ithalat Ihracat AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ETILR.IS",
+    "symbol": "ETILR",
+    "name": "Etiler İnci Bufe Gida Sanayi ve Dis Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KGYO.IS",
+    "symbol": "KGYO",
+    "name": "Yapi Kredi Koray Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PINSU.IS",
+    "symbol": "PINSU",
+    "name": "Pinar Su Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TATGD.IS",
+    "symbol": "TATGD",
+    "name": "Tat Gida Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SMRVA.IS",
+    "symbol": "SMRVA",
+    "name": "Sumer Varlik Yonetim A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MAKTK.IS",
+    "symbol": "MAKTK",
+    "name": "Makina Takim Endustrisi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KIMMR.IS",
+    "symbol": "KIMMR",
+    "name": "Ersan Alisveris Hizmetleri & Gida Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MRGYO.IS",
+    "symbol": "MRGYO",
+    "name": "Marti Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OZYSR.IS",
+    "symbol": "OZYSR",
+    "name": "OZYASAR TEL",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DITAS.IS",
+    "symbol": "DITAS",
+    "name": "Ditas Dogan Yedek Parca Imalat ve Teknik AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GLRYH.IS",
+    "symbol": "GLRYH",
+    "name": "Guler Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TGSAS.IS",
+    "symbol": "TGSAS",
+    "name": "TGS Dis Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KTSKR.IS",
+    "symbol": "KTSKR",
+    "name": "Kutahya Seker Fabrikasi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "LUKSK.IS",
+    "symbol": "LUKSK",
+    "name": "Luks Kadife Ticaret ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PRKME.IS",
+    "symbol": "PRKME",
+    "name": "Park Elektrik Uretim Madencilik Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YUNSA.IS",
+    "symbol": "YUNSA",
+    "name": "Yunsa Yunlu Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IHLGM.IS",
+    "symbol": "IHLGM",
+    "name": "Ihlas Gayrimenkul Proje Gelistirme ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PNLSN.IS",
+    "symbol": "PNLSN",
+    "name": "Panelsan Cati Cephe Sistemleri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SANFM.IS",
+    "symbol": "SANFM",
+    "name": "Sanifoam Sunger Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CELHA.IS",
+    "symbol": "CELHA",
+    "name": "Celik Halat ve Tel Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BAKAB.IS",
+    "symbol": "BAKAB",
+    "name": "Bak Ambalaj Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DZGYO.IS",
+    "symbol": "DZGYO",
+    "name": "Deniz Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VBTYZ.IS",
+    "symbol": "VBTYZ",
+    "name": "Vbt Yazilim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KLSYN.IS",
+    "symbol": "KLSYN",
+    "name": "Koleksiyon Mobilya Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EDATA.IS",
+    "symbol": "EDATA",
+    "name": "E-Data Teknoloji Pazarlama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AYES.IS",
+    "symbol": "AYES",
+    "name": "Ayes Celik Hasir ve Cit Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DNISI.IS",
+    "symbol": "DNISI",
+    "name": "Dinamik Isi Makina Yalitim Malzemeleri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "UNLU.IS",
+    "symbol": "UNLU",
+    "name": "Unlu Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KUVVA.IS",
+    "symbol": "KUVVA",
+    "name": "Kuvva Gida Ticaret ve Sanayi Yatirimlari A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BAHKM.IS",
+    "symbol": "BAHKM",
+    "name": "BAHADIR KIMYA",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CONSE.IS",
+    "symbol": "CONSE",
+    "name": "Consus Enerji Isletmeciligi ve Hizmetleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BEYAZ.IS",
+    "symbol": "BEYAZ",
+    "name": "Beyaz Filo Oto Kiralama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DGNMO.IS",
+    "symbol": "DGNMO",
+    "name": "Doganlar Mobilya Grubu Imalat Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ANGEN.IS",
+    "symbol": "ANGEN",
+    "name": "Anatolia Tani ve Biyoteknoloji Urunleri Arastirma Gelistirme Sanayi ve Ticaret",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HDFGS.IS",
+    "symbol": "HDFGS",
+    "name": "Hedef Girisim Sermayesi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EGSER.IS",
+    "symbol": "EGSER",
+    "name": "Ege Seramik Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VRGYO.IS",
+    "symbol": "VRGYO",
+    "name": "VERA KONSEPT GMYO",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PCILT.IS",
+    "symbol": "PCILT",
+    "name": "Pc Iletisim ve Medya Hizmetleri Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SKYMD.IS",
+    "symbol": "SKYMD",
+    "name": "SEKER YATIRIM",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MARTI.IS",
+    "symbol": "MARTI",
+    "name": "Marti Otel Isletmeleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DGATE.IS",
+    "symbol": "DGATE",
+    "name": "Datagate Bilgisayar Malzemeleri Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DOFER.IS",
+    "symbol": "DOFER",
+    "name": "Dofer Yapi Malzemeleri Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MAKIM.IS",
+    "symbol": "MAKIM",
+    "name": "Makim Makina Teknolojileri Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MSGYO.IS",
+    "symbol": "MSGYO",
+    "name": "Mistral Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ARTMS.IS",
+    "symbol": "ARTMS",
+    "name": "Artemis Hali As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MTRKS.IS",
+    "symbol": "MTRKS",
+    "name": "Matriks Bilgi Dagitim Hizmetleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OSTIM.IS",
+    "symbol": "OSTIM",
+    "name": "Ostim Endustriyel Yatirimlar ve Isletme AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "FONET.IS",
+    "symbol": "FONET",
+    "name": "Fonet Bilgi Teknolojileri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ATEKS.IS",
+    "symbol": "ATEKS",
+    "name": "Akin Tekstil AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ESCOM.IS",
+    "symbol": "ESCOM",
+    "name": "Escort Teknoloji Yatirim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KLMSN.IS",
+    "symbol": "KLMSN",
+    "name": "Klimasan Klima Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EDIP.IS",
+    "symbol": "EDIP",
+    "name": "Edip Gayrimenkul Yatirim Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DURDO.IS",
+    "symbol": "DURDO",
+    "name": "Duran-Dogan Basim ve Ambalaj Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VERTU.IS",
+    "symbol": "VERTU",
+    "name": "Verusaturk Girisim Sermayesi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KRONT.IS",
+    "symbol": "KRONT",
+    "name": "Kron Telekomunikasyon Hizmetleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "METRO.IS",
+    "symbol": "METRO",
+    "name": "Metro Ticari ve Mali Yatirimlar Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DAGI.IS",
+    "symbol": "DAGI",
+    "name": "Dagi Giyim Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "LIDFA.IS",
+    "symbol": "LIDFA",
+    "name": "Lider Faktoring AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BIZIM.IS",
+    "symbol": "BIZIM",
+    "name": "Bizim Toptan Satis Magazalari AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SNKRN.IS",
+    "symbol": "SNKRN",
+    "name": "Senkron Guvenlik ve Iletisim Sistemleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KFEIN.IS",
+    "symbol": "KFEIN",
+    "name": "Kafein Yazilim",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BALAT.IS",
+    "symbol": "BALAT",
+    "name": "Balatacilar Balatacilik Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DERIM.IS",
+    "symbol": "DERIM",
+    "name": "Derimod Konfeksiyon Ayakkabi Deri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AVOD.IS",
+    "symbol": "AVOD",
+    "name": "AVOD Kurutulmus Gida ve Tarim Urunleri Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TLMAN.IS",
+    "symbol": "TLMAN",
+    "name": "Trabzon Liman Isletmeciligi A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OZGYO.IS",
+    "symbol": "OZGYO",
+    "name": "Ozderici Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AGYO.IS",
+    "symbol": "AGYO",
+    "name": "Atakule Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CRDFA.IS",
+    "symbol": "CRDFA",
+    "name": "Creditwest Faktoring AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YYAPI.IS",
+    "symbol": "YYAPI",
+    "name": "Yesil Yapi Endustrisi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CUSAN.IS",
+    "symbol": "CUSAN",
+    "name": "Cuhadaroglu Metal Sanayi ve Pazarlama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BYDNR.IS",
+    "symbol": "BYDNR",
+    "name": "Baydoner Restoranlari A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SELGD.IS",
+    "symbol": "SELGD",
+    "name": "Selcuk Gida Endustri Ihracat Ithalat AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BLCYT.IS",
+    "symbol": "BLCYT",
+    "name": "Bilici Yatirim Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KRSTL.IS",
+    "symbol": "KRSTL",
+    "name": "Kristal Kola ve Mesrubat Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SUMAS.IS",
+    "symbol": "SUMAS",
+    "name": "Sumas Suni Tahta ve Mobilya Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AVHOL.IS",
+    "symbol": "AVHOL",
+    "name": "Avrupa Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "RUBNS.IS",
+    "symbol": "RUBNS",
+    "name": "Rubenis Tekstil Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OBASE.IS",
+    "symbol": "OBASE",
+    "name": "Obase Bilgisayar ve Danismanlik Hizmetleri Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EUHOL.IS",
+    "symbol": "EUHOL",
+    "name": "Euro Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YAYLA.IS",
+    "symbol": "YAYLA",
+    "name": "Yayla Enerji Uretim Turizm ve",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BNTAS.IS",
+    "symbol": "BNTAS",
+    "name": "Bantas Bandirma Ambalaj Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "RTALB.IS",
+    "symbol": "RTALB",
+    "name": "RTA Laboratuvarlari Biyolojik",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KERVN.IS",
+    "symbol": "KERVN",
+    "name": "Kervansaray Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PENGD.IS",
+    "symbol": "PENGD",
+    "name": "Penguen Gida Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GLBMD.IS",
+    "symbol": "GLBMD",
+    "name": "Global Menkul Degerler AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DENGE.IS",
+    "symbol": "DENGE",
+    "name": "Denge Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PKART.IS",
+    "symbol": "PKART",
+    "name": "Plastikkart Akilli Kart Iletisim Sistemleri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TUCLK.IS",
+    "symbol": "TUCLK",
+    "name": "Tugcelik Aluminyum ve Metal",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ZEDUR.IS",
+    "symbol": "ZEDUR",
+    "name": "Zedur Enerji Elektrik Uretim A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SODSN.IS",
+    "symbol": "SODSN",
+    "name": "Sodas Sodyum Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EMNIS.IS",
+    "symbol": "EMNIS",
+    "name": "Eminis Ambalaj Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ARZUM.IS",
+    "symbol": "ARZUM",
+    "name": "Arzum Elektrikli Ev Aletleri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BINBN.IS",
+    "symbol": "BINBN",
+    "name": "Bin Ulasim ve Akilli Sehir Teknolojileri A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MERKO.IS",
+    "symbol": "MERKO",
+    "name": "Merko Gida Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IHGZT.IS",
+    "symbol": "IHGZT",
+    "name": "Ihlas Gazetecilik AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DMSAS.IS",
+    "symbol": "DMSAS",
+    "name": "Demisas Dokum Emaye Mamulleri Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "NIBAS.IS",
+    "symbol": "NIBAS",
+    "name": "Nigbas Nigde Beton Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YKSLN.IS",
+    "symbol": "YKSLN",
+    "name": "Yukselen Celik As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YGYO.IS",
+    "symbol": "YGYO",
+    "name": "Yesil Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TMPOL.IS",
+    "symbol": "TMPOL",
+    "name": "Temapol Polimer Plastik ve Insaat Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BMSCH.IS",
+    "symbol": "BMSCH",
+    "name": "BMS Celik Hasir Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VKING.IS",
+    "symbol": "VKING",
+    "name": "Viking Kagit ve Seluloz AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PRDGS.IS",
+    "symbol": "PRDGS",
+    "name": "Pardus Girisim Sermayesi Yatirim Ortakligi A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "CEOEM.IS",
+    "symbol": "CEOEM",
+    "name": "CEO Event Medya AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GSDDE.IS",
+    "symbol": "GSDDE",
+    "name": "GSD Denizcilik Gayrimenkul Insaat Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BURCE.IS",
+    "symbol": "BURCE",
+    "name": "Burcelik Bursa Celik Dokum Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AVGYO.IS",
+    "symbol": "AVGYO",
+    "name": "Avrasya Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "DESPC.IS",
+    "symbol": "DESPC",
+    "name": "Despec Bilgisayar Pazarlama ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YESIL.IS",
+    "symbol": "YESIL",
+    "name": "Yesil Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SKTAS.IS",
+    "symbol": "SKTAS",
+    "name": "Soktas Tekstil Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ISYAT.IS",
+    "symbol": "ISYAT",
+    "name": "Is Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KRPLS.IS",
+    "symbol": "KRPLS",
+    "name": "Koroplast Temizlik Ambalaj Urunleri San. ve Dis Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MEGAP.IS",
+    "symbol": "MEGAP",
+    "name": "Mega Polietilen Kopuk Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HKTM.IS",
+    "symbol": "HKTM",
+    "name": "Hidropar Hareket Kontrol Teknolojileri Merkezi Sanayi ve Ticaret A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SELVA.IS",
+    "symbol": "SELVA",
+    "name": "Selva Gida Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MANAS.IS",
+    "symbol": "MANAS",
+    "name": "Manas Enerji Yonetimi Sanayi & Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PSDTC.IS",
+    "symbol": "PSDTC",
+    "name": "Pergamon Status Dis Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SKYLP.IS",
+    "symbol": "SKYLP",
+    "name": "Ideal Finansal Teknolojiler ve Danismanlik Anonim Sirketi",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "YONGA.IS",
+    "symbol": "YONGA",
+    "name": "Yonga Mobilya Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKSUE.IS",
+    "symbol": "AKSUE",
+    "name": "Aksu Enerji ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "FADE.IS",
+    "symbol": "FADE",
+    "name": "Fade Gida Yatirim Sanayi Ticaret As",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "GEDZA.IS",
+    "symbol": "GEDZA",
+    "name": "Gediz Ambalaj Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ACSEL.IS",
+    "symbol": "ACSEL",
+    "name": "Aciselsan Acipayam Seluloz Sanayi Ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "OZATD.IS",
+    "symbol": "OZATD",
+    "name": "OZATA DENIZCILIK",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IZINV.IS",
+    "symbol": "IZINV",
+    "name": "Iz Hayvancilik Tarim ve Gida Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "EPLAS.IS",
+    "symbol": "EPLAS",
+    "name": "Egeplast Ege Plastik Ticaret ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "PRZMA.IS",
+    "symbol": "PRZMA",
+    "name": "Prizma Pres Matbaacilik Yayincilik Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "KRTEK.IS",
+    "symbol": "KRTEK",
+    "name": "Karsu Tekstil Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "FRIGO.IS",
+    "symbol": "FRIGO",
+    "name": "Frigo-Pak Gida Maddeleri Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "TDGYO.IS",
+    "symbol": "TDGYO",
+    "name": "Trend Gayrimenkul Yatirim Ortakligi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IHYAY.IS",
+    "symbol": "IHYAY",
+    "name": "Ihlas Yayin Holding A.S.",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "HATEK.IS",
+    "symbol": "HATEK",
+    "name": "Hateks Hatay Tekstil Isletmeleri AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MARKA.IS",
+    "symbol": "MARKA",
+    "name": "Marka Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "BRKO.IS",
+    "symbol": "BRKO",
+    "name": "Birko Birlesik Koyunlulular Mensucat Ticaret ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "RNPOL.IS",
+    "symbol": "RNPOL",
+    "name": "Rainbow Polikarbonat Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "VANGD.IS",
+    "symbol": "VANGD",
+    "name": "Vanet Gida Sanayi Ic ve Dis Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SILVR.IS",
+    "symbol": "SILVR",
+    "name": "Silverline Endustri ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "AKYHO.IS",
+    "symbol": "AKYHO",
+    "name": "Akdeniz Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SEYKM.IS",
+    "symbol": "SEYKM",
+    "name": "Seyitler Kimya Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MEPET.IS",
+    "symbol": "MEPET",
+    "name": "Mepet Metro Petrol ve Tesisleri Sanayi Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "IHEVA.IS",
+    "symbol": "IHEVA",
+    "name": "Ihlas Ev Aletleri Imalat Sanayi ve Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SMART.IS",
+    "symbol": "SMART",
+    "name": "Smartiks Yazilim AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SEKUR.IS",
+    "symbol": "SEKUR",
+    "name": "Sekuro Plastik Ambalaj Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "COSMO.IS",
+    "symbol": "COSMO",
+    "name": "Cosmos Yatirim Holding AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SEKFK.IS",
+    "symbol": "SEKFK",
+    "name": "Seker Finansal Kiralama AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "FLAP.IS",
+    "symbol": "FLAP",
+    "name": "Flap Kongre Toplanti Hizmetleri Otomotiv ve Turizm AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "SAMAT.IS",
+    "symbol": "SAMAT",
+    "name": "Saray Matbaacilik Kagitcilik Kirtasiyecilik Ticaret ve Sanayi AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "ORCAY.IS",
+    "symbol": "ORCAY",
+    "name": "Orcay Ortakoy Cay Sanayi & Ticaret AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  },
+  {
+    "ticker": "MMCAS.IS",
+    "symbol": "MMCAS",
+    "name": "MMC Sanayi ve Ticari Yatirimlar AS",
+    "type": "Common Stock",
+    "currency": "TRY",
+    "country": "Turkey",
+    "exchange": "IS"
+  }
+]

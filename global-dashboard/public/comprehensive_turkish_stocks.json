@@ -1,0 +1,2292 @@
+[
+  {
+    "symbol": "ACIBD",
+    "name": "ACIBD",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ACIBD ACIBD ACIBD acibd",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "ADEL",
+    "name": "Adel Kalemcilik Ticaret ve Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ADEL Adel Kalemcilik Ticaret ve Sanayi AS sanayi ADEL kalemcilik ticaret adel",
+    "sector": "Diğer",
+    "price": 33.64,
+    "volume": 2047073.0
+  },
+  {
+    "symbol": "ADESE",
+    "name": "Adese Gayrimenkul Yatirim AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ADESE Adese Gayrimenkul Yatirim AS gayrimenkul yatirim ADESE adese",
+    "sector": "Diğer",
+    "price": 20.16,
+    "volume": 79479213.0
+  },
+  {
+    "symbol": "AEFES",
+    "name": "Anadolu Efes Biracilik ve Malt Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AEFES Anadolu Efes Biracilik ve Malt Sanayi AS malt efes sanayi aefes biracilik anadolu AEFES",
+    "sector": "Diğer",
+    "price": 14.5,
+    "volume": 93711569.0
+  },
+  {
+    "symbol": "AFYON",
+    "name": "Afyon Cimento Sanayi TAS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AFYON Afyon Cimento Sanayi TAS cimento sanayi AFYON afyon",
+    "sector": "Diğer",
+    "price": 13.21,
+    "volume": 2431298.0
+  },
+  {
+    "symbol": "AGESA",
+    "name": "Agesa Hayat ve Emeklilik AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AGESA Agesa Hayat ve Emeklilik AS agesa emeklilik hayat AGESA",
+    "sector": "Diğer",
+    "price": 157.5,
+    "volume": 162755.0
+  },
+  {
+    "symbol": "AGHOL",
+    "name": "AG Anadolu Group Holding",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AGHOL AG Anadolu Group Holding group grup AGHOL anadolu holding aghol",
+    "sector": "Holding",
+    "price": 26.8,
+    "volume": 8337208.0
+  },
+  {
+    "symbol": "AGROT",
+    "name": "AGROT",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AGROT AGROT agrot AGROT",
+    "sector": "Diğer",
+    "price": 7.77,
+    "volume": 21333030.0
+  },
+  {
+    "symbol": "AGYO",
+    "name": "Atakule Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AGYO Atakule Gayrimenkul Yatirim Ortakligi AS gayrimenkul ortakligi atakule agyo yatirim AGYO",
+    "sector": "Diğer",
+    "price": 7.55,
+    "volume": 345205.0
+  },
+  {
+    "symbol": "AHGAZ",
+    "name": "Ahlatci Dogal Gaz Dagitim Enerji ve Yatirim A.S.",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AHGAZ Ahlatci Dogal Gaz Dagitim Enerji ve Yatirim A.S. gaz enerji energy AHGAZ yatirim dagitim elektrik ahlatci ahgaz dogal",
+    "sector": "Enerji",
+    "price": 13.56,
+    "volume": 2349810.0
+  },
+  {
+    "symbol": "AKBNK",
+    "name": "Akbank TAS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AKBNK Akbank TAS bank AKBNK bankası akbank akbnk bankasi",
+    "sector": "Bankacılık",
+    "price": 61.55,
+    "volume": 222024322.0
+  },
+  {
+    "symbol": "AKCNS",
+    "name": "Akcansa Cimento Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AKCNS Akcansa Cimento Sanayi ve Ticaret AS sanayi AKCNS akcns akcansa ticaret cimento",
+    "sector": "Diğer",
+    "price": 134.1,
+    "volume": 829021.0
+  },
+  {
+    "symbol": "AKENR",
+    "name": "Akenerji Elektrik Uretim AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AKENR Akenerji Elektrik Uretim AS uretim enerji energy elektrik akenerji AKENR akenr",
+    "sector": "Enerji",
+    "price": 10.34,
+    "volume": 5275530.0
+  },
+  {
+    "symbol": "AKGRT",
+    "name": "AK Sigorta AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AKGRT AK Sigorta AS akgrt sigorta AKGRT",
+    "sector": "Diğer",
+    "price": 6.21,
+    "volume": 7270287.0
+  },
+  {
+    "symbol": "AKMGY",
+    "name": "Akmerkez Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AKMGY Akmerkez Gayrimenkul Yatirim Ortakligi AS gayrimenkul ortakligi AKMGY yatirim akmgy akmerkez",
+    "sector": "Diğer",
+    "price": 230.1,
+    "volume": 25525.0
+  },
+  {
+    "symbol": "AKSA",
+    "name": "Aksa Akrilik Kimya Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AKSA Aksa Akrilik Kimya Sanayi AS aksa AKSA kimya sanayi akrilik",
+    "sector": "Diğer",
+    "price": 10.45,
+    "volume": 40038988.0
+  },
+  {
+    "symbol": "AKSEN",
+    "name": "Aksa Enerji Uretim AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AKSEN Aksa Enerji Uretim AS aksa aksen uretim enerji energy elektrik AKSEN",
+    "sector": "Enerji",
+    "price": 35.66,
+    "volume": 7236356.0
+  },
+  {
+    "symbol": "AKSGY",
+    "name": "Akis Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AKSGY Akis Gayrimenkul Yatirim Ortakligi AS gayrimenkul ortakligi yatirim aksgy akis AKSGY",
+    "sector": "Diğer",
+    "price": 7.47,
+    "volume": 4220259.0
+  },
+  {
+    "symbol": "AKSUE",
+    "name": "Aksu Enerji ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AKSUE Aksu Enerji ve Ticaret AS aksu enerji energy ticaret elektrik AKSUE aksue",
+    "sector": "Enerji",
+    "price": 18.4,
+    "volume": 294341.0
+  },
+  {
+    "symbol": "AKTZA",
+    "name": "AKTZA",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AKTZA AKTZA aktza AKTZA",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "ALARK",
+    "name": "Alarko Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ALARK Alarko Holding AS alark grup ALARK alarko holding",
+    "sector": "Holding",
+    "price": 78.5,
+    "volume": 4627070.0
+  },
+  {
+    "symbol": "ALBRK",
+    "name": "Albaraka Turk Katilim Bankasi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ALBRK Albaraka Turk Katilim Bankasi AS albrk katilim bank banki albaraka turk bankası ALBRK bankasi",
+    "sector": "Bankacılık",
+    "price": 8.1,
+    "volume": 29992275.0
+  },
+  {
+    "symbol": "ALCAR",
+    "name": "Alarko Carrier Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ALCAR Alarko Carrier Sanayi ve Ticaret AS carrier sanayi alarko ticaret ALCAR alcar",
+    "sector": "Diğer",
+    "price": 961.0,
+    "volume": 61125.0
+  },
+  {
+    "symbol": "ALCTL",
+    "name": "Alcatel Lucent Teletas Telekomunikasyon AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ALCTL Alcatel Lucent Teletas Telekomunikasyon AS ALCTL alctl lucent telet alcatel telekomunikyon",
+    "sector": "Diğer",
+    "price": 113.9,
+    "volume": 297866.0
+  },
+  {
+    "symbol": "ALFAS",
+    "name": "Alfas Solar Enerji Sanayi ve Ticaret A.S.",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ALFAS Alfas Solar Enerji Sanayi ve Ticaret A.S. sanayi solar ALFAS enerji energy ticaret elektrik alf alfas",
+    "sector": "Enerji",
+    "price": 68.45,
+    "volume": 20228945.0
+  },
+  {
+    "symbol": "ALGYO",
+    "name": "Alarko Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ALGYO Alarko Gayrimenkul Yatirim Ortakligi AS ALGYO algyo gayrimenkul ortakligi alarko yatirim",
+    "sector": "Diğer",
+    "price": 20.56,
+    "volume": 1954001.0
+  },
+  {
+    "symbol": "ALKA",
+    "name": "Alkim Kagit Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ALKA Alkim Kagit Sanayi ve Ticaret AS sanayi alkim ticaret ALKA alka kagit",
+    "sector": "Diğer",
+    "price": 8.41,
+    "volume": 14261924.0
+  },
+  {
+    "symbol": "ALKIM",
+    "name": "Alkim Alkali Kimya AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ALKIM Alkim Alkali Kimya AS alkim alkali kimya ALKIM",
+    "sector": "Diğer",
+    "price": 17.0,
+    "volume": 2395886.0
+  },
+  {
+    "symbol": "ALTIN",
+    "name": "ALTIN",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ALTIN ALTIN altin ALTIN",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "ALYAG",
+    "name": "Altinyag Madencilik ve Enerji Yatirimlari Sanayi ve Ticaret Anonim Sirketi",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ALYAG Altinyag Madencilik ve Enerji Yatirimlari Sanayi ve Ticaret Anonim Sirketi sanayi anonim yatirimlari enerji madencilik sirketi energy ticaret ALYAG alyag elektrik altinyag",
+    "sector": "Enerji",
+    "price": 1.35,
+    "volume": 1224728.0
+  },
+  {
+    "symbol": "AMATR",
+    "name": "AMATR",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AMATR AMATR AMATR amatr",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "ANADM",
+    "name": "ANADM",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ANADM ANADM anadm ANADM",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "ANAK",
+    "name": "ANAK",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ANAK ANAK anak ANAK",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "ANELE",
+    "name": "Anel Elektrik Proje Taahhut ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ANELE Anel Elektrik Proje Taahhut ve Ticaret AS ANELE enerji anele energy ticaret proje elektrik anel taahhut",
+    "sector": "Enerji",
+    "price": 21.86,
+    "volume": 3758418.0
+  },
+  {
+    "symbol": "ANGEN",
+    "name": "Anatolia Tani ve Biyoteknoloji Urunleri Arastirma Gelistirme Sanayi ve Ticaret",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ANGEN Anatolia Tani ve Biyoteknoloji Urunleri Arastirma Gelistirme Sanayi ve Ticaret biyoteknoloji sanayi angen ANGEN technology teknoloji artirma ticaret gelistirme tani urunleri tech anatolia",
+    "sector": "Teknoloji",
+    "price": 12.23,
+    "volume": 25070364.0
+  },
+  {
+    "symbol": "ANHYT",
+    "name": "Anadolu Hayat Emeklilik AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ANHYT Anadolu Hayat Emeklilik AS anhyt hayat ANHYT anadolu emeklilik",
+    "sector": "Diğer",
+    "price": 79.55,
+    "volume": 561616.0
+  },
+  {
+    "symbol": "ANSGR",
+    "name": "Anadolu Anonim Turk Sigorta Sti",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ANSGR Anadolu Anonim Turk Sigorta Sti sigorta anonim sti ANSGR anadolu ansgr turk",
+    "sector": "Diğer",
+    "price": 21.28,
+    "volume": 5992574.0
+  },
+  {
+    "symbol": "ARASE",
+    "name": "Dogu Aras Enerji Yatirimlari AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ARASE Dogu Aras Enerji Yatirimlari AS arase yatirimlari enerji energy ARASE elektrik dogu",
+    "sector": "Enerji",
+    "price": 52.5,
+    "volume": 312268.0
+  },
+  {
+    "symbol": "ARCLK",
+    "name": "Arcelik AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ARCLK Arcelik AS arcelik ARCLK arclk",
+    "sector": "Diğer",
+    "price": 122.6,
+    "volume": 2296747.0
+  },
+  {
+    "symbol": "ARENA",
+    "name": "Arena Bilgisayar Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ARENA Arena Bilgisayar Sanayi ve Ticaret AS sanayi ARENA ticaret arena bilgisayar",
+    "sector": "Teknoloji",
+    "price": 31.88,
+    "volume": 1736889.0
+  },
+  {
+    "symbol": "ARFMG",
+    "name": "ARFMG",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ARFMG ARFMG arfmg ARFMG",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "ARMDA",
+    "name": "Armada Bilgisayar Sistemleri Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ARMDA Armada Bilgisayar Sistemleri Sanayi ve Ticaret AS armda sanayi ARMDA ticaret armada bilgisayar sistemleri",
+    "sector": "Teknoloji",
+    "price": 1082.5,
+    "volume": 74292.0
+  },
+  {
+    "symbol": "ARSAN",
+    "name": "Arsan Tekstil Ticaret ve Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ARSAN Arsan Tekstil Ticaret ve Sanayi AS sanayi konfeksiyon tekstil ticaret textile ARSAN arsan",
+    "sector": "Tekstil",
+    "price": 2.7,
+    "volume": 15989698.0
+  },
+  {
+    "symbol": "ARTOG",
+    "name": "ARTOG",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ARTOG ARTOG ARTOG artog",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "ASELS",
+    "name": "Aselsan Elektronik Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ASELS Aselsan Elektronik Sanayi ve Ticaret AS sanayi elektronik asels ticaret elsan ASELS",
+    "sector": "Diğer",
+    "price": 173.5,
+    "volume": 22814460.0
+  },
+  {
+    "symbol": "ASGYO",
+    "name": "Asce Gayrimenkul Yatirim Ortakligi A.S.",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ASGYO Asce Gayrimenkul Yatirim Ortakligi A.S. gayrimenkul ortakligi ASGYO yatirim asgyo",
+    "sector": "Diğer",
+    "price": 12.93,
+    "volume": 8454081.0
+  },
+  {
+    "symbol": "ASLAN",
+    "name": "Aslan Cimento A.S",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ASLAN Aslan Cimento A.S a.s ASLAN cimento lan aslan",
+    "sector": "Diğer",
+    "price": 41.5,
+    "volume": 476279.0
+  },
+  {
+    "symbol": "ASTOR",
+    "name": "Astor Enerji AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ASTOR Astor Enerji AS tor enerji energy astor elektrik ASTOR",
+    "sector": "Enerji",
+    "price": 93.4,
+    "volume": 10663641.0
+  },
+  {
+    "symbol": "ASUZU",
+    "name": "Anadolu Isuzu Otomotiv Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ASUZU Anadolu Isuzu Otomotiv Sanayi ve Ticaret AS sanayi automotive otomotiv asuzu anadolu ticaret motor isuzu ASUZU",
+    "sector": "Otomotiv",
+    "price": 59.6,
+    "volume": 772153.0
+  },
+  {
+    "symbol": "ATAGY",
+    "name": "Ata Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ATAGY Ata Gayrimenkul Yatirim Ortakligi AS gayrimenkul atagy ortakligi ATAGY yatirim ata",
+    "sector": "Diğer",
+    "price": 14.17,
+    "volume": 362049.0
+  },
+  {
+    "symbol": "ATATP",
+    "name": "Atp Ticari Bilgisayar Agi ve Elektrik Guc Kaynaklari Uretim Pazarlama ve Ticaret",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ATATP Atp Ticari Bilgisayar Agi ve Elektrik Guc Kaynaklari Uretim Pazarlama ve Ticaret uretim enerji atatp energy ticari ATATP agi guc pazarlama elektrik ticaret bilgisayar atp kaynaklari",
+    "sector": "Enerji",
+    "price": 128.5,
+    "volume": 1263553.0
+  },
+  {
+    "symbol": "ATEKS",
+    "name": "Akin Tekstil AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ATEKS Akin Tekstil AS ateks konfeksiyon akin tekstil ATEKS textile",
+    "sector": "Tekstil",
+    "price": 81.4,
+    "volume": 11377.0
+  },
+  {
+    "symbol": "ATLAS",
+    "name": "Atlas Menkul Kiymetler Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ATLAS Atlas Menkul Kiymetler Yatirim Ortakligi AS atl ATLAS menkul ortakligi kiymetler yatirim atlas",
+    "sector": "Diğer",
+    "price": 6.17,
+    "volume": 637681.0
+  },
+  {
+    "symbol": "ATSYH",
+    "name": "Atlantis Yatirim Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ATSYH Atlantis Yatirim Holding AS atlantis grup atsyh yatirim holding ATSYH",
+    "sector": "Holding",
+    "price": 51.75,
+    "volume": 45163.0
+  },
+  {
+    "symbol": "AVGYO",
+    "name": "Avrasya Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AVGYO Avrasya Gayrimenkul Yatirim Ortakligi AS gayrimenkul AVGYO ortakligi avrya yatirim avgyo",
+    "sector": "Diğer",
+    "price": 11.96,
+    "volume": 330794.0
+  },
+  {
+    "symbol": "AVHOL",
+    "name": "Avrupa Yatirim Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AVHOL Avrupa Yatirim Holding AS avrupa avhol grup AVHOL yatirim holding",
+    "sector": "Holding",
+    "price": 44.76,
+    "volume": 2784306.0
+  },
+  {
+    "symbol": "AVISA",
+    "name": "AvivaSA Emeklilik ve Hayat AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AVISA AvivaSA Emeklilik ve Hayat AS aviva hayat avisa emeklilik AVISA",
+    "sector": "Diğer",
+    "price": 17.28,
+    "volume": 153265.0
+  },
+  {
+    "symbol": "AVIVS",
+    "name": "AVIVS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AVIVS AVIVS avivs AVIVS",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "AVTUR",
+    "name": "Avrasya Petrol ve Turistik Tesisler Yatirimlar AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AVTUR Avrasya Petrol ve Turistik Tesisler Yatirimlar AS tesisler avrya turistik petrol AVTUR avtur yatirimlar",
+    "sector": "Diğer",
+    "price": 14.38,
+    "volume": 472404.0
+  },
+  {
+    "symbol": "AYCES",
+    "name": "Altin Yunus Cesme Turistik Tesisler AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AYCES Altin Yunus Cesme Turistik Tesisler AS tesisler cesme altin ayces AYCES turistik yunus",
+    "sector": "Diğer",
+    "price": 485.0,
+    "volume": 61746.0
+  },
+  {
+    "symbol": "AYDEM",
+    "name": "Aydem Yenilenebilir Enerji AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AYDEM Aydem Yenilenebilir Enerji AS aydem yenilenebilir enerji energy elektrik AYDEM",
+    "sector": "Enerji",
+    "price": 17.84,
+    "volume": 6391729.0
+  },
+  {
+    "symbol": "AYEN",
+    "name": "Ayen Enerji AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AYEN Ayen Enerji AS enerji AYEN energy ayen elektrik",
+    "sector": "Enerji",
+    "price": 29.4,
+    "volume": 1381771.0
+  },
+  {
+    "symbol": "AYGAZ",
+    "name": "Aygaz AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AYGAZ Aygaz AS aygaz AYGAZ",
+    "sector": "Diğer",
+    "price": 160.6,
+    "volume": 222463.0
+  },
+  {
+    "symbol": "AZTEK",
+    "name": "Aztek Teknoloji Urunleri Ticaret A.S.",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "AZTEK Aztek Teknoloji Urunleri Ticaret A.S. aztek AZTEK technology teknoloji ticaret urunleri tech",
+    "sector": "Teknoloji",
+    "price": 42.04,
+    "volume": 628981.0
+  },
+  {
+    "symbol": "BAGFS",
+    "name": "Bagfas Bandirma Gubre Fabrikalari AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BAGFS Bagfas Bandirma Gubre Fabrikalari AS fabrikalari bagf BAGFS bandirma gubre bagfs",
+    "sector": "Diğer",
+    "price": 37.02,
+    "volume": 1950326.0
+  },
+  {
+    "symbol": "BAHKM",
+    "name": "BAHADIR KIMYA",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BAHKM BAHADIR KIMYA BAHKM bahadir kimya bahkm",
+    "sector": "Diğer",
+    "price": 55.95,
+    "volume": 457743.0
+  },
+  {
+    "symbol": "BAKAB",
+    "name": "Bak Ambalaj Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BAKAB Bak Ambalaj Sanayi ve Ticaret AS sanayi BAKAB ambalaj bak ticaret bakab",
+    "sector": "Diğer",
+    "price": 37.34,
+    "volume": 272588.0
+  },
+  {
+    "symbol": "BALAT",
+    "name": "Balatacilar Balatacilik Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BALAT Balatacilar Balatacilik Sanayi ve Ticaret AS BALAT sanayi balat balatacilik balatacilar ticaret",
+    "sector": "Diğer",
+    "price": 65.0,
+    "volume": 47731.0
+  },
+  {
+    "symbol": "BANVT",
+    "name": "Banvit Bandirma Vitaminli Yem Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BANVT Banvit Bandirma Vitaminli Yem Sanayi AS BANVT sanayi vitaminli banvt bandirma yem banvit",
+    "sector": "Diğer",
+    "price": 190.6,
+    "volume": 260297.0
+  },
+  {
+    "symbol": "BARMA",
+    "name": "Barem Ambalaj Sanayi ve Ticaret a.s.",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BARMA Barem Ambalaj Sanayi ve Ticaret a.s. sanayi ambalaj BARMA barem ticaret barma",
+    "sector": "Diğer",
+    "price": 22.54,
+    "volume": 10166586.0
+  },
+  {
+    "symbol": "BASCM",
+    "name": "Bastas Baskent Cimento Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BASCM Bastas Baskent Cimento Sanayi ve Ticaret AS BASCM sanayi bkent bascm ticaret cimento",
+    "sector": "Diğer",
+    "price": 18.29,
+    "volume": 119317.0
+  },
+  {
+    "symbol": "BASGZ",
+    "name": "Baskent Dogalgaz Dagitim Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BASGZ Baskent Dogalgaz Dagitim Gayrimenkul Yatirim Ortakligi AS dogalgaz gayrimenkul bkent ortakligi BASGZ basgz yatirim dagitim",
+    "sector": "Diğer",
+    "price": 32.1,
+    "volume": 550671.0
+  },
+  {
+    "symbol": "BAYRK",
+    "name": "Bayrak EBT Taban Sanayi ve Ticaret Anonim Sirketi",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BAYRK Bayrak EBT Taban Sanayi ve Ticaret Anonim Sirketi BAYRK sanayi anonim ebt bayrak sirketi ticaret bayrk taban",
+    "sector": "Diğer",
+    "price": 26.48,
+    "volume": 2312997.0
+  },
+  {
+    "symbol": "BERA",
+    "name": "Bera Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BERA Bera Holding AS bera holding BERA grup",
+    "sector": "Holding",
+    "price": 16.74,
+    "volume": 8529249.0
+  },
+  {
+    "symbol": "BEYAZ",
+    "name": "Beyaz Filo Oto Kiralama AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BEYAZ Beyaz Filo Oto Kiralama AS kiralama oto filo BEYAZ beyaz",
+    "sector": "Diğer",
+    "price": 36.4,
+    "volume": 6442441.0
+  },
+  {
+    "symbol": "BFREN",
+    "name": "Bosch Fren Sistemleri Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BFREN Bosch Fren Sistemleri Sanayi ve Ticaret AS sanayi fren bfren bosch ticaret BFREN sistemleri",
+    "sector": "Diğer",
+    "price": 195.7,
+    "volume": 918967.0
+  },
+  {
+    "symbol": "BIGCH",
+    "name": "Buyuk Sefler Gida Turizm",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BIGCH Buyuk Sefler Gida Turizm BIGCH food sefler gida beslenme buyuk turizm bigch",
+    "sector": "Gıda",
+    "price": 32.28,
+    "volume": 439663.0
+  },
+  {
+    "symbol": "BILKO",
+    "name": "BILKO",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BILKO BILKO bilko BILKO",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "BIMAS",
+    "name": "BIM Birlesik Magazalar AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BIMAS BIM Birlesik Magazalar AS magazalar bim BIMAS bimas birlesik",
+    "sector": "Diğer",
+    "price": 487.0,
+    "volume": 3762795.0
+  },
+  {
+    "symbol": "BINBN",
+    "name": "Bin Ulasim ve Akilli Sehir Teknolojileri A.S.",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BINBN Bin Ulasim ve Akilli Sehir Teknolojileri A.S. ulim technology bin teknoloji tech BINBN teknolojileri binbn akilli sehir",
+    "sector": "Teknoloji",
+    "price": 158.4,
+    "volume": 2569247.0
+  },
+  {
+    "symbol": "BIOEN",
+    "name": "Biotrend Cevre ve Enerji Yatirimlari AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BIOEN Biotrend Cevre ve Enerji Yatirimlari AS bioen yatirimlari enerji energy cevre elektrik BIOEN biotrend",
+    "sector": "Enerji",
+    "price": 23.66,
+    "volume": 7227090.0
+  },
+  {
+    "symbol": "BIZIM",
+    "name": "Bizim Toptan Satis Magazalari AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BIZIM Bizim Toptan Satis Magazalari AS satis magazalari bizim BIZIM toptan",
+    "sector": "Diğer",
+    "price": 26.66,
+    "volume": 490069.0
+  },
+  {
+    "symbol": "BLCYT",
+    "name": "Bilici Yatirim Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BLCYT Bilici Yatirim Sanayi ve Ticaret AS sanayi BLCYT bilici blcyt ticaret yatirim",
+    "sector": "Diğer",
+    "price": 22.02,
+    "volume": 1801017.0
+  },
+  {
+    "symbol": "BMEKS",
+    "name": "Bimeks Bilgi Islem Ve Dis Ticaret A.S",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BMEKS Bimeks Bilgi Islem Ve Dis Ticaret A.S a.s islem bilgi dis ticaret bmeks bimeks BMEKS",
+    "sector": "Diğer",
+    "price": 0.07,
+    "volume": 0.0
+  },
+  {
+    "symbol": "BMSTL",
+    "name": "Bms Birlesik Metal Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BMSTL Bms Birlesik Metal Sanayi ve Ticaret AS bms sanayi BMSTL metal ticaret bmstl birlesik",
+    "sector": "Diğer",
+    "price": 67.05,
+    "volume": 2405495.0
+  },
+  {
+    "symbol": "BNTAS",
+    "name": "Bantas Bandirma Ambalaj Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BNTAS Bantas Bandirma Ambalaj Sanayi ve Ticaret AS BNTAS sanayi ambalaj bandirma bant bntas ticaret",
+    "sector": "Diğer",
+    "price": 6.99,
+    "volume": 6460735.0
+  },
+  {
+    "symbol": "BOBET",
+    "name": "Bogazici Beton Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BOBET Bogazici Beton Sanayi ve Ticaret AS bogazici sanayi beton BOBET ticaret bobet",
+    "sector": "Diğer",
+    "price": 19.81,
+    "volume": 4124302.0
+  },
+  {
+    "symbol": "BOSSA",
+    "name": "Bossa Ticaret ve Sanayi Isletmeleri TAS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BOSSA Bossa Ticaret ve Sanayi Isletmeleri TAS sanayi ticaret bossa isletmeleri BOSSA",
+    "sector": "Diğer",
+    "price": 7.3,
+    "volume": 9726251.0
+  },
+  {
+    "symbol": "BOYNR",
+    "name": "BOYNR",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BOYNR BOYNR boynr BOYNR",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "BRISA",
+    "name": "Brisa Bridgestone Sabanci Lastik Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BRISA Brisa Bridgestone Sabanci Lastik Sanayi ve Ticaret AS sanayi brisa sabanci BRISA ticaret bridgestone ltik",
+    "sector": "Diğer",
+    "price": 75.3,
+    "volume": 309493.0
+  },
+  {
+    "symbol": "BRKO",
+    "name": "Birko Birlesik Koyunlulular Mensucat Ticaret ve Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BRKO Birko Birlesik Koyunlulular Mensucat Ticaret ve Sanayi AS birko mensucat sanayi brko BRKO koyunlulular ticaret birlesik",
+    "sector": "Diğer",
+    "price": 8.27,
+    "volume": 2481753.0
+  },
+  {
+    "symbol": "BRLSM",
+    "name": "Birlesim Muhendislik Isitma Sogutma Havalandirma Sanayi & Ticaret Sirketi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BRLSM Birlesim Muhendislik Isitma Sogutma Havalandirma Sanayi & Ticaret Sirketi AS sanayi birlesim muhendislik isitma sirketi sogutma havalandirma ticaret brlsm BRLSM",
+    "sector": "Diğer",
+    "price": 15.0,
+    "volume": 8499313.0
+  },
+  {
+    "symbol": "BRMEN",
+    "name": "Birlik Mensucat Ticaret ve Sanayi Isletmesi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BRMEN Birlik Mensucat Ticaret ve Sanayi Isletmesi AS mensucat sanayi isletmesi brmen birlik BRMEN ticaret",
+    "sector": "Diğer",
+    "price": 17.17,
+    "volume": 248267.0
+  },
+  {
+    "symbol": "BRSAN",
+    "name": "Borusan Mannesmann Boru Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BRSAN Borusan Mannesmann Boru Sanayi ve Ticaret AS sanayi BRSAN boru borusan mannesmann ticaret brsan",
+    "sector": "Diğer",
+    "price": 449.5,
+    "volume": 1358654.0
+  },
+  {
+    "symbol": "BRYAT",
+    "name": "Borusan Yatirim ve Pazarlama AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BRYAT Borusan Yatirim ve Pazarlama AS BRYAT borusan pazarlama bryat yatirim",
+    "sector": "Diğer",
+    "price": 2430.0,
+    "volume": 87844.0
+  },
+  {
+    "symbol": "BSOKE",
+    "name": "Batisoke Soke Cimento Sanayi TAS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BSOKE Batisoke Soke Cimento Sanayi TAS sanayi soke bsoke batisoke BSOKE cimento",
+    "sector": "Diğer",
+    "price": 14.47,
+    "volume": 18044429.0
+  },
+  {
+    "symbol": "BTCIM",
+    "name": "Baticim Bati Anadolu Cimento Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BTCIM Baticim Bati Anadolu Cimento Sanayi AS sanayi btcim anadolu cimento BTCIM bati baticim",
+    "sector": "Diğer",
+    "price": 4.17,
+    "volume": 226082389.0
+  },
+  {
+    "symbol": "BUCIM",
+    "name": "Bursa Cimento Fabrikasi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BUCIM Bursa Cimento Fabrikasi AS bursa fabriki bucim cimento BUCIM",
+    "sector": "Diğer",
+    "price": 6.77,
+    "volume": 8418584.0
+  },
+  {
+    "symbol": "BURCE",
+    "name": "Burcelik Bursa Celik Dokum Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BURCE Burcelik Bursa Celik Dokum Sanayi AS burcelik bursa sanayi dokum burce celik BURCE",
+    "sector": "Diğer",
+    "price": 17.16,
+    "volume": 7574993.0
+  },
+  {
+    "symbol": "BURVA",
+    "name": "Burcelik Vana Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "BURVA Burcelik Vana Sanayi ve Ticaret AS burcelik sanayi burva vana ticaret BURVA",
+    "sector": "Diğer",
+    "price": 116.5,
+    "volume": 67039.0
+  },
+  {
+    "symbol": "CANTE",
+    "name": "Can2 Termik AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CANTE Can2 Termik AS termik can2 CANTE cante",
+    "sector": "Diğer",
+    "price": 2.19,
+    "volume": 642094357.0
+  },
+  {
+    "symbol": "CASA",
+    "name": "Casa Emtia Petrol Kimyevi ve Turevleri Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CASA Casa Emtia Petrol Kimyevi ve Turevleri Sanayi ve Ticaret AS sanayi emtia kimyevi turevleri ticaret petrol CASA casa",
+    "sector": "Diğer",
+    "price": 97.5,
+    "volume": 115303.0
+  },
+  {
+    "symbol": "CASH",
+    "name": "CASH",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CASH CASH cash CASH",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "CATES",
+    "name": "CATES ELEKTRIK",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CATES CATES ELEKTRIK cates enerji energy elektrik CATES",
+    "sector": "Enerji",
+    "price": 33.4,
+    "volume": 882789.0
+  },
+  {
+    "symbol": "CCOLA",
+    "name": "Coca-Cola Icecek AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CCOLA Coca-Cola Icecek AS coca-cola CCOLA ccola icecek",
+    "sector": "Diğer",
+    "price": 47.66,
+    "volume": 10879424.0
+  },
+  {
+    "symbol": "CELHA",
+    "name": "Celik Halat ve Tel Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CELHA Celik Halat ve Tel Sanayi AS halat sanayi celha CELHA tel celik",
+    "sector": "Diğer",
+    "price": 8.93,
+    "volume": 2517034.0
+  },
+  {
+    "symbol": "CEMTS",
+    "name": "Cemtas Celik Makina Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CEMTS Cemtas Celik Makina Sanayi ve Ticaret AS cemts sanayi makina CEMTS ticaret cemt celik",
+    "sector": "Diğer",
+    "price": 11.51,
+    "volume": 8651544.0
+  },
+  {
+    "symbol": "CEOEM",
+    "name": "CEO Event Medya AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CEOEM CEO Event Medya AS ceoem medya CEOEM event ceo",
+    "sector": "Diğer",
+    "price": 34.2,
+    "volume": 3106466.0
+  },
+  {
+    "symbol": "CIMSA",
+    "name": "Cimsa Cimento Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CIMSA Cimsa Cimento Sanayi ve Ticaret AS sanayi cimento ticaret CIMSA cimsa",
+    "sector": "Diğer",
+    "price": 44.98,
+    "volume": 12384553.0
+  },
+  {
+    "symbol": "CLEBI",
+    "name": "Celebi Hava Servisi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CLEBI Celebi Hava Servisi AS servisi hava clebi celebi CLEBI",
+    "sector": "Diğer",
+    "price": 1510.0,
+    "volume": 101759.0
+  },
+  {
+    "symbol": "CMBTN",
+    "name": "Cimbeton Hazirbeton ve Prefabrik Yapi Elemanlari Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CMBTN Cimbeton Hazirbeton ve Prefabrik Yapi Elemanlari Sanayi ve Ticaret AS sanayi prefabrik hazirbeton CMBTN cmbtn elemanlari ticaret yapi construction insaat cimbeton",
+    "sector": "Diğer",
+    "price": 2394.0,
+    "volume": 60302.0
+  },
+  {
+    "symbol": "CMENT",
+    "name": "Cimentas Izmir Cimento Fabrikasi TAS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CMENT Cimentas Izmir Cimento Fabrikasi TAS ciment izmir fabriki cment cimento CMENT",
+    "sector": "Diğer",
+    "price": 375.0,
+    "volume": 3317.0
+  },
+  {
+    "symbol": "CMP",
+    "name": "CMP",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CMP CMP cmp CMP",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "CONSE",
+    "name": "Consus Enerji Isletmeciligi ve Hizmetleri AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CONSE Consus Enerji Isletmeciligi ve Hizmetleri AS enerji isletmeciligi energy CONSE consus hizmetleri elektrik conse",
+    "sector": "Enerji",
+    "price": 3.29,
+    "volume": 9993979.0
+  },
+  {
+    "symbol": "COTUR",
+    "name": "COTUR",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "COTUR COTUR COTUR cotur",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "CRDFA",
+    "name": "Creditwest Faktoring AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CRDFA Creditwest Faktoring AS creditwest faktoring CRDFA crdfa",
+    "sector": "Diğer",
+    "price": 21.56,
+    "volume": 798848.0
+  },
+  {
+    "symbol": "CRFSA",
+    "name": "CarrefourSA Carrefour Sabanci Ticaret Merkezi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CRFSA CarrefourSA Carrefour Sabanci Ticaret Merkezi AS merkezi sabanci carrefoursa CRFSA ticaret carrefour crfsa",
+    "sector": "Diğer",
+    "price": 80.65,
+    "volume": 231514.0
+  },
+  {
+    "symbol": "CWENE",
+    "name": "CW Enerji SA",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "CWENE CW Enerji SA enerji energy elektrik CWENE cwene",
+    "sector": "Enerji",
+    "price": 201.5,
+    "volume": 630006.0
+  },
+  {
+    "symbol": "DENIZ",
+    "name": "Denizbank Anonim Sirketi",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "DENIZ Denizbank Anonim Sirketi anonim bank sirketi bankası denizbank bankasi DENIZ deniz",
+    "sector": "Bankacılık",
+    "price": 20.86,
+    "volume": 0.0
+  },
+  {
+    "symbol": "DESA",
+    "name": "Desa Deri Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "DESA Desa Deri Sanayi ve Ticaret AS sanayi deri desa ticaret DESA",
+    "sector": "Diğer",
+    "price": 14.77,
+    "volume": 2544996.0
+  },
+  {
+    "symbol": "DGKLB",
+    "name": "Dogtas Kelebek Mobilya Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "DGKLB Dogtas Kelebek Mobilya Sanayi ve Ticaret AS sanayi DGKLB kelebek ticaret dgklb dogt mobilya",
+    "sector": "Diğer",
+    "price": 2.01,
+    "volume": 4833359.0
+  },
+  {
+    "symbol": "DOCO",
+    "name": "DO & CO AG",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "DOCO DO & CO AG doco DOCO",
+    "sector": "Diğer",
+    "price": 10860.0,
+    "volume": 2367.0
+  },
+  {
+    "symbol": "DOHOL",
+    "name": "Dogan Sirketler Grubu Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "DOHOL Dogan Sirketler Grubu Holding AS DOHOL dohol grup dogan holding grubu sirketler",
+    "sector": "Holding",
+    "price": 17.56,
+    "volume": 17595382.0
+  },
+  {
+    "symbol": "DURDO",
+    "name": "Duran-Dogan Basim ve Ambalaj Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "DURDO Duran-Dogan Basim ve Ambalaj Sanayi AS DURDO duran-dogan sanayi ambalaj durdo bim",
+    "sector": "Diğer",
+    "price": 4.12,
+    "volume": 4788907.0
+  },
+  {
+    "symbol": "ECILC",
+    "name": "EIS Eczacibasi Ilac Sinai ve Finansal Yatirimlar Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ECILC EIS Eczacibasi Ilac Sinai ve Finansal Yatirimlar Sanayi ve Ticaret AS ECILC sinai sanayi ecilc ilac eis ticaret finansal eczacibi yatirimlar",
+    "sector": "Diğer",
+    "price": 56.95,
+    "volume": 4613068.0
+  },
+  {
+    "symbol": "EKGYO",
+    "name": "Emlak Konut Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "EKGYO Emlak Konut Gayrimenkul Yatirim Ortakligi AS gayrimenkul ekgyo ortakligi konut EKGYO yatirim emlak",
+    "sector": "Diğer",
+    "price": 18.94,
+    "volume": 288628771.0
+  },
+  {
+    "symbol": "EMKEL",
+    "name": "EMEK Elektrik Endustrisi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "EMKEL EMEK Elektrik Endustrisi AS emkel enerji energy elektrik emek EMKEL endustrisi",
+    "sector": "Enerji",
+    "price": 114.6,
+    "volume": 2921736.0
+  },
+  {
+    "symbol": "ENJSA",
+    "name": "Enerjisa Enerji AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ENJSA Enerjisa Enerji AS enerji energy elektrik enjsa ENJSA enerjisa",
+    "sector": "Enerji",
+    "price": 68.25,
+    "volume": 3088248.0
+  },
+  {
+    "symbol": "ENKAI",
+    "name": "ENKA Insaat ve Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ENKAI ENKA Insaat ve Sanayi AS sanayi enka ENKAI yapi construction enkai insaat",
+    "sector": "İnşaat",
+    "price": 67.85,
+    "volume": 11734000.0
+  },
+  {
+    "symbol": "EPLAS",
+    "name": "Egeplast Ege Plastik Ticaret ve Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "EPLAS Egeplast Ege Plastik Ticaret ve Sanayi AS sanayi pltik EPLAS ege ticaret eplas egeplt",
+    "sector": "Diğer",
+    "price": 6.28,
+    "volume": 8934023.0
+  },
+  {
+    "symbol": "EREGL",
+    "name": "Eregli Demir ve Celik Fabrikalari TAS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "EREGL Eregli Demir ve Celik Fabrikalari TAS demir fabrikalari EREGL eregli celik eregl",
+    "sector": "Diğer",
+    "price": 26.5,
+    "volume": 147734113.0
+  },
+  {
+    "symbol": "FENER",
+    "name": "Fenerbahce Futbol AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "FENER Fenerbahce Futbol AS fenerbahce fener FENER futbol",
+    "sector": "Diğer",
+    "price": 12.73,
+    "volume": 26822883.0
+  },
+  {
+    "symbol": "FLAP",
+    "name": "Flap Kongre Toplanti Hizmetleri Otomotiv ve Turizm AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "FLAP Flap Kongre Toplanti Hizmetleri Otomotiv ve Turizm AS automotive otomotiv toplanti flap kongre motor hizmetleri turizm FLAP",
+    "sector": "Otomotiv",
+    "price": 10.35,
+    "volume": 2931202.0
+  },
+  {
+    "symbol": "FORTE",
+    "name": "Forte Bilgi Iletisim Teknologjileri ve Savunma Sanayi A.S.",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "FORTE Forte Bilgi Iletisim Teknologjileri ve Savunma Sanayi A.S. iletisim sanayi forte bilgi FORTE savunma teknologjileri",
+    "sector": "Diğer",
+    "price": 53.6,
+    "volume": 429561.0
+  },
+  {
+    "symbol": "FROTO",
+    "name": "Ford Otomotiv Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "FROTO Ford Otomotiv Sanayi AS sanayi automotive otomotiv froto FROTO motor ford",
+    "sector": "Otomotiv",
+    "price": 105.6,
+    "volume": 16062718.0
+  },
+  {
+    "symbol": "GARAN",
+    "name": "Turkiye Garanti Bankasi A.S.",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GARAN Turkiye Garanti Bankasi A.S. bank turkiye banki bankası GARAN bankasi garanti garan",
+    "sector": "Bankacılık",
+    "price": 136.8,
+    "volume": 40502344.0
+  },
+  {
+    "symbol": "GEDIK",
+    "name": "Gedik Yatirim Menkul Degerler AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GEDIK Gedik Yatirim Menkul Degerler AS degerler menkul GEDIK yatirim gedik",
+    "sector": "Diğer",
+    "price": 7.11,
+    "volume": 11537120.0
+  },
+  {
+    "symbol": "GEREL",
+    "name": "Gersan Elektrik Ticaret ve Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GEREL Gersan Elektrik Ticaret ve Sanayi AS sanayi enerji GEREL energy ticaret gersan elektrik gerel",
+    "sector": "Enerji",
+    "price": 21.3,
+    "volume": 7085393.0
+  },
+  {
+    "symbol": "GLBMD",
+    "name": "Global Menkul Degerler AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GLBMD Global Menkul Degerler AS degerler global menkul GLBMD glbmd",
+    "sector": "Diğer",
+    "price": 13.5,
+    "volume": 358251.0
+  },
+  {
+    "symbol": "GLCVY",
+    "name": "Gelecek Varlik Yonetimi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GLCVY Gelecek Varlik Yonetimi AS varlik glcvy yonetimi GLCVY gelecek",
+    "sector": "Diğer",
+    "price": 66.4,
+    "volume": 1144104.0
+  },
+  {
+    "symbol": "GLRYH",
+    "name": "Guler Yatirim Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GLRYH Guler Yatirim Holding AS GLRYH glryh guler grup yatirim holding",
+    "sector": "Holding",
+    "price": 4.0,
+    "volume": 9603911.0
+  },
+  {
+    "symbol": "GLYHO",
+    "name": "Global Yatirim Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GLYHO Global Yatirim Holding AS global grup yatirim holding GLYHO glyho",
+    "sector": "Holding",
+    "price": 9.19,
+    "volume": 37231015.0
+  },
+  {
+    "symbol": "GOODY",
+    "name": "Goodyear Lastikleri TAS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GOODY Goodyear Lastikleri TAS goody goodyear ltikleri GOODY",
+    "sector": "Diğer",
+    "price": 18.09,
+    "volume": 1804520.0
+  },
+  {
+    "symbol": "GRNYO",
+    "name": "Garanti Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GRNYO Garanti Yatirim Ortakligi AS ortakligi GRNYO yatirim garanti grnyo",
+    "sector": "Diğer",
+    "price": 15.5,
+    "volume": 1891953.0
+  },
+  {
+    "symbol": "GSRAY",
+    "name": "Galatasaray Sportif Sinai ve Ticari Yatirimlar AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GSRAY Galatasaray Sportif Sinai ve Ticari Yatirimlar AS sinai gsray sportif ticari GSRAY galataray yatirimlar",
+    "sector": "Diğer",
+    "price": 1.58,
+    "volume": 921449590.0
+  },
+  {
+    "symbol": "GUBRF",
+    "name": "Gubre Fabrikalari TAS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "GUBRF Gubre Fabrikalari TAS GUBRF fabrikalari gubrf gubre",
+    "sector": "Diğer",
+    "price": 268.5,
+    "volume": 3735126.0
+  },
+  {
+    "symbol": "HALKB",
+    "name": "Turkiye Halk Bankasi",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "HALKB Turkiye Halk Bankasi halkb HALKB halk bank turkiye banki bankası bankasi",
+    "sector": "Bankacılık",
+    "price": 24.26,
+    "volume": 33723679.0
+  },
+  {
+    "symbol": "HURGZ",
+    "name": "Hurriyet Gazetecilik ve Matbaacilik AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "HURGZ Hurriyet Gazetecilik ve Matbaacilik AS hurgz gazetecilik matbaacilik HURGZ hurriyet",
+    "sector": "Diğer",
+    "price": 7.61,
+    "volume": 13032509.0
+  },
+  {
+    "symbol": "ICBCT",
+    "name": "ICBC Turkey Bank AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ICBCT ICBC Turkey Bank AS bank icbct ICBCT bankası bankasi icbc turkey",
+    "sector": "Bankacılık",
+    "price": 17.65,
+    "volume": 4367942.0
+  },
+  {
+    "symbol": "IHLAS",
+    "name": "Ihlas Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "IHLAS Ihlas Holding AS grup ihl ihlas IHLAS holding",
+    "sector": "Holding",
+    "price": 3.7,
+    "volume": 78969127.0
+  },
+  {
+    "symbol": "ISCTR",
+    "name": "Turkiye Is Bankasi AS Class C",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ISCTR Turkiye Is Bankasi AS Class C isctr bank turkiye ISCTR banki bankası bankasi cls",
+    "sector": "Bankacılık",
+    "price": 13.4,
+    "volume": 821682441.0
+  },
+  {
+    "symbol": "ISGSY",
+    "name": "Is Girisim Sermayesi Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ISGSY Is Girisim Sermayesi Yatirim Ortakligi AS sermayesi ortakligi ISGSY isgsy yatirim girisim",
+    "sector": "Diğer",
+    "price": 90.0,
+    "volume": 1157295.0
+  },
+  {
+    "symbol": "KARSN",
+    "name": "Karsan Otomotiv Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KARSN Karsan Otomotiv Sanayi ve Ticaret AS karsan karsn sanayi automotive otomotiv KARSN ticaret motor",
+    "sector": "Otomotiv",
+    "price": 11.57,
+    "volume": 32750106.0
+  },
+  {
+    "symbol": "KCHOL",
+    "name": "Koc Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KCHOL Koc Holding AS grup holding kchol KCHOL koc",
+    "sector": "Holding",
+    "price": 164.5,
+    "volume": 28778720.0
+  },
+  {
+    "symbol": "KERVT",
+    "name": "Kerevitas Gida Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KERVT Kerevitas Gida Sanayi ve Ticaret AS KERVT sanayi food gida ticaret kerevit beslenme kervt",
+    "sector": "Gıda",
+    "price": 15.27,
+    "volume": 3142691.0
+  },
+  {
+    "symbol": "KLMSN",
+    "name": "Klimasan Klima Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KLMSN Klimasan Klima Sanayi ve Ticaret AS klmsn sanayi KLMSN klima ticaret kliman",
+    "sector": "Diğer",
+    "price": 37.0,
+    "volume": 865427.0
+  },
+  {
+    "symbol": "KLNMA",
+    "name": "Turkiye Kalkinma Bankasi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KLNMA Turkiye Kalkinma Bankasi AS KLNMA klnma bank turkiye banki bankası bankasi kalkinma",
+    "sector": "Bankacılık",
+    "price": 11.5,
+    "volume": 303811.0
+  },
+  {
+    "symbol": "KONTR",
+    "name": "Kontrolmatik Teknoloji Enerji ve Mu",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KONTR Kontrolmatik Teknoloji Enerji ve Mu enerji technology teknoloji energy elektrik kontr kontrolmatik KONTR tech",
+    "sector": "Enerji",
+    "price": 24.8,
+    "volume": 16146604.0
+  },
+  {
+    "symbol": "KONYA",
+    "name": "Konya Cimento Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KONYA Konya Cimento Sanayi AS konya cimento sanayi KONYA",
+    "sector": "Diğer",
+    "price": 5020.0,
+    "volume": 12695.0
+  },
+  {
+    "symbol": "KOZAL",
+    "name": "Koza Altin Isletmeleri AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KOZAL Koza Altin Isletmeleri AS koza KOZAL altin kozal isletmeleri",
+    "sector": "Diğer",
+    "price": 23.28,
+    "volume": 67292078.0
+  },
+  {
+    "symbol": "KRDMD",
+    "name": "Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class D",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KRDMD Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class D demir kardemir sanayi karabuk KRDMD krdmd ticaret celik cls",
+    "sector": "Diğer",
+    "price": 25.76,
+    "volume": 30927384.0
+  },
+  {
+    "symbol": "KRSAN",
+    "name": "Casa Emtia Petrol Kimyevi ve Turevleri San. Tic. A.S",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KRSAN Casa Emtia Petrol Kimyevi ve Turevleri San. Tic. A.S a.s emtia krsan turevleri KRSAN petrol kimyevi san. tic.",
+    "sector": "Diğer",
+    "price": 142.0,
+    "volume": 3652.0
+  },
+  {
+    "symbol": "KRSTL",
+    "name": "Kristal Kola ve Mesrubat Sanayi Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KRSTL Kristal Kola ve Mesrubat Sanayi Ticaret AS kristal mesrubat sanayi krstl kola ticaret KRSTL",
+    "sector": "Diğer",
+    "price": 10.83,
+    "volume": 5238130.0
+  },
+  {
+    "symbol": "KTLEV",
+    "name": "Katilimevim Tasaruf Finansman A.S.",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KTLEV Katilimevim Tasaruf Finansman A.S. taruf KTLEV finansman katilimevim ktlev",
+    "sector": "Diğer",
+    "price": 46.46,
+    "volume": 39646754.0
+  },
+  {
+    "symbol": "KUTPO",
+    "name": "Kutahya Porselen Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "KUTPO Kutahya Porselen Sanayi AS porselen sanayi kutahya kutpo KUTPO",
+    "sector": "Diğer",
+    "price": 99.5,
+    "volume": 497347.0
+  },
+  {
+    "symbol": "LOGO",
+    "name": "Logo Yazilim Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "LOGO Logo Yazilim Sanayi ve Ticaret AS sanayi logo ticaret yazilim LOGO",
+    "sector": "Diğer",
+    "price": 166.9,
+    "volume": 381028.0
+  },
+  {
+    "symbol": "LUKSK",
+    "name": "Luks Kadife Ticaret ve Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "LUKSK Luks Kadife Ticaret ve Sanayi AS LUKSK sanayi luks ticaret kadife luksk",
+    "sector": "Diğer",
+    "price": 115.0,
+    "volume": 224184.0
+  },
+  {
+    "symbol": "MAVI",
+    "name": "Mavi Giyim Sanayi Ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "MAVI Mavi Giyim Sanayi Ve Ticaret AS giyim sanayi mavi ticaret MAVI",
+    "sector": "Diğer",
+    "price": 40.58,
+    "volume": 13391002.0
+  },
+  {
+    "symbol": "MEPET",
+    "name": "Mepet Metro Petrol ve Tesisleri Sanayi Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "MEPET Mepet Metro Petrol ve Tesisleri Sanayi Ticaret AS mepet tesisleri sanayi ticaret MEPET petrol metro",
+    "sector": "Diğer",
+    "price": 13.7,
+    "volume": 712128.0
+  },
+  {
+    "symbol": "METRO",
+    "name": "Metro Ticari ve Mali Yatirimlar Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "METRO Metro Ticari ve Mali Yatirimlar Holding AS METRO mali grup metro ticari holding yatirimlar",
+    "sector": "Holding",
+    "price": 4.15,
+    "volume": 13134147.0
+  },
+  {
+    "symbol": "MGROS",
+    "name": "Migros Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "MGROS Migros Ticaret AS ticaret migros mgros MGROS",
+    "sector": "Diğer",
+    "price": 437.0,
+    "volume": 2791529.0
+  },
+  {
+    "symbol": "MHRGY",
+    "name": "MHR Gayrimenkul Yatirim Ortakligi Anonim Sirketi",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "MHRGY MHR Gayrimenkul Yatirim Ortakligi Anonim Sirketi gayrimenkul anonim MHRGY ortakligi sirketi yatirim mhr mhrgy",
+    "sector": "Diğer",
+    "price": 6.84,
+    "volume": 6466660.0
+  },
+  {
+    "symbol": "MPARK",
+    "name": "MLP Saglik Hizmetleri AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "MPARK MLP Saglik Hizmetleri AS mpark MPARK mlp saglik hizmetleri",
+    "sector": "Diğer",
+    "price": 349.5,
+    "volume": 434414.0
+  },
+  {
+    "symbol": "NTGAZ",
+    "name": "Naturelgaz Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "NTGAZ Naturelgaz Sanayi ve Ticaret AS sanayi ntgaz ticaret naturelgaz NTGAZ",
+    "sector": "Diğer",
+    "price": 9.83,
+    "volume": 6194579.0
+  },
+  {
+    "symbol": "NTHOL",
+    "name": "Net Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "NTHOL Net Holding AS NTHOL grup net nthol holding",
+    "sector": "Holding",
+    "price": 48.64,
+    "volume": 940424.0
+  },
+  {
+    "symbol": "ONRYT",
+    "name": "ONUR TEKNOLOJI ",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ONRYT ONUR TEKNOLOJI  technology onur teknoloji ONRYT onryt tech",
+    "sector": "Teknoloji",
+    "price": 84.8,
+    "volume": 1764181.0
+  },
+  {
+    "symbol": "OSMEN",
+    "name": "Osmanli Menkul Degerler AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "OSMEN Osmanli Menkul Degerler AS degerler menkul osmen osmanli OSMEN",
+    "sector": "Diğer",
+    "price": 9.3,
+    "volume": 4205977.0
+  },
+  {
+    "symbol": "OTKAR",
+    "name": "Otokar Otomotiv ve Savunma Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "OTKAR Otokar Otomotiv ve Savunma Sanayi AS sanayi automotive otomotiv otkar otokar motor savunma OTKAR",
+    "sector": "Otomotiv",
+    "price": 475.25,
+    "volume": 901681.0
+  },
+  {
+    "symbol": "OZBAL",
+    "name": "Ozbal Celik Boru Sanayi Ticaret ve Taahhut AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "OZBAL Ozbal Celik Boru Sanayi Ticaret ve Taahhut AS sanayi ozbal boru ticaret celik taahhut OZBAL",
+    "sector": "Diğer",
+    "price": 24.82,
+    "volume": 2059979.0
+  },
+  {
+    "symbol": "OZKGY",
+    "name": "Ozak Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "OZKGY Ozak Gayrimenkul Yatirim Ortakligi AS gayrimenkul ortakligi OZKGY ozkgy yatirim ozak",
+    "sector": "Diğer",
+    "price": 12.87,
+    "volume": 4543642.0
+  },
+  {
+    "symbol": "PARSN",
+    "name": "Parsan Makina Parcalari Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "PARSN Parsan Makina Parcalari Sanayi AS sanayi makina parcalari parsan PARSN parsn",
+    "sector": "Diğer",
+    "price": 97.45,
+    "volume": 443115.0
+  },
+  {
+    "symbol": "PENGD",
+    "name": "Penguen Gida Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "PENGD Penguen Gida Sanayi AS sanayi PENGD pengd food gida beslenme penguen",
+    "sector": "Gıda",
+    "price": 8.97,
+    "volume": 7157226.0
+  },
+  {
+    "symbol": "PETKM",
+    "name": "Petkim Petrokimya Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "PETKM Petkim Petrokimya Holding AS petkm grup PETKM holding petkim petrokimya",
+    "sector": "Holding",
+    "price": 17.42,
+    "volume": 72345929.0
+  },
+  {
+    "symbol": "PGSUS",
+    "name": "Pegasus Hava Tasimaciligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "PGSUS Pegasus Hava Tasimaciligi AS pegus pgsus timaciligi hava PGSUS",
+    "sector": "Diğer",
+    "price": 220.2,
+    "volume": 18469453.0
+  },
+  {
+    "symbol": "PKART",
+    "name": "Plastikkart Akilli Kart Iletisim Sistemleri Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "PKART Plastikkart Akilli Kart Iletisim Sistemleri Sanayi ve Ticaret AS iletisim sanayi pkart pltikkart PKART ticaret kart akilli sistemleri",
+    "sector": "Diğer",
+    "price": 76.95,
+    "volume": 228770.0
+  },
+  {
+    "symbol": "PNSUT",
+    "name": "Pinar Sut Mamulleri Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "PNSUT Pinar Sut Mamulleri Sanayi AS sanayi pnsut sut pinar PNSUT mamulleri",
+    "sector": "Diğer",
+    "price": 15.0,
+    "volume": 10716020.0
+  },
+  {
+    "symbol": "POLHO",
+    "name": "Polisan Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "POLHO Polisan Holding AS polisan grup holding POLHO polho",
+    "sector": "Holding",
+    "price": 4.5,
+    "volume": 72144916.0
+  },
+  {
+    "symbol": "QNBFB",
+    "name": "Qnb Finansbank AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "QNBFB Qnb Finansbank AS qnbfb qnb bank QNBFB finansbank bankası bankasi",
+    "sector": "Bankacılık",
+    "price": 287.0,
+    "volume": 13272.0
+  },
+  {
+    "symbol": "QUAGR",
+    "name": "Qua Granite Hayal Yapi ve Urunleri Sanayi Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "QUAGR Qua Granite Hayal Yapi ve Urunleri Sanayi Ticaret AS sanayi QUAGR granite hayal ticaret yapi quagr construction qua urunleri insaat",
+    "sector": "Diğer",
+    "price": 9.2,
+    "volume": 60373837.0
+  },
+  {
+    "symbol": "REEDR",
+    "name": "Reeder Teknoloji Sanayi ve Ticaret Anonim Sirketi",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "REEDR Reeder Teknoloji Sanayi ve Ticaret Anonim Sirketi sanayi anonim technology teknoloji sirketi tech ticaret reeder REEDR reedr",
+    "sector": "Teknoloji",
+    "price": 9.99,
+    "volume": 50753420.0
+  },
+  {
+    "symbol": "RHEAG",
+    "name": "Rhea Girisim Sermayesi Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "RHEAG Rhea Girisim Sermayesi Yatirim Ortakligi AS sermayesi ortakligi rheag yatirim RHEAG rhea girisim",
+    "sector": "Diğer",
+    "price": 9.07,
+    "volume": 0.0
+  },
+  {
+    "symbol": "RTALB",
+    "name": "RTA Laboratuvarlari Biyolojik",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "RTALB RTA Laboratuvarlari Biyolojik rtalb biyolojik rta laboratuvarlari RTALB",
+    "sector": "Diğer",
+    "price": 3.82,
+    "volume": 95164068.0
+  },
+  {
+    "symbol": "SAHOL",
+    "name": "Haci Omer Sabanci Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SAHOL Haci Omer Sabanci Holding AS sahol sabanci grup omer haci holding SAHOL",
+    "sector": "Holding",
+    "price": 85.45,
+    "volume": 32925996.0
+  },
+  {
+    "symbol": "SELEC",
+    "name": "Selcuk Ecza Deposu Ticaret ve Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SELEC Selcuk Ecza Deposu Ticaret ve Sanayi AS deposu ecza sanayi selec ticaret selcuk SELEC",
+    "sector": "Diğer",
+    "price": 80.1,
+    "volume": 768232.0
+  },
+  {
+    "symbol": "SILVR",
+    "name": "Silverline Endustri ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SILVR Silverline Endustri ve Ticaret AS silvr SILVR endustri ticaret silverline",
+    "sector": "Diğer",
+    "price": 20.32,
+    "volume": 268297.0
+  },
+  {
+    "symbol": "SISE",
+    "name": "Turkiye Sise ve Cam Fabrikalari AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SISE Turkiye Sise ve Cam Fabrikalari AS sise fabrikalari turkiye SISE cam",
+    "sector": "Diğer",
+    "price": 36.58,
+    "volume": 53272277.0
+  },
+  {
+    "symbol": "SKBNK",
+    "name": "Sekerbank TAS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SKBNK Sekerbank TAS sekerbank bank bankası skbnk bankasi SKBNK",
+    "sector": "Bankacılık",
+    "price": 7.52,
+    "volume": 118097220.0
+  },
+  {
+    "symbol": "SMART",
+    "name": "Smartiks Yazilim AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SMART Smartiks Yazilim AS yazilim smart smartiks SMART",
+    "sector": "Diğer",
+    "price": 25.72,
+    "volume": 817870.0
+  },
+  {
+    "symbol": "SMRTG",
+    "name": "Smart Gunes Enerjisi Teknolojileri Arastirma Gelistirme Uretim Sanayi ve Ticaret",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SMRTG Smart Gunes Enerjisi Teknolojileri Arastirma Gelistirme Uretim Sanayi ve Ticaret uretim SMRTG sanayi enerji technology smrtg energy teknoloji tech artirma ticaret elektrik gunes teknolojileri gelistirme smart enerjisi",
+    "sector": "Enerji",
+    "price": 27.46,
+    "volume": 3096953.0
+  },
+  {
+    "symbol": "SNPAM",
+    "name": "Sonmez Pamuklu Sanayii AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SNPAM Sonmez Pamuklu Sanayii AS sanayii SNPAM pamuklu snpam sonmez",
+    "sector": "Diğer",
+    "price": 25.0,
+    "volume": 179098.0
+  },
+  {
+    "symbol": "SOKE",
+    "name": "Soke Degirmencilik AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SOKE Soke Degirmencilik AS SOKE degirmencilik soke",
+    "sector": "Diğer",
+    "price": 14.07,
+    "volume": 1145688.0
+  },
+  {
+    "symbol": "SOKM",
+    "name": "Sok Marketler Ticaret As",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SOKM Sok Marketler Ticaret As marketler sok SOKM ticaret sokm",
+    "sector": "Diğer",
+    "price": 35.94,
+    "volume": 4751447.0
+  },
+  {
+    "symbol": "SRVGY",
+    "name": "Servet Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "SRVGY Servet Gayrimenkul Yatirim Ortakligi AS SRVGY gayrimenkul servet ortakligi yatirim srvgy",
+    "sector": "Diğer",
+    "price": 3.47,
+    "volume": 95841415.0
+  },
+  {
+    "symbol": "TAVHL",
+    "name": "TAV Havalimanlari Holding",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TAVHL TAV Havalimanlari Holding grup tavhl havalimanlari holding TAVHL tav",
+    "sector": "Holding",
+    "price": 229.7,
+    "volume": 2991658.0
+  },
+  {
+    "symbol": "TCELL",
+    "name": "Turkcell Iletisim Hizmetleri AS ORD",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TCELL Turkcell Iletisim Hizmetleri AS ORD iletisim ord TCELL hizmetleri turkcell tcell",
+    "sector": "Diğer",
+    "price": 88.9,
+    "volume": 26360963.0
+  },
+  {
+    "symbol": "TDGYO",
+    "name": "Trend Gayrimenkul Yatirim Ortakligi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TDGYO Trend Gayrimenkul Yatirim Ortakligi AS gayrimenkul trend TDGYO ortakligi yatirim tdgyo",
+    "sector": "Diğer",
+    "price": 18.0,
+    "volume": 650653.0
+  },
+  {
+    "symbol": "TEKTU",
+    "name": "Tek-Art Insaat Ticaret Turizm Sanayi ve Yatirimlar AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TEKTU Tek-Art Insaat Ticaret Turizm Sanayi ve Yatirimlar AS sanayi tektu ticaret tek-art yapi TEKTU construction turizm insaat yatirimlar",
+    "sector": "İnşaat",
+    "price": 23.86,
+    "volume": 1280192.0
+  },
+  {
+    "symbol": "THYAO",
+    "name": "Turkish Airlines",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "THYAO Turkish Airlines airlines THYAO thyao turkish",
+    "sector": "Diğer",
+    "price": 309.0,
+    "volume": 27203856.0
+  },
+  {
+    "symbol": "TMPOL",
+    "name": "Temapol Polimer Plastik ve Insaat Sanayi Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TMPOL Temapol Polimer Plastik ve Insaat Sanayi Ticaret AS sanayi pltik polimer temapol ticaret yapi TMPOL tmpol construction insaat",
+    "sector": "İnşaat",
+    "price": 131.2,
+    "volume": 2150763.0
+  },
+  {
+    "symbol": "TOASO",
+    "name": "Tofas Turk Otomobil Fabrikasi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TOASO Tofas Turk Otomobil Fabrikasi AS fabriki toaso TOASO tof turk otomobil",
+    "sector": "Diğer",
+    "price": 222.7,
+    "volume": 5590102.0
+  },
+  {
+    "symbol": "TRCAS",
+    "name": "Turcas Petrol AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TRCAS Turcas Petrol AS turc petrol trcas TRCAS",
+    "sector": "Diğer",
+    "price": 35.3,
+    "volume": 1220283.0
+  },
+  {
+    "symbol": "TSKB",
+    "name": "Turkiye Sinai Kalkinma Bankasi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TSKB Turkiye Sinai Kalkinma Bankasi AS sinai TSKB bank turkiye banki bankası bankasi kalkinma tskb",
+    "sector": "Bankacılık",
+    "price": 13.1,
+    "volume": 22108292.0
+  },
+  {
+    "symbol": "TTKOM",
+    "name": "Turk Telekomunikasyon AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TTKOM Turk Telekomunikasyon AS telekomunikyon turk ttkom TTKOM",
+    "sector": "Diğer",
+    "price": 51.1,
+    "volume": 27514323.0
+  },
+  {
+    "symbol": "TTRAK",
+    "name": "Turk Traktor ve Ziraat Makineleri AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TTRAK Turk Traktor ve Ziraat Makineleri AS ziraat ttrak makineleri traktor turk TTRAK",
+    "sector": "Diğer",
+    "price": 573.5,
+    "volume": 220475.0
+  },
+  {
+    "symbol": "TUKAS",
+    "name": "Tukas Gida Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TUKAS Tukas Gida Sanayi ve Ticaret AS sanayi TUKAS food gida tuk ticaret tukas beslenme",
+    "sector": "Gıda",
+    "price": 3.59,
+    "volume": 496896385.0
+  },
+  {
+    "symbol": "TUPRS",
+    "name": "Turkiye Petrol Rafinerileri AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TUPRS Turkiye Petrol Rafinerileri AS rafinerileri turkiye tuprs petrol TUPRS",
+    "sector": "Diğer",
+    "price": 165.9,
+    "volume": 14976518.0
+  },
+  {
+    "symbol": "TUREX",
+    "name": "Tureks Turizm Tasimacilik AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "TUREX Tureks Turizm Tasimacilik AS timacilik tureks turex TUREX turizm",
+    "sector": "Diğer",
+    "price": 8.64,
+    "volume": 31789831.0
+  },
+  {
+    "symbol": "ULKER",
+    "name": "Ulker Biskuvi Sanayi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ULKER Ulker Biskuvi Sanayi AS ULKER sanayi biskuvi ulker",
+    "sector": "Diğer",
+    "price": 101.9,
+    "volume": 6689613.0
+  },
+  {
+    "symbol": "USRDS",
+    "name": "USRDS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "USRDS USRDS USRDS usrds",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "VAKBN",
+    "name": "Turkiye Vakiflar Bankasi TAO",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "VAKBN Turkiye Vakiflar Bankasi TAO VAKBN tao vakbn bank turkiye banki vakiflar bankası bankasi",
+    "sector": "Bankacılık",
+    "price": 26.2,
+    "volume": 26759271.0
+  },
+  {
+    "symbol": "VANGD",
+    "name": "Vanet Gida Sanayi Ic ve Dis Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "VANGD Vanet Gida Sanayi Ic ve Dis Ticaret AS sanayi VANGD vanet vangd food gida dis ticaret beslenme",
+    "sector": "Gıda",
+    "price": 42.98,
+    "volume": 756929.0
+  },
+  {
+    "symbol": "VERUS",
+    "name": "Verusa Holding AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "VERUS Verusa Holding AS grup VERUS verus holding verusa",
+    "sector": "Holding",
+    "price": 504.0,
+    "volume": 150653.0
+  },
+  {
+    "symbol": "VESTL",
+    "name": "Vestel Elektronik Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "VESTL Vestel Elektronik Sanayi ve Ticaret AS vestel sanayi VESTL elektronik vestl ticaret",
+    "sector": "Diğer",
+    "price": 36.28,
+    "volume": 11224791.0
+  },
+  {
+    "symbol": "VKING",
+    "name": "Viking Kagit ve Seluloz AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "VKING Viking Kagit ve Seluloz AS viking seluloz VKING vking kagit",
+    "sector": "Diğer",
+    "price": 28.18,
+    "volume": 836056.0
+  },
+  {
+    "symbol": "YAPRK",
+    "name": "Yaprak Sut ve Besi Ciftlikleri Sanayi ve Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "YAPRK Yaprak Sut ve Besi Ciftlikleri Sanayi ve Ticaret AS yaprak sanayi sut yaprk YAPRK besi ticaret ciftlikleri",
+    "sector": "Diğer",
+    "price": 291.25,
+    "volume": 164941.0
+  },
+  {
+    "symbol": "YATAS",
+    "name": "Yatas Yatak ve Yorgan Sanayi Ticaret AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "YATAS Yatas Yatak ve Yorgan Sanayi Ticaret AS sanayi yat ticaret yatak yatas yorgan YATAS",
+    "sector": "Diğer",
+    "price": 33.3,
+    "volume": 1673914.0
+  },
+  {
+    "symbol": "YKBNK",
+    "name": "Yapi ve Kredi Bankasi AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "YKBNK Yapi ve Kredi Bankasi AS ykbnk construction bank banki yapi bankası kredi bankasi YKBNK insaat",
+    "sector": "Bankacılık",
+    "price": 30.02,
+    "volume": 311255647.0
+  },
+  {
+    "symbol": "ZIRTR",
+    "name": "ZIRTR",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ZIRTR ZIRTR zirtr ZIRTR",
+    "sector": "Diğer",
+    "price": null,
+    "volume": null
+  },
+  {
+    "symbol": "ZOREN",
+    "name": "Zorlu Enerji Elektrik Uretim AS",
+    "market": "Turkey",
+    "currency": "TRY",
+    "search_text": "ZOREN Zorlu Enerji Elektrik Uretim AS uretim enerji energy elektrik zoren zorlu ZOREN",
+    "sector": "Enerji",
+    "price": 3.53,
+    "volume": 66563182.0
+  }
+]

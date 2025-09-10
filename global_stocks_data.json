@@ -1,0 +1,763 @@
+{
+  "metadata": {
+    "created": "2025-09-10T00:22:17.499945",
+    "total_stocks": 41,
+    "regions": [
+      "turkey",
+      "usa",
+      "europe",
+      "asia"
+    ],
+    "version": "1.0"
+  },
+  "stocks_by_region": {
+    "turkey": [
+      {
+        "symbol": "AKBNK",
+        "name": "Akbank T.A.Ş.",
+        "sector": "Bankacılık",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "AKBNK.IS"
+      },
+      {
+        "symbol": "GARAN",
+        "name": "Türkiye Garanti Bankası A.Ş.",
+        "sector": "Bankacılık",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "GARAN.IS"
+      },
+      {
+        "symbol": "ISCTR",
+        "name": "Türkiye İş Bankası A.Ş.",
+        "sector": "Bankacılık",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "ISCTR.IS"
+      },
+      {
+        "symbol": "YKBNK",
+        "name": "Yapı ve Kredi Bankası A.Ş.",
+        "sector": "Bankacılık",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "YKBNK.IS"
+      },
+      {
+        "symbol": "VAKBN",
+        "name": "Türkiye Vakıflar Bankası T.A.O.",
+        "sector": "Bankacılık",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "VAKBN.IS"
+      },
+      {
+        "symbol": "TUPRS",
+        "name": "Tüpraş-Türkiye Petrol Rafinerileri A.Ş.",
+        "sector": "Petrol & Kimya",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "TUPRS.IS"
+      },
+      {
+        "symbol": "THYAO",
+        "name": "Türk Hava Yolları A.O.",
+        "sector": "Taşımacılık",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "THYAO.IS"
+      },
+      {
+        "symbol": "TCELL",
+        "name": "Turkcell İletişim Hizmetleri A.Ş.",
+        "sector": "Telekomünikasyon",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "TCELL.IS"
+      },
+      {
+        "symbol": "ASELS",
+        "name": "Aselsan Elektronik Sanayi ve Ticaret A.Ş.",
+        "sector": "Teknoloji",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "ASELS.IS"
+      },
+      {
+        "symbol": "KCHOL",
+        "name": "Koç Holding A.Ş.",
+        "sector": "Holding",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "KCHOL.IS"
+      },
+      {
+        "symbol": "SAHOL",
+        "name": "Sabancı Holding A.Ş.",
+        "sector": "Holding",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "SAHOL.IS"
+      },
+      {
+        "symbol": "ARCLK",
+        "name": "Arçelik A.Ş.",
+        "sector": "Ev Aletleri",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "ARCLK.IS"
+      },
+      {
+        "symbol": "BIMAS",
+        "name": "BİM Birleşik Mağazalar A.Ş.",
+        "sector": "Perakende",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "BIMAS.IS"
+      },
+      {
+        "symbol": "EREGL",
+        "name": "Ereğli Demir ve Çelik Fabrikaları T.A.Ş.",
+        "sector": "Metal",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "EREGL.IS"
+      },
+      {
+        "symbol": "KOZAL",
+        "name": "Koza Altın İşletmeleri A.Ş.",
+        "sector": "Madencilik",
+        "market": "BIST",
+        "currency": "TRY",
+        "ticker": "KOZAL.IS"
+      }
+    ],
+    "usa": [
+      {
+        "symbol": "AAPL",
+        "name": "Apple Inc.",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "AAPL"
+      },
+      {
+        "symbol": "MSFT",
+        "name": "Microsoft Corporation",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "MSFT"
+      },
+      {
+        "symbol": "GOOGL",
+        "name": "Alphabet Inc.",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "GOOGL"
+      },
+      {
+        "symbol": "AMZN",
+        "name": "Amazon.com Inc.",
+        "sector": "E-commerce",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "AMZN"
+      },
+      {
+        "symbol": "TSLA",
+        "name": "Tesla Inc.",
+        "sector": "Automotive",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "TSLA"
+      },
+      {
+        "symbol": "META",
+        "name": "Meta Platforms Inc.",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "META"
+      },
+      {
+        "symbol": "NVDA",
+        "name": "NVIDIA Corporation",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "NVDA"
+      },
+      {
+        "symbol": "JPM",
+        "name": "JPMorgan Chase & Co.",
+        "sector": "Banking",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "JPM"
+      },
+      {
+        "symbol": "JNJ",
+        "name": "Johnson & Johnson",
+        "sector": "Healthcare",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "JNJ"
+      },
+      {
+        "symbol": "V",
+        "name": "Visa Inc.",
+        "sector": "Financial Services",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "V"
+      },
+      {
+        "symbol": "UNH",
+        "name": "UnitedHealth Group Inc.",
+        "sector": "Healthcare",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "UNH"
+      },
+      {
+        "symbol": "HD",
+        "name": "The Home Depot Inc.",
+        "sector": "Retail",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "HD"
+      }
+    ],
+    "europe": [
+      {
+        "symbol": "ASML",
+        "name": "ASML Holding N.V.",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "ASML"
+      },
+      {
+        "symbol": "NESN",
+        "name": "Nestlé S.A.",
+        "sector": "Consumer Goods",
+        "market": "SIX",
+        "currency": "CHF",
+        "ticker": "NESN.SW"
+      },
+      {
+        "symbol": "NOVN",
+        "name": "Novartis AG",
+        "sector": "Healthcare",
+        "market": "SIX",
+        "currency": "CHF",
+        "ticker": "NOVN.SW"
+      },
+      {
+        "symbol": "SAP",
+        "name": "SAP SE",
+        "sector": "Technology",
+        "market": "XETRA",
+        "currency": "EUR",
+        "ticker": "SAP.DE"
+      },
+      {
+        "symbol": "SHELL",
+        "name": "Shell plc",
+        "sector": "Energy",
+        "market": "LSE",
+        "currency": "GBP",
+        "ticker": "SHEL.L"
+      },
+      {
+        "symbol": "ASTRAZENECA",
+        "name": "AstraZeneca PLC",
+        "sector": "Healthcare",
+        "market": "LSE",
+        "currency": "GBP",
+        "ticker": "AZN.L"
+      },
+      {
+        "symbol": "LVMH",
+        "name": "LVMH Moët Hennessy Louis Vuitton",
+        "sector": "Luxury",
+        "market": "EURONEXT",
+        "currency": "EUR",
+        "ticker": "MC.PA"
+      },
+      {
+        "symbol": "TOTALENERGIES",
+        "name": "TotalEnergies SE",
+        "sector": "Energy",
+        "market": "EURONEXT",
+        "currency": "EUR",
+        "ticker": "TTE.PA"
+      }
+    ],
+    "asia": [
+      {
+        "symbol": "TSM",
+        "name": "Taiwan Semiconductor Manufacturing Company Limited",
+        "sector": "Technology",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "TSM"
+      },
+      {
+        "symbol": "TCEHY",
+        "name": "Tencent Holdings Limited",
+        "sector": "Technology",
+        "market": "OTC",
+        "currency": "USD",
+        "ticker": "TCEHY"
+      },
+      {
+        "symbol": "BABA",
+        "name": "Alibaba Group Holding Limited",
+        "sector": "E-commerce",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "BABA"
+      },
+      {
+        "symbol": "TM",
+        "name": "Toyota Motor Corporation",
+        "sector": "Automotive",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "TM"
+      },
+      {
+        "symbol": "SONY",
+        "name": "Sony Group Corporation",
+        "sector": "Technology",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "SONY"
+      },
+      {
+        "symbol": "NVO",
+        "name": "Novo Nordisk A/S",
+        "sector": "Healthcare",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "NVO"
+      }
+    ]
+  },
+  "all_stocks": [
+    {
+      "symbol": "AKBNK",
+      "name": "Akbank T.A.Ş.",
+      "sector": "Bankacılık",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "AKBNK.IS",
+      "region": "turkey",
+      "search_text": "akbnk akbank t.a.ş. bankacılık turkey"
+    },
+    {
+      "symbol": "GARAN",
+      "name": "Türkiye Garanti Bankası A.Ş.",
+      "sector": "Bankacılık",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "GARAN.IS",
+      "region": "turkey",
+      "search_text": "garan türkiye garanti bankası a.ş. bankacılık turkey"
+    },
+    {
+      "symbol": "ISCTR",
+      "name": "Türkiye İş Bankası A.Ş.",
+      "sector": "Bankacılık",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "ISCTR.IS",
+      "region": "turkey",
+      "search_text": "isctr türkiye i̇ş bankası a.ş. bankacılık turkey"
+    },
+    {
+      "symbol": "YKBNK",
+      "name": "Yapı ve Kredi Bankası A.Ş.",
+      "sector": "Bankacılık",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "YKBNK.IS",
+      "region": "turkey",
+      "search_text": "ykbnk yapı ve kredi bankası a.ş. bankacılık turkey"
+    },
+    {
+      "symbol": "VAKBN",
+      "name": "Türkiye Vakıflar Bankası T.A.O.",
+      "sector": "Bankacılık",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "VAKBN.IS",
+      "region": "turkey",
+      "search_text": "vakbn türkiye vakıflar bankası t.a.o. bankacılık turkey"
+    },
+    {
+      "symbol": "TUPRS",
+      "name": "Tüpraş-Türkiye Petrol Rafinerileri A.Ş.",
+      "sector": "Petrol & Kimya",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "TUPRS.IS",
+      "region": "turkey",
+      "search_text": "tuprs tüpraş-türkiye petrol rafinerileri a.ş. petrol & kimya turkey"
+    },
+    {
+      "symbol": "THYAO",
+      "name": "Türk Hava Yolları A.O.",
+      "sector": "Taşımacılık",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "THYAO.IS",
+      "region": "turkey",
+      "search_text": "thyao türk hava yolları a.o. taşımacılık turkey"
+    },
+    {
+      "symbol": "TCELL",
+      "name": "Turkcell İletişim Hizmetleri A.Ş.",
+      "sector": "Telekomünikasyon",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "TCELL.IS",
+      "region": "turkey",
+      "search_text": "tcell turkcell i̇letişim hizmetleri a.ş. telekomünikasyon turkey"
+    },
+    {
+      "symbol": "ASELS",
+      "name": "Aselsan Elektronik Sanayi ve Ticaret A.Ş.",
+      "sector": "Teknoloji",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "ASELS.IS",
+      "region": "turkey",
+      "search_text": "asels aselsan elektronik sanayi ve ticaret a.ş. teknoloji turkey"
+    },
+    {
+      "symbol": "KCHOL",
+      "name": "Koç Holding A.Ş.",
+      "sector": "Holding",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "KCHOL.IS",
+      "region": "turkey",
+      "search_text": "kchol koç holding a.ş. holding turkey"
+    },
+    {
+      "symbol": "SAHOL",
+      "name": "Sabancı Holding A.Ş.",
+      "sector": "Holding",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "SAHOL.IS",
+      "region": "turkey",
+      "search_text": "sahol sabancı holding a.ş. holding turkey"
+    },
+    {
+      "symbol": "ARCLK",
+      "name": "Arçelik A.Ş.",
+      "sector": "Ev Aletleri",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "ARCLK.IS",
+      "region": "turkey",
+      "search_text": "arclk arçelik a.ş. ev aletleri turkey"
+    },
+    {
+      "symbol": "BIMAS",
+      "name": "BİM Birleşik Mağazalar A.Ş.",
+      "sector": "Perakende",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "BIMAS.IS",
+      "region": "turkey",
+      "search_text": "bimas bi̇m birleşik mağazalar a.ş. perakende turkey"
+    },
+    {
+      "symbol": "EREGL",
+      "name": "Ereğli Demir ve Çelik Fabrikaları T.A.Ş.",
+      "sector": "Metal",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "EREGL.IS",
+      "region": "turkey",
+      "search_text": "eregl ereğli demir ve çelik fabrikaları t.a.ş. metal turkey"
+    },
+    {
+      "symbol": "KOZAL",
+      "name": "Koza Altın İşletmeleri A.Ş.",
+      "sector": "Madencilik",
+      "market": "BIST",
+      "currency": "TRY",
+      "ticker": "KOZAL.IS",
+      "region": "turkey",
+      "search_text": "kozal koza altın i̇şletmeleri a.ş. madencilik turkey"
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "AAPL",
+      "region": "usa",
+      "search_text": "aapl apple inc. technology usa"
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "MSFT",
+      "region": "usa",
+      "search_text": "msft microsoft corporation technology usa"
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc.",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "GOOGL",
+      "region": "usa",
+      "search_text": "googl alphabet inc. technology usa"
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon.com Inc.",
+      "sector": "E-commerce",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "AMZN",
+      "region": "usa",
+      "search_text": "amzn amazon.com inc. e-commerce usa"
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla Inc.",
+      "sector": "Automotive",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "TSLA",
+      "region": "usa",
+      "search_text": "tsla tesla inc. automotive usa"
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms Inc.",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "META",
+      "region": "usa",
+      "search_text": "meta meta platforms inc. technology usa"
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "NVDA",
+      "region": "usa",
+      "search_text": "nvda nvidia corporation technology usa"
+    },
+    {
+      "symbol": "JPM",
+      "name": "JPMorgan Chase & Co.",
+      "sector": "Banking",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "JPM",
+      "region": "usa",
+      "search_text": "jpm jpmorgan chase & co. banking usa"
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "sector": "Healthcare",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "JNJ",
+      "region": "usa",
+      "search_text": "jnj johnson & johnson healthcare usa"
+    },
+    {
+      "symbol": "V",
+      "name": "Visa Inc.",
+      "sector": "Financial Services",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "V",
+      "region": "usa",
+      "search_text": "v visa inc. financial services usa"
+    },
+    {
+      "symbol": "UNH",
+      "name": "UnitedHealth Group Inc.",
+      "sector": "Healthcare",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "UNH",
+      "region": "usa",
+      "search_text": "unh unitedhealth group inc. healthcare usa"
+    },
+    {
+      "symbol": "HD",
+      "name": "The Home Depot Inc.",
+      "sector": "Retail",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "HD",
+      "region": "usa",
+      "search_text": "hd the home depot inc. retail usa"
+    },
+    {
+      "symbol": "ASML",
+      "name": "ASML Holding N.V.",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "ASML",
+      "region": "europe",
+      "search_text": "asml asml holding n.v. technology europe"
+    },
+    {
+      "symbol": "NESN",
+      "name": "Nestlé S.A.",
+      "sector": "Consumer Goods",
+      "market": "SIX",
+      "currency": "CHF",
+      "ticker": "NESN.SW",
+      "region": "europe",
+      "search_text": "nesn nestlé s.a. consumer goods europe"
+    },
+    {
+      "symbol": "NOVN",
+      "name": "Novartis AG",
+      "sector": "Healthcare",
+      "market": "SIX",
+      "currency": "CHF",
+      "ticker": "NOVN.SW",
+      "region": "europe",
+      "search_text": "novn novartis ag healthcare europe"
+    },
+    {
+      "symbol": "SAP",
+      "name": "SAP SE",
+      "sector": "Technology",
+      "market": "XETRA",
+      "currency": "EUR",
+      "ticker": "SAP.DE",
+      "region": "europe",
+      "search_text": "sap sap se technology europe"
+    },
+    {
+      "symbol": "SHELL",
+      "name": "Shell plc",
+      "sector": "Energy",
+      "market": "LSE",
+      "currency": "GBP",
+      "ticker": "SHEL.L",
+      "region": "europe",
+      "search_text": "shell shell plc energy europe"
+    },
+    {
+      "symbol": "ASTRAZENECA",
+      "name": "AstraZeneca PLC",
+      "sector": "Healthcare",
+      "market": "LSE",
+      "currency": "GBP",
+      "ticker": "AZN.L",
+      "region": "europe",
+      "search_text": "astrazeneca astrazeneca plc healthcare europe"
+    },
+    {
+      "symbol": "LVMH",
+      "name": "LVMH Moët Hennessy Louis Vuitton",
+      "sector": "Luxury",
+      "market": "EURONEXT",
+      "currency": "EUR",
+      "ticker": "MC.PA",
+      "region": "europe",
+      "search_text": "lvmh lvmh moët hennessy louis vuitton luxury europe"
+    },
+    {
+      "symbol": "TOTALENERGIES",
+      "name": "TotalEnergies SE",
+      "sector": "Energy",
+      "market": "EURONEXT",
+      "currency": "EUR",
+      "ticker": "TTE.PA",
+      "region": "europe",
+      "search_text": "totalenergies totalenergies se energy europe"
+    },
+    {
+      "symbol": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "sector": "Technology",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "TSM",
+      "region": "asia",
+      "search_text": "tsm taiwan semiconductor manufacturing company limited technology asia"
+    },
+    {
+      "symbol": "TCEHY",
+      "name": "Tencent Holdings Limited",
+      "sector": "Technology",
+      "market": "OTC",
+      "currency": "USD",
+      "ticker": "TCEHY",
+      "region": "asia",
+      "search_text": "tcehy tencent holdings limited technology asia"
+    },
+    {
+      "symbol": "BABA",
+      "name": "Alibaba Group Holding Limited",
+      "sector": "E-commerce",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "BABA",
+      "region": "asia",
+      "search_text": "baba alibaba group holding limited e-commerce asia"
+    },
+    {
+      "symbol": "TM",
+      "name": "Toyota Motor Corporation",
+      "sector": "Automotive",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "TM",
+      "region": "asia",
+      "search_text": "tm toyota motor corporation automotive asia"
+    },
+    {
+      "symbol": "SONY",
+      "name": "Sony Group Corporation",
+      "sector": "Technology",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "SONY",
+      "region": "asia",
+      "search_text": "sony sony group corporation technology asia"
+    },
+    {
+      "symbol": "NVO",
+      "name": "Novo Nordisk A/S",
+      "sector": "Healthcare",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "NVO",
+      "region": "asia",
+      "search_text": "nvo novo nordisk a/s healthcare asia"
+    }
+  ]
+}

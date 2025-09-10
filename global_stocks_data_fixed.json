@@ -1,0 +1,2249 @@
+{
+  "metadata": {
+    "created": "2025-09-10T00:31:27.951192",
+    "total_stocks": 117,
+    "regions": [
+      "turkey",
+      "usa",
+      "europe",
+      "asia"
+    ],
+    "version": "1.1-fixed",
+    "turkish_stocks_restored": 100
+  },
+  "stocks_by_region": {
+    "turkey": [
+      {
+        "symbol": "QNBTR",
+        "name": "Qnb Finansbank AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "QNBTR.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ASELS",
+        "name": "Aselsan Elektronik Sanayi ve Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ASELS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "GARAN",
+        "name": "Turkiye Garanti Bankasi A.S.",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "GARAN.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "THYAO",
+        "name": "Turkish Airlines",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "THYAO.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KCHOL",
+        "name": "Koc Holding AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KCHOL.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ENKAI",
+        "name": "ENKA Insaat ve Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ENKAI.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ISBTR",
+        "name": "Turkiye Is Bankasi AS Class B",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ISBTR.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ISCTR",
+        "name": "Turkiye Is Bankasi AS Class C",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ISCTR.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "FROTO",
+        "name": "Ford Otomotiv Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "FROTO.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "AKBNK",
+        "name": "Akbank TAS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "AKBNK.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TUPRS",
+        "name": "Turkiye Petrol Rafinerileri AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TUPRS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "BIMAS",
+        "name": "BIM Birlesik Magazalar AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "BIMAS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "YKBNK",
+        "name": "Yapi ve Kredi Bankasi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "YKBNK.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "VAKBN",
+        "name": "Turkiye Vakiflar Bankasi TAO",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "VAKBN.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KENT",
+        "name": "Kent Gida Maddeleri Sanayi ve Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KENT.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TCELL",
+        "name": "Turkcell Iletisim Hizmetleri AS ORD",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TCELL.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "SAHOL",
+        "name": "Haci Omer Sabanci Holding AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "SAHOL.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "HALKB",
+        "name": "Turkiye Halk Bankasi",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "HALKB.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TTKOM",
+        "name": "Turk Telekomunikasyon AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TTKOM.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "EREGL",
+        "name": "Eregli Demir ve Celik Fabrikalari TAS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "EREGL.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "SASA",
+        "name": "SASA Polyester Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "SASA.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "PKENT",
+        "name": "Petrokent Turizm AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "PKENT.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "CCOLA",
+        "name": "Coca-Cola Icecek AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "CCOLA.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "SISE",
+        "name": "Turkiye Sise ve Cam Fabrikalari AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "SISE.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KLNMA",
+        "name": "Turkiye Kalkinma Bankasi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KLNMA.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "PGSUS",
+        "name": "Pegasus Hava Tasimaciligi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "PGSUS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "DOCO",
+        "name": "DO & CO AG",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "DOCO.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "OYAKC",
+        "name": "Oyak Cimento Fabrikalari AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "OYAKC.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TOASO",
+        "name": "Tofas Turk Otomobil Fabrikasi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TOASO.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ISDMR",
+        "name": "Iskenderun Demir ve Celik AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ISDMR.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ZRGYO",
+        "name": "Ziraat Gayrimenkul Yatirim Ortakligi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ZRGYO.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KLRHO",
+        "name": "Kiler Holding A.S.",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KLRHO.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "AEFES",
+        "name": "Anadolu Efes Biracilik ve Malt Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "AEFES.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TURSG",
+        "name": "Turkiye Sigorta AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TURSG.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "INVES",
+        "name": "Investco Holding AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "INVES.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "GUBRF",
+        "name": "Gubre Fabrikalari TAS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "GUBRF.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TAVHL",
+        "name": "TAV Havalimanlari Holding",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TAVHL.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ENERY",
+        "name": "Enerya Enerji Anonim Sirketi",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ENERY.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ARCLK",
+        "name": "Arcelik AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ARCLK.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "MGROS",
+        "name": "Migros Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "MGROS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "QNBFK",
+        "name": "QNB Finansal Kiralama A.S.",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "QNBFK.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ENJSA",
+        "name": "Enerjisa Enerji AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ENJSA.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KOZAL",
+        "name": "Koza Altin Isletmeleri AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KOZAL.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TRGYO",
+        "name": "Torunlar Gayrimenkul Yatirim Ortakligi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TRGYO.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "AGHOL",
+        "name": "AG Anadolu Group Holding",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "AGHOL.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "MPARK",
+        "name": "MLP Saglik Hizmetleri AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "MPARK.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "EKGYO",
+        "name": "Emlak Konut Gayrimenkul Yatirim Ortakligi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "EKGYO.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "OTKAR",
+        "name": "Otokar Otomotiv ve Savunma Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "OTKAR.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "BRYAT",
+        "name": "Borusan Yatirim ve Pazarlama AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "BRYAT.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ISMEN",
+        "name": "Is Yatirim Menkul Degerler AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ISMEN.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TTRAK",
+        "name": "Turk Traktor ve Ziraat Makineleri AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TTRAK.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "MAGEN",
+        "name": "Margun Enerji Uretim Sanayi ve Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "MAGEN.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "SELEC",
+        "name": "Selcuk Ecza Deposu Ticaret ve Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "SELEC.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TABGD",
+        "name": "TAB GIDA",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TABGD.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "GENIL",
+        "name": "Gen Ilac ve Saglik Urunleri Sanayi ve Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "GENIL.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TBORG",
+        "name": "Turk Tuborg Bira ve Malt Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TBORG.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "BRSAN",
+        "name": "Borusan Mannesmann Boru Sanayi ve Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "BRSAN.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "AKSEN",
+        "name": "Aksa Enerji Uretim AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "AKSEN.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "DOHOL",
+        "name": "Dogan Sirketler Grubu Holding AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "DOHOL.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "RYGYO",
+        "name": "Reysas Gayrimenkul Yatirim Ortakligi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "RYGYO.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "PETKM",
+        "name": "Petkim Petrokimya Holding AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "PETKM.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "RGYAS",
+        "name": "RONESANS GAYRIMENKUL YAT.",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "RGYAS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "CIMSA",
+        "name": "Cimsa Cimento Sanayi ve Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "CIMSA.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "DOAS",
+        "name": "Dogus Otomotiv Servis ve Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "DOAS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ANSGR",
+        "name": "Anadolu Anonim Turk Sigorta Sti",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ANSGR.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "UFUK",
+        "name": "Ufuk Yatirim Yonetim Ve Gayrimenkul AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "UFUK.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ECILC",
+        "name": "EIS Eczacibasi Ilac Sinai ve Finansal Yatirimlar Sanayi ve Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ECILC.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "RAYSG",
+        "name": "Ray Sigorta AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "RAYSG.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "LIDER",
+        "name": "LDR Turizm AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "LIDER.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ULKER",
+        "name": "Ulker Biskuvi Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ULKER.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "DAPGM",
+        "name": "Dap Gayrimenkul Gelistirme AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "DAPGM.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "PEKGY",
+        "name": "Peker Gayrimenkul Yatirim Ortakligi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "PEKGY.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "CLEBI",
+        "name": "Celebi Hava Servisi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "CLEBI.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "RYSAS",
+        "name": "Reysas Tasimacilik ve Lojistik Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "RYSAS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "RALYH",
+        "name": "Ral Yatirim Holding AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "RALYH.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "HEKTS",
+        "name": "Hektas Ticaret TAS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "HEKTS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "CMENT",
+        "name": "Cimentas Izmir Cimento Fabrikasi TAS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "CMENT.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ALARK",
+        "name": "Alarko Holding AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ALARK.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "AKSA",
+        "name": "Aksa Akrilik Kimya Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "AKSA.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TSKB",
+        "name": "Turkiye Sinai Kalkinma Bankasi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TSKB.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "TKFEN",
+        "name": "Tekfen Holding AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "TKFEN.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "AYGAZ",
+        "name": "Aygaz AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "AYGAZ.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ANHYT",
+        "name": "Anadolu Hayat Emeklilik AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ANHYT.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KRDMD",
+        "name": "Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class D",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KRDMD.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KRDMB",
+        "name": "Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class B",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KRDMB.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KRDMA",
+        "name": "Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class A",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KRDMA.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "NUHCM",
+        "name": "Nuh Cimento Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "NUHCM.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "MAVI",
+        "name": "Mavi Giyim Sanayi Ve Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "MAVI.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "GRSEL",
+        "name": "GurSel Turizm Tasimacilik Ve Servis Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "GRSEL.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "AGESA",
+        "name": "Agesa Hayat ve Emeklilik AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "AGESA.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "VERUS",
+        "name": "Verusa Holding AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "VERUS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "POLTK",
+        "name": "Politeknik Metal Sanayi ve",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "POLTK.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KCAER",
+        "name": "Kocaer Celik Sanayi ve Ticaret A.S.",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KCAER.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KOZAA",
+        "name": "Koza Anadolu Metal Madencilik Isletmeleri AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KOZAA.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "HEDEF",
+        "name": "Hedef Holdings AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "HEDEF.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "KONYA",
+        "name": "Konya Cimento Sanayi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "KONYA.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ECZYT",
+        "name": "Eczacibasi Yatirim Holding Ortakligi AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ECZYT.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "AKCNS",
+        "name": "Akcansa Cimento Sanayi ve Ticaret AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "AKCNS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "OBAMS",
+        "name": "Oba Makarnacılık San As",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "OBAMS.IS",
+        "region": "turkey"
+      },
+      {
+        "symbol": "ESEN",
+        "name": "Esenboga Elektrik Uretim AS",
+        "sector": "Unknown",
+        "market": "Unknown",
+        "currency": "TRY",
+        "ticker": "ESEN.IS",
+        "region": "turkey"
+      }
+    ],
+    "usa": [
+      {
+        "symbol": "AAPL",
+        "name": "Apple Inc.",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "AAPL",
+        "region": "usa"
+      },
+      {
+        "symbol": "MSFT",
+        "name": "Microsoft Corporation",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "MSFT",
+        "region": "usa"
+      },
+      {
+        "symbol": "GOOGL",
+        "name": "Alphabet Inc.",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "GOOGL",
+        "region": "usa"
+      },
+      {
+        "symbol": "AMZN",
+        "name": "Amazon.com Inc.",
+        "sector": "E-commerce",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "AMZN",
+        "region": "usa"
+      },
+      {
+        "symbol": "TSLA",
+        "name": "Tesla Inc.",
+        "sector": "Automotive",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "TSLA",
+        "region": "usa"
+      },
+      {
+        "symbol": "META",
+        "name": "Meta Platforms Inc.",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "META",
+        "region": "usa"
+      },
+      {
+        "symbol": "NVDA",
+        "name": "NVIDIA Corporation",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "NVDA",
+        "region": "usa"
+      },
+      {
+        "symbol": "JPM",
+        "name": "JPMorgan Chase & Co.",
+        "sector": "Banking",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "JPM",
+        "region": "usa"
+      },
+      {
+        "symbol": "JNJ",
+        "name": "Johnson & Johnson",
+        "sector": "Healthcare",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "JNJ",
+        "region": "usa"
+      },
+      {
+        "symbol": "V",
+        "name": "Visa Inc.",
+        "sector": "Financial Services",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "V",
+        "region": "usa"
+      }
+    ],
+    "europe": [
+      {
+        "symbol": "ASML",
+        "name": "ASML Holding N.V.",
+        "sector": "Technology",
+        "market": "NASDAQ",
+        "currency": "USD",
+        "ticker": "ASML",
+        "region": "europe"
+      },
+      {
+        "symbol": "NESN",
+        "name": "Nestlé S.A.",
+        "sector": "Consumer Goods",
+        "market": "SIX",
+        "currency": "CHF",
+        "ticker": "NESN.SW",
+        "region": "europe"
+      },
+      {
+        "symbol": "SAP",
+        "name": "SAP SE",
+        "sector": "Technology",
+        "market": "XETRA",
+        "currency": "EUR",
+        "ticker": "SAP.DE",
+        "region": "europe"
+      },
+      {
+        "symbol": "SHELL",
+        "name": "Shell plc",
+        "sector": "Energy",
+        "market": "LSE",
+        "currency": "GBP",
+        "ticker": "SHEL.L",
+        "region": "europe"
+      }
+    ],
+    "asia": [
+      {
+        "symbol": "TSM",
+        "name": "Taiwan Semiconductor Manufacturing Company Limited",
+        "sector": "Technology",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "TSM",
+        "region": "asia"
+      },
+      {
+        "symbol": "BABA",
+        "name": "Alibaba Group Holding Limited",
+        "sector": "E-commerce",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "BABA",
+        "region": "asia"
+      },
+      {
+        "symbol": "TM",
+        "name": "Toyota Motor Corporation",
+        "sector": "Automotive",
+        "market": "NYSE",
+        "currency": "USD",
+        "ticker": "TM",
+        "region": "asia"
+      }
+    ]
+  },
+  "all_stocks": [
+    {
+      "symbol": "QNBTR",
+      "name": "Qnb Finansbank AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "QNBTR.IS",
+      "region": "turkey",
+      "search_text": "qnbtr qnb finansbank as unknown turkey"
+    },
+    {
+      "symbol": "ASELS",
+      "name": "Aselsan Elektronik Sanayi ve Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ASELS.IS",
+      "region": "turkey",
+      "search_text": "asels aselsan elektronik sanayi ve ticaret as unknown turkey"
+    },
+    {
+      "symbol": "GARAN",
+      "name": "Turkiye Garanti Bankasi A.S.",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "GARAN.IS",
+      "region": "turkey",
+      "search_text": "garan turkiye garanti bankasi a.s. unknown turkey"
+    },
+    {
+      "symbol": "THYAO",
+      "name": "Turkish Airlines",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "THYAO.IS",
+      "region": "turkey",
+      "search_text": "thyao turkish airlines unknown turkey"
+    },
+    {
+      "symbol": "KCHOL",
+      "name": "Koc Holding AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KCHOL.IS",
+      "region": "turkey",
+      "search_text": "kchol koc holding as unknown turkey"
+    },
+    {
+      "symbol": "ENKAI",
+      "name": "ENKA Insaat ve Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ENKAI.IS",
+      "region": "turkey",
+      "search_text": "enkai enka insaat ve sanayi as unknown turkey"
+    },
+    {
+      "symbol": "ISBTR",
+      "name": "Turkiye Is Bankasi AS Class B",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ISBTR.IS",
+      "region": "turkey",
+      "search_text": "isbtr turkiye is bankasi as class b unknown turkey"
+    },
+    {
+      "symbol": "ISCTR",
+      "name": "Turkiye Is Bankasi AS Class C",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ISCTR.IS",
+      "region": "turkey",
+      "search_text": "isctr turkiye is bankasi as class c unknown turkey"
+    },
+    {
+      "symbol": "FROTO",
+      "name": "Ford Otomotiv Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "FROTO.IS",
+      "region": "turkey",
+      "search_text": "froto ford otomotiv sanayi as unknown turkey"
+    },
+    {
+      "symbol": "AKBNK",
+      "name": "Akbank TAS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "AKBNK.IS",
+      "region": "turkey",
+      "search_text": "akbnk akbank tas unknown turkey"
+    },
+    {
+      "symbol": "TUPRS",
+      "name": "Turkiye Petrol Rafinerileri AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TUPRS.IS",
+      "region": "turkey",
+      "search_text": "tuprs turkiye petrol rafinerileri as unknown turkey"
+    },
+    {
+      "symbol": "BIMAS",
+      "name": "BIM Birlesik Magazalar AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "BIMAS.IS",
+      "region": "turkey",
+      "search_text": "bimas bim birlesik magazalar as unknown turkey"
+    },
+    {
+      "symbol": "YKBNK",
+      "name": "Yapi ve Kredi Bankasi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "YKBNK.IS",
+      "region": "turkey",
+      "search_text": "ykbnk yapi ve kredi bankasi as unknown turkey"
+    },
+    {
+      "symbol": "VAKBN",
+      "name": "Turkiye Vakiflar Bankasi TAO",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "VAKBN.IS",
+      "region": "turkey",
+      "search_text": "vakbn turkiye vakiflar bankasi tao unknown turkey"
+    },
+    {
+      "symbol": "KENT",
+      "name": "Kent Gida Maddeleri Sanayi ve Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KENT.IS",
+      "region": "turkey",
+      "search_text": "kent kent gida maddeleri sanayi ve ticaret as unknown turkey"
+    },
+    {
+      "symbol": "TCELL",
+      "name": "Turkcell Iletisim Hizmetleri AS ORD",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TCELL.IS",
+      "region": "turkey",
+      "search_text": "tcell turkcell iletisim hizmetleri as ord unknown turkey"
+    },
+    {
+      "symbol": "SAHOL",
+      "name": "Haci Omer Sabanci Holding AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "SAHOL.IS",
+      "region": "turkey",
+      "search_text": "sahol haci omer sabanci holding as unknown turkey"
+    },
+    {
+      "symbol": "HALKB",
+      "name": "Turkiye Halk Bankasi",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "HALKB.IS",
+      "region": "turkey",
+      "search_text": "halkb turkiye halk bankasi unknown turkey"
+    },
+    {
+      "symbol": "TTKOM",
+      "name": "Turk Telekomunikasyon AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TTKOM.IS",
+      "region": "turkey",
+      "search_text": "ttkom turk telekomunikasyon as unknown turkey"
+    },
+    {
+      "symbol": "EREGL",
+      "name": "Eregli Demir ve Celik Fabrikalari TAS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "EREGL.IS",
+      "region": "turkey",
+      "search_text": "eregl eregli demir ve celik fabrikalari tas unknown turkey"
+    },
+    {
+      "symbol": "SASA",
+      "name": "SASA Polyester Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "SASA.IS",
+      "region": "turkey",
+      "search_text": "sasa sasa polyester sanayi as unknown turkey"
+    },
+    {
+      "symbol": "PKENT",
+      "name": "Petrokent Turizm AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "PKENT.IS",
+      "region": "turkey",
+      "search_text": "pkent petrokent turizm as unknown turkey"
+    },
+    {
+      "symbol": "CCOLA",
+      "name": "Coca-Cola Icecek AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "CCOLA.IS",
+      "region": "turkey",
+      "search_text": "ccola coca-cola icecek as unknown turkey"
+    },
+    {
+      "symbol": "SISE",
+      "name": "Turkiye Sise ve Cam Fabrikalari AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "SISE.IS",
+      "region": "turkey",
+      "search_text": "sise turkiye sise ve cam fabrikalari as unknown turkey"
+    },
+    {
+      "symbol": "KLNMA",
+      "name": "Turkiye Kalkinma Bankasi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KLNMA.IS",
+      "region": "turkey",
+      "search_text": "klnma turkiye kalkinma bankasi as unknown turkey"
+    },
+    {
+      "symbol": "PGSUS",
+      "name": "Pegasus Hava Tasimaciligi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "PGSUS.IS",
+      "region": "turkey",
+      "search_text": "pgsus pegasus hava tasimaciligi as unknown turkey"
+    },
+    {
+      "symbol": "DOCO",
+      "name": "DO & CO AG",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "DOCO.IS",
+      "region": "turkey",
+      "search_text": "doco do & co ag unknown turkey"
+    },
+    {
+      "symbol": "OYAKC",
+      "name": "Oyak Cimento Fabrikalari AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "OYAKC.IS",
+      "region": "turkey",
+      "search_text": "oyakc oyak cimento fabrikalari as unknown turkey"
+    },
+    {
+      "symbol": "TOASO",
+      "name": "Tofas Turk Otomobil Fabrikasi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TOASO.IS",
+      "region": "turkey",
+      "search_text": "toaso tofas turk otomobil fabrikasi as unknown turkey"
+    },
+    {
+      "symbol": "ISDMR",
+      "name": "Iskenderun Demir ve Celik AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ISDMR.IS",
+      "region": "turkey",
+      "search_text": "isdmr iskenderun demir ve celik as unknown turkey"
+    },
+    {
+      "symbol": "ZRGYO",
+      "name": "Ziraat Gayrimenkul Yatirim Ortakligi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ZRGYO.IS",
+      "region": "turkey",
+      "search_text": "zrgyo ziraat gayrimenkul yatirim ortakligi as unknown turkey"
+    },
+    {
+      "symbol": "KLRHO",
+      "name": "Kiler Holding A.S.",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KLRHO.IS",
+      "region": "turkey",
+      "search_text": "klrho kiler holding a.s. unknown turkey"
+    },
+    {
+      "symbol": "AEFES",
+      "name": "Anadolu Efes Biracilik ve Malt Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "AEFES.IS",
+      "region": "turkey",
+      "search_text": "aefes anadolu efes biracilik ve malt sanayi as unknown turkey"
+    },
+    {
+      "symbol": "TURSG",
+      "name": "Turkiye Sigorta AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TURSG.IS",
+      "region": "turkey",
+      "search_text": "tursg turkiye sigorta as unknown turkey"
+    },
+    {
+      "symbol": "INVES",
+      "name": "Investco Holding AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "INVES.IS",
+      "region": "turkey",
+      "search_text": "inves investco holding as unknown turkey"
+    },
+    {
+      "symbol": "GUBRF",
+      "name": "Gubre Fabrikalari TAS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "GUBRF.IS",
+      "region": "turkey",
+      "search_text": "gubrf gubre fabrikalari tas unknown turkey"
+    },
+    {
+      "symbol": "TAVHL",
+      "name": "TAV Havalimanlari Holding",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TAVHL.IS",
+      "region": "turkey",
+      "search_text": "tavhl tav havalimanlari holding unknown turkey"
+    },
+    {
+      "symbol": "ENERY",
+      "name": "Enerya Enerji Anonim Sirketi",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ENERY.IS",
+      "region": "turkey",
+      "search_text": "enery enerya enerji anonim sirketi unknown turkey"
+    },
+    {
+      "symbol": "ARCLK",
+      "name": "Arcelik AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ARCLK.IS",
+      "region": "turkey",
+      "search_text": "arclk arcelik as unknown turkey"
+    },
+    {
+      "symbol": "MGROS",
+      "name": "Migros Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "MGROS.IS",
+      "region": "turkey",
+      "search_text": "mgros migros ticaret as unknown turkey"
+    },
+    {
+      "symbol": "QNBFK",
+      "name": "QNB Finansal Kiralama A.S.",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "QNBFK.IS",
+      "region": "turkey",
+      "search_text": "qnbfk qnb finansal kiralama a.s. unknown turkey"
+    },
+    {
+      "symbol": "ENJSA",
+      "name": "Enerjisa Enerji AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ENJSA.IS",
+      "region": "turkey",
+      "search_text": "enjsa enerjisa enerji as unknown turkey"
+    },
+    {
+      "symbol": "KOZAL",
+      "name": "Koza Altin Isletmeleri AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KOZAL.IS",
+      "region": "turkey",
+      "search_text": "kozal koza altin isletmeleri as unknown turkey"
+    },
+    {
+      "symbol": "TRGYO",
+      "name": "Torunlar Gayrimenkul Yatirim Ortakligi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TRGYO.IS",
+      "region": "turkey",
+      "search_text": "trgyo torunlar gayrimenkul yatirim ortakligi as unknown turkey"
+    },
+    {
+      "symbol": "AGHOL",
+      "name": "AG Anadolu Group Holding",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "AGHOL.IS",
+      "region": "turkey",
+      "search_text": "aghol ag anadolu group holding unknown turkey"
+    },
+    {
+      "symbol": "MPARK",
+      "name": "MLP Saglik Hizmetleri AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "MPARK.IS",
+      "region": "turkey",
+      "search_text": "mpark mlp saglik hizmetleri as unknown turkey"
+    },
+    {
+      "symbol": "EKGYO",
+      "name": "Emlak Konut Gayrimenkul Yatirim Ortakligi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "EKGYO.IS",
+      "region": "turkey",
+      "search_text": "ekgyo emlak konut gayrimenkul yatirim ortakligi as unknown turkey"
+    },
+    {
+      "symbol": "OTKAR",
+      "name": "Otokar Otomotiv ve Savunma Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "OTKAR.IS",
+      "region": "turkey",
+      "search_text": "otkar otokar otomotiv ve savunma sanayi as unknown turkey"
+    },
+    {
+      "symbol": "BRYAT",
+      "name": "Borusan Yatirim ve Pazarlama AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "BRYAT.IS",
+      "region": "turkey",
+      "search_text": "bryat borusan yatirim ve pazarlama as unknown turkey"
+    },
+    {
+      "symbol": "ISMEN",
+      "name": "Is Yatirim Menkul Degerler AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ISMEN.IS",
+      "region": "turkey",
+      "search_text": "ismen is yatirim menkul degerler as unknown turkey"
+    },
+    {
+      "symbol": "TTRAK",
+      "name": "Turk Traktor ve Ziraat Makineleri AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TTRAK.IS",
+      "region": "turkey",
+      "search_text": "ttrak turk traktor ve ziraat makineleri as unknown turkey"
+    },
+    {
+      "symbol": "MAGEN",
+      "name": "Margun Enerji Uretim Sanayi ve Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "MAGEN.IS",
+      "region": "turkey",
+      "search_text": "magen margun enerji uretim sanayi ve ticaret as unknown turkey"
+    },
+    {
+      "symbol": "SELEC",
+      "name": "Selcuk Ecza Deposu Ticaret ve Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "SELEC.IS",
+      "region": "turkey",
+      "search_text": "selec selcuk ecza deposu ticaret ve sanayi as unknown turkey"
+    },
+    {
+      "symbol": "TABGD",
+      "name": "TAB GIDA",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TABGD.IS",
+      "region": "turkey",
+      "search_text": "tabgd tab gida unknown turkey"
+    },
+    {
+      "symbol": "GENIL",
+      "name": "Gen Ilac ve Saglik Urunleri Sanayi ve Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "GENIL.IS",
+      "region": "turkey",
+      "search_text": "genil gen ilac ve saglik urunleri sanayi ve ticaret as unknown turkey"
+    },
+    {
+      "symbol": "TBORG",
+      "name": "Turk Tuborg Bira ve Malt Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TBORG.IS",
+      "region": "turkey",
+      "search_text": "tborg turk tuborg bira ve malt sanayi as unknown turkey"
+    },
+    {
+      "symbol": "BRSAN",
+      "name": "Borusan Mannesmann Boru Sanayi ve Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "BRSAN.IS",
+      "region": "turkey",
+      "search_text": "brsan borusan mannesmann boru sanayi ve ticaret as unknown turkey"
+    },
+    {
+      "symbol": "AKSEN",
+      "name": "Aksa Enerji Uretim AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "AKSEN.IS",
+      "region": "turkey",
+      "search_text": "aksen aksa enerji uretim as unknown turkey"
+    },
+    {
+      "symbol": "DOHOL",
+      "name": "Dogan Sirketler Grubu Holding AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "DOHOL.IS",
+      "region": "turkey",
+      "search_text": "dohol dogan sirketler grubu holding as unknown turkey"
+    },
+    {
+      "symbol": "RYGYO",
+      "name": "Reysas Gayrimenkul Yatirim Ortakligi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "RYGYO.IS",
+      "region": "turkey",
+      "search_text": "rygyo reysas gayrimenkul yatirim ortakligi as unknown turkey"
+    },
+    {
+      "symbol": "PETKM",
+      "name": "Petkim Petrokimya Holding AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "PETKM.IS",
+      "region": "turkey",
+      "search_text": "petkm petkim petrokimya holding as unknown turkey"
+    },
+    {
+      "symbol": "RGYAS",
+      "name": "RONESANS GAYRIMENKUL YAT.",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "RGYAS.IS",
+      "region": "turkey",
+      "search_text": "rgyas ronesans gayrimenkul yat. unknown turkey"
+    },
+    {
+      "symbol": "CIMSA",
+      "name": "Cimsa Cimento Sanayi ve Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "CIMSA.IS",
+      "region": "turkey",
+      "search_text": "cimsa cimsa cimento sanayi ve ticaret as unknown turkey"
+    },
+    {
+      "symbol": "DOAS",
+      "name": "Dogus Otomotiv Servis ve Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "DOAS.IS",
+      "region": "turkey",
+      "search_text": "doas dogus otomotiv servis ve ticaret as unknown turkey"
+    },
+    {
+      "symbol": "ANSGR",
+      "name": "Anadolu Anonim Turk Sigorta Sti",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ANSGR.IS",
+      "region": "turkey",
+      "search_text": "ansgr anadolu anonim turk sigorta sti unknown turkey"
+    },
+    {
+      "symbol": "UFUK",
+      "name": "Ufuk Yatirim Yonetim Ve Gayrimenkul AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "UFUK.IS",
+      "region": "turkey",
+      "search_text": "ufuk ufuk yatirim yonetim ve gayrimenkul as unknown turkey"
+    },
+    {
+      "symbol": "ECILC",
+      "name": "EIS Eczacibasi Ilac Sinai ve Finansal Yatirimlar Sanayi ve Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ECILC.IS",
+      "region": "turkey",
+      "search_text": "ecilc eis eczacibasi ilac sinai ve finansal yatirimlar sanayi ve ticaret as unknown turkey"
+    },
+    {
+      "symbol": "RAYSG",
+      "name": "Ray Sigorta AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "RAYSG.IS",
+      "region": "turkey",
+      "search_text": "raysg ray sigorta as unknown turkey"
+    },
+    {
+      "symbol": "LIDER",
+      "name": "LDR Turizm AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "LIDER.IS",
+      "region": "turkey",
+      "search_text": "lider ldr turizm as unknown turkey"
+    },
+    {
+      "symbol": "ULKER",
+      "name": "Ulker Biskuvi Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ULKER.IS",
+      "region": "turkey",
+      "search_text": "ulker ulker biskuvi sanayi as unknown turkey"
+    },
+    {
+      "symbol": "DAPGM",
+      "name": "Dap Gayrimenkul Gelistirme AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "DAPGM.IS",
+      "region": "turkey",
+      "search_text": "dapgm dap gayrimenkul gelistirme as unknown turkey"
+    },
+    {
+      "symbol": "PEKGY",
+      "name": "Peker Gayrimenkul Yatirim Ortakligi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "PEKGY.IS",
+      "region": "turkey",
+      "search_text": "pekgy peker gayrimenkul yatirim ortakligi as unknown turkey"
+    },
+    {
+      "symbol": "CLEBI",
+      "name": "Celebi Hava Servisi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "CLEBI.IS",
+      "region": "turkey",
+      "search_text": "clebi celebi hava servisi as unknown turkey"
+    },
+    {
+      "symbol": "RYSAS",
+      "name": "Reysas Tasimacilik ve Lojistik Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "RYSAS.IS",
+      "region": "turkey",
+      "search_text": "rysas reysas tasimacilik ve lojistik ticaret as unknown turkey"
+    },
+    {
+      "symbol": "RALYH",
+      "name": "Ral Yatirim Holding AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "RALYH.IS",
+      "region": "turkey",
+      "search_text": "ralyh ral yatirim holding as unknown turkey"
+    },
+    {
+      "symbol": "HEKTS",
+      "name": "Hektas Ticaret TAS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "HEKTS.IS",
+      "region": "turkey",
+      "search_text": "hekts hektas ticaret tas unknown turkey"
+    },
+    {
+      "symbol": "CMENT",
+      "name": "Cimentas Izmir Cimento Fabrikasi TAS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "CMENT.IS",
+      "region": "turkey",
+      "search_text": "cment cimentas izmir cimento fabrikasi tas unknown turkey"
+    },
+    {
+      "symbol": "ALARK",
+      "name": "Alarko Holding AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ALARK.IS",
+      "region": "turkey",
+      "search_text": "alark alarko holding as unknown turkey"
+    },
+    {
+      "symbol": "AKSA",
+      "name": "Aksa Akrilik Kimya Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "AKSA.IS",
+      "region": "turkey",
+      "search_text": "aksa aksa akrilik kimya sanayi as unknown turkey"
+    },
+    {
+      "symbol": "TSKB",
+      "name": "Turkiye Sinai Kalkinma Bankasi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TSKB.IS",
+      "region": "turkey",
+      "search_text": "tskb turkiye sinai kalkinma bankasi as unknown turkey"
+    },
+    {
+      "symbol": "TKFEN",
+      "name": "Tekfen Holding AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "TKFEN.IS",
+      "region": "turkey",
+      "search_text": "tkfen tekfen holding as unknown turkey"
+    },
+    {
+      "symbol": "AYGAZ",
+      "name": "Aygaz AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "AYGAZ.IS",
+      "region": "turkey",
+      "search_text": "aygaz aygaz as unknown turkey"
+    },
+    {
+      "symbol": "ANHYT",
+      "name": "Anadolu Hayat Emeklilik AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ANHYT.IS",
+      "region": "turkey",
+      "search_text": "anhyt anadolu hayat emeklilik as unknown turkey"
+    },
+    {
+      "symbol": "KRDMD",
+      "name": "Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class D",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KRDMD.IS",
+      "region": "turkey",
+      "search_text": "krdmd kardemir karabuk demir celik sanayi ve ticaret as class d unknown turkey"
+    },
+    {
+      "symbol": "KRDMB",
+      "name": "Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class B",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KRDMB.IS",
+      "region": "turkey",
+      "search_text": "krdmb kardemir karabuk demir celik sanayi ve ticaret as class b unknown turkey"
+    },
+    {
+      "symbol": "KRDMA",
+      "name": "Kardemir Karabuk Demir Celik Sanayi ve Ticaret AS Class A",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KRDMA.IS",
+      "region": "turkey",
+      "search_text": "krdma kardemir karabuk demir celik sanayi ve ticaret as class a unknown turkey"
+    },
+    {
+      "symbol": "NUHCM",
+      "name": "Nuh Cimento Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "NUHCM.IS",
+      "region": "turkey",
+      "search_text": "nuhcm nuh cimento sanayi as unknown turkey"
+    },
+    {
+      "symbol": "MAVI",
+      "name": "Mavi Giyim Sanayi Ve Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "MAVI.IS",
+      "region": "turkey",
+      "search_text": "mavi mavi giyim sanayi ve ticaret as unknown turkey"
+    },
+    {
+      "symbol": "GRSEL",
+      "name": "GurSel Turizm Tasimacilik Ve Servis Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "GRSEL.IS",
+      "region": "turkey",
+      "search_text": "grsel gursel turizm tasimacilik ve servis ticaret as unknown turkey"
+    },
+    {
+      "symbol": "AGESA",
+      "name": "Agesa Hayat ve Emeklilik AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "AGESA.IS",
+      "region": "turkey",
+      "search_text": "agesa agesa hayat ve emeklilik as unknown turkey"
+    },
+    {
+      "symbol": "VERUS",
+      "name": "Verusa Holding AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "VERUS.IS",
+      "region": "turkey",
+      "search_text": "verus verusa holding as unknown turkey"
+    },
+    {
+      "symbol": "POLTK",
+      "name": "Politeknik Metal Sanayi ve",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "POLTK.IS",
+      "region": "turkey",
+      "search_text": "poltk politeknik metal sanayi ve unknown turkey"
+    },
+    {
+      "symbol": "KCAER",
+      "name": "Kocaer Celik Sanayi ve Ticaret A.S.",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KCAER.IS",
+      "region": "turkey",
+      "search_text": "kcaer kocaer celik sanayi ve ticaret a.s. unknown turkey"
+    },
+    {
+      "symbol": "KOZAA",
+      "name": "Koza Anadolu Metal Madencilik Isletmeleri AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KOZAA.IS",
+      "region": "turkey",
+      "search_text": "kozaa koza anadolu metal madencilik isletmeleri as unknown turkey"
+    },
+    {
+      "symbol": "HEDEF",
+      "name": "Hedef Holdings AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "HEDEF.IS",
+      "region": "turkey",
+      "search_text": "hedef hedef holdings as unknown turkey"
+    },
+    {
+      "symbol": "KONYA",
+      "name": "Konya Cimento Sanayi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "KONYA.IS",
+      "region": "turkey",
+      "search_text": "konya konya cimento sanayi as unknown turkey"
+    },
+    {
+      "symbol": "ECZYT",
+      "name": "Eczacibasi Yatirim Holding Ortakligi AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ECZYT.IS",
+      "region": "turkey",
+      "search_text": "eczyt eczacibasi yatirim holding ortakligi as unknown turkey"
+    },
+    {
+      "symbol": "AKCNS",
+      "name": "Akcansa Cimento Sanayi ve Ticaret AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "AKCNS.IS",
+      "region": "turkey",
+      "search_text": "akcns akcansa cimento sanayi ve ticaret as unknown turkey"
+    },
+    {
+      "symbol": "OBAMS",
+      "name": "Oba Makarnacılık San As",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "OBAMS.IS",
+      "region": "turkey",
+      "search_text": "obams oba makarnacılık san as unknown turkey"
+    },
+    {
+      "symbol": "ESEN",
+      "name": "Esenboga Elektrik Uretim AS",
+      "sector": "Unknown",
+      "market": "Unknown",
+      "currency": "TRY",
+      "ticker": "ESEN.IS",
+      "region": "turkey",
+      "search_text": "esen esenboga elektrik uretim as unknown turkey"
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "AAPL",
+      "region": "usa",
+      "search_text": "aapl apple inc. technology usa"
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "MSFT",
+      "region": "usa",
+      "search_text": "msft microsoft corporation technology usa"
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc.",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "GOOGL",
+      "region": "usa",
+      "search_text": "googl alphabet inc. technology usa"
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon.com Inc.",
+      "sector": "E-commerce",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "AMZN",
+      "region": "usa",
+      "search_text": "amzn amazon.com inc. e-commerce usa"
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla Inc.",
+      "sector": "Automotive",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "TSLA",
+      "region": "usa",
+      "search_text": "tsla tesla inc. automotive usa"
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms Inc.",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "META",
+      "region": "usa",
+      "search_text": "meta meta platforms inc. technology usa"
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "NVDA",
+      "region": "usa",
+      "search_text": "nvda nvidia corporation technology usa"
+    },
+    {
+      "symbol": "JPM",
+      "name": "JPMorgan Chase & Co.",
+      "sector": "Banking",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "JPM",
+      "region": "usa",
+      "search_text": "jpm jpmorgan chase & co. banking usa"
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "sector": "Healthcare",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "JNJ",
+      "region": "usa",
+      "search_text": "jnj johnson & johnson healthcare usa"
+    },
+    {
+      "symbol": "V",
+      "name": "Visa Inc.",
+      "sector": "Financial Services",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "V",
+      "region": "usa",
+      "search_text": "v visa inc. financial services usa"
+    },
+    {
+      "symbol": "ASML",
+      "name": "ASML Holding N.V.",
+      "sector": "Technology",
+      "market": "NASDAQ",
+      "currency": "USD",
+      "ticker": "ASML",
+      "region": "europe",
+      "search_text": "asml asml holding n.v. technology europe"
+    },
+    {
+      "symbol": "NESN",
+      "name": "Nestlé S.A.",
+      "sector": "Consumer Goods",
+      "market": "SIX",
+      "currency": "CHF",
+      "ticker": "NESN.SW",
+      "region": "europe",
+      "search_text": "nesn nestlé s.a. consumer goods europe"
+    },
+    {
+      "symbol": "SAP",
+      "name": "SAP SE",
+      "sector": "Technology",
+      "market": "XETRA",
+      "currency": "EUR",
+      "ticker": "SAP.DE",
+      "region": "europe",
+      "search_text": "sap sap se technology europe"
+    },
+    {
+      "symbol": "SHELL",
+      "name": "Shell plc",
+      "sector": "Energy",
+      "market": "LSE",
+      "currency": "GBP",
+      "ticker": "SHEL.L",
+      "region": "europe",
+      "search_text": "shell shell plc energy europe"
+    },
+    {
+      "symbol": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "sector": "Technology",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "TSM",
+      "region": "asia",
+      "search_text": "tsm taiwan semiconductor manufacturing company limited technology asia"
+    },
+    {
+      "symbol": "BABA",
+      "name": "Alibaba Group Holding Limited",
+      "sector": "E-commerce",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "BABA",
+      "region": "asia",
+      "search_text": "baba alibaba group holding limited e-commerce asia"
+    },
+    {
+      "symbol": "TM",
+      "name": "Toyota Motor Corporation",
+      "sector": "Automotive",
+      "market": "NYSE",
+      "currency": "USD",
+      "ticker": "TM",
+      "region": "asia",
+      "search_text": "tm toyota motor corporation automotive asia"
+    }
+  ]
+}
