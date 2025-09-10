@@ -33,6 +33,9 @@ import RealSymbolSelector from '@/components/trading/RealSymbolSelector';
 import AdvancedTechnicalPanel from '@/components/trading/AdvancedTechnicalPanel';
 import ProfessionalDecisionSupport from '@/components/trading/ProfessionalDecisionSupport';
 import EnhancedHistoricalChart from '@/components/trading/EnhancedHistoricalChart';
+import BISTCategoryTabs from '@/components/trading/BISTCategoryTabs';
+import ProfessionalStockChart from '@/components/trading/ProfessionalStockChart';
+import RealTimePriceFeed from '@/components/trading/RealTimePriceFeed';
 
 export default function MamutDashboard() {
   const [systemStatus, setSystemStatus] = useState({
@@ -225,19 +228,34 @@ export default function MamutDashboard() {
             </TabsTrigger>
           </TabsList>
 
-          {/* AI Analytics Tab */}
+          {/* AI Analytics Tab - Now with BIST Categories */}
           <TabsContent value="academic" className="space-y-6">
-            {/* KOMPAKT RealSymbolSelector - 600 Hisse + Search */}
-            <RealSymbolSelector
-              selectedSymbol={selectedSymbol}
-              onSymbolChange={setSelectedSymbol}
-              showSearch={true}
-              showFilters={false}  // Kompakt için filter'ları kapat
-              limit={600}
-              compact={true}  // Kompakt görünüm
-            />
+            {/* BIST Category Tabs - Primary Professional Interface */}
+            <div className="mb-8">
+              <BISTCategoryTabs 
+                selectedSymbol={selectedSymbol}
+                onStockSelect={setSelectedSymbol}
+              />
+            </div>
 
-            {/* ANA AI PANELS - Daha Düzenli Layout */}
+            {/* Professional Stock Chart with Railway Data */}
+            <div className="mb-8">
+              <ProfessionalStockChart 
+                symbol={selectedSymbol}
+                onTimeframeChange={(timeframe) => console.log(`Timeframe changed to: ${timeframe}`)}
+              />
+            </div>
+
+            {/* Real-time Price Feed */}
+            <div className="mb-6">
+              <RealTimePriceFeed 
+                symbol={selectedSymbol}
+                autoRefresh={true}
+                refreshInterval={15000}
+              />
+            </div>
+
+            {/* ANA AI PANELS - Selected Stock Analysis */}
             <div className="space-y-6">
               {/* Üst: En Önemli AI Paneller */}
               <div className="grid lg:grid-cols-2 gap-6">

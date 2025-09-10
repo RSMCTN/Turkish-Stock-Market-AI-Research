@@ -1,332 +1,565 @@
 'use client';
 
-import React from 'react';
-import { registerLicense } from '@syncfusion/ej2-base';
-import {
-  StockChartComponent,
-  StockChartSeriesCollectionDirective,
-  StockChartSeriesDirective,
-  Inject,
-  DateTime,
-  Tooltip,
-  Crosshair,
-  CandleSeries,
-  IStockChartEventArgs,
-  ChartTheme,
-  Zoom,
-  LineSeries
-} from '@syncfusion/ej2-react-charts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, RefreshCw } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { 
+  LineChart, 
+  Line, 
+  AreaChart, 
+  Area, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  ComposedChart,
+  ReferenceLine
+} from 'recharts';
+import {
+  TrendingUp,
+  TrendingDown,
+  Activity,
+  BarChart3,
+  Zap,
+  Database,
+  Clock,
+  AlertTriangle,
+  Target,
+  Volume,
+  Maximize2
+} from 'lucide-react';
 
-// Register SyncFusion License
-registerLicense('Ngo9BigBOggjHTQxAR8/V1JEaF5cXmRCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXZecXRdR2VdWUxwW0VWYEk=');
-
-interface StockData {
-  date: Date;
+interface ChartDataPoint {
+  timestamp: string;
+  date: string;
+  time: string;
   open: number;
   high: number;
   low: number;
   close: number;
   volume: number;
+  rsi_14?: number;
+  macd_line?: number;
+  macd_signal?: number;
+  bollinger_upper?: number;
+  bollinger_middle?: number;
+  bollinger_lower?: number;
+  atr_14?: number;
+  adx_14?: number;
 }
 
 interface ProfessionalStockChartProps {
-  selectedSymbol?: string;
-  data?: StockData[];
-  height?: string;
+  symbol: string;
+  onTimeframeChange?: (timeframe: string) => void;
 }
 
-const ProfessionalStockChart: React.FC<ProfessionalStockChartProps> = ({
-  selectedSymbol = 'AKBNK',
-  data,
-  height = '650px'
-}) => {
-  // Generate realistic mock data WITH FUTURE FORECASTS
-  const generateMockData = (): StockData[] => {
-    const basePrice = {
-      'AKBNK': 69.5,
-      'BIMAS': 536.0,
-      'GARAN': 145.8,
-      'BRSAN': 454.0,      // BRSAN doğru fiyat seviyesi
-      'THYAO': 340.0,
-      'TUPRS': 171.0,
-      'ISCTR': 15.14,
-      'SISE': 40.74,
-      'ARCLK': 141.2,
-      'A1YEN': 58.0,
-      'BMSCH': 14.80,
-    }[selectedSymbol] || 50.0;
+export default function ProfessionalStockChart({ symbol, onTimeframeChange }: ProfessionalStockChartProps) {
+  const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedTimeframe, setSelectedTimeframe] = useState('60min');
+  const [chartType, setChartType] = useState<'line' | 'area' | 'candlestick' | 'composed'>('area');
+  const [showVolume, setShowVolume] = useState(true);
+  const [showIndicators, setShowIndicators] = useState(true);
+  const [dataSource, setDataSource] = useState<'enhanced' | 'historical' | 'auto'>('auto');
+  const [error, setError] = useState<string | null>(null);
 
-    const mockData: StockData[] = [];
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - 2); // 2 days historical - future dominant
+  const RAILWAY_API = process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:8080' 
+    : 'https://bistai001-production.up.railway.app';
 
-    // ULTRA MINIMAL HISTORICAL DATA (2 days only - future dominant) 
-    for (let i = 0; i < 2; i++) {
-      const currentDate = new Date(startDate);
-      currentDate.setDate(startDate.getDate() + i);
-      
-      // Skip weekends
-      if (currentDate.getDay() === 0 || currentDate.getDay() === 6) continue;
-      
-      const price = basePrice + (Math.sin(i * 0.1) * basePrice * 0.05) + (Math.random() - 0.5) * basePrice * 0.03;
-      const open = price * (0.998 + Math.random() * 0.004);
-      const close = price * (0.998 + Math.random() * 0.004);
-      const high = Math.max(open, close) * (1 + Math.random() * 0.015);
-      const low = Math.min(open, close) * (1 - Math.random() * 0.015);
-      const volume = Math.floor(Math.random() * 5000000) + 1000000;
+  const timeframes = [
+    { value: '60min', label: '60 Min', source: 'historical' },
+    { value: 'daily', label: 'Daily', source: 'enhanced' },
+    { value: 'günlük', label: 'Günlük', source: 'enhanced' },
+    { value: '30min', label: '30 Min', source: 'enhanced' },
+    { value: '20min', label: '20 Min', source: 'enhanced' }
+  ];
 
-      mockData.push({
-        date: currentDate,
-        open: parseFloat(open.toFixed(2)),
-        high: parseFloat(high.toFixed(2)),
-        low: parseFloat(low.toFixed(2)),
-        close: parseFloat(close.toFixed(2)),
-        volume: volume
-      });
+  useEffect(() => {
+    if (symbol) {
+      loadChartData();
     }
+  }, [symbol, selectedTimeframe, dataSource]);
 
-    // MASSIVE FUTURE FORECAST DATA (Next 960 minutes = 16 hours - FUTURE DOMINANT)
+  const loadChartData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      console.log(`📈 Loading chart data for ${symbol} (${selectedTimeframe})...`);
+
+      const response = await fetch(
+        `${RAILWAY_API}/api/bist/historical/${symbol}?timeframe=${selectedTimeframe}&limit=500`
+      );
+
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (!result.success) {
+        throw new Error(result.message || 'Failed to fetch data');
+      }
+
+      const historicalData = result.data.historical_data;
+      console.log(`✅ Loaded ${historicalData.length} data points for ${symbol}`);
+
+      // Process and format data
+      const processedData = historicalData.map((item: any) => ({
+        timestamp: item.timestamp,
+        date: new Date(item.timestamp).toLocaleDateString(),
+        time: new Date(item.timestamp).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+        open: parseFloat(item.open) || 0,
+        high: parseFloat(item.high) || 0,
+        low: parseFloat(item.low) || 0,
+        close: parseFloat(item.close) || 0,
+        volume: parseInt(item.volume) || 0,
+        rsi_14: item.rsi_14 ? parseFloat(item.rsi_14) : undefined,
+        macd_line: item.macd_line ? parseFloat(item.macd_line) : undefined,
+        macd_signal: item.macd_signal ? parseFloat(item.macd_signal) : undefined,
+        bollinger_upper: item.bollinger_upper ? parseFloat(item.bollinger_upper) : undefined,
+        bollinger_middle: item.bollinger_middle ? parseFloat(item.bollinger_middle) : undefined,
+        bollinger_lower: item.bollinger_lower ? parseFloat(item.bollinger_lower) : undefined,
+        atr_14: item.atr_14 ? parseFloat(item.atr_14) : undefined,
+        adx_14: item.adx_14 ? parseFloat(item.adx_14) : undefined
+      })).reverse(); // Reverse to show chronological order
+
+      setChartData(processedData);
+      setDataSource(result.data.data_source === 'historical_data' ? 'historical' : 'enhanced');
+      
+      // Notify parent about timeframe change
+      onTimeframeChange?.(selectedTimeframe);
+
+    } catch (error) {
+      console.error('❌ Chart data loading error:', error);
+      setError(error instanceof Error ? error.message : 'Failed to load chart data');
+      
+      // Generate mock data as fallback
+      const mockData = generateMockChartData();
+      setChartData(mockData);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const generateMockChartData = (): ChartDataPoint[] => {
+    const data: ChartDataPoint[] = [];
+    let basePrice = 50 + Math.random() * 100;
     const now = new Date();
-    const currentPrice = basePrice;
-    
-    for (let minute = 1; minute <= 960; minute++) {
-      const futureDate = new Date(now.getTime() + (minute * 60 * 1000)); // +minute
-      
-      // Skip non-trading hours (before 10:00 and after 18:00)
-      const hourOfDay = futureDate.getHours();
-      if (hourOfDay < 10 || hourOfDay > 17) continue;
-      
-      // Skip weekends
-      if (futureDate.getDay() === 0 || futureDate.getDay() === 6) continue;
-      
-      // DP-LSTM MINUTE-LEVEL FORECAST: High-frequency prediction
-      const trend = Math.sin(minute * 0.001) * 0.002; // 0.2% trend component for minute-level
-      const randomWalk = (Math.random() - 0.5) * 0.001; // 0.1% random component for minute-level
-      const volatility = 0.0005 + (Math.random() * 0.001); // 0.05-0.15% volatility for minute-level
-      
-      const forecastPrice = currentPrice * (1 + trend + randomWalk);
-      const forecastHigh = forecastPrice * (1 + volatility);
-      const forecastLow = forecastPrice * (1 - volatility);
-      const forecastVolume = Math.floor(Math.random() * 3000000) + 500000;
 
-      mockData.push({
-        date: futureDate,
-        open: parseFloat((forecastPrice * 0.999).toFixed(2)),
-        high: parseFloat(forecastHigh.toFixed(2)),
-        low: parseFloat(forecastLow.toFixed(2)),
-        close: parseFloat(forecastPrice.toFixed(2)),
-        volume: forecastVolume
+    for (let i = 100; i >= 0; i--) {
+      const timestamp = new Date(now.getTime() - i * 60 * 60 * 1000);
+      const volatility = 0.02;
+      const change = (Math.random() - 0.5) * volatility * basePrice;
+      
+      const open = basePrice;
+      const close = basePrice + change;
+      const high = Math.max(open, close) + Math.random() * 0.01 * basePrice;
+      const low = Math.min(open, close) - Math.random() * 0.01 * basePrice;
+      
+      data.push({
+        timestamp: timestamp.toISOString(),
+        date: timestamp.toLocaleDateString(),
+        time: timestamp.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+        open,
+        high,
+        low,
+        close,
+        volume: Math.floor(Math.random() * 1000000) + 100000,
+        rsi_14: 30 + Math.random() * 40,
+        macd_line: (Math.random() - 0.5) * 2,
+        macd_signal: (Math.random() - 0.5) * 1.5,
+        bollinger_upper: close + Math.random() * 5,
+        bollinger_middle: close,
+        bollinger_lower: close - Math.random() * 5,
+        atr_14: Math.random() * 3,
+        adx_14: 20 + Math.random() * 50
       });
+      
+      basePrice = close;
     }
 
-    return mockData.sort((a, b) => a.date.getTime() - b.date.getTime());
+    return data;
   };
 
-  const chartData = data || generateMockData();
-  
-  // Separate historical and forecast data
-  const now = new Date();
-  const historicalData = chartData.filter(d => d.date <= now);
-  const forecastData = chartData.filter(d => d.date > now);
-
-  const onLoad = (args: IStockChartEventArgs) => {
-    args.stockChart.theme = 'MaterialDark' as ChartTheme;
+  const getCurrentPrice = () => {
+    if (chartData.length === 0) return 0;
+    return chartData[chartData.length - 1]?.close || 0;
   };
+
+  const getPriceChange = () => {
+    if (chartData.length < 2) return { change: 0, changePercent: 0 };
+    
+    const current = chartData[chartData.length - 1]?.close || 0;
+    const previous = chartData[chartData.length - 2]?.close || current;
+    const change = current - previous;
+    const changePercent = previous !== 0 ? (change / previous) * 100 : 0;
+    
+    return { change, changePercent };
+  };
+
+  const getLatestIndicators = () => {
+    if (chartData.length === 0) return {};
+    const latest = chartData[chartData.length - 1];
+    return {
+      rsi: latest?.rsi_14,
+      macd: latest?.macd_line,
+      atr: latest?.atr_14,
+      adx: latest?.adx_14
+    };
+  };
+
+  const formatPrice = (value: number) => `₺${value.toFixed(2)}`;
+  const formatVolume = (value: number) => {
+    if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
+    if (value >= 1000) return `${(value / 1000).toFixed(0)}K`;
+    return value.toString();
+  };
+
+  const { change, changePercent } = getPriceChange();
+  const indicators = getLatestIndicators();
+
+  if (loading) {
+    return (
+      <Card>
+        <CardContent className="p-8 text-center">
+          <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p>Loading chart data from Railway database...</p>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
-    <Card className="w-full bg-gradient-to-br from-slate-900 to-slate-800 border-slate-700">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <TrendingUp className="h-6 w-6 text-emerald-400" />
+    <div className="w-full space-y-4">
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-slate-100">Future-Dominant Fiyat Tahmin - {selectedSymbol}</CardTitle>
-              <p className="text-sm text-slate-400 mt-1">
-                2 Gün Minimal Context + 16 Saat Intensive Future Forecast
-              </p>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-blue-500" />
+                {symbol} - Professional Chart
+                <Badge variant={dataSource === 'historical' ? 'default' : 'secondary'}>
+                  <Database className="w-3 h-3 mr-1" />
+                  {dataSource === 'historical' ? 'Historical Data' : 'Enhanced Data'}
+                </Badge>
+              </CardTitle>
+              <CardDescription>
+                Railway PostgreSQL integration • {chartData.length} data points
+              </CardDescription>
             </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Badge variant="outline" className="text-emerald-400 border-emerald-400">
-              {historicalData.length} historical
-            </Badge>
-            <Badge className="bg-purple-600 text-white text-xs">
-              {forecastData.length} future
-            </Badge>
-            <Badge className="bg-blue-600 text-white text-xs">
-              16H Forecast
-            </Badge>
-            <Badge className="bg-emerald-600 text-white text-xs">
-              Future-Dom
-            </Badge>
-            <RefreshCw className="h-4 w-4 text-slate-400" />
-          </div>
-        </div>
-      </CardHeader>
-      
-      <CardContent>
-        <div className="p-4 bg-slate-900/50 rounded-lg border border-slate-700">
-          <StockChartComponent
-            id="stockchart"
-            height={height}
-            primaryXAxis={{
-              valueType: 'DateTime',
-              majorGridLines: { color: 'rgba(255,255,255,0.1)' },
-              lineStyle: { color: 'rgba(255,255,255,0.2)' },
-              labelStyle: { color: '#9ca3af' },
-              labelFormat: 'MMM dd HH:mm',
-              intervalType: 'Hours',
-              interval: 2,  // 2 saatlik aralıklar
-              // GENİŞ DEFAULT GÖRÜNÜM: 6 saat geçmiş + 12 saat gelecek
-              minimum: new Date(new Date().getTime() - 6 * 60 * 60 * 1000), // 6 saat geriye
-              maximum: new Date(new Date().getTime() + 12 * 60 * 60 * 1000)  // 12 saat ileriye
-            }}
-            primaryYAxis={{
-              labelFormat: '₺{value}',
-              majorGridLines: { color: 'rgba(255,255,255,0.1)' },
-              lineStyle: { color: 'rgba(255,255,255,0.2)' },
-              labelStyle: { color: '#9ca3af' }
-            }}
-            chartArea={{ 
-              background: 'transparent',
-              border: { color: 'rgba(255,255,255,0.1)', width: 1 }
-            }}
-            background="transparent"
-            theme="MaterialDark"
-            tooltip={{ 
-              enable: true,
-              format: '<b>${point.x}</b><br/>Open: <b>₺${point.open}</b><br/>High: <b>₺${point.high}</b><br/>Low: <b>₺${point.low}</b><br/>Close: <b>₺${point.close}</b>',
-              textStyle: { color: '#ffffff' },
-              fill: 'rgba(30, 41, 59, 0.9)',
-              border: { color: 'rgba(148, 163, 184, 0.3)', width: 1 }
-            }}
-            crosshair={{ 
-              enable: true,
-              lineType: 'Both',
-              line: { color: 'rgba(16, 185, 129, 0.8)', width: 1 }
-            }}
-            zoomSettings={{
-              enableMouseWheelZooming: true,
-              enablePinchZooming: true,
-              enableSelectionZooming: true,
-              mode: 'XY',
-              showToolbar: true,
-              toolbarItems: ['Zoom', 'ZoomIn', 'ZoomOut', 'Pan', 'Reset']
-            }}
-
-            enablePeriodSelector={false}
-            enableSelector={false}
-            load={onLoad}
-          >
-            <Inject services={[DateTime, Tooltip, Crosshair, CandleSeries, Zoom, LineSeries]} />
-            <StockChartSeriesCollectionDirective>
-              {/* Historical Candlesticks */}
-                              <StockChartSeriesDirective
-                  dataSource={historicalData}
-                  type="Candle"
-                  xName="date"
-                  yName="close"
-                  high="high"
-                  low="low"
-                  open="open"
-                  close="close"
-                  volume="volume"
-                  bearFillColor="#dc2626"    // Bright red for bearish
-                  bullFillColor="#16a34a"    // Bright green for bullish  
-                  name={`${selectedSymbol} (Historical)`}
-                />
-              {/* Forecast Candlesticks */}
-              <StockChartSeriesDirective
-                dataSource={forecastData}
-                type="Candle"
-                xName="date"
-                yName="close"
-                high="high"
-                low="low"
-                open="open"
-                close="close"
-                volume="volume"
-                bearFillColor="#dc2626"    // Same red, but with opacity
-                bullFillColor="#16a34a"    // Same green, but with opacity
-                name={`${selectedSymbol} (Forecast)`}
-                opacity={0.9}              // High visibility for forecast (FUTURE DOMINANT)
-              />
-            </StockChartSeriesCollectionDirective>
-          </StockChartComponent>
-        </div>
-        
-        {/* Future-Dominant Chart Info */}
-        <div className="mt-4 p-3 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg border border-blue-500/30">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-              <span className="text-slate-300">
-                <strong>Future Focus:</strong> 16 saatlik yoğun gelecek tahmini
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
-              <span className="text-slate-300">
-                <strong>Minimal Historical:</strong> Sadece 2 gün context
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Enhanced Stats with Forecast */}
-        <div className="mt-4 space-y-4">
-          {/* Current vs Forecast */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
-              <div className="text-xs text-slate-400">Current Price</div>
-              <div className="text-lg font-bold text-emerald-400">
-                ₺{historicalData[historicalData.length - 1]?.close.toFixed(2) || '0.00'}
-              </div>
-            </div>
-            <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700 border-purple-500/30">
-              <div className="text-xs text-purple-400">Next Hour Forecast</div>
-              <div className="text-lg font-bold text-purple-400">
-                ₺{forecastData[0]?.close.toFixed(2) || 'N/A'}
-              </div>
-            </div>
-            <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700 border-blue-500/30">
-              <div className="text-xs text-blue-400">16H Forecast</div>
-              <div className="text-lg font-bold text-blue-400">
-                ₺{forecastData[forecastData.length - 1]?.close.toFixed(2) || 'N/A'}
-              </div>
-            </div>
-            <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
-              <div className="text-xs text-slate-400">Volume Trend</div>
-              <div className="text-lg font-bold text-cyan-400">
-                {historicalData[historicalData.length - 1]?.volume.toLocaleString('tr-TR') || '0'}
-              </div>
-            </div>
-          </div>
-
-          {/* Forecast Range */}
-          <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 p-4 rounded-lg border border-purple-500/30">
-            <div className="flex justify-between items-center">
-              <div>
-                <div className="text-xs text-purple-400 mb-1">16H Future Range (DOMINANT)</div>
-                <div className="text-lg font-bold text-purple-300">
-                  ₺{Math.min(...forecastData.map(d => d.low)).toFixed(2)} - ₺{Math.max(...forecastData.map(d => d.high)).toFixed(2)}
-                </div>
-              </div>
               <div className="text-right">
-                <div className="text-xs text-blue-400 mb-1">Future Visibility</div>
-                <div className="text-lg font-bold text-blue-300">
-                  90% Opaque
+                <div className="text-2xl font-bold">
+                  {formatPrice(getCurrentPrice())}
+                </div>
+                <div className={`text-sm flex items-center gap-1 ${
+                  change >= 0 ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {change >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                  {change >= 0 ? '+' : ''}{change.toFixed(2)} ({changePercent.toFixed(2)}%)
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+        </CardHeader>
 
-export default ProfessionalStockChart;
+        <CardContent>
+          {/* Controls */}
+          <div className="flex flex-wrap items-center gap-4 mb-6 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+            <Select value={selectedTimeframe} onValueChange={setSelectedTimeframe}>
+              <SelectTrigger className="w-32">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {timeframes.map(tf => (
+                  <SelectItem key={tf.value} value={tf.value}>
+                    {tf.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={chartType} onValueChange={(value) => setChartType(value as typeof chartType)}>
+              <SelectTrigger className="w-32">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="area">Area</SelectItem>
+                <SelectItem value="line">Line</SelectItem>
+                <SelectItem value="composed">Composed</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Button
+              variant={showVolume ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setShowVolume(!showVolume)}
+            >
+              <Volume className="w-4 h-4 mr-1" />
+              Volume
+            </Button>
+
+            <Button
+              variant={showIndicators ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setShowIndicators(!showIndicators)}
+            >
+              <Activity className="w-4 h-4 mr-1" />
+              Indicators
+            </Button>
+
+            <Button variant="outline" size="sm">
+              <Maximize2 className="w-4 h-4 mr-1" />
+              Fullscreen
+            </Button>
+          </div>
+
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
+              <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                <AlertTriangle className="w-4 h-4" />
+                <span className="text-sm">{error} (showing mock data)</span>
+              </div>
+            </div>
+          )}
+
+          {/* Main Chart */}
+          <div className="h-96 mb-6">
+            <ResponsiveContainer width="100%" height="100%">
+              {chartType === 'area' ? (
+                <AreaChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis 
+                    dataKey="time" 
+                    fontSize={12}
+                    tick={{ fontSize: 10 }}
+                  />
+                  <YAxis 
+                    domain={['dataMin - 2', 'dataMax + 2']}
+                    fontSize={12}
+                    tick={{ fontSize: 10 }}
+                    tickFormatter={formatPrice}
+                  />
+                  <Tooltip 
+                    formatter={(value: any, name: string) => [
+                      name === 'close' ? formatPrice(value) : value,
+                      name === 'close' ? 'Price' : name
+                    ]}
+                    labelFormatter={(label) => `Time: ${label}`}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="close"
+                    stroke="#3b82f6"
+                    fill="url(#colorPrice)"
+                    strokeWidth={2}
+                  />
+                  <defs>
+                    <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  
+                  {showIndicators && chartData.some(d => d.bollinger_upper) && (
+                    <>
+                      <Line
+                        type="monotone"
+                        dataKey="bollinger_upper"
+                        stroke="#ef4444"
+                        strokeWidth={1}
+                        dot={false}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="bollinger_middle"
+                        stroke="#6b7280"
+                        strokeWidth={1}
+                        strokeDasharray="5 5"
+                        dot={false}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="bollinger_lower"
+                        stroke="#22c55e"
+                        strokeWidth={1}
+                        dot={false}
+                      />
+                    </>
+                  )}
+                </AreaChart>
+              ) : chartType === 'line' ? (
+                <LineChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="time" fontSize={12} tick={{ fontSize: 10 }} />
+                  <YAxis domain={['dataMin - 2', 'dataMax + 2']} fontSize={12} tick={{ fontSize: 10 }} tickFormatter={formatPrice} />
+                  <Tooltip formatter={(value: any) => [formatPrice(value), 'Price']} />
+                  <Line
+                    type="monotone"
+                    dataKey="close"
+                    stroke="#3b82f6"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                </LineChart>
+              ) : (
+                <ComposedChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="time" fontSize={12} tick={{ fontSize: 10 }} />
+                  <YAxis yAxisId="price" domain={['dataMin - 2', 'dataMax + 2']} fontSize={12} tick={{ fontSize: 10 }} tickFormatter={formatPrice} />
+                  {showVolume && (
+                    <YAxis yAxisId="volume" orientation="right" fontSize={12} tick={{ fontSize: 10 }} tickFormatter={formatVolume} />
+                  )}
+                  <Tooltip 
+                    formatter={(value: any, name: string) => {
+                      if (name === 'volume') return [formatVolume(value), 'Volume'];
+                      return [formatPrice(value), name];
+                    }}
+                  />
+                  <Area
+                    yAxisId="price"
+                    type="monotone"
+                    dataKey="close"
+                    fill="#3b82f6"
+                    stroke="#3b82f6"
+                    fillOpacity={0.3}
+                  />
+                  {showVolume && (
+                    <Bar yAxisId="volume" dataKey="volume" fill="#6b7280" opacity={0.3} />
+                  )}
+                </ComposedChart>
+              )}
+            </ResponsiveContainer>
+          </div>
+
+          {/* Volume Chart */}
+          {showVolume && (
+            <div className="h-24 mb-6">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData}>
+                  <XAxis dataKey="time" hide />
+                  <YAxis hide />
+                  <Tooltip formatter={(value: any) => [formatVolume(value), 'Volume']} />
+                  <Bar dataKey="volume" fill="#6b7280" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+
+          {/* Technical Indicators */}
+          {showIndicators && (
+            <Tabs defaultValue="rsi" className="w-full">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="rsi">RSI</TabsTrigger>
+                <TabsTrigger value="macd">MACD</TabsTrigger>
+                <TabsTrigger value="bollinger">Bollinger</TabsTrigger>
+                <TabsTrigger value="summary">Summary</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="rsi" className="h-32">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={chartData}>
+                    <XAxis dataKey="time" fontSize={10} />
+                    <YAxis domain={[0, 100]} fontSize={10} />
+                    <Tooltip />
+                    <ReferenceLine y={70} stroke="#ef4444" strokeDasharray="2 2" />
+                    <ReferenceLine y={30} stroke="#22c55e" strokeDasharray="2 2" />
+                    <Line type="monotone" dataKey="rsi_14" stroke="#8b5cf6" strokeWidth={2} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </TabsContent>
+
+              <TabsContent value="macd" className="h-32">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={chartData}>
+                    <XAxis dataKey="time" fontSize={10} />
+                    <YAxis fontSize={10} />
+                    <Tooltip />
+                    <ReferenceLine y={0} stroke="#6b7280" />
+                    <Line type="monotone" dataKey="macd_line" stroke="#3b82f6" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="macd_signal" stroke="#ef4444" strokeWidth={2} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </TabsContent>
+
+              <TabsContent value="bollinger" className="space-y-2">
+                <div className="grid grid-cols-3 gap-4 text-sm">
+                  <div className="text-center p-2 bg-red-50 dark:bg-red-950/30 rounded">
+                    <div className="text-red-600 font-semibold">Upper Band</div>
+                    <div>₺{chartData[chartData.length - 1]?.bollinger_upper?.toFixed(2) || 'N/A'}</div>
+                  </div>
+                  <div className="text-center p-2 bg-gray-50 dark:bg-gray-900/50 rounded">
+                    <div className="text-gray-600 font-semibold">Middle Band</div>
+                    <div>₺{chartData[chartData.length - 1]?.bollinger_middle?.toFixed(2) || 'N/A'}</div>
+                  </div>
+                  <div className="text-center p-2 bg-green-50 dark:bg-green-950/30 rounded">
+                    <div className="text-green-600 font-semibold">Lower Band</div>
+                    <div>₺{chartData[chartData.length - 1]?.bollinger_lower?.toFixed(2) || 'N/A'}</div>
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="summary" className="space-y-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center p-3 bg-purple-50 dark:bg-purple-950/30 rounded">
+                    <div className="text-sm text-gray-600 dark:text-gray-400">RSI (14)</div>
+                    <div className="font-bold text-lg">
+                      {indicators.rsi?.toFixed(1) || 'N/A'}
+                    </div>
+                    <div className="text-xs">
+                      {!indicators.rsi ? 'No data' :
+                        indicators.rsi > 70 ? 'Overbought' :
+                        indicators.rsi < 30 ? 'Oversold' : 'Neutral'
+                      }
+                    </div>
+                  </div>
+                  
+                  <div className="text-center p-3 bg-blue-50 dark:bg-blue-950/30 rounded">
+                    <div className="text-sm text-gray-600 dark:text-gray-400">MACD</div>
+                    <div className="font-bold text-lg">
+                      {indicators.macd?.toFixed(3) || 'N/A'}
+                    </div>
+                    <div className="text-xs">
+                      {!indicators.macd ? 'No data' :
+                        indicators.macd > 0 ? 'Bullish' : 'Bearish'
+                      }
+                    </div>
+                  </div>
+                  
+                  <div className="text-center p-3 bg-orange-50 dark:bg-orange-950/30 rounded">
+                    <div className="text-sm text-gray-600 dark:text-gray-400">ATR (14)</div>
+                    <div className="font-bold text-lg">
+                      {indicators.atr?.toFixed(2) || 'N/A'}
+                    </div>
+                    <div className="text-xs">Volatility</div>
+                  </div>
+                  
+                  <div className="text-center p-3 bg-green-50 dark:bg-green-950/30 rounded">
+                    <div className="text-sm text-gray-600 dark:text-gray-400">ADX (14)</div>
+                    <div className="font-bold text-lg">
+                      {indicators.adx?.toFixed(1) || 'N/A'}
+                    </div>
+                    <div className="text-xs">
+                      {!indicators.adx ? 'No data' :
+                        indicators.adx > 25 ? 'Strong Trend' : 'Weak Trend'
+                      }
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+            </Tabs>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
