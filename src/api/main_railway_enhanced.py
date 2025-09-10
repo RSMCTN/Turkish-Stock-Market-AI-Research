@@ -281,8 +281,23 @@ async def comprehensive_analysis(symbol: str):
 
 @app.get("/api/real-time/{symbol}")
 async def get_real_time_price(symbol: str):
-    """Get real-time price data (simulated from latest database record)"""
+    """Get real-time price data from Profit.com API with Railway DB fallback"""
     try:
+        # 🔥 FIRST: Try to get REAL live data from Profit.com API
+        profit_api_key = "a9a0bacbab08493d958244c05380da01"
+        profit_url = f"https://api.profit.com/data-api/market-data/quote/{symbol.upper()}.IS"
+        
+        profit_data = None
+        try:
+            import requests
+            profit_response = requests.get(f"{profit_url}?token={profit_api_key}", timeout=3)
+            if profit_response.status_code == 200:
+                profit_data = profit_response.json()
+                logger.info(f"🔥 REAL-TIME from Profit.com: {symbol} = ₺{profit_data.get('price', 'N/A')}")
+        except Exception as e:
+            logger.warning(f"⚠️ Profit.com API failed for {symbol}: {e}")
+        
+        # Get technical indicators from Railway DB
         conn = psycopg2.connect(DATABASE_URL, cursor_factory=psycopg2.extras.RealDictCursor)
         cursor = conn.cursor()
         
@@ -315,25 +330,37 @@ async def get_real_time_price(symbol: str):
             
         if not latest_data:
             raise HTTPException(status_code=404, detail=f"No data found for {symbol}")
-            
-        # Simulate real-time updates with small random variations
-        import random
-        base_price = float(latest_data['close'])
-        volatility = 0.001  # 0.1% volatility
-        price_change = random.uniform(-volatility, volatility) * base_price
+        
+        # Use REAL price from Profit.com if available, otherwise use DB + small variation
+        if profit_data and profit_data.get('price'):
+            current_price = float(profit_data['price'])
+            base_price = float(latest_data['close'])
+            price_change = current_price - base_price
+            data_source = "profit_api_live"
+            logger.info(f"✅ Using REAL price: {symbol} = ₺{current_price}")
+        else:
+            # Fallback: Add small random variation to DB price
+            import random
+            base_price = float(latest_data['close'])
+            volatility = 0.001  # 0.1% volatility
+            price_change = random.uniform(-volatility, volatility) * base_price
+            current_price = base_price + price_change
+            data_source = "railway_db_simulated"
+            logger.warning(f"⚠️ Using fallback: {symbol} = ₺{current_price:.2f}")
         
         real_time_data = {
             "symbol": symbol.upper(),
-            "current_price": round(base_price + price_change, 2),
+            "current_price": round(current_price, 2),  # ✅ REAL or simulated price
             "open": float(latest_data['open']),
             "high": float(latest_data['high']),
             "low": float(latest_data['low']),
             "close": float(latest_data['close']),
             "volume": int(latest_data['volume']) if latest_data['volume'] else 0,
             "change": round(price_change, 2),
-            "change_percent": round((price_change / base_price) * 100, 2),
+            "change_percent": round((price_change / float(latest_data['close'])) * 100, 2),
             "last_updated": datetime.now().isoformat(),
-            "data_source": "enhanced" if 'date' in latest_data else "historical",
+            "data_source": data_source,  # ✅ Shows if real or simulated
+            "is_live": profit_data is not None,  # ✅ True if from Profit.com
             "technical_indicators": {
                 "rsi_14": float(latest_data['rsi_14']) if latest_data.get('rsi_14') else None,
                 "macd": float(latest_data['macd_26_12']) if latest_data.get('macd_26_12') else None,
