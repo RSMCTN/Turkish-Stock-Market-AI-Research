@@ -389,12 +389,12 @@ async def get_real_time_price(symbol: str):
 
 @app.get("/api/bist/stocks-fixed/{category}")
 async def get_stocks_fixed(category: str, limit: int = 100):
-    """Fixed endpoint for BIST stocks - bypasses broken JOIN logic"""
+    """Fixed endpoint for BIST stocks - with Profit.com sync'd prices"""
     try:
         conn = psycopg2.connect(DATABASE_URL, cursor_factory=psycopg2.extras.RealDictCursor)
         cursor = conn.cursor()
         
-        # Simple, working query without complex JOINs
+        # Simple, working query without complex JOINs + sync'd prices
         cursor.execute('''
             SELECT DISTINCT
                 sm.symbol,
@@ -403,8 +403,10 @@ async def get_stocks_fixed(category: str, limit: int = 100):
                 sc.category,
                 sc.priority,
                 sm.api_available,
-                -- Get latest price safely
+                -- Use Profit.com sync'd price first, then fallback
                 COALESCE(
+                    (SELECT current_price FROM current_prices cp 
+                     WHERE cp.symbol = sm.symbol),
                     (SELECT close FROM enhanced_stock_data esd 
                      WHERE esd.symbol = sm.symbol 
                      ORDER BY date DESC LIMIT 1), 
@@ -413,6 +415,12 @@ async def get_stocks_fixed(category: str, limit: int = 100):
                      ORDER BY date_time DESC LIMIT 1),
                     0
                 ) as latest_price,
+                -- Check if price is from Profit.com sync
+                CASE 
+                    WHEN EXISTS (SELECT 1 FROM current_prices cp WHERE cp.symbol = sm.symbol) 
+                    THEN 'profit_sync'
+                    ELSE 'historical'
+                END as price_source,
                 -- Enhanced records count
                 (SELECT COUNT(*) FROM enhanced_stock_data esd 
                  WHERE esd.symbol = sm.symbol) as enhanced_records,
@@ -439,6 +447,9 @@ async def get_stocks_fixed(category: str, limit: int = 100):
         # Process results
         processed_stocks = []
         for stock in stocks_data:
+            price_source = stock.get('price_source', 'historical')
+            is_profit_sync = price_source == 'profit_sync'
+            
             processed_stock = {
                 "symbol": stock['symbol'],
                 "name": stock['name'] or f"{stock['symbol']} Company",
@@ -446,13 +457,16 @@ async def get_stocks_fixed(category: str, limit: int = 100):
                 "category": stock['category'],
                 "priority": stock['priority'],
                 "latest_price": float(stock['latest_price']) if stock['latest_price'] else 0,
+                "price_source": price_source,
+                "is_live_price": is_profit_sync,  # True if from Profit.com sync
                 "latest_date": None,  # Will be populated if needed
                 "data_sources": {
                     "enhanced_available": bool(stock.get('enhanced_records', 0) > 0),
                     "historical_available": bool(stock.get('historical_records', 0) > 0),
                     "enhanced_records": stock.get('enhanced_records', 0),
                     "historical_records": stock.get('historical_records', 0),
-                    "api_available": stock.get('api_available', False)
+                    "api_available": stock.get('api_available', False),
+                    "profit_sync": is_profit_sync
                 },
                 "technical_indicators": {
                     "rsi_14": float(stock['rsi_14']) if stock.get('rsi_14') else None,
