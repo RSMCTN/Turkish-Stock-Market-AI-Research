@@ -1,30 +1,47 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Brain, Download, Star, Activity, GitBranch, Code, Zap } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
-// Real BIST prices from basestock2808.xlsx (Updated 28/08)
-const getRealPrice = (symbol: string): number => {
-  const realPrices: { [key: string]: number } = {
-    'AKSEN': 39.06,  // Real closing price
-    'ASTOR': 113.7,  // Real closing price
-    'GARAN': 145.8,  // Real closing price
-    'THYAO': 340.0,  // Real closing price
-    'TUPRS': 171.0,  // Real closing price
-    'BRSAN': 499.25, // Real closing price
-    'AKBNK': 69.5,   // Real closing price
-    'ISCTR': 15.14,  // Real closing price
-    'SISE': 40.74,   // Real closing price
-    'ARCLK': 141.2,  // Real closing price
-    'KCHOL': 184.8,
-    'BIMAS': 536.0,
-    'PETKM': 20.96,
-    'TTKOM': 58.4
-  };
-  return realPrices[symbol] || 50.0;
+// 🔥 LIVE PRICE from Profit.com Sync - REAL-TIME!
+const getRealPrice = async (symbol: string): Promise<number> => {
+  try {
+    // Primary: Get LIVE price from Profit.com sync endpoint
+    const response = await fetch(`http://localhost:8080/api/real-time/${symbol}`);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(`🚀 HuggingFace Live price for ${symbol}: ₺${data.current_price} (${data.data_source})`);
+      return data.current_price;
+    }
+  } catch (error) {
+    console.warn(`⚠️ HuggingFace: Failed to get live price for ${symbol}:`, error);
+  }
+  
+  // Fallback: Use sync'd prices from fixed endpoint
+  try {
+    const categories = ['BIST_100', 'BIST_50', 'BIST_30'];
+    
+    for (const category of categories) {
+      const bistResponse = await fetch(`http://localhost:8080/api/bist/stocks-fixed/${category}?limit=100`);
+      if (bistResponse.ok) {
+        const bistData = await bistResponse.json();
+        const stock = bistData.data.stocks.find((s: any) => s.symbol === symbol);
+        if (stock) {
+          console.log(`✅ HuggingFace: Sync'd price for ${symbol}: ₺${stock.latest_price} (${stock.price_source})`);
+          return stock.latest_price;
+        }
+      }
+    }
+  } catch (error) {
+    console.warn(`⚠️ HuggingFace: Failed to get sync'd price for ${symbol}:`, error);
+  }
+  
+  console.warn(`⚠️ HuggingFace: Using fallback price for ${symbol}`);
+  return 50.0;
 };
 
 interface HuggingFaceModelPanelProps {
@@ -32,6 +49,21 @@ interface HuggingFaceModelPanelProps {
 }
 
 export default function HuggingFaceModelPanel({ selectedSymbol = 'GARAN' }: HuggingFaceModelPanelProps) {
+  const [currentPrice, setCurrentPrice] = useState<number>(0);
+  const [priceLoading, setPriceLoading] = useState(true);
+
+  // 🔥 Load LIVE price on component mount and symbol change
+  useEffect(() => {
+    const loadLivePrice = async () => {
+      setPriceLoading(true);
+      const price = await getRealPrice(selectedSymbol);
+      setCurrentPrice(price);
+      setPriceLoading(false);
+    };
+    
+    loadLivePrice();
+  }, [selectedSymbol]);
+  
   return (
     <Card className="bg-gradient-to-br from-yellow-50 to-orange-50">
       <CardHeader>

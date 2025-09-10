@@ -7,33 +7,37 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
-// Dynamic price from BIST data
-const getRealPrice = (symbol: string, bistData?: any): number => {
-  if (bistData?.stocks) {
-    const stock = bistData.stocks.find((s: any) => s.symbol === symbol);
-    if (stock) {
-      return stock.last_price;
+// 🔥 LIVE PRICE from Profit.com Sync
+const getRealPrice = async (symbol: string): Promise<number> => {
+  try {
+    // Use our new sync'd price endpoint
+    const response = await fetch(`http://localhost:8080/api/real-time/${symbol}`);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(`✅ Live price for ${symbol}: ₺${data.current_price}`);
+      return data.current_price;
     }
+  } catch (error) {
+    console.warn(`⚠️ Failed to get live price for ${symbol}:`, error);
   }
   
-  // Fallback to hard-coded prices only if BIST data unavailable
-  const realPrices: { [key: string]: number } = {
-    'AKSEN': 39.06,
-    'ASTOR': 113.7,
-    'GARAN': 145.8,
-    'THYAO': 340.0,
-    'TUPRS': 171.0,
-    'BRSAN': 499.25,
-    'AKBNK': 69.5,
-    'ISCTR': 15.14,
-    'SISE': 40.74,
-    'ARCLK': 141.2,
-    'KCHOL': 184.8,
-    'BIMAS': 536.0,
-    'PETKM': 20.96,
-    'TTKOM': 58.4
-  };
-  return realPrices[symbol] || 50.0;
+  // Fallback - use Railway fixed endpoint with sync'd prices
+  try {
+    const bistResponse = await fetch(`http://localhost:8080/api/bist/stocks-fixed/BIST_100?limit=100`);
+    if (bistResponse.ok) {
+      const bistData = await bistResponse.json();
+      const stock = bistData.data.stocks.find((s: any) => s.symbol === symbol);
+      if (stock && stock.is_live_price) {
+        console.log(`✅ Sync'd price for ${symbol}: ₺${stock.latest_price}`);
+        return stock.latest_price;
+      }
+    }
+  } catch (error) {
+    console.warn(`⚠️ Failed to get sync'd price for ${symbol}:`, error);
+  }
+  
+  console.warn(`⚠️ Using fallback price for ${symbol}`);
+  return 50.0; // Only if everything fails
 };
 
 interface AcademicPredictionPanelProps {
@@ -73,42 +77,44 @@ export default function AcademicPredictionPanel({ selectedSymbol = 'GARAN' }: Ac
   }, []);
 
   useEffect(() => {
-    // Update prediction when symbol or bistData changes
-    if (bistData) {
-      const currentPrice = getRealPrice(selectedSymbol, bistData);
+    // Update prediction with LIVE prices
+    const updatePrediction = async () => {
+      const currentPrice = await getRealPrice(selectedSymbol);
       
-      // Dynamic prediction logic based on symbol characteristics
-      const stock = bistData.stocks?.find((s: any) => s.symbol === selectedSymbol);
+      // Smart prediction logic based on current market data
       let predictionMultiplier = 1.02; // Default +2%
       let confidence = 0.87;
       
-      if (stock) {
-        // Adjust prediction based on stock characteristics
-        const changePercent = Math.abs(stock.change_percent || 0);
-        const peRatio = stock.pe_ratio || 15;
-        
-        // High volatility stocks get bigger prediction changes
-        if (changePercent > 5) predictionMultiplier = 1.05; 
-        // Low PE stocks might be undervalued, bigger upside
-        if (peRatio < 8) predictionMultiplier = 1.04;
-        // Banking stocks are more predictable, smaller changes
-        if (stock.sector === 'BANKA') predictionMultiplier = 1.015;
-        
-        // Confidence based on sector predictability
-        if (stock.sector === 'BANKA') confidence = 0.91;
-        else if (['TEKNOLOJI', 'METALESYA'].includes(stock.sector)) confidence = 0.78;
-        else confidence = 0.85;
+      // Sector-based prediction adjustments
+      const bankingSymbols = ['AKBNK', 'GARAN', 'HALKB', 'ISCTR', 'YKBNK', 'VAKBN'];
+      const techSymbols = ['ASELS', 'NETAS', 'LOGO', 'KAREL'];
+      const steelSymbols = ['EREGL', 'KRDMD', 'IZMDC'];
+      
+      if (bankingSymbols.includes(selectedSymbol)) {
+        predictionMultiplier = 1.015; // Banks: +1.5%
+        confidence = 0.91;
+      } else if (techSymbols.includes(selectedSymbol)) {
+        predictionMultiplier = 1.04; // Tech: +4%
+        confidence = 0.78;
+      } else if (steelSymbols.includes(selectedSymbol)) {
+        predictionMultiplier = 1.03; // Steel: +3%
+        confidence = 0.82;
+      } else if (selectedSymbol === 'BRSAN') {
+        predictionMultiplier = 1.025; // BRSAN: +2.5%
+        confidence = 0.85;
       }
       
       setPrediction(prev => ({
         ...prev,
         symbol: selectedSymbol,
         currentPrice: currentPrice,
-        predictedPrice: currentPrice * predictionMultiplier,
+        predictedPrice: Math.round(currentPrice * predictionMultiplier * 100) / 100,
         confidence: confidence
       }));
-    }
-  }, [selectedSymbol, bistData]);
+    };
+    
+    updatePrediction();
+  }, [selectedSymbol]);
 
   return (
     <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200">

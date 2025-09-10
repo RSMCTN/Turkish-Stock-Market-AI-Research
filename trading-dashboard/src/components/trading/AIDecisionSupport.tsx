@@ -8,12 +8,12 @@ import { Brain, TrendingUp, AlertCircle, CheckCircle, XCircle, Target, Zap, Acti
 
 // Dynamic enhanced company data from working_bist_data.json
 const getEnhancedCompanyData = (symbol: string, bistData?: any) => {
-  // If BIST data loaded, use it for real company analysis
-  if (bistData && bistData.stocks) {
-    const stock = bistData.stocks.find((s: any) => s.symbol === symbol);
-    if (stock) {
-      // Calculate additional performance metrics
-      const currentPrice = stock.last_price;
+      // If LIVE data loaded, use it for real-time analysis
+      if (bistData && bistData.stocks) {
+        const stock = bistData.stocks.find((s: any) => s.symbol === symbol);
+        if (stock) {
+          // Use LIVE price data with enhanced metrics
+          const currentPrice = stock.currentPrice || stock.last_price;
       const week52High = stock.week_52_high || currentPrice * 1.2;
       const week52Low = stock.week_52_low || currentPrice * 0.8;
       const marketCap = stock.market_cap / 1000000; // Convert to Million TL
@@ -316,25 +316,46 @@ export default function AIDecisionSupport({ selectedSymbol = 'GARAN' }: AIDecisi
   const [bistData, setBistData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   
-  // Load BIST data first
+  // 🔥 Load LIVE data from sync'd endpoints
   useEffect(() => {
-    const loadBistData = async () => {
+    const loadLiveData = async () => {
       try {
-        const response = await fetch('/data/working_bist_data.json');
+        // Get real-time stock data from our sync'd API
+        const response = await fetch(`http://localhost:8080/api/real-time/${selectedSymbol}`);
         if (response.ok) {
-          const data = await response.json();
-          setBistData(data);
-          console.log(`🤖 BIST data loaded for AIDecisionSupport: ${data.stocks?.length || 0} stocks`);
+          const realTimeData = await response.json();
+          console.log(`🤖 Live data for AIDecisionSupport ${selectedSymbol}:`, realTimeData);
+          
+          // Create enhanced company data from live API
+          const liveCompanyData = {
+            symbol: selectedSymbol,
+            currentPrice: realTimeData.current_price,
+            change: realTimeData.change,
+            changePercent: realTimeData.change_percent,
+            isLive: realTimeData.is_live,
+            dataSource: realTimeData.data_source,
+            lastUpdated: realTimeData.last_updated,
+            technicalIndicators: realTimeData.technical_indicators
+          };
+          
+          setBistData({ stocks: [liveCompanyData] });
+          console.log(`✅ Live AIDecisionSupport data loaded: ₺${realTimeData.current_price} (${realTimeData.data_source})`);
         } else {
-          console.warn('⚠️ Could not load BIST data for AIDecisionSupport');
+          console.warn('⚠️ Could not load live data for AIDecisionSupport, using fallback');
+          // Fallback to enhanced BIST endpoint
+          const bistResponse = await fetch(`http://localhost:8080/api/bist/stocks-fixed/BIST_100?limit=100`);
+          if (bistResponse.ok) {
+            const bistData = await bistResponse.json();
+            setBistData(bistData.data);
+          }
         }
       } catch (error) {
-        console.error('❌ Error loading BIST data in AIDecisionSupport:', error);
+        console.error('❌ Error loading live data in AIDecisionSupport:', error);
       }
     };
 
-    loadBistData();
-  }, []);
+    loadLiveData();
+  }, [selectedSymbol]);
 
   const companyData = getEnhancedCompanyData(selectedSymbol, bistData);
   const aiDecision = getAIDecision(companyData);
